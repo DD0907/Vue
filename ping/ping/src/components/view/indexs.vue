@@ -898,7 +898,7 @@
             <van-goods-action-mini-btn icon="wap-home" style="width:25%;background-color: #f84600;">
                 首页
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn icon="share" style="width:25%;">
+            <van-goods-action-mini-btn icon="share" style="width:25%;" @click="JumpShape">
                 晒单分享
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn icon="like" style="width:25%;">
@@ -2158,6 +2158,12 @@ export default {
         }, 500);
       }
     },
+    JumpShape(){
+        this.$router.push({
+        path: "/ping",
+        name: "shape",
+      });
+    },
     onRefresh() {
       // 下拉刷新
       setTimeout(() => {
@@ -2171,7 +2177,7 @@ export default {
       var goodsId = goodsId;
       // alert(goodsId)
       this.$router.push({
-        path: "/ping/PageDetails",
+        path: "/ping",
         name: "PageDetails",
         params: {
           // data: this.value,

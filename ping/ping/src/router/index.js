@@ -8,6 +8,7 @@ import { resolve } from 'path';
 import selecteddata from '@/components/view/selecteddata'
 import fruitdata from '@/components/view/fruitdata'
 import PageDetails from '@/components/view/PageDetails'
+import shape from '@/components/view/shape'
 Vue.use(Router)
 export default new Router({
   mode: 'history',
@@ -48,6 +49,11 @@ export default new Router({
       path: '/ping/PageDetails',
       name: 'PageDetails',
       component: PageDetails
+    }, 
+    {
+      path: '/ping/shape',
+      name: 'shape',
+      component: shape
     }
   ]
 })
