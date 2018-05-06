@@ -2130,7 +2130,7 @@ export default {
     },
     JumpSearch() {
       if (this.value == "" || this.value == null) {
-        this.$toast("你输入的值为空");
+        this.$toast("你输入的商品名称为空哦");
       } else {
         //   跳转加载中
         const toast = Toast.loading({
