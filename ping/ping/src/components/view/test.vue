@@ -1,5 +1,13 @@
 <template>
     <div>
+        <section>
+                <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+                    <img src="../../assets/icon/icon_down.png"/>
+                <p>刷新次数: {{ count }}</p>
+                </van-pull-refresh>
+        </section>
+
+
         <ul>
             <li v-for="(item,index) in articles" :key="index">
                 <img :src="item.goodsThumbnailUrl" alt="">
@@ -13,7 +21,9 @@ import axios from 'axios'
         data(){
             return {
                 articles : [],
-                page:1
+                page:1,
+                isLoading: false,
+                count:0
             }
         },
         mounted(){
@@ -61,10 +71,22 @@ import axios from 'axios'
                 }
                 console.log(sw)
             });
+        },
+        methods:{
+             onRefresh() {
+                setTimeout(() => {
+                    this.$toast('刷新成功');
+                    this.isLoading = false;
+                    this.count++;
+                }, 500);
+                }
         }
     }
 </script>
 <style lang="less">
+body{
+    background: #f1f1f1;
+}
     *{
         margin:0;
         padding:0;

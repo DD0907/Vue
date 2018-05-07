@@ -7,19 +7,19 @@
                     <span>热门</span>
                 </div>
                 <div>
-                <van-list>
+                <!-- <van-list> -->
                   <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
                       <!-- <div v-for="(r, key) in rowdata" :key="key"> -->
                       <div>
                         <!-- 用户信息 -->
                         <div>
                           <van-row>
-                            <van-col span="4">
+                            <van-col span="3">
                               <div class="imgs">
                                 <img src="../../assets/icon/icon_users.png"/>
                               </div >  
                             </van-col>
-                            <van-col span="20">
+                            <van-col span="21">
                               <div style="height:1.2rem;background:#ffffff;">
                                 <span style="font-size:0.4rem;">{{username}}</span>
                                 <van-tag type="danger">{{type}}</van-tag><br>
@@ -28,15 +28,14 @@
                             </van-col>
                           </van-row>
                       </div>
+
+                      <div style="background:#ffffff">
                       <!-- 评论 -->
-                      <div>
-                        <van-cell-group>
-                              <span style="font-size:0.1rem;">{{desc}}</span>
-                        </van-cell-group>
+                      <div style="background:#ffffff;margin-left:5px;margin-right:5px;">
+                              <span style="font-size:0.2rem;">{{desc}}</span>
                       </div>
                        <!-- 显示图片 -->
-                      <div>
-                        <van-cell-group>
+                      <div style="background:#ffffff;margin-left:5px;margin-right:5px;">
                             <div>
                                 <img src="../../assets/icon/icon_users.png" class="image" />
                                 <img src="../../assets/icon/icon_users.png" class="image" />
@@ -46,11 +45,11 @@
                               晒单特别奖励1000白积分
                             <div style="background:#f1f1f1;">
                             <div class="leftbox">
-                              <img src="https://img.yzcdn.cn/public_files/2017/10/24/e5a5a02309a41f9f5def56684808d9ae.jpeg" style="width:2.5rem;" />
+                              <img src="https://img.yzcdn.cn/public_files/2017/10/24/e5a5a02309a41f9f5def56684808d9ae.jpeg" style="width:1.0rem;" />
                             </div>
                             <div class="rightbox">
-                              <div style="font-size:0.4rem;padding:2px;">
-                                我购买了，商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题
+                              <div style="font-size:0.2rem;padding:2px;">
+                                我购买了，商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题
                               </div>
                                <div>
                                   <van-tag plain type="success">29.9元</van-tag>
@@ -61,13 +60,12 @@
                             <div style=" clear:both"></div>
                             </div>
                             </div>
-                          </van-cell-group>
                           <van-cell-group>
                                 <van-row>
                                   <van-col span="10">                    
                                     <van-cell>
                                       <template slot="title">
-                                        <span>400人觉得很赞</span><br>
+                                        <span>{{zannumber}}人觉得很赞</span><br>
                                         <span>25人转发</span>
                                       </template>
                                     </van-cell>
@@ -75,9 +73,11 @@
                                   <van-col span="14">
                                     <van-cell>
                                       <template slot="title">
-                                        <span v-if="istrue==false" @click="getZan"><img src="../../assets/icon/icon_zan.png" style="width:1.0rem;height:1.0rem;margin:auto;cursor:pointer;"/></span>
-                                        <span v-else @click="getZan"><img src="../../assets/icon/icon_zans.png" style="width:1.0rem;height:width:1.0rem;margin:auto;cursor:pointer;"/></span>
-                                        <span>&nbsp;<img src="../../assets/icon/icon_shapes.png" style="width:1.0rem;height:1.0rem;"/></span>
+                                        <div style="text-align:right">
+                                        <span v-if="istrue==false"><img src="../../assets/icon/icon_zan.png" @click="getZan" style="width:1.0rem;height:1.0rem;margin:auto;cursor:pointer;"/></span>
+                                        <span v-else><img src="../../assets/icon/icon_zans.png" @click="getZan" style="width:1.0rem;height:width:1.0rem;margin:auto;cursor:pointer;"/></span>
+                                        <span>&nbsp;<img src="../../assets/icon/icon_shapes.png" @click="jumpShape" style="width:1.0rem;height:1.0rem;"/></span>
+                                        </div>
                                       </template>
                                     </van-cell>
                                   </van-col>
@@ -85,8 +85,9 @@
                           </van-cell-group>
                         </div>
                       </div>
+                      </div>
                   </van-pull-refresh>
-                </van-list>
+                <!-- </van-list> -->
               </div>
           </van-tab>
            <van-tab>
@@ -106,6 +107,9 @@
           </van-tab>
         </van-tabs>
      </section>
+     <section>
+           <div class="bottom_nav5" @click="jumpadd"><img src="../../assets/icon/icon_add.png" style="width:50px;"/></div> 
+     </section>
   </div>
 </template>
 <script>
@@ -122,7 +126,8 @@ export default {
         "https://img.yzcdn.cn/public_files/2017/10/24/e5a5a02309a41f9f5def56684808d9ae.jpeg",
       isLoading: false,
       istrue: false,
-      rowdata: {}
+      rowdata: {},
+      zannumber:401,
     };
   },
   mounted() {
@@ -144,10 +149,18 @@ export default {
     },
     getZan() {
       if (this.istrue == true) {
+        this.zannumber=this.zannumber-1;
         this.istrue = false;
       } else {
+        this.zannumber=this.zannumber+1;
         this.istrue = true;
       }
+    },
+    jumpadd(){
+      this.$toast("正在跳转增加")
+    },
+    jumpShape(){
+      this.$toast("分享即可赚取积分");
     }
   }
 };
@@ -227,8 +240,8 @@ body {
   border-radius: 50%;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 35px;
+  height: 35px;
   margin: 0px auto;
 }
 .image {
@@ -240,6 +253,16 @@ body {
   text-align: center;
   float: left;
   border:0.1rem solid #f1f1f1;
+}
+.bottom_nav5 {
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  position: fixed;
+  bottom: 50px;
+  right: 20px;
+  background-image: #faf609;
+  text-align: center;
 }
 </style>
 
