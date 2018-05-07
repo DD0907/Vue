@@ -19,7 +19,6 @@ export default {
       var routerParams = this.$route.params.goodsId;
       // 将数据放在当前组件的数据内
       this.goodsId = routerParams;
-    //   this.$toast(routerParams);
     },
   }
 }

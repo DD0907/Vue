@@ -40,8 +40,8 @@
             <div>
               <!-- 无数据的情况 -->
               <div v-if='rowlength==0'>
-            <img src="../../assets/icon/icon_kong.png"/>
-        </div>
+              <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
+              </div>
          <!-- list列表 -->
         <div v-else>
         <van-list> 
