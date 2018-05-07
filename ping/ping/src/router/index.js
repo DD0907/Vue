@@ -9,6 +9,7 @@ import selecteddata from '@/components/view/selecteddata'
 import fruitdata from '@/components/view/fruitdata'
 import PageDetails from '@/components/view/PageDetails'
 import shape from '@/components/view/shape'
+import timetest from '@/components/view/timetest'
 Vue.use(Router)
 export default new Router({
   mode: 'history',
@@ -54,6 +55,11 @@ export default new Router({
       path: '/ping/shape',
       name: 'shape',
       component: shape
+    },
+     {
+      path: '/ping/timetest',
+      name: 'timetest',
+      component: timetest
     }
   ]
 })
