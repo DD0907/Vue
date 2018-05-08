@@ -3,7 +3,7 @@
     <section>
     <!-- 搜索框 -->
         <van-search v-model="value" show-action placeholder="搜索拼多多商品得白积分奖励" style="padding:2px;">
-            <div slot="action"><van-button type="primary" size="small" @click="getdata">搜索</van-button></div>
+            <div slot="action"><van-button type="primary" size="small" @click="getdatas">搜索</van-button></div>
         </van-search>
     </section>
     <section>
@@ -291,7 +291,7 @@ export default {
       img: "",
       messages: "",
       rowlength: "",
-      page: 1, //页数
+      // page: 1, //页数
       categoryId: "", //分类
       pageSize: 10, //每页条数
       sortType: "0", //排列次数
@@ -308,6 +308,7 @@ export default {
       let _this = this;
       // 设置一个开关来避免重负请求数据
       let sw = true;
+      let page=1;
       // 此处使用node做了代理
       this.$axios
         .get(
@@ -315,7 +316,7 @@ export default {
             "/v1/product/list?keyword=" +
             _this.value +
             "&page=" +
-            _this.page++ +
+            page++ +
             "&pageSize=" +
             _this.pageSize +
             "&sortType=0&withCoupon=false"
@@ -358,7 +359,7 @@ export default {
                   "/v1/product/list?keyword=" +
                   _this.value +
                   "&page=" +
-                  _this.page++ +
+                   page++ +
                   "&pageSize=" +
                   _this.pageSize +
                   "&sortType=0&withCoupon=false"
@@ -649,9 +650,17 @@ export default {
     getParams() {
       // 取到路由带过来的参数
       var routerParams = this.$route.params.data;
+
+      //this.$toast(this.$route.params.datas);
       // 将数据放在当前组件的数据内
       this.value = routerParams;
-      this.$toast(this.value);
+      //this.$toast(this.value);
+      var keyword=window.location.href;
+      var i=keyword.indexOf("=")
+      this.value=decodeURI(keyword.substring(i+1,keyword.length));
+      // alert(decodeURI(this.value))
+      // console.log(decodeURI(this.value));
+     // alert(keyword.substring(i+1,keyword.length));
     },
     onRefresh() {
       // 下拉刷新
@@ -661,6 +670,17 @@ export default {
         this.count++;
       }, 500);
     }, 
+    getdatas(){
+      this.$router.push({
+          path: "/ping",
+          name: "search",
+          query:{keyword:this.value},
+          params: {
+          data: this.value
+          }
+      });
+      this.getdata();
+    },
     // 跳转商品详情页
     JumpPageDetails(goodsId) {
       var goodsId = goodsId;
@@ -669,8 +689,8 @@ export default {
         path: "/ping",
         name: "PageDetails",
         params: {
-          // data: this.value,
-          goodsId: goodsId
+          goodsId: goodsId,
+          data:this.value
         }
       });
     }

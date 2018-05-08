@@ -904,7 +904,7 @@
             <van-goods-action-mini-btn icon="like" style="width:25%;">
                 收藏
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn icon="contact" style="width:25%;">
+            <van-goods-action-mini-btn icon="contact" style="width:25%;" @click="JumpUser">
                 我的
             </van-goods-action-mini-btn>
         </van-goods-action>
@@ -2147,6 +2147,7 @@ export default {
             this.$router.push({
               path: "/ping",
               name: "search",
+              query:{keyword:this.value},
               params: {
                 data: this.value
               }
@@ -2162,6 +2163,12 @@ export default {
         this.$router.push({
         path: "/ping",
         name: "shape",
+      });
+    },
+    JumpUser(){
+      this.$router.push({
+        path: "/ping",
+        name: "user",
       });
     },
     onRefresh() {

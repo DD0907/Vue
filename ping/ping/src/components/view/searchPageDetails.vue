@@ -2,12 +2,13 @@
   <div>
       <!-- <h2>{{goodsId}}</h2> -->
      <!--轮播图片-->
-    <div>
+    <div class="con_img">
       <van-swipe class="goods-swipe" :autoplay="4000">
         <van-swipe-item v-for="(img, index) in images" :key="index">
         <img :src="img" style="height:10.0rem;">
         </van-swipe-item>
       </van-swipe>
+      <span class="ms"><img src="../../assets/icon/icon_backs.png" style="width:1.5rem;" @click="Back"/></span>
     </div>
     <!-- 价格 -->
     <div style="background:#ffffff;">
@@ -16,7 +17,7 @@
         <div>
           <div style="float:left;">
           <span style="font-size:0.5rem;color:red;">{{articles.normalCouponAfterPrice}}元</span> 
-          <span v-if="articles.hasCoupon==true" style="text-decoration:line-through;">￥{{articles.minNormalPrice}}</span> 
+          <span v-if="articles.hasCoupon==true">￥{{articles.minNormalPrice}}</span> 
           <van-tag type="danger" v-if="articles.hasQuanfan==true">云联全返</van-tag>
           </div>
           <div style="text-align:right;color:#999;">
@@ -43,7 +44,7 @@
       <div style="">
         <div>
          <van-cell-group>
-          <van-cell is-link value="奖励说明" @click="jumpmessage" >
+          <van-cell is-link value="奖励说明">
             <template slot="title">
               <span style="color:#f05a03">约奖：{{articles.integral}}白积分</span>
             </template>
@@ -68,21 +69,12 @@
     <!-- 底部菜单 -->
     <div>
       <van-goods-action>
-        <van-goods-action-mini-btn icon="chat" text="帮助" @click="jumphelp"/>
+        <van-goods-action-mini-btn icon="chat" text="帮助" />
         <van-goods-action-mini-btn icon="cart" text="收藏夹" />
         <van-goods-action-big-btn text="分享赚积分"/>
         <van-goods-action-big-btn text="去参团" primary />
       </van-goods-action>
     </div>
-
-    <van-actionsheet v-model="helpshow" title="奖励说明">
-      <p style="font-size:16px;">1、该奖励为约奖，指通过优惠价购买一件商品的积分奖励，多买多得（根据实际付款金额），实际到帐积分有上下微小浮动属于正常现象。</p>
-      <p style="font-size:16px;">2、必须通过拼团客系统进入直接拼团付款才有奖励，进入后先收藏，再通过多多收藏下单是无奖励的，如需收藏，请使用拼团客系统的收藏夹。</p> 
-    </van-actionsheet>
-
-    <van-popup v-model="bottomhelpshow" position="right">
-      <div style="width:200px;height:400px;backgroud:#ffffff;">内容</div>
-    </van-popup>
   </div>
 </template>
 <script>
@@ -92,8 +84,7 @@ export default {
       goodsId: "",
       articles: {},
       images: {},
-      helpshow: false,
-      bottomhelpshow:false
+      value:""
     };
   },
   mounted() {
@@ -120,19 +111,22 @@ export default {
     getParams() {
       // 取到路由带过来的参数
       var routerParams = this.$route.params.goodsId;
+      this.value=this.$route.params.data;
       // 将数据放在当前组件的数据内
       this.goodsId = routerParams;
+      this.$toast(this.value)
     },
-    jumpmessage() {
-      this.helpshow = true;
-    },
-    jumphelp(){
-      this.bottomhelpshow=true;
+    Back(){
+      //alert(this.$route.path);
+       this.$router.push({
+        path: "/ping",
+        name: "search",
+        params: {
+            data: "手机"
+          }
+      });
+      this.$toast(this.value);
     }
-  },
-  watch: {
-    // 监测路由变化,只要变化了就调用获取路由参数方法将数据存储本组件即可
-    $route: "getParams"
   }
 };
 </script>

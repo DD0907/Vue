@@ -271,6 +271,25 @@
      <section>
            <div class="bottom_nav5" @click="jumpadd"><img src="../../assets/icon/icon_add.png" style="width:30px;"/></div> 
      </section>
+     <!-- 底部标签 -->
+    <div>
+    <van-row>
+        <van-goods-action>
+            <van-goods-action-mini-btn style="width:25%;" icon="wap-home" @click="jumpIndex">
+                首页
+            </van-goods-action-mini-btn>
+            <van-goods-action-mini-btn icon="share" style="width:25%;background-color: #f84600;">
+                晒单分享
+            </van-goods-action-mini-btn>
+            <van-goods-action-mini-btn icon="like" style="width:25%;">
+                收藏
+            </van-goods-action-mini-btn>
+            <van-goods-action-mini-btn icon="contact" style="width:25%;" @click="JumpUser">
+                我的
+            </van-goods-action-mini-btn>
+        </van-goods-action>
+    </van-row>
+    </div>
   </div>
 </template>
 <script>
@@ -322,6 +341,18 @@ export default {
     },
     jumpShape(){
       this.$toast("分享即可赚取积分");
+    }, 
+    jumpIndex(){
+        this.$router.push({
+          path: "/ping",
+           name: "indexs",
+        });
+    },
+    JumpUser(){
+      this.$router.push({
+        path: "/ping",
+        name: "user",
+      });
     }
   }
 };
