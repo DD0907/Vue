@@ -12,7 +12,7 @@
                       <!-- <div v-for="(r, key) in rowdata" :key="key"> -->
                       <div>
                         <!-- 用户信息 -->
-                        <div>
+                        <div style="margin-top:0.2rem;">
                           <van-row>
                             <van-col span="3">
                               <div class="imgs">
@@ -20,7 +20,84 @@
                               </div >  
                             </van-col>
                             <van-col span="21">
-                              <div style="height:1.2rem;background:#ffffff;">
+                              <div style="height:1.4rem;background:#ffffff;">
+                                <span style="font-size:0.4rem;">{{username}}</span>
+                                <van-tag type="danger">{{type}}</van-tag><br>
+                                <span style="color:#999;">{{time}}</span>
+                                </div>
+                            </van-col>
+                          </van-row>
+                      </div>
+
+                      <div style="background:#ffffff">
+                      <!-- 评论 -->
+                      <div style="background:#ffffff;margin-left:5px;margin-right:5px;">
+                              <span style="font-size:0.2rem;">{{desc}}</span>
+                      </div>
+                       <!-- 显示图片 -->
+                      <div style="background:#ffffff;margin-left:5px;margin-right:5px;">
+                            <div>
+                                <img src="../../assets/icon/icon_users.png" class="image" />
+                                <img src="../../assets/icon/icon_users.png" class="image" />
+                                <img src="../../assets/icon/icon_users.png" class="image" />
+                            </div>
+                            <div>
+                              晒单特别奖励1000白积分
+                            <div style="background:#f1f1f1;">
+                            <div class="leftbox">
+                              <img src="https://img.yzcdn.cn/public_files/2017/10/24/e5a5a02309a41f9f5def56684808d9ae.jpeg" style="width:1.0rem;" />
+                            </div>
+                            <div class="rightbox">
+                              <div style="font-size:0.2rem;padding:2px;">
+                                我购买了，商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题
+                              </div>
+                               <div>
+                                  <van-tag plain type="success">29.9元</van-tag>
+                                  <van-tag plain type="danger">云联全返</van-tag>
+                                  <span>共支付1000元，共获得10000白积分</span>
+                              </div>
+                            </div>
+                            <div style=" clear:both"></div>
+                            </div>
+                            </div>
+                          <van-cell-group>
+                                <van-row>
+                                  <van-col span="10">                    
+                                    <van-cell>
+                                      <template slot="title">
+                                        <span>{{zannumber}}人觉得很赞</span><br>
+                                        <span>25人转发</span>
+                                      </template>
+                                    </van-cell>
+                                  </van-col>
+                                  <van-col span="14">
+                                    <van-cell>
+                                      <template slot="title">
+                                        <div style="text-align:right">
+                                        <span v-if="istrue==false"><img src="../../assets/icon/icon_zan.png" @click="getZan" style="width:1.0rem;height:1.0rem;margin:auto;cursor:pointer;"/></span>
+                                        <span v-else><img src="../../assets/icon/icon_zans.png" @click="getZan" style="width:1.0rem;height:width:1.0rem;margin:auto;cursor:pointer;"/></span>
+                                        <span>&nbsp;<img src="../../assets/icon/icon_shapes.png" @click="jumpShape" style="width:1.0rem;height:1.0rem;"/></span>
+                                        </div>
+                                      </template>
+                                    </van-cell>
+                                  </van-col>
+                                </van-row>
+                          </van-cell-group>
+                        </div>
+                      </div>
+                      </div>
+
+                      <div>
+                        <!-- 用户信息 -->
+                        <div style="margin-top:0.2rem;">
+                          <van-row>
+                            <van-col span="3">
+                              <div class="imgs">
+                                <img src="../../assets/icon/icon_users.png"/>
+                              </div >  
+                            </van-col>
+                            <van-col span="21">
+                              <div style="height:1.4rem;background:#ffffff;">
                                 <span style="font-size:0.4rem;">{{username}}</span>
                                 <van-tag type="danger">{{type}}</van-tag><br>
                                 <span style="color:#999;">{{time}}</span>
@@ -94,6 +171,90 @@
                 <div slot="title">
                     <span>最新</span>
                 </div>
+
+                <div>
+                <!-- <van-list> -->
+                  <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+                      <!-- <div v-for="(r, key) in rowdata" :key="key"> -->
+                      <div>
+                        <!-- 用户信息 -->
+                        <div style="margin-top:0.2rem;">
+                          <van-row>
+                            <van-col span="3">
+                              <div class="imgs">
+                                <img src="../../assets/icon/icon_users.png"/>
+                              </div >  
+                            </van-col>
+                            <van-col span="21">
+                              <div style="height:1.4rem;background:#ffffff;">
+                                <span style="font-size:0.4rem;">{{username}}</span>
+                                <van-tag type="danger">{{type}}</van-tag><br>
+                                <span style="color:#999;">{{time}}</span>
+                                </div>
+                            </van-col>
+                          </van-row>
+                      </div>
+
+                      <div style="background:#ffffff">
+                      <!-- 评论 -->
+                      <div style="background:#ffffff;margin-left:5px;margin-right:5px;">
+                              <span style="font-size:0.2rem;">{{desc}}</span>
+                      </div>
+                       <!-- 显示图片 -->
+                      <div style="background:#ffffff;margin-left:5px;margin-right:5px;">
+                            <div>
+                                <img src="../../assets/icon/icon_users.png" class="image" />
+                                <img src="../../assets/icon/icon_users.png" class="image" />
+                                <img src="../../assets/icon/icon_users.png" class="image" />
+                            </div>
+                            <div>
+                              晒单特别奖励1000白积分
+                            <div style="background:#f1f1f1;">
+                            <div class="leftbox">
+                              <img src="https://img.yzcdn.cn/public_files/2017/10/24/e5a5a02309a41f9f5def56684808d9ae.jpeg" style="width:1.0rem;" />
+                            </div>
+                            <div class="rightbox">
+                              <div style="font-size:0.2rem;padding:2px;">
+                                我购买了，商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题
+                              </div>
+                               <div>
+                                  <van-tag plain type="success">29.9元</van-tag>
+                                  <van-tag plain type="danger">云联全返</van-tag>
+                                  <span>共支付1000元，共获得10000白积分</span>
+                              </div>
+                            </div>
+                            <div style=" clear:both"></div>
+                            </div>
+                            </div>
+                          <van-cell-group>
+                                <van-row>
+                                  <van-col span="10">                    
+                                    <van-cell>
+                                      <template slot="title">
+                                        <span>{{zannumber}}人觉得很赞</span><br>
+                                        <span>25人转发</span>
+                                      </template>
+                                    </van-cell>
+                                  </van-col>
+                                  <van-col span="14">
+                                    <van-cell>
+                                      <template slot="title">
+                                        <div style="text-align:right">
+                                        <span v-if="istrue==false"><img src="../../assets/icon/icon_zan.png" @click="getZan" style="width:1.0rem;height:1.0rem;margin:auto;cursor:pointer;"/></span>
+                                        <span v-else><img src="../../assets/icon/icon_zans.png" @click="getZan" style="width:1.0rem;height:width:1.0rem;margin:auto;cursor:pointer;"/></span>
+                                        <span>&nbsp;<img src="../../assets/icon/icon_shapes.png" @click="jumpShape" style="width:1.0rem;height:1.0rem;"/></span>
+                                        </div>
+                                      </template>
+                                    </van-cell>
+                                  </van-col>
+                                </van-row>
+                          </van-cell-group>
+                        </div>
+                      </div>
+                      </div>
+                  </van-pull-refresh>
+                <!-- </van-list> -->
+              </div>
           </van-tab>
            <van-tab>
                 <div slot="title">
@@ -108,7 +269,7 @@
         </van-tabs>
      </section>
      <section>
-           <div class="bottom_nav5" @click="jumpadd"><img src="../../assets/icon/icon_add.png" style="width:50px;"/></div> 
+           <div class="bottom_nav5" @click="jumpadd"><img src="../../assets/icon/icon_add.png" style="width:30px;"/></div> 
      </section>
   </div>
 </template>
@@ -233,7 +394,7 @@ body {
 }
 .imgs {
   background: #ffffff;
-  height: 1.2rem;
+  height: 1.4rem;
   text-align: center;
 }
 .imgs img {
@@ -259,7 +420,7 @@ body {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   position: fixed;
-  bottom: 50px;
+  bottom: 120px;
   right: 20px;
   background-image: #faf609;
   text-align: center;

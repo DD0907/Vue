@@ -23,7 +23,7 @@
                             <div v-else>
                             <van-list> 
                                 <van-row>
-                                <div v-for="(r, key) in articles" :key="key">
+                                <div v-for="(r, key) in articles" :key="key" @click="JumpPageDetails(r.goodsId)">
                                     <div v-if="(key+1)%2==1">
                                         <van-col span="12" class="img_border" >
                                           <van-cell-group>
@@ -38,7 +38,7 @@
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -59,7 +59,7 @@
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -88,7 +88,7 @@
                             <div v-else>
                             <van-list> 
                                 <van-row>
-                                <div v-for="(r, key) in highreward" :key="key">
+                                <div v-for="(r, key) in highreward" :key="key" @click="JumpPageDetails(r.goodsId)">
                                     <div v-if="(key+1)%2==1">
                                         <van-col span="12" class="img_border" >
                                           <van-cell-group>
@@ -103,7 +103,7 @@
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -124,7 +124,7 @@
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -153,7 +153,7 @@
                             <div v-else>
                             <van-list> 
                                 <van-row>
-                                <div v-for="(r, key) in highdiscount" :key="key">
+                                <div v-for="(r, key) in highdiscount" :key="key" @click="JumpPageDetails(r.goodsId)">
                                     <div v-if="(key+1)%2==1">
                                         <van-col span="12" class="img_border" >
                                           <van-cell-group>
@@ -168,7 +168,7 @@
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -189,7 +189,7 @@
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -219,7 +219,7 @@
                             <div v-else>
                             <van-list> 
                                 <van-row>
-                                <div v-for="(r, key) in highsales" :key="key">
+                                <div v-for="(r, key) in highsales" :key="key" @click="JumpPageDetails(r.goodsId)">
                                     <div v-if="(key+1)%2==1">
                                         <van-col span="12" class="img_border" >
                                           <van-cell-group>
@@ -234,7 +234,7 @@
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -255,7 +255,7 @@
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -660,6 +660,19 @@ export default {
         this.isLoading = false;
         this.count++;
       }, 500);
+    }, 
+    // 跳转商品详情页
+    JumpPageDetails(goodsId) {
+      var goodsId = goodsId;
+      // alert(goodsId)
+      this.$router.push({
+        path: "/ping",
+        name: "PageDetails",
+        params: {
+          // data: this.value,
+          goodsId: goodsId
+        }
+      });
     }
   },
   watch: {

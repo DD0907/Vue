@@ -245,8 +245,8 @@
                             <div v-else>
                             <van-list> 
                                 <van-row>
-                                <div v-for="(r, key) in clothes" :key="key">
-                                    <div v-if="(key+1)%2==1">
+                                <div v-for="(r, key) in clothes" :key="key" @click="JumpPageDetails(r.goodsId)">
+                                    <div v-if="(key+1)%2==1" >
                                         <van-col span="12" class="img_border" >
                                           <van-cell-group>
                                             <img :src="r.goodsThumbnailUrl" class="goods-imgurl">
