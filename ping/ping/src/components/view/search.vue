@@ -17,7 +17,8 @@
                         <div>
                             <!-- 无数据的情况 -->
                             <div v-if='rowlength==0'>
-                                <img src="../../assets/icon/icon_kong.png"/>
+                                <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
+                                <div style="text-align:center">暂无数据哦...</div>
                             </div>
                             <!-- list列表 -->
                             <div v-else>
@@ -82,7 +83,8 @@
                         <div>
                             <!-- 无数据的情况 -->
                             <div v-if='rowlength==0'>
-                                <img src="../../assets/icon/icon_kong.png"/>
+                                <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
+                                <div style="text-align:center">暂无数据哦...</div>
                             </div>
                             <!-- list列表 -->
                             <div v-else>
@@ -147,7 +149,8 @@
                         <div>
                             <!-- 无数据的情况 -->
                             <div v-if='rowlength==0'>
-                                <img src="../../assets/icon/icon_kong.png"/>
+                                <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
+                                <div style="text-align:center">暂无数据哦...</div>
                             </div>
                             <!-- list列表 -->
                             <div v-else>
@@ -213,7 +216,8 @@
                         <div>
                             <!-- 无数据的情况 -->
                             <div v-if='rowlength==0'>
-                                <img src="../../assets/icon/icon_kong.png"/>
+                                <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
+                                <div style="text-align:center">暂无数据哦...</div>
                             </div>
                             <!-- list列表 -->
                             <div v-else>
@@ -269,11 +273,11 @@
                             </div>
                         </div>
                     </van-pull-refresh>  
-
             </van-tab>
         </div>
     </van-tabs>
     </section>
+        <div class="bottom_nav5"><img src="../../assets/icon/icon_tops.png" style="width:50px;" @click="back_top"/></div> 
 </div>
 </template>
 <script>
@@ -651,6 +655,9 @@ export default {
         console.log(sw);
       });
     },
+    back_top() {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+    },
     getParams() {
       // 取到路由带过来的参数
       var routerParams = this.$route.params.data;
@@ -741,5 +748,15 @@ export default {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   font-size: 0.3rem;
+}
+.bottom_nav5 {
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  position: fixed;
+  bottom: 50px;
+  right: 20px;
+  background-image: #faf609;
+  text-align: center;
 }
 </style>

@@ -37,11 +37,11 @@
                     精选
                 </div>
           <van-pull-refresh v-model.lazy="isLoading" @refresh="onRefresh">
-            <div>
-              <!-- 无数据的情况 -->
-              <div v-if='rowlength==0'>
-              <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
-              </div>
+          <div>
+             <!-- 无数据的情况 -->
+            <div v-if='rowlength==0'>
+             <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
+            </div>
          <!-- list列表 -->
         <div v-else>
         <van-list> 
@@ -107,7 +107,7 @@
                         <div>
                             <!-- 无数据的情况 -->
                             <div v-if='rowlength==0'>
-                                <img src="../../assets/icon/icon_kong.png"/>
+                                <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
                             </div>
                             <!-- list列表 -->
                             <div v-else>
@@ -173,7 +173,7 @@
                         <div>
                             <!-- 无数据的情况 -->
                             <div v-if='rowlength==0'>
-                                <img src="../../assets/icon/icon_kong.png"/>
+                                <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
                             </div>
                             <!-- list列表 -->
                             <div v-else>
@@ -239,7 +239,7 @@
                         <div>
                             <!-- 无数据的情况 -->
                             <div v-if='rowlength==0'>
-                                <img src="../../assets/icon/icon_kong.png"/>
+                                <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
                             </div>
                             <!-- list列表 -->
                             <div v-else>
@@ -305,7 +305,7 @@
                         <div>
                             <!-- 无数据的情况 -->
                             <div v-if='rowlength==0'>
-                                <img src="../../assets/icon/icon_kong.png"/>
+                                <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
                             </div>
                             <!-- list列表 -->
                             <div v-else>
@@ -371,7 +371,7 @@
                         <div>
                             <!-- 无数据的情况 -->
                             <div v-if='rowlength==0'>
-                                <img src="../../assets/icon/icon_kong.png"/>
+                                <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
                             </div>
                             <!-- list列表 -->
                             <div v-else>
@@ -437,7 +437,7 @@
                         <div>
                             <!-- 无数据的情况 -->
                             <div v-if='rowlength==0'>
-                                <img src="../../assets/icon/icon_kong.png"/>
+                                <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
                             </div>
                             <!-- list列表 -->
                             <div v-else>
@@ -503,7 +503,7 @@
                         <div>
                             <!-- 无数据的情况 -->
                             <div v-if='rowlength==0'>
-                                <img src="../../assets/icon/icon_kong.png"/>
+                                <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
                             </div>
                             <!-- list列表 -->
                             <div v-else>
@@ -569,7 +569,7 @@
                         <div>
                             <!-- 无数据的情况 -->
                             <div v-if='rowlength==0'>
-                                <img src="../../assets/icon/icon_kong.png"/>
+                                <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
                             </div>
                             <!-- list列表 -->
                             <div v-else>
@@ -635,7 +635,7 @@
                         <div>
                             <!-- 无数据的情况 -->
                             <div v-if='rowlength==0'>
-                                <img src="../../assets/icon/icon_kong.png"/>
+                                <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
                             </div>
                             <!-- list列表 -->
                             <div v-else>
@@ -700,7 +700,7 @@
                         <div>
                             <!-- 无数据的情况 -->
                             <div v-if='rowlength==0'>
-                                <img src="../../assets/icon/icon_kong.png"/>
+                                <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
                             </div>
                             <!-- list列表 -->
                             <div v-else>
@@ -765,7 +765,7 @@
                         <div>
                             <!-- 无数据的情况 -->
                             <div v-if='rowlength==0'>
-                                <img src="../../assets/icon/icon_kong.png"/>
+                                <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
                             </div>
                             <!-- list列表 -->
                             <div v-else>
@@ -830,7 +830,7 @@
                         <div>
                             <!-- 无数据的情况 -->
                             <div v-if='rowlength==0'>
-                                <img src="../../assets/icon/icon_kong.png"/>
+                                <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
                             </div>
                             <!-- list列表 -->
                             <div v-else>
