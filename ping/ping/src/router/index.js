@@ -14,6 +14,8 @@ import timetest from '@/components/view/timetest'
 import user from '@/components/view/user'
 import order from '@/components/view/order'
 import fans from '@/components/view/fans'
+import team from '@/components/view/team'
+import recommendation from '@/components/view/recommendation'
 Vue.use(Router)
 export default new Router({
   mode: 'history',
@@ -87,6 +89,15 @@ export default new Router({
       path:'/ping/fans',
       name:'fans',
       component:fans
+    },
+    {
+      path:'/ping/team',
+      name:'team',
+      component:team
+    },{
+      path:'/ping/recommendation',
+      name:'recommendation',
+      component:recommendation
     },
     {
       path: '/ping/timetest',

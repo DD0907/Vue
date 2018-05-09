@@ -74,7 +74,7 @@
         <section>
             <div style="text-align:center;">
                 <van-cell-group>
-                    <i class="iconfont">&#xe637;</i><van-cell title="我的推荐人"/>
+                    <i class="iconfont">&#xe637;</i><van-cell title="我的推荐人" @click="jumpRecommendation"/>
                 </van-cell-group>
                 <section style="height:10px;">&nbsp;</section>
                  <van-cell-group>
@@ -86,7 +86,7 @@
                 </van-cell-group>
                 <section style="height:10px;">&nbsp;</section>
                 <van-cell-group>
-                   <i class="iconfont">&#xe603;</i> <van-cell title="我的团队"/>
+                   <i class="iconfont">&#xe603;</i> <van-cell title="我的团队" @click="jumpTeam"/>
                 </van-cell-group>
             </div>
         </section>
@@ -140,6 +140,18 @@ export default {
         this.$router.push({
             path:'/ping',
             name:'fans'
+        });
+    },
+    jumpTeam(){
+        this.$router.push({
+            path:'/ping',
+            name:'team'
+        });
+    },
+    jumpRecommendation(){
+        this.$router.push({
+            path:'/ping',
+            name:'recommendation'
         });
     }
   }

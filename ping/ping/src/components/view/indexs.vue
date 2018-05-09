@@ -889,7 +889,7 @@
             </van-tab>
         </van-tabs>
     </div>
-    <div @click="back_top" class="bottom_nav5"><img src="../../assets/icon/icon_top.png" style="width:50px;" @click="back_top"/></div> 
+    <div @click="back_top" class="bottom_nav5"><img src="../../assets/icon/icon_tops.png" style="width:50px;" @click="back_top"/></div> 
     <div style="background:#ffffff;height:50px;"></div>
     <!-- 底部标签 -->
     <div>
