@@ -16,7 +16,7 @@
         <div>
           <div style="float:left;">
           <span style="font-size:0.5rem;color:red;">{{articles.normalCouponAfterPrice}}元</span> 
-          <span v-if="articles.hasCoupon==true" style="text-decoration:line-through;">￥{{articles.minNormalPrice}}</span> 
+          <span v-if="articles.hasCoupon==true" style="text-decoration:line-through;color:#999">￥{{articles.minNormalPrice}}</span> 
           <van-tag type="danger" v-if="articles.hasQuanfan==true">云联全返</van-tag>
           </div>
           <div style="text-align:right;color:#999;">

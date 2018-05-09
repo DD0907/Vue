@@ -895,7 +895,7 @@
     <div>
     <van-row>
         <van-goods-action>
-            <van-goods-action-mini-btn icon="wap-home" style="width:25%;background-color: #f84600;">
+            <van-goods-action-mini-btn icon="wap-home" style="width:25%;background-color: pink;">
                 首页
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn icon="share" style="width:25%;" @click="JumpShape">
@@ -951,7 +951,8 @@ export default {
       value: "" //搜索关键字
     };
   },
-  created() {
+  mounted() {
+    setTitle("拼团客");
     // 加载时自动执行
     this.getdata();
   },

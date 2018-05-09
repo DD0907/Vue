@@ -7,7 +7,7 @@
                 </div>
                 <section>
                     <section style="height:10px;background:#f1f1f1;"></section>
-                    <section style="background:#ffffff;border:0.1px solid #999;">
+                    <section style="background:#ffffff;">
                         <van-row>
                             <van-col span="6">
                                 <div>
@@ -44,10 +44,15 @@
 </template>
 <script>
 export default {
-
-}
+  data() {
+    return {};
+  },
+  mounted() {
+  }
+};
 </script>
 
 <style>
+
 </style>
 

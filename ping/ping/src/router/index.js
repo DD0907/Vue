@@ -23,9 +23,13 @@ export default new Router({
     {
       path: '/ping/index',
       name: 'index',
+      title:'首页',
+
       component: resolve => require(['@/components/view/index'], resolve),
       // component: index,
-      meta: { keepAlive: true }
+      meta: {
+         keepAlive: true,
+        }
     },
     {
       path: '/ping/search',
@@ -41,7 +45,7 @@ export default new Router({
       name: 'indexs',
       component: indexs,
       meta:{
-        title:'indexs',
+        title:'拼团客首页',
         keepAlive:true
       }
     },

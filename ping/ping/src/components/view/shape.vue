@@ -278,7 +278,7 @@
             <van-goods-action-mini-btn style="width:25%;" icon="wap-home" @click="jumpIndex">
                 首页
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn icon="share" style="width:25%;background-color: #f84600;">
+            <van-goods-action-mini-btn icon="share" style="width:25%;background-color: pink;">
                 晒单分享
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn icon="like" style="width:25%;">

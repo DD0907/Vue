@@ -285,9 +285,9 @@ export default {
       isLoading: true,
       url: "http://ptk.baolinzhe.com/ptk/api/",
       articles: {},
-      highreward:{},
-      highdiscount:{},
-      highsales:{},
+      highreward: {},
+      highdiscount: {},
+      highsales: {},
       img: "",
       messages: "",
       rowlength: "",
@@ -300,7 +300,8 @@ export default {
   },
   mounted() {
     this.getParams();
-    this.getdata();
+    //this.getdata();
+    this.getdatas();
   },
   methods: {
     getdata() {
@@ -308,7 +309,7 @@ export default {
       let _this = this;
       // 设置一个开关来避免重负请求数据
       let sw = true;
-      let page=1;
+      let page = 1;
       // 此处使用node做了代理
       this.$axios
         .get(
@@ -359,7 +360,7 @@ export default {
                   "/v1/product/list?keyword=" +
                   _this.value +
                   "&page=" +
-                   page++ +
+                  page++ +
                   "&pageSize=" +
                   _this.pageSize +
                   "&sortType=0&withCoupon=false"
@@ -372,6 +373,9 @@ export default {
                 }
                 // 数据更新完毕，将开关打开
                 sw = true;
+                if (lengths == response.data.result.length) {
+                  _this.messages = "我已经到底了";
+                }
               })
               .catch(function(error) {
                 console.log(error);
@@ -389,12 +393,12 @@ export default {
         console.log(sw);
       });
     },
-    getdatahighreward(){
-     // 缓存指针
+    getdatahighreward() {
+      // 缓存指针
       let _this = this;
       // 设置一个开关来避免重负请求数据
       let sw = true;
-      let pages=1;
+      let pages = 1;
       // 此处使用node做了代理
       this.$axios
         .get(
@@ -475,12 +479,12 @@ export default {
         console.log(sw);
       });
     },
-    getdatahighdiscount(){
+    getdatahighdiscount() {
       // 缓存指针
       let _this = this;
       // 设置一个开关来避免重负请求数据
       let sw = true;
-      let pages=1;
+      let pages = 1;
       // 此处使用node做了代理
       this.$axios
         .get(
@@ -561,12 +565,12 @@ export default {
         console.log(sw);
       });
     },
-    getdatahighsales(){
+    getdatahighsales() {
       // 缓存指针
       let _this = this;
       // 设置一个开关来避免重负请求数据
       let sw = true;
-      let pages=1;
+      let pages = 1;
       // 此处使用node做了代理
       this.$axios
         .get(
@@ -655,12 +659,12 @@ export default {
       // 将数据放在当前组件的数据内
       this.value = routerParams;
       //this.$toast(this.value);
-      var keyword=window.location.href;
-      var i=keyword.indexOf("=")
-      this.value=decodeURI(keyword.substring(i+1,keyword.length));
+      var keyword = window.location.href;
+      var i = keyword.indexOf("=");
+      this.value = decodeURI(keyword.substring(i + 1, keyword.length));
       // alert(decodeURI(this.value))
       // console.log(decodeURI(this.value));
-     // alert(keyword.substring(i+1,keyword.length));
+      // alert(keyword.substring(i+1,keyword.length));
     },
     onRefresh() {
       // 下拉刷新
@@ -669,15 +673,15 @@ export default {
         this.isLoading = false;
         this.count++;
       }, 500);
-    }, 
-    getdatas(){
+    },
+    getdatas() {
       this.$router.push({
-          path: "/ping",
-          name: "search",
-          query:{keyword:this.value},
-          params: {
+        path: "/ping",
+        name: "search",
+        query: { keyword: this.value },
+        params: {
           data: this.value
-          }
+        }
       });
       this.getdata();
     },
@@ -690,7 +694,7 @@ export default {
         name: "PageDetails",
         params: {
           goodsId: goodsId,
-          data:this.value
+          data: this.value
         }
       });
     }
