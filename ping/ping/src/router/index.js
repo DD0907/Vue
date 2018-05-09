@@ -12,6 +12,8 @@ import searchPageDetails from '@/components/view/searchPageDetails'
 import shape from '@/components/view/shape'
 import timetest from '@/components/view/timetest'
 import user from '@/components/view/user'
+import order from '@/components/view/order'
+import fans from '@/components/view/fans'
 Vue.use(Router)
 export default new Router({
   mode: 'history',
@@ -75,6 +77,16 @@ export default new Router({
       path: '/ping/user',
       name: 'user',
       component: user
+    },
+    {
+      path: '/ping/order',
+      name: 'order',
+      component: order
+    },
+    {
+      path:'/ping/fans',
+      name:'fans',
+      component:fans
     },
     {
       path: '/ping/timetest',
