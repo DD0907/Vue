@@ -2,7 +2,7 @@
   <div>
       <section class="back_img">
           <div style="height:30px;text-align:right;">
-              <span style="margin:20px;color:red;font-size:0.5rem;" @click="jumpPhone">绑定手机号</span>
+              <span style="margin:20px;font-size:0.5rem;" @click="jumpPhone">绑定手机号</span>
           </div>
           <div style="text-align:center;">
             <div>
@@ -14,35 +14,42 @@
             <div>
                 拼团客ID:7879
             </div>
-            <div>
+            <div style="background:#ffffff;">
                 <div>我的白积分</div>
-                <div>6888</div>
+                <div style="color:red;font-size:18px;">6888</div>
             </div>
           </div>
       </section>
+      <section style="height:5px;">&nbsp;</section>
       <section>
           <div style="text-align:center;background:#ffffff">
                 <van-row>
                     <van-col span="6">
+                      <div @click="jumpIntegraldetail">
                         <i class="iconfont">&#xe600;</i>
-                        <br>明细
+                        <br>积分明细
+                      </div>
                     </van-col>
                     <van-col span="6">
                         <i class="iconfont">&#xe67b;</i>
                         <br>绑定云联账户
                     </van-col>
                     <van-col span="6">
+                       <div @click="jumpIntegralDraw">
                        <i class="iconfont">&#xe60d;</i>
                         <br>提取白积分
+                       </div>
                     </van-col>
                     <van-col span="6">
+                      <div @click="jumpIntegralmall">
                         <i class="iconfont">&#xe61b;</i>
                         <br>兑换商品话费
+                      </div>
                     </van-col>
                 </van-row>
             </div>
       </section>
-      <section style="height:10px;">&nbsp;</section>
+      <section style="height:5px;">&nbsp;</section>
       <section>
         <div style="text-align:right;">
             <van-cell-group>
@@ -78,21 +85,21 @@
             </van-row>
         </div>
       </section>
-        <section style="height:10px;">&nbsp;</section>
+        <section style="height:5px;">&nbsp;</section>
         <section>
             <div>
                 <van-cell-group>
                   <div class="icon_style"><i class="iconfont" style="color:pink;">&#xe637;</i></div><van-cell title="我的推荐人" @click="jumpRecommendation" is-link/>
                 </van-cell-group>
-                <section style="height:10px;">&nbsp;</section>
+                <section style="height:5px;">&nbsp;</section>
                  <van-cell-group>
                     <div class="icon_style"><i class="iconfont" style="color:pink;">&#xe60a;</i></div><van-cell title="我的邀请海报" is-link  @click="jumpPoster"/>
                 </van-cell-group>
-                <section style="height:10px;">&nbsp;</section>
+                <section style="height:5px;">&nbsp;</section>
                 <van-cell-group>
                     <div class="icon_style"><i class="iconfont" style="color:pink;">&#xe60b;</i></div><van-cell title="我的粉丝" @click="jumpFans" is-link/>
                 </van-cell-group>
-                <section style="height:10px;">&nbsp;</section>
+                <section style="height:5px;">&nbsp;</section>
                 <van-cell-group>
                    <div class="icon_style"><i class="iconfont" style="color:pink;">&#xe603;</i></div> <van-cell title="我的团队" @click="jumpTeam" is-link/>
                 </van-cell-group>
@@ -103,17 +110,25 @@
     <div>
     <van-row>
         <van-goods-action>
-            <van-goods-action-mini-btn style="width:25%;" icon="wap-home" @click="jumpIndex">
-                首页
+            <van-goods-action-mini-btn style="width:25%;"  @click="jumpIndex">
+               <div style="text-align:center;"><img src="../../assets/icon/icon_home.png" style="width:25%;">
+                <div>首页</div>
+                </div>
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn icon="share" style="width:25%;" @click="jumpShape">
-                晒单分享
+            <van-goods-action-mini-btn style="width:25%;" @click="jumpShare">
+                <div style="text-align:center;"><img src="../../assets/icon/icon_my_share.png" style="width:25%;">
+                <div>晒单分享</div>
+                </div>
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn icon="like" style="width:25%;"  @click="jumpPoster">
-                收藏
+            <van-goods-action-mini-btn style="width:25%;"  @click="JumpLove">
+                <div style="text-align:center;"><img src="../../assets/icon/icon_love.png" style="width:25%;">
+                <div>收藏</div>
+                </div>
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn icon="contact" style="width:25%;background-color: pink">
-                我的
+            <van-goods-action-mini-btn style="width:25%;">
+                <div style="text-align:center;"><img src="../../assets/icon/icon_my_current.png" style="width:25%;">
+                <div>我的</div>
+                </div>
             </van-goods-action-mini-btn>
         </van-goods-action>
     </van-row>
@@ -136,13 +151,37 @@ export default {
         name: "indexs"
       });
     },
-    jumpShape() {
+    jumpShare() {
       this.$router.push({
         path: "/ping",
-        name: "shape"
+        name: "share"
       });
     },
-     jumpRecommendation() {
+    JumpLove(){
+      this.$router.push({
+        path:'/ping',
+        name:'love'
+        })
+    },
+    jumpIntegraldetail() {
+      this.$router.push({
+        path: "/ping",
+        name: "Integraldetail"
+      });
+    },
+    jumpIntegralDraw(){
+      this.$router.push({
+        path:'/ping',
+        name:'IntegralDraw'
+      })
+    },
+    jumpIntegralmall(){
+      this.$router.push({
+        path:'/ping',
+        name:'Integralmall'
+      })
+    },
+    jumpRecommendation() {
       this.$router.push({
         path: "/ping",
         name: "recommendation"
@@ -228,7 +267,7 @@ export default {
   font-style: normal;
   color: cornflowerblue;
   -webkit-font-smoothing: antialiased;
-  -webkit-text-stroke-width: 0.4px;
+  -webkit-text-stroke-width: 0.8px;
   -moz-osx-font-smoothing: grayscale;
 }
 .icon_style {

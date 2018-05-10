@@ -1,10 +1,12 @@
 <template>
 <div>
-    <section>
+    <section class="searchBar" id="searchBar">
     <!-- 搜索框 -->
+    <div :class="searchBarFixed == true ? 'isFixed' :''">
         <van-search v-model="value" show-action placeholder="搜索拼多多商品得白积分奖励" style="padding:2px;">
             <div slot="action"><van-button type="primary" size="small" @click="getdatas">搜索</van-button></div>
         </van-search>
+    </div>
     </section>
     <section>
        <van-tabs v-model="active" type="line">
@@ -292,6 +294,7 @@ export default {
       highreward: {},
       highdiscount: {},
       highsales: {},
+      searchBarFixed:false,
       img: "",
       messages: "",
       rowlength: "",
@@ -305,9 +308,21 @@ export default {
   mounted() {
     this.getParams();
     //this.getdata();
+    window.addEventListener('scroll', this.handleScroll);
     this.getdatas();
   },
   methods: {
+    handleScroll(){
+      var scrollTop=window.pageXOffset||document.documentElement.scrollTop||document.body.scrollTop;
+      var offsetTop =window.document.querySelector('#searchBar').offsetTop;
+      if(scrollTop>offsetTop){
+        this.searchBarFixed = true;
+      }else{
+        this.searchBarFixed = false;
+      }
+      console.log(scrollTop);
+      console.log(offsetTop)
+    },
     getdata() {
       // 缓存指针
       let _this = this;
@@ -706,13 +721,23 @@ export default {
       });
     }
   },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
   watch: {
     // 监测路由变化,只要变化了就调用获取路由参数方法将数据存储本组件即可
     $route: "getParams"
   }
 };
 </script>
-<style>
+<style lang="less">
+.searchBar{
+  .isFixed{
+    position:fixed;
+    z-index:999;
+    width: 100%;
+  }
+}
 .body {
   background: #f1f1f1;
 }
@@ -754,7 +779,7 @@ export default {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   position: fixed;
-  bottom: 50px;
+  bottom: 30px;
   right: 20px;
   background-image: #faf609;
   text-align: center;

@@ -36,66 +36,66 @@
                 <div slot="title" @click="getdata">
                     精选
                 </div>
-          <van-pull-refresh v-model.lazy="isLoading" @refresh="onRefresh">
+        <van-pull-refresh v-model.lazy="isLoading" @refresh="onRefresh">
           <div>
              <!-- 无数据的情况 -->
             <div v-if='rowlength==0'>
              <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
             </div>
          <!-- list列表 -->
-        <div v-else>
-        <van-list> 
-          <van-row>
-              <div v-for="(r, key) in articles" :key="key">
-                <div v-if="(key+1)%2==1" @click="JumpPageDetails(r.goodsId)">
-                  <van-col span="12" class="img_border" >
-                    <!-- <input id="goodsId" style="" v-model='r.goodsId'/> -->
-                    <van-cell-group>
-                      <img :src="r.goodsThumbnailUrl" class="goods-imgurl">
-                    <div class="good_name" style="height:1.0rem;">{{r.goodsName}}</div>
-                  <div>
-                    <span>
-                    <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
-                    </span>
-                    <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                    <van-tag plain class="intergral_style"  v-else>约奖:{{r.integral}} 白积分</van-tag>
-                    </div>
-                    <div style="height:0.8rem">
-                    <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                    <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
-                    <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
-                    </div>
-                    </van-cell-group>
-                    </van-col>
-                  </div>
-                  <div v-else @click="JumpPageDetails(r.goodsId)">
+          <div v-else>
+          <van-list> 
+            <van-row>
+                <div v-for="(r, key) in articles" :key="key">
+                  <div v-if="(key+1)%2==1" @click="JumpPageDetails(r.goodsId)">
+                    <van-col span="12" class="img_border" >
+                      <!-- <input id="goodsId" style="" v-model='r.goodsId'/> -->
                       <van-cell-group>
-                        <van-col span="12" class="img_border" >
-                      <van-cell-group>
-                      <img :src="r.goodsThumbnailUrl" class="goods-imgurl">
+                        <img :src="r.goodsThumbnailUrl" class="goods-imgurl">
                       <div class="good_name" style="height:1.0rem;">{{r.goodsName}}</div>
-                      <div>
+                    <div>
                       <span>
                       <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                       </span>
-                      <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                      <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag>
+                      <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
+                      <van-tag plain class="intergral_style"  v-else>约奖:{{r.integral}} 白积分</van-tag>
                       </div>
                       <div style="height:0.8rem">
                       <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
                       <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
-                      <span class="salenumber_style">已拼{{r.salesNum}}件</span>
+                      <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                       </div>
-                      </van-cell-group>                                    
-                      </van-col>
                       </van-cell-group>
-                      </div>
-                      </div>  
-                      </van-row>
-                      <div style="text-align:center;font-size:16px;background:#ffffff;color:#999;">{{messages}}</div>
-                      </van-list>
-                  </div>
-              </div>
+                      </van-col>
+                    </div>
+                    <div v-else @click="JumpPageDetails(r.goodsId)">
+                        <van-cell-group>
+                          <van-col span="12" class="img_border" >
+                            <van-cell-group>
+                              <img :src="r.goodsThumbnailUrl" class="goods-imgurl">
+                            <div class="good_name" style="height:1.0rem;">{{r.goodsName}}</div>
+                            <div>
+                              <span>
+                              <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
+                              </span>
+                              <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
+                              <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag>
+                            </div>
+                            <div style="height:0.8rem">
+                              <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
+                              <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                              <span class="salenumber_style">已拼{{r.salesNum}}件</span>
+                            </div>
+                            </van-cell-group>                                    
+                        </van-col>
+                        </van-cell-group>
+                    </div>
+                  </div>  
+            </van-row>
+            <div style="text-align:center;font-size:16px;background:#ffffff;color:#999;">{{messages}}</div>
+            </van-list>
+            </div>
+            </div>
             </van-pull-refresh>
             </van-tab>
             <van-tab>
@@ -895,25 +895,17 @@
     <div>
     <van-row>
         <van-goods-action>
-            <van-goods-action-mini-btn style="width:25%;">
-                <div style="text-align:center;"><img src="../../assets/icon/icon_home_current.png" style="width:25%;">
-                <div style="color:">首页</div>
-                </div>
+            <van-goods-action-mini-btn icon="wap-home" style="width:25%;background-color: pink;">
+                首页
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn  style="width:25%;" @click="JumpShare">
-                <div style="text-align:center;"><img src="../../assets/icon/icon_my_share.png" style="width:25%;">
-                <div>晒单分享</div>
-                </div>
+            <van-goods-action-mini-btn icon="share" style="width:25%;" @click="JumpShape">
+                晒单分享
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn style="width:25%;" @click="JumpLove">
-                <div style="text-align:center;"><img src="../../assets/icon/icon_love.png" style="width:25%;">
-                <div>收藏</div>
-                </div>
+            <van-goods-action-mini-btn icon="like" style="width:25%;">
+                收藏
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn style="width:25%;" @click="JumpUser">
-                <div style="text-align:center;"><img src="../../assets/icon/icon_my.png" style="width:25%;">
-                <div>我的</div>
-                </div>
+            <van-goods-action-mini-btn icon="contact" style="width:25%;" @click="JumpUser">
+                我的
             </van-goods-action-mini-btn>
         </van-goods-action>
     </van-row>
@@ -2168,17 +2160,11 @@ export default {
         }, 500);
       }
     },
-    JumpShare(){
+    JumpShape(){
         this.$router.push({
         path: "/ping",
-        name: "share",
+        name: "shape",
       });
-    },
-    JumpLove(){
-      this.$router.push({
-        path:'/ping',
-        name:'love'
-        })
     },
     JumpUser(){
       this.$router.push({

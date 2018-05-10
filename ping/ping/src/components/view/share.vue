@@ -76,7 +76,7 @@
                                         <div style="text-align:right">
                                         <span v-if="istrue==false"><img src="../../assets/icon/icon_zan.png" @click="getZan" style="width:1.0rem;height:1.0rem;margin:auto;cursor:pointer;"/></span>
                                         <span v-else><img src="../../assets/icon/icon_zans.png" @click="getZan" style="width:1.0rem;height:width:1.0rem;margin:auto;cursor:pointer;"/></span>
-                                        <span>&nbsp;<img src="../../assets/icon/icon_shapes.png" @click="jumpShape" style="width:1.0rem;height:1.0rem;"/></span>
+                                        <span>&nbsp;<img src="../../assets/icon/icon_shapes.png" @click="jumpShare" style="width:1.0rem;height:1.0rem;"/></span>
                                         </div>
                                       </template>
                                     </van-cell>
@@ -153,7 +153,7 @@
                                         <div style="text-align:right">
                                         <span v-if="istrue==false"><img src="../../assets/icon/icon_zan.png" @click="getZan" style="width:1.0rem;height:1.0rem;margin:auto;cursor:pointer;"/></span>
                                         <span v-else><img src="../../assets/icon/icon_zans.png" @click="getZan" style="width:1.0rem;height:width:1.0rem;margin:auto;cursor:pointer;"/></span>
-                                        <span>&nbsp;<img src="../../assets/icon/icon_shapes.png" @click="jumpShape" style="width:1.0rem;height:1.0rem;"/></span>
+                                        <span>&nbsp;<img src="../../assets/icon/icon_shapes.png" @click="jumpShare" style="width:1.0rem;height:1.0rem;"/></span>
                                         </div>
                                       </template>
                                     </van-cell>
@@ -242,7 +242,7 @@
                                         <div style="text-align:right">
                                         <span v-if="istrue==false"><img src="../../assets/icon/icon_zan.png" @click="getZan" style="width:1.0rem;height:1.0rem;margin:auto;cursor:pointer;"/></span>
                                         <span v-else><img src="../../assets/icon/icon_zans.png" @click="getZan" style="width:1.0rem;height:width:1.0rem;margin:auto;cursor:pointer;"/></span>
-                                        <span>&nbsp;<img src="../../assets/icon/icon_shapes.png" @click="jumpShape" style="width:1.0rem;height:1.0rem;"/></span>
+                                        <span>&nbsp;<img src="../../assets/icon/icon_shapes.png" @click="jumpShare" style="width:1.0rem;height:1.0rem;"/></span>
                                         </div>
                                       </template>
                                     </van-cell>
@@ -275,17 +275,25 @@
     <div>
     <van-row>
         <van-goods-action>
-            <van-goods-action-mini-btn style="width:25%;" icon="wap-home" @click="jumpIndex">
-                首页
+            <van-goods-action-mini-btn style="width:25%;" @click="jumpIndex">
+                <div style="text-align:center;"><img src="../../assets/icon/icon_home.png" style="width:25%;">
+                <div>首页</div>
+                </div>
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn icon="share" style="width:25%;background-color: pink;">
-                晒单分享
+            <van-goods-action-mini-btn  style="width:25%;">
+                <div style="text-align:center;"><img src="../../assets/icon/icon_my_share_current.png" style="width:25%;">
+                <div>晒单分享</div>
+                </div>
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn icon="like" style="width:25%;">
-                收藏
+           <van-goods-action-mini-btn style="width:25%;"  @click="JumpLove">
+                <div style="text-align:center;"><img src="../../assets/icon/icon_love.png" style="width:25%;">
+                <div>收藏</div>
+                </div>
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn icon="contact" style="width:25%;" @click="JumpUser">
-                我的
+            <van-goods-action-mini-btn  style="width:25%;" @click="JumpUser">
+               <div style="text-align:center;"><img src="../../assets/icon/icon_my.png" style="width:25%;">
+                <div>我的</div>
+                </div>
             </van-goods-action-mini-btn>
         </van-goods-action>
     </van-row>
@@ -339,7 +347,7 @@ export default {
     jumpadd(){
       this.$toast("正在跳转增加")
     },
-    jumpShape(){
+    jumpShare(){
       this.$toast("分享即可赚取积分");
     }, 
     jumpIndex(){
@@ -347,6 +355,12 @@ export default {
           path: "/ping",
            name: "indexs",
         });
+    },
+    JumpLove(){
+      this.$router.push({
+        path:'/ping',
+        name:'love'
+        })
     },
     JumpUser(){
       this.$router.push({

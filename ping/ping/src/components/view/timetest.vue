@@ -2,6 +2,7 @@
   <div>
       <button @click="get">点击</button>
       {{time}}
+      <qriously :value="initQCode" :size="138"/> 
   </div>
 </template>
 <script>
@@ -69,7 +70,8 @@ function getDateTimeStamp(dateStr) {
 export default {
   data() {
     return {
-      time: ""
+      time: "",
+      initQCode: 'http://192.168.1.40:8080/ping/user'
     };
   },
   mounted() {

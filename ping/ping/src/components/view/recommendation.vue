@@ -1,8 +1,8 @@
 <template>
   <section>
-       <van-tabs>
+       <van-tabs >
             <van-tab>
-                <div slot="title">
+                <div slot="title" class="back_img">
                     <span>全部</span>
                 </div>
                 <section>
@@ -11,7 +11,7 @@
                         <van-row>
                             <van-col span="6">
                                 <div>
-                                    <img src="https://img.yzcdn.cn/public_files/2017/10/24/e5a5a02309a41f9f5def56684808d9ae.jpeg" style="width:2.0rem;" />
+                                    <img :src="image"/>
                                 </div>
                             </van-col>
                             <van-col span="12" style="padding:5px;">
@@ -30,12 +30,12 @@
                 </section>
             </van-tab>
             <van-tab>
-                <div slot="title">
+                <div slot="title" class="back_img">
                     <span>金粉</span>
                 </div>
             </van-tab>
             <van-tab>
-                <div slot="title">
+                <div slot="title" class="back_img">
                     <span>银粉</span>
                 </div>
             </van-tab>
@@ -43,9 +43,13 @@
   </section>
 </template>
 <script>
+import user from "../../assets/icon/icon_user.png";
+
 export default {
   data() {
-    return {};
+    return {
+        image:user
+    };
   },
   mounted() {
   }
@@ -53,6 +57,11 @@ export default {
 </script>
 
 <style>
-
+.back_img {
+  background-image: url("https://img.yzcdn.cn/public_files/2017/10/23/8690bb321356070e0b8c4404d087f8fd.png");
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
 </style>
 
