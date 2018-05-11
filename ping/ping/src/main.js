@@ -7,11 +7,9 @@ import Vant from 'vant'
 import 'vant/lib/vant-css/index.css'
 import 'lib-flexible'
 import axios from 'axios'
-import setTitle from './assets/util/setTitle.js'
 import VueQriously from 'vue-qriously'
 Vue.use(VueQriously)
 Vue.prototype.$axios =axios;
-window.setTitle=setTitle;
 Vue.use(Vant);
 Vue.config.productionTip = false
 // 路由跳转
