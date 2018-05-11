@@ -434,41 +434,6 @@ function getDateTimeStamp(dateStr) {
 }
 </script>
 <style >
-body {
-  background: #f1f1f1;
-}
-.imgs {
-  background: #ffffff;
-  height: 1.4rem;
-  text-align: center;
-}
-.imgs img {
-  border-radius: 50%;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  margin: 0px auto;
-}
-.image {
-  width: 2.5rem;
-  height: 2.5rem;
-  margin: auto;
-}
-.leftbox{
-  text-align: center;
-  float: left;
-  border:0.1rem solid #f1f1f1;
-}
-.bottom_nav5 {
-  border-radius: 50%;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  position: fixed;
-  bottom: 120px;
-  right: 20px;
-  background-image: #faf609;
-  text-align: center;
-}
+@import '../../common/css/share.css';
 </style>
 

@@ -251,6 +251,7 @@ export default {
 };
 </script>
 <style>
+@import '../../common/css/user.css';
 @font-face {
   font-family: "iconfont"; /* project id 658440 */
   src: url("//at.alicdn.com/t/font_658440_iz58y6el496hia4i.eot");
@@ -260,35 +261,6 @@ export default {
     url("//at.alicdn.com/t/font_658440_iz58y6el496hia4i.ttf") format("truetype"),
     url("//at.alicdn.com/t/font_658440_iz58y6el496hia4i.svg#iconfont")
       format("svg");
-}
-.iconfont {
-  font-family: "iconfont" !important;
-  font-size: 0.6rem;
-  font-style: normal;
-  color: cornflowerblue;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-stroke-width: 0.8px;
-  -moz-osx-font-smoothing: grayscale;
-}
-.icon_style {
-  float: left;
-  text-align: center;
-  font-size: 0.8rem;
-  margin: 2px;
-}
-body {
-  background: #f1f1f1;
-}
-.goods-imgurl {
-  width: 100%;
-  height: 100%;
-  margin: auto;
-}
-.back_img {
-  background-image: url("https://img.yzcdn.cn/public_files/2017/10/23/8690bb321356070e0b8c4404d087f8fd.png");
-  width: 100%;
-  height: 100%;
-  margin: auto;
 }
 </style>
 

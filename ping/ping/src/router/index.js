@@ -1,17 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import index from '@/components/view/index'
 import indexs from '@/components/view/indexs'
-import indexs2 from '@/components/view/indexs2'
 import search from '@/components/view/search'
 import test from "@/components/view/test"
 import { resolve } from 'path';
-import selecteddata from '@/components/view/selecteddata'
-import fruitdata from '@/components/view/fruitdata'
 import PageDetails from '@/components/view/PageDetails'
-import searchPageDetails from '@/components/view/searchPageDetails'
 import share from '@/components/view/share'
-import timetest from '@/components/view/timetest'
 import user from '@/components/view/user'
 import order from '@/components/view/order'
 import fans from '@/components/view/fans'
@@ -25,16 +19,6 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
-    {
-      path: '/ping/index',
-      name: 'index',
-      title: '首页',
-      component: resolve => require(['@/components/view/index'], resolve),
-      // component: index,
-      meta: {
-        keepAlive: true,
-      }
-    },
     {
       path: '/ping/search',
       name: 'search',
@@ -53,34 +37,14 @@ export default new Router({
       }
     },
     {
-      path: '/ping/indexs2',
-      name: 'indexs2',
-      component: indexs2
-    },
-    {
       path: '/ping/test',
       name: 'test',
       component: test
     },
     {
-      path: '/ping/selecteddata',
-      name: 'selecteddata',
-      component: selecteddata
-    },
-    {
-      path: '/ping/fruitdata',
-      name: 'fruitdata',
-      component: fruitdata
-    },
-    {
       path: '/ping/PageDetails',
       name: 'PageDetails',
       component: PageDetails
-    },
-    {
-      path: '/ping/searchPageDetails',
-      name: 'searchPageDetails',
-      component: searchPageDetails
     },
     {
       path: '/ping/share',
@@ -131,11 +95,6 @@ export default new Router({
       path:'/ping/Integralmall',
       name:'Integralmall',
       component:Integralmall
-    },
-    {
-      path: '/ping/timetest',
-      name: 'timetest',
-      component: timetest
     }
   ],
   scrollBehavior(to, from, savedPosition) {
