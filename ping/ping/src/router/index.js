@@ -15,6 +15,10 @@ import Integraldetail from '@/components/view/Integraldetail'
 import IntegralDraw from '@/components/view/IntegralDraw'
 import Integralmall from '@/components/view/Integralmall'
 import love from '@/components/view/love'
+import vip from '@/components/view/vip'
+import vipnotice from '@/components/view/vipnotice'
+import viprecord from '@/components/view/viprecord'
+import setting from '@/components/view/setting'
 Vue.use(Router)
 export default new Router({
   mode: 'history',
@@ -62,9 +66,29 @@ export default new Router({
       component:love
     },
     {
+      path:'/ping/vip',
+      name:'vip',
+      component:vip
+    },
+    {
+      path:'/ping/vipnotice',
+      name:'vipnotice',
+      component:vipnotice
+    },
+    {
+      path:'/ping/viprecord',
+      name:'viprecord',
+      component:viprecord
+    },
+    {
       path: '/ping/order',
       name: 'order',
       component: order
+    },
+    {
+      path:'/ping/setting',
+      name:'setting',
+      component:setting
     },
     {
       path: '/ping/fans',

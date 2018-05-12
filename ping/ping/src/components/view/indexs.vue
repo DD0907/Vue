@@ -1,6 +1,7 @@
 <template>
   <div>
     <!--轮播图片-->
+    <!-- <button @click="gettest()">test</button> -->
     <div>
       <van-swipe class="goods-swipe" :autoplay="3000">
         <van-swipe-item v-for="(image, index) in images" :key="index">
@@ -57,8 +58,9 @@
                     <span>
                     <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                     </span>
-                    <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                    <van-tag plain class="intergral_style"  v-else>约奖:{{r.integral}} 白积分</van-tag>
+                    <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
+                    <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                    <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                     </div>
                     <div style="height:0.8rem">
                     <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -78,8 +80,9 @@
                       <span>
                       <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                       </span>
-                      <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                      <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag>
+                      <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
+                      <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                      <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                       </div>
                       <div style="height:0.8rem">
                       <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -123,8 +126,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -144,8 +148,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -189,8 +194,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -210,8 +216,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -255,8 +262,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -276,8 +284,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -321,8 +330,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -342,8 +352,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -387,8 +398,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -408,8 +420,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -453,8 +466,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -474,8 +488,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -519,8 +534,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -540,8 +556,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -585,8 +602,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -606,8 +624,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -651,8 +670,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -672,8 +692,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -716,8 +737,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -737,8 +759,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -781,8 +804,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -802,8 +826,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -846,8 +871,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -867,8 +893,9 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag>
+                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
+                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
+                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -900,14 +927,19 @@
                 <div style="color:">首页</div>
                 </div>
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn  style="width:25%;" @click="JumpShare">
-                <div style="text-align:center;"><img src="../../assets/icon/icon_my_share.png" style="width:25%;">
-                <div>晒单分享</div>
-                </div>
-            </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpLove">
                 <div style="text-align:center;"><img src="../../assets/icon/icon_love.png" style="width:25%;">
                 <div>收藏</div>
+                </div>
+            </van-goods-action-mini-btn>
+            <van-goods-action-mini-btn style="width:25%;" @click="JumpVip">
+                <div style="text-align:center;"><img src="../../assets/icon/icon_vip.png" style="width:25%;">
+                <div>超级会员</div>
+                </div>
+            </van-goods-action-mini-btn>
+            <van-goods-action-mini-btn  style="width:25%;" @click="JumpShare">
+                <div style="text-align:center;"><img src="../../assets/icon/icon_my_share.png" style="width:25%;">
+                <div>晒单分享</div>
                 </div>
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpUser">
@@ -950,6 +982,7 @@ export default {
       hometextiles: {},
       phone: {},
       movement: {},
+      testdata: {},
       messages: "",
       rowlength: "",
       page: 1, //页数
@@ -962,7 +995,7 @@ export default {
   mounted() {
     // 加载时自动执行
     this.getdata();
-    console.log("我被调用了....")
+    console.log("我被调用了....");
   },
   methods: {
     getdata() {
@@ -974,9 +1007,7 @@ export default {
       this.$axios
         .get(
           _this.url +
-            "/v1/product/list?keyword=" +
-            _this.value +
-            "&categoryId=" +
+            "/v1/product/list?categoryId=" +
             _this.categoryId +
             "&page=" +
             _this.page++ +
@@ -1019,9 +1050,7 @@ export default {
             _this.$axios
               .get(
                 _this.url +
-                  "/v1/product/list?keyword=" +
-                  _this.value +
-                  "&categoryId=" +
+                  "/v1/product/list?categoryId=" +
                   _this.categoryId +
                   "&page=" +
                   _this.page++ +
@@ -1054,6 +1083,99 @@ export default {
         console.log(sw);
       });
     },
+    gettest() {
+      this.getCommondata(13, this.testdata);
+    },
+    getCommondata(categoryId, datarow) {
+      var categoryIds = categoryId;
+      var datarows = datarow;
+      // 缓存指针
+      let _this = this;
+      // 设置一个开关来避免重负请求数据
+      let sw = true;
+      let pages = 1;
+      // 此处使用node做了代理
+      this.$axios
+        .get(
+          _this.url +
+            "/v1/product/list?categoryId=" +
+            categoryIds +
+            "&page=" +
+            pages++ +
+            "&pageSize=" +
+            _this.pageSize +
+            "&sortType=0&withCoupon=false"
+        )
+        .then(function(response) {
+          // 将得到的数据放到vue中的data
+          _this.datarows = response.data.result;
+          console.log(_this.datarows);
+          var lengths = response.data.result.length;
+          _this.rowlength = lengths;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      // 注册scroll事件并监听
+      // window.addEventListener
+      window.addEventListener("scroll", function() {
+        var a =
+          window.innerHeight ||
+          document.documentElement.clientHeight ||
+          document.body.clientHeight;
+        var b =
+          document.documentElement.scrollTop == 0
+            ? document.body.scrollTop
+            : document.documentElement.scrollTop;
+        var c =
+          document.documentElement.scrollTop == 0
+            ? document.body.scrollHeight
+            : document.documentElement.scrollHeight;
+        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+          //alert("到达底部");
+          console.log(sw);
+          //如果开关打开则加载数据
+          if (sw == true) {
+            // 将开关关闭
+            sw = false;
+            _this.$axios
+              .get(
+                _this.url +
+                  "/v1/product/list?categoryId=" +
+                  categoryIds +
+                  "&page=" +
+                  _this.pages++ +
+                  "&pageSize=" +
+                  _this.pageSize +
+                  "&sortType=0&withCoupon=false"
+              )
+              .then(function(response) {
+                // 将新获取的数据push到vue中的data，就会反应到视图中了
+                var lengths = response.data.result.length;
+                for (var i = 0; i < lengths; i++) {
+                  _this.datarows.push(response.data.result[i]);
+                }
+                console.log(lengths);
+                // 数据更新完毕，将开关打开
+                sw = true;
+              })
+              .catch(function(error) {
+                console.log(error);
+              });
+          }
+          if (sw == false) {
+            const toast = Toast.loading({
+              forbidClick: true, // 禁用背景点击
+              duration: 1000,
+              message: "正在加载中"
+            });
+            console.log("正在加载中");
+          }
+        }
+        console.log(sw);
+      });
+    },
+
     getfruit() {
       // 缓存指针
       let _this = this;
@@ -1064,9 +1186,7 @@ export default {
       this.$axios
         .get(
           _this.url +
-            "/v1/product/list?keyword=" +
-            _this.value +
-            "&categoryId=" +
+            "/v1/product/list?categoryId=" +
             13 +
             "&page=" +
             pages++ +
@@ -1109,9 +1229,7 @@ export default {
             _this.$axios
               .get(
                 _this.url +
-                  "/v1/product/list?keyword=" +
-                  _this.value +
-                  "&categoryId=" +
+                  "/v1/product/list?categoryId=" +
                   13 +
                   "&page=" +
                   pages++ +
@@ -1154,9 +1272,7 @@ export default {
       this.$axios
         .get(
           _this.url +
-            "/v1/product/list?keyword=" +
-            _this.value +
-            "&categoryId=" +
+            "/v1/product/list?categoryId=" +
             1 +
             "&page=" +
             pages++ +
@@ -1199,9 +1315,7 @@ export default {
             _this.$axios
               .get(
                 _this.url +
-                  "/v1/product/list?keyword=" +
-                  _this.value +
-                  "&categoryId=" +
+                  "/v1/product/list?categoryId=" +
                   1 +
                   "&page=" +
                   pages++ +
@@ -1244,9 +1358,7 @@ export default {
       this.$axios
         .get(
           _this.url +
-            "/v1/product/list?keyword=" +
-            _this.value +
-            "&categoryId=" +
+            "/v1/product/list?categoryId=" +
             14 +
             "&page=" +
             pages++ +
@@ -1289,9 +1401,7 @@ export default {
             _this.$axios
               .get(
                 _this.url +
-                  "/v1/product/list?keyword=" +
-                  _this.value +
-                  "&categoryId=" +
+                  "/v1/product/list?categoryId=" +
                   14 +
                   "&page=" +
                   pages++ +
@@ -1334,9 +1444,7 @@ export default {
       this.$axios
         .get(
           _this.url +
-            "/v1/product/list?keyword=" +
-            _this.value +
-            "&categoryId=" +
+            "/v1/product/list?categoryId=" +
             4 +
             "&page=" +
             pages++ +
@@ -1379,9 +1487,7 @@ export default {
             _this.$axios
               .get(
                 _this.url +
-                  "/v1/product/list?keyword=" +
-                  _this.value +
-                  "&categoryId=" +
+                  "/v1/product/list?categoryId=" +
                   4 +
                   "&page=" +
                   pages++ +
@@ -1424,9 +1530,7 @@ export default {
       this.$axios
         .get(
           _this.url +
-            "/v1/product/list?keyword=" +
-            _this.value +
-            "&categoryId=" +
+            "/v1/product/list?categoryId=" +
             15 +
             "&page=" +
             pages++ +
@@ -1469,9 +1573,7 @@ export default {
             _this.$axios
               .get(
                 _this.url +
-                  "/v1/product/list?keyword=" +
-                  _this.value +
-                  "&categoryId=" +
+                  "/v1/product/list?categoryId=" +
                   15 +
                   "&page=" +
                   pages++ +
@@ -1514,9 +1616,7 @@ export default {
       this.$axios
         .get(
           _this.url +
-            "/v1/product/list?keyword=" +
-            _this.value +
-            "&categoryId=" +
+            "/v1/product/list?categoryId=" +
             16 +
             "&page=" +
             pages++ +
@@ -1559,9 +1659,7 @@ export default {
             _this.$axios
               .get(
                 _this.url +
-                  "/v1/product/list?keyword=" +
-                  _this.value +
-                  "&categoryId=" +
+                  "/v1/product/list?categoryId=" +
                   16 +
                   "&page=" +
                   pages++ +
@@ -1604,9 +1702,7 @@ export default {
       this.$axios
         .get(
           _this.url +
-            "/v1/product/list?keyword=" +
-            _this.value +
-            "&categoryId=" +
+            "/v1/product/list?categoryId=" +
             1281 +
             "&page=" +
             pages++ +
@@ -1649,9 +1745,7 @@ export default {
             _this.$axios
               .get(
                 _this.url +
-                  "/v1/product/list?keyword=" +
-                  _this.value +
-                  "&categoryId=" +
+                  "/v1/product/list?categoryId=" +
                   1281 +
                   "&page=" +
                   pages++ +
@@ -1694,9 +1788,7 @@ export default {
       this.$axios
         .get(
           _this.url +
-            "/v1/product/list?keyword=" +
-            _this.value +
-            "&categoryId=" +
+            "/v1/product/list?categoryId=" +
             18 +
             "&page=" +
             pages++ +
@@ -1739,9 +1831,7 @@ export default {
             _this.$axios
               .get(
                 _this.url +
-                  "/v1/product/list?keyword=" +
-                  _this.value +
-                  "&categoryId=" +
+                  "/v1/product/list?categoryId=" +
                   18 +
                   "&page=" +
                   pages++ +
@@ -1784,9 +1874,7 @@ export default {
       this.$axios
         .get(
           _this.url +
-            "/v1/product/list?keyword=" +
-            _this.value +
-            "&categoryId=" +
+            "/v1/product/list?categoryId=" +
             743 +
             "&page=" +
             pages++ +
@@ -1829,9 +1917,7 @@ export default {
             _this.$axios
               .get(
                 _this.url +
-                  "/v1/product/list?keyword=" +
-                  _this.value +
-                  "&categoryId=" +
+                  "/v1/product/list?categoryId=" +
                   743 +
                   "&page=" +
                   pages++ +
@@ -1874,9 +1960,7 @@ export default {
       this.$axios
         .get(
           _this.url +
-            "/v1/product/list?keyword=" +
-            _this.value +
-            "&categoryId=" +
+            "/v1/product/list?categoryId=" +
             818 +
             "&page=" +
             pages++ +
@@ -1919,9 +2003,7 @@ export default {
             _this.$axios
               .get(
                 _this.url +
-                  "/v1/product/list?keyword=" +
-                  _this.value +
-                  "&categoryId=" +
+                  "/v1/product/list?categoryId=" +
                   818 +
                   "&page=" +
                   pages++ +
@@ -1964,9 +2046,7 @@ export default {
       this.$axios
         .get(
           _this.url +
-            "/v1/product/list?keyword=" +
-            _this.value +
-            "&categoryId=" +
+            "/v1/product/list?categoryId=" +
             1543 +
             "&page=" +
             pages++ +
@@ -2009,9 +2089,7 @@ export default {
             _this.$axios
               .get(
                 _this.url +
-                  "/v1/product/list?keyword=" +
-                  _this.value +
-                  "&categoryId=" +
+                  "/v1/product/list?categoryId=" +
                   1543 +
                   "&page=" +
                   pages++ +
@@ -2054,9 +2132,7 @@ export default {
       this.$axios
         .get(
           _this.url +
-            "/v1/product/list?keyword=" +
-            _this.value +
-            "&categoryId=" +
+            "/v1/product/list?categoryId=" +
             1451 +
             "&page=" +
             pages++ +
@@ -2099,9 +2175,7 @@ export default {
             _this.$axios
               .get(
                 _this.url +
-                  "/v1/product/list?keyword=" +
-                  _this.value +
-                  "&categoryId=" +
+                  "/v1/product/list?categoryId=" +
                   1451 +
                   "&page=" +
                   pages++ +
@@ -2145,7 +2219,7 @@ export default {
         const toast = Toast.loading({
           duration: 0, // 持续展示 toast
           forbidClick: true, // 禁用背景点击
-          message: "正在加载中"
+          message: "正在加载中",
         });
         let second = 1;
         const timer = setInterval(() => {
@@ -2156,7 +2230,7 @@ export default {
             this.$router.push({
               path: "/ping",
               name: "search",
-              query:{keyword:this.value},
+              query: { keyword: this.value },
               params: {
                 data: this.value
               }
@@ -2168,22 +2242,28 @@ export default {
         }, 500);
       }
     },
-    JumpShare(){
-        this.$router.push({
+    JumpVip() {
+      this.$router.push({
         path: "/ping",
-        name: "share",
+        name: "vip"
       });
     },
-    JumpLove(){
-      this.$router.push({
-        path:'/ping',
-        name:'love'
-        })
-    },
-    JumpUser(){
+    JumpShare() {
       this.$router.push({
         path: "/ping",
-        name: "user",
+        name: "share"
+      });
+    },
+    JumpLove() {
+      this.$router.push({
+        path: "/ping",
+        name: "love"
+      });
+    },
+    JumpUser() {
+      this.$router.push({
+        path: "/ping",
+        name: "user"
       });
     },
     onRefresh() {
@@ -2194,8 +2274,8 @@ export default {
         this.count++;
       }, 500);
     },
-    destroyed () {
-      window.removeEventListener('scroll');
+    destroyed() {
+      window.removeEventListener("scroll");
     },
     // 跳转商品详情页
     JumpPageDetails(goodsId) {
@@ -2214,7 +2294,7 @@ export default {
 };
 </script>
 <style lang="less">
-@import '../../common/css/index.css';
+@import "../../common/css/index.css";
 .goods {
   &-swipe {
     img {

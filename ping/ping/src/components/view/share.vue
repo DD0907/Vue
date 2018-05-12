@@ -280,14 +280,19 @@
                 <div>首页</div>
                 </div>
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn  style="width:25%;">
-                <div style="text-align:center;"><img src="../../assets/icon/icon_my_share_current.png" style="width:25%;">
-                <div>晒单分享</div>
-                </div>
-            </van-goods-action-mini-btn>
            <van-goods-action-mini-btn style="width:25%;"  @click="JumpLove">
                 <div style="text-align:center;"><img src="../../assets/icon/icon_love.png" style="width:25%;">
                 <div>收藏</div>
+                </div>
+            </van-goods-action-mini-btn>
+             <van-goods-action-mini-btn style="width:25%;" @click="JumpVip">
+                <div style="text-align:center;"><img src="../../assets/icon/icon_vip.png" style="width:25%;">
+                <div>超级会员</div>
+                </div>
+            </van-goods-action-mini-btn>
+            <van-goods-action-mini-btn  style="width:25%;">
+                <div style="text-align:center;"><img src="../../assets/icon/icon_my_share_current.png" style="width:25%;">
+                <div>晒单分享</div>
                 </div>
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn  style="width:25%;" @click="JumpUser">
@@ -361,6 +366,12 @@ export default {
         path:'/ping',
         name:'love'
         })
+    },
+    JumpVip() {
+      this.$router.push({
+        path: "/ping",
+        name: "vip"
+      });
     },
     JumpUser(){
       this.$router.push({

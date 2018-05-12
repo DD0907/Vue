@@ -2,7 +2,7 @@
   <div>
       <section class="back_img">
           <div style="height:30px;text-align:right;">
-              <span style="margin:20px;font-size:0.5rem;" @click="jumpPhone">绑定手机号</span>
+              <!-- <span style="margin:20px;font-size:0.5rem;" @click="jumpPhone">绑定手机号</span> -->
           </div>
           <div style="text-align:center;">
             <div>
@@ -11,17 +11,16 @@
             <div>
                 小米 <van-tag plain type="success">普通会员</van-tag>
             </div>
-            <div>
+            <!-- <div>
                 拼团客ID:7879
-            </div>
-            <div style="background:#ffffff;">
-                <div>我的白积分</div>
-                <div style="color:red;font-size:18px;">6888</div>
+            </div> -->
+            <div style="background:#ffffff;" @click="JumpSetting"> 
+                <van-cell><div style="text-align:center;">账户设置</div></van-cell>
             </div>
           </div>
       </section>
       <section style="height:5px;">&nbsp;</section>
-      <section>
+      <!-- <section>
           <div style="text-align:center;background:#ffffff">
                 <van-row>
                     <van-col span="6">
@@ -84,24 +83,24 @@
                 </div>
             </van-row>
         </div>
-      </section>
+      </section> -->
         <section style="height:5px;">&nbsp;</section>
         <section>
             <div>
                 <van-cell-group>
-                  <div class="icon_style"><i class="iconfont" style="color:pink;">&#xe637;</i></div><van-cell title="我的推荐人" @click="jumpRecommendation" is-link/>
+                  <div class="icon_style"><i class="iconfont">&#xe637;</i></div><van-cell title="我的推荐人" @click="jumpRecommendation" is-link/>
                 </van-cell-group>
-                <section style="height:5px;">&nbsp;</section>
+                <!-- <section style="height:5px;">&nbsp;</section>
                  <van-cell-group>
-                    <div class="icon_style"><i class="iconfont" style="color:pink;">&#xe60a;</i></div><van-cell title="我的邀请海报" is-link  @click="jumpPoster"/>
+                    <div class="icon_style"><i class="iconfont" >&#xe60a;</i></div><van-cell title="我的邀请海报" is-link  @click="jumpPoster"/>
+                </van-cell-group> -->
+                <section style="height:5px;">&nbsp;</section>
+                <van-cell-group>
+                    <div class="icon_style"><i class="iconfont">&#xe60b;</i></div><van-cell title="我的粉丝" @click="jumpFans" is-link/>
                 </van-cell-group>
                 <section style="height:5px;">&nbsp;</section>
                 <van-cell-group>
-                    <div class="icon_style"><i class="iconfont" style="color:pink;">&#xe60b;</i></div><van-cell title="我的粉丝" @click="jumpFans" is-link/>
-                </van-cell-group>
-                <section style="height:5px;">&nbsp;</section>
-                <van-cell-group>
-                   <div class="icon_style"><i class="iconfont" style="color:pink;">&#xe603;</i></div> <van-cell title="我的团队" @click="jumpTeam" is-link/>
+                   <div class="icon_style"><i class="iconfont">&#xe603;</i></div> <van-cell title="邀请好友" @click="jumpTeam" is-link/>
                 </van-cell-group>
             </div>
         </section>
@@ -115,14 +114,19 @@
                 <div>首页</div>
                 </div>
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn style="width:25%;" @click="jumpShare">
-                <div style="text-align:center;"><img src="../../assets/icon/icon_my_share.png" style="width:25%;">
-                <div>晒单分享</div>
-                </div>
-            </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;"  @click="JumpLove">
                 <div style="text-align:center;"><img src="../../assets/icon/icon_love.png" style="width:25%;">
                 <div>收藏</div>
+                </div>
+            </van-goods-action-mini-btn>
+             <van-goods-action-mini-btn style="width:25%;" @click="JumpVip">
+                <div style="text-align:center;"><img src="../../assets/icon/icon_vip.png" style="width:25%;">
+                <div>超级会员</div>
+                </div>
+            </van-goods-action-mini-btn>
+            <van-goods-action-mini-btn style="width:25%;" @click="jumpShare">
+                <div style="text-align:center;"><img src="../../assets/icon/icon_my_share.png" style="width:25%;">
+                <div>晒单分享</div>
                 </div>
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;">
@@ -142,13 +146,19 @@ export default {
   },
   mounted() {},
   methods: {
-    jumpPhone() {
-      this.$toast("绑定手机号");
-    },
+    // jumpPhone() {
+    //   this.$toast("绑定手机号");
+    // },
     jumpIndex() {
       this.$router.push({
         path: "/ping",
         name: "indexs"
+      });
+    },
+    JumpVip() {
+      this.$router.push({
+        path: "/ping",
+        name: "vip"
       });
     },
     jumpShare() {
@@ -157,39 +167,45 @@ export default {
         name: "share"
       });
     },
-    JumpLove(){
-      this.$router.push({
-        path:'/ping',
-        name:'love'
-        })
-    },
-    jumpIntegraldetail() {
+    JumpLove() {
       this.$router.push({
         path: "/ping",
-        name: "Integraldetail"
+        name: "love"
       });
     },
-    jumpIntegralDraw(){
+    JumpSetting() {
       this.$router.push({
-        path:'/ping',
-        name:'IntegralDraw'
-      })
+        path: "/ping",
+        name: "setting"
+      });
     },
-    jumpIntegralmall(){
-      this.$router.push({
-        path:'/ping',
-        name:'Integralmall'
-      })
-    },
+    // jumpIntegraldetail() {
+    //   this.$router.push({
+    //     path: "/ping",
+    //     name: "Integraldetail"
+    //   });
+    // },
+    // jumpIntegralDraw(){
+    //   this.$router.push({
+    //     path:'/ping',
+    //     name:'IntegralDraw'
+    //   })
+    // },
+    // jumpIntegralmall(){
+    //   this.$router.push({
+    //     path:'/ping',
+    //     name:'Integralmall'
+    //   })
+    // },
     jumpRecommendation() {
       this.$router.push({
         path: "/ping",
         name: "recommendation"
       });
     },
-    jumpPoster() {
-      this.$toast("此功能暂未实现");
-    },
+    // jumpPoster() {
+    //   this.$toast("此功能暂未实现");
+    // },
     jumpFans() {
       this.$router.push({
         path: "/ping",
@@ -201,65 +217,65 @@ export default {
         path: "/ping",
         name: "team"
       });
-    },
-    jumpOrder() {
-      this.$router.push({
-        path: "/ping",
-        name: "order",
-        params: {
-          data: 0
-        }
-      });
-    },
-    JumpGoods() {
-      this.$router.push({
-        path: "/ping",
-        name: "order",
-        params: {
-          data: 1
-        }
-      });
-    },
-    JumpExamine() {
-      this.$router.push({
-        path: "/ping",
-        name: "order",
-        params: {
-          data: 2
-        }
-      });
-    },
-    JumpReward() {
-      this.$router.push({
-        path: "/ping",
-        name: "order",
-        params: {
-          data: 3
-        }
-      });
-    },
-    JumpNoReward() {
-      this.$router.push({
-        path: "/ping",
-        name: "order",
-        params: {
-          data: 4
-        }
-      });
     }
+    // jumpOrder() {
+    //   this.$router.push({
+    //     path: "/ping",
+    //     name: "order",
+    //     params: {
+    //       data: 0
+    //     }
+    //   });
+    // },
+    // JumpGoods() {
+    //   this.$router.push({
+    //     path: "/ping",
+    //     name: "order",
+    //     params: {
+    //       data: 1
+    //     }
+    //   });
+    // },
+    // JumpExamine() {
+    //   this.$router.push({
+    //     path: "/ping",
+    //     name: "order",
+    //     params: {
+    //       data: 2
+    //     }
+    //   });
+    // },
+    // JumpReward() {
+    //   this.$router.push({
+    //     path: "/ping",
+    //     name: "order",
+    //     params: {
+    //       data: 3
+    //     }
+    //   });
+    // },
+    // JumpNoReward() {
+    //   this.$router.push({
+    //     path: "/ping",
+    //     name: "order",
+    //     params: {
+    //       data: 4
+    //     }
+    //   });
+    // }
   }
 };
 </script>
 <style>
-@import '../../common/css/user.css';
+@import "../../common/css/user.css";
 @font-face {
   font-family: "iconfont"; /* project id 658440 */
-  src: url("//at.alicdn.com/t/font_658440_iz58y6el496hia4i.eot");
-  src: url("//at.alicdn.com/t/font_658440_iz58y6el496hia4i.eot?#iefix")
+  src: url("//at.alicdn.com/t/font_658440_zeb6ysg28i0vbo6r.eot");
+  src: url("//at.alicdn.com/t/font_658440_zeb6ysg28i0vbo6r.eot?#iefix")
       format("embedded-opentype"),
-    url("//at.alicdn.com/t/font_658440_iz58y6el496hia4i.woff") format("woff"),
-    url("//at.alicdn.com/t/font_658440_iz58y6el496hia4i.ttf") format("truetype"),
-    url("//at.alicdn.com/t/font_658440_iz58y6el496hia4i.svg#iconfont")
+    url("//at.alicdn.com/t/font_658440_zeb6ysg28i0vbo6r.woff") format("woff"),
+    url("//at.alicdn.com/t/font_658440_zeb6ysg28i0vbo6r.ttf") format("truetype"),
+    url("//at.alicdn.com/t/font_658440_zeb6ysg28i0vbo6r.svg#iconfont")
       format("svg");
 }
 </style>

@@ -17,7 +17,7 @@
           <div style="float:left;">
           <span style="font-size:0.5rem;color:red;">{{articles.normalCouponAfterPrice}}元</span> 
           <span v-if="articles.hasCoupon==true" style="text-decoration:line-through;color:#999">￥{{articles.minNormalPrice}}</span> 
-          <van-tag type="danger" v-if="articles.hasQuanfan==true">云联全返</van-tag>
+          <!-- <van-tag type="danger" v-if="articles.hasQuanfan==true">云联全返</van-tag> -->
           </div>
           <div style="text-align:right;color:#999;">
           已拼{{articles.salesNum}}件
@@ -45,14 +45,14 @@
          <van-cell-group>
           <van-cell is-link value="奖励说明" @click="jumpmessage" >
             <template slot="title">
-              <span style="color:#f05a03">约奖：{{articles.integral}}白积分</span>
+              <span style="color:#f05a03">约赚：{{articles.integral}}佣金币</span>
             </template>
           </van-cell>
-          <van-cell is-link value="升级拼团客多奖30%">
+          <!-- <van-cell is-link value="升级拼团客多奖30%">
             <template slot="title">
-              <span style="color:#f05a03">约奖：{{articles.vipIntegral}}白积分</span>
+              <span style="color:#f05a03">约赚：{{articles.vipIntegral}}佣金币</span>
             </template>
-          </van-cell>
+          </van-cell> -->
         </van-cell-group>
         </div>
       </div>
