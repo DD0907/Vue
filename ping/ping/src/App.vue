@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <!-- 单页设置标题 -->
+    <div v-wechat-title="$route.meta.title"></div>
     <keep-alive >
       <router-view v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>

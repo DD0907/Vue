@@ -64,7 +64,7 @@
                     </div>                   
                  </div>
             </van-tab>
-            <van-tab>
+            <!-- <van-tab>
                 <div slot="title">
                    已结算
                 </div>
@@ -94,7 +94,7 @@
                         </van-row>
                     </div>                   
                  </div>
-            </van-tab>
+            </van-tab> -->
             <van-tab>
                 <div slot="title">
                    已提现
@@ -106,7 +106,6 @@
                         </div>
                         <div>
                             <div style="font-size:0.2rem;padding:2px;">
-                                <van-tag plain type="danger">云联全返</van-tag>
                                 商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题
                             </div>
                             <div>

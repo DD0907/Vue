@@ -17,7 +17,6 @@
           <div style="float:left;">
           <span style="font-size:0.5rem;color:red;">{{articles.normalCouponAfterPrice}}元</span> 
           <span v-if="articles.hasCoupon==true" style="text-decoration:line-through;color:#999">￥{{articles.minNormalPrice}}</span> 
-          <!-- <van-tag type="danger" v-if="articles.hasQuanfan==true">云联全返</van-tag> -->
           </div>
           <div style="text-align:right;color:#999;">
           已拼{{articles.salesNum}}件
@@ -48,11 +47,6 @@
               <span style="color:#f05a03">约赚：{{articles.integral}}佣金币</span>
             </template>
           </van-cell>
-          <!-- <van-cell is-link value="升级拼团客多奖30%">
-            <template slot="title">
-              <span style="color:#f05a03">约赚：{{articles.vipIntegral}}佣金币</span>
-            </template>
-          </van-cell> -->
         </van-cell-group>
         </div>
       </div>
@@ -68,8 +62,18 @@
     <!-- 底部菜单 -->
     <div>
       <van-goods-action>
-        <van-goods-action-mini-btn icon="chat" text="帮助" @click="jumphelp"/>
-        <van-goods-action-mini-btn icon="cart" text="收藏夹" />
+        <van-goods-action-mini-btn @click="JumpAddCollect" v-if="hasCollect==false">
+          <div style="text-align:center;">
+            <img src="../../assets/icon/icon_love_current.png" style="width:25%;">
+            <div>加入收藏夹</div>
+          </div>
+        </van-goods-action-mini-btn>
+        <van-goods-action-mini-btn @click="JumpDelCollect(goodsId)" v-else>
+          <div style="text-align:center;">
+            <img src="../../assets/icon/icon_love.png" style="width:25%;">
+            <div>取消收藏</div>
+          </div>
+        </van-goods-action-mini-btn>
         <van-goods-action-big-btn text="分享赚积分"/>
         <van-goods-action-big-btn text="去参团" primary />
       </van-goods-action>
@@ -79,44 +83,47 @@
       <p style="font-size:16px;">1、该奖励为约奖，指通过优惠价购买一件商品的积分奖励，多买多得（根据实际付款金额），实际到帐积分有上下微小浮动属于正常现象。</p>
       <p style="font-size:16px;">2、必须通过拼团客系统进入直接拼团付款才有奖励，进入后先收藏，再通过多多收藏下单是无奖励的，如需收藏，请使用拼团客系统的收藏夹。</p> 
     </van-actionsheet>
-
-    <van-popup v-model="bottomhelpshow" position="right">
-      <div style="width:200px;height:400px;backgroud:#ffffff;">内容</div>
-    </van-popup>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
+      url: "http://ptk.baolinzhe.com/ptk/api/",
       goodsId: "",
       articles: {},
       images: {},
       helpshow: false,
-      bottomhelpshow:false
+      bottomhelpshow: false,
+      userId: 3,
+      hasCollect: false
     };
   },
   mounted() {
     this.getParams();
-    // 缓存指针
-    let _this = this;
-    // 此处使用node做了代理
-    this.$axios
-      .get("http://ptk.baolinzhe.com/ptk/api/v1/product/" + _this.goodsId)
-      .then(function(response) {
-        // console.log(JSON.parse(response.data).stories);
-        // 将得到的数据放到vue中的data
-        _this.articles = response.data.result;
-        _this.images = response.data.result.images;
-        console.log(_this.articles);
-        // console.log(_this.images);
-        // console.log(response.data.result.goodsName);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    this.getPageDetails();
+    this.CheckCollect();
   },
   methods: {
+    getPageDetails() {
+      // 缓存指针
+      let _this = this;
+      // 此处使用node做了代理
+      this.$axios
+        .get("http://ptk.baolinzhe.com/ptk/api/v1/product/" + _this.goodsId)
+        .then(function(response) {
+          // console.log(JSON.parse(response.data).stories);
+          // 将得到的数据放到vue中的data
+          _this.articles = response.data.result;
+          _this.images = response.data.result.images;
+          //console.log(_this.articles);
+          // console.log(_this.images);
+          // console.log(response.data.result.goodsName);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
     getParams() {
       // 取到路由带过来的参数
       var routerParams = this.$route.params.goodsId;
@@ -126,8 +133,76 @@ export default {
     jumpmessage() {
       this.helpshow = true;
     },
-    jumphelp(){
-      this.bottomhelpshow=true;
+    JumpAddCollect() {
+        // 缓存指针
+        let _this = this;
+        //console.log(_this.userId);
+       // console.log(_this.goodsId);
+        // 此处使用node做了代理
+        this.$axios
+          .post(
+            _this.url +
+              "/v1/product/collect?userId=" +
+              _this.userId +
+              "&productId=" +
+              _this.goodsId
+          )
+          .then(function(response) {
+            if (response.data.code == 1) {
+              //console.log(response.data.message);
+              _this.getPageDetails();
+              _this.CheckCollect();
+              _this.$toast(response.data.message);
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+    },
+    CheckCollect() {
+      // 缓存指针
+      let _this = this;
+      // console.log(_this.userId);
+      //console.log(_this.goodsId);
+      // 此处使用node做了代理
+      this.$axios
+        .get(
+          _this.url + "/v1/product/" + _this.goodsId + "?userId=" + _this.userId
+        )
+        .then(function(response) {
+          if (response.data.code == 1) {
+            //console.log(response.data.message);
+            //_this.$toast(response.data.result.hasCollect);
+            _this.hasCollect = response.data.result.hasCollect;
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    JumpDelCollect(productIds) {
+      // 缓存指针
+      let _this = this;
+      // 此处使用node做了代理
+      this.$axios
+        .post(
+          _this.url +
+            "/v1/product/uncollect?userId=" +
+            _this.userId +
+            "&productIds=" +
+            productIds
+        )
+        .then(function(response) {
+          if ((response.data.code = 1)) {
+            _this.$toast(response.data.message);
+            //console.log(response.data.message);
+            _this.getPageDetails();
+            _this.CheckCollect();
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
   },
   watch: {

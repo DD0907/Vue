@@ -3,74 +3,65 @@
       <section style="text-align:center;background-image:url('https://img.yzcdn.cn/public_files/2017/10/23/8690bb321356070e0b8c4404d087f8fd.png');">
         <van-row>
             <van-col span="8">
-                <h3>总人数</h3>
+                <h3>粉丝总人数</h3>
                 <van-circle v-model="currentRate1" :rate="totalNumbers" :speed="50" :text="totalNumber" :stroke-width="60"/>
             </van-col>
             <van-col span="8">
-                <h3>金粉</h3>
+                <h3>拼团客</h3>
                 <van-circle v-model="currentRate2" :rate="VIPNumbers" :speed="50" color="#13ce66" :text="VIPNumber" :stroke-width="60"/>
             </van-col>
             <van-col span="8">
-                <h3>银粉</h3>
+                <h3>超级会员</h3>
                 <van-circle v-model="currentRate3" :rate="NorNumbers" :speed="50" color="cyan" :text="NorNumber" :stroke-width="60"/>
             </van-col>
         </van-row>
         <div style="border-bottom:0.1px solid #f1f1f1;">&nbsp;</div>
       </section>
-      <section style="background:#ffffff;">
-          <div>
-              <van-cell-group>
-              <van-cell value="粉丝消费奖励"/>
-              </van-cell-group>
-            </div>
-          <div>
-            <van-row>
-                <van-col span="12">
-                    <van-cell>
-                        预估未估算奖励
-                        <div>100000</div>
-                    </van-cell>
-                </van-col>
-                <van-col span="12">
-                    <van-cell>
-                        累计已结算奖励
-                        <div>100000</div>
-                    </van-cell>
-                </van-col>
-            </van-row>
-          </div>
-      </section>
       <section>
           <van-tabs>
             <van-tab>
                 <div slot="title">
-                    <span>全部</span>
+                    <span>拼团客</span>
                 </div>
-                全部
+                <div>
+                    <div style="background:#ffffff">
+                        <van-row>
+                            <van-col span="6">
+                              <div class="imgs">
+                                <img src="../../assets/icon/icon_users.png"/>
+                              </div >  
+                            </van-col>
+                            <van-col span="6">
+                                <div style="margin-top:30%;">我是拼团客</div>
+                            </van-col>
+                            <van-col span="10">
+                                <div style="text-align:right;margin-top:20%;" @click="JumpPersonal">查看个人主页</div>
+                            </van-col>
+                        </van-row>
+                      </div>
+                </div>
             </van-tab>
             <van-tab>
                 <div slot="title">
-                    <span>待收货</span>
+                    <span>超级会员</span>
                 </div>
-                待确认收货
-            </van-tab>
-            <van-tab>
-                <div slot="title">
-                    <span>审核中</span>
+                <div>
+                    <div style="background:#ffffff">
+                        <van-row>
+                            <van-col span="6">
+                              <div class="imgs">
+                                <img src="../../assets/icon/icon_users.png"/>
+                              </div >  
+                            </van-col>
+                            <van-col span="6">
+                                <div style="margin-top:30%;">我是超级会员</div>
+                            </van-col>
+                            <van-col span="10">
+                                <div style="text-align:right;margin-top:20%;" @click="JumpPersonalVip">查看个人主页</div>
+                            </van-col>
+                        </van-row>
+                      </div>
                 </div>
-                审核中
-            </van-tab>
-            <van-tab>
-                <div slot="title">
-                    <span>已结算</span>
-                </div>
-                已结算
-            </van-tab>
-            <van-tab>
-                <div slot="title">
-                    <span>无奖励</span>
-                </div>
-                无奖励
             </van-tab>
        </van-tabs>
       </section>
@@ -99,13 +90,39 @@ export default {
       return this.currentRate3.toFixed(0) + "%";
     }
   },
-  mounted() {
+  mounted() {},
+  methods: {
+    JumpPersonal() {
+      this.$router.push({
+        path: "/ping",
+        name: "personal"
+      });
+    },
+    JumpPersonalVip(){
+        this.$router.push({
+        path: "/ping",
+        name: "personalVip"
+      });
+    }
   }
 };
 </script>
 <style>
-body{
-    background: #f1f1f1;
+body {
+  background: #f1f1f1;
+}
+.imgs {
+  background: #ffffff;
+  height: 2rem;
+  text-align: center;
+}
+.imgs img {
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  margin: 0px auto;
 }
 </style>
 

@@ -11,21 +11,21 @@
     </div>
     <!-- 搜索框 -->
     <div>
-        <van-search v-model.trim="value" show-action placeholder="搜索拼多多商品得白积分奖励" style="padding:2px;">
-            <div slot="action"><van-button type="primary" size="small" @click="JumpSearch">搜索</van-button></div>
+        <van-search v-model.trim="value" show-action placeholder="搜索拼多多优惠券商品" style="padding:2px;">
+            <div slot="action"><van-button size="small" @click="JumpSearch" style="background:red">搜索</van-button></div>
         </van-search>
     </div>
     <!-- 快捷按钮 -->
     <div style="margin:0px">
     <van-row>
         <van-col span="8">
-            <img src="//gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg" class="goods-imgurl">
+            <img src="http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg" class="goods-imgurl">
         </van-col>
         <van-col span="8">
-            <img src="//gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg" class="goods-imgurl">
+            <img src="http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg" class="goods-imgurl">
         </van-col>
         <van-col span="8">
-            <img src="//gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg" class="goods-imgurl">
+            <img src="http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg" class="goods-imgurl">
         </van-col>
     </van-row>
     </div>
@@ -916,35 +916,40 @@
             </van-tab>
         </van-tabs>
     </div>
-    <div @click="back_top" class="bottom_nav5"><img src="../../assets/icon/icon_tops.png" style="width:50px;" @click="back_top"/></div> 
+    <div @click="back_top" class="bottom_nav5"><van-icon name="e752" @click="back_top" style="font-size:36px;color:red;"/></div> 
     <div style="background:#ffffff;height:50px;"></div>
     <!-- 底部标签 -->
     <div>
     <van-row>
         <van-goods-action>
             <van-goods-action-mini-btn style="width:25%;">
-                <div style="text-align:center;"><img src="../../assets/icon/icon_home_current.png" style="width:25%;">
-                <div style="color:">首页</div>
+                <div style="text-align:center;color:red;">
+                  <van-icon name="e606"/>
+                  <div style="margin:1px;">首页</div>
                 </div>
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpLove">
-                <div style="text-align:center;"><img src="../../assets/icon/icon_love.png" style="width:25%;">
-                <div>收藏</div>
-                </div>
+              <div style="text-align:center;">
+                  <van-icon name="e619"/>
+                  <div style="margin:1px;">收藏</div>
+              </div>
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpVip">
-                <div style="text-align:center;"><img src="../../assets/icon/icon_vip.png" style="width:25%;">
-                <div>超级会员</div>
-                </div>
+              <div style="text-align:center;">
+                  <van-icon name="e607"/>
+                  <div style="margin:1px;">超级会员</div>
+              </div>
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn  style="width:25%;" @click="JumpShare">
-                <div style="text-align:center;"><img src="../../assets/icon/icon_my_share.png" style="width:25%;">
-                <div>晒单分享</div>
+            <!-- <van-goods-action-mini-btn  style="width:25%;" @click="JumpShare">
+                <div style="text-align:center;">
+                  <van-icon name="e619"/>
+                  <div style="margin:1px;">晒单分享</div>
                 </div>
-            </van-goods-action-mini-btn>
+            </van-goods-action-mini-btn> -->
             <van-goods-action-mini-btn style="width:25%;" @click="JumpUser">
-                <div style="text-align:center;"><img src="../../assets/icon/icon_my.png" style="width:25%;">
-                <div>我的</div>
+                <div style="text-align:center;">
+                  <van-icon name="e6a4"/>
+                  <div style="margin:1px;">我的</div>
                 </div>
             </van-goods-action-mini-btn>
         </van-goods-action>
@@ -954,15 +959,15 @@
 </template>
 <script>
 import { Toast } from "vant";
-
+import qs from "qs";
 export default {
   data() {
     return {
       images: [
-        "//gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
-        "//gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
-        "//gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
-        "//gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg"
+        "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
+        "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
+        "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
+        "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg"
       ],
       active: 0,
       isLoading: false,
@@ -995,7 +1000,9 @@ export default {
   mounted() {
     // 加载时自动执行
     this.getdata();
-    console.log("我被调用了....");
+    // console.log("我被调用了....");
+    // this.$cookie.set("test", "hello", 1);
+    // console.log(this.$cookie.get("test"));
   },
   methods: {
     getdata() {
@@ -1004,17 +1011,15 @@ export default {
       // 设置一个开关来避免重负请求数据
       let sw = true;
       // 此处使用node做了代理
+      var data = qs.stringify({
+        categoryId: _this.categoryId,
+        page: _this.page++,
+        pageSize: _this.pageSize,
+        sortType: 0,
+        withCoupon: false
+      });
       this.$axios
-        .get(
-          _this.url +
-            "/v1/product/list?categoryId=" +
-            _this.categoryId +
-            "&page=" +
-            _this.page++ +
-            "&pageSize=" +
-            _this.pageSize +
-            "&sortType=0&withCoupon=false"
-        )
+        .get(_this.url + "/v1/product/list", data)
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.articles = response.data.result;
@@ -1048,16 +1053,7 @@ export default {
             // 将开关关闭
             sw = false;
             _this.$axios
-              .get(
-                _this.url +
-                  "/v1/product/list?categoryId=" +
-                  _this.categoryId +
-                  "&page=" +
-                  _this.page++ +
-                  "&pageSize=" +
-                  _this.pageSize +
-                  "&sortType=0&withCoupon=false"
-              )
+              .get(_this.url + "/v1/product/list", data)
               .then(function(response) {
                 // 将新获取的数据push到vue中的data，就会反应到视图中了
                 var lengths = response.data.result.length;
@@ -2219,7 +2215,7 @@ export default {
         const toast = Toast.loading({
           duration: 0, // 持续展示 toast
           forbidClick: true, // 禁用背景点击
-          message: "正在加载中",
+          message: "正在加载中"
         });
         let second = 1;
         const timer = setInterval(() => {
@@ -2295,6 +2291,8 @@ export default {
 </script>
 <style lang="less">
 @import "../../common/css/index.css";
+@import "../../common/css/fontface.css";
+
 .goods {
   &-swipe {
     img {
