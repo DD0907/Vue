@@ -23,6 +23,10 @@ import putforwards from '@/components/view/putforwards'
 import personal from '@/components/view/personal'
 import personalVip from '@/components/view/personalVip'
 import commissions from '@/components/view/commissions'
+import bindingnumber from '@/components/view/bindingnumber'
+import bindingfriendscan from '@/components/view/bindingfriendscan'
+import bindingmoneyscan from '@/components/view/bindingmoneyscan'
+
 Vue.use(Router)
 export default new Router({
    mode: 'history',
@@ -133,6 +137,30 @@ export default new Router({
       component: fans,
       meta:{
         title:'我的粉丝',
+      }
+    },
+    {
+      path:'/ping/bindingnumber',
+      name:'bindingnumber',
+      component:bindingnumber,
+      meta:{
+        title:'绑定手机号微信号'
+      }
+    },
+    {
+      path:'/ping/bindingfriendscan',
+      name:'bindingfriendscan',
+      component:bindingfriendscan,
+      meta:{
+        title:'上传微信好友二维码'
+      }
+    },
+    {
+      path:'/ping/bindingmoneyscan',
+      name:'bindingmoneyscan',
+      component:bindingmoneyscan,
+      meta:{
+        title:'上传微信收钱二维码'
       }
     },
     {

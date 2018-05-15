@@ -5,13 +5,19 @@
               <!-- <span style="margin:20px;font-size:0.5rem;" @click="jumpPhone">绑定手机号</span> -->
           </div>
           <div style="text-align:center;">
-            <div >
-                <img src="../../assets/icon/icon_users.png" style="width:2.0rem;height:2.0rem;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
+            <div v-if="userdata.headPic==''">
+                <img src="../../assets/icon/icon_user.png" style="width:2.0rem;height:2.0rem;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
+            </div>
+             <div v-else>
+                <img :src="headurl" style="width:2.0rem;height:2.0rem;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
             </div>
             <div>
-                <span style="font-size:18px;">小米</span>
-                <div><van-tag plain style="color:#ffd600;font-size:12px;">拼团客</van-tag></div>
-                <div>我的粉丝：100</div>
+                <span style="font-size:18px;">{{userdata.nickname}}</span>
+                <div>
+                  <van-tag plain style="color:#ffd600;font-size:12px;" v-if="userdata.vip==false">拼团客</van-tag>
+                  <van-tag plain style="color:#ffd600;font-size:12px;" v-else>超级会员</van-tag>
+                </div>
+                <div>我的粉丝：{{userdata.invitationNum}}</div>
             </div>
           </div>
           <div style="height:10px;"></div>
@@ -83,13 +89,41 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      id: "",
+      url: "http://ptk.baolinzhe.com/ptk/api/",
+      userdata:{},
+      headurl:'',
+      refereId:''
+    };
   },
-  mounted() {},
+  mounted() {
+    this.id=sessionStorage.getItem('userId');
+    this.getUserData();
+  },
   methods: {
-    // jumpPhone() {
-    //   this.$toast("绑定手机号");
-    // },
+    getUserData() {
+      // 缓存指针
+      let _this = this;
+      if (_this.id == "") {
+        _this.$toast("当前您还未登录哦");
+      } else {
+        let page = 1;
+        // 此处使用node做了代理
+        this.$axios
+          .post(_this.url + "/v1/user/" + _this.id)
+          .then(function(response) {
+            // 将得到的数据放到vue中的data
+            _this.userdata = response.data.result;
+            _this.headurl=_this.userdata.headPic;
+            _this.refereId = _this.userdata.refereId;
+            console.log(_this.userdata);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+    },
     jumpIndex() {
       this.$router.push({
         path: "/ping",
@@ -102,12 +136,6 @@ export default {
         name: "vip"
       });
     },
-    // jumpShare() {
-    //   this.$router.push({
-    //     path: "/ping",
-    //     name: "share"
-    //   });
-    // },
     JumpLove() {
       this.$router.push({
         path: "/ping",
@@ -123,7 +151,10 @@ export default {
     jumpRecommendation() {
       this.$router.push({
         path: "/ping",
-        name: "recommendation"
+        name: "personal",
+        params:{
+          refereId:this.refereId
+        }
       });
     },
     jumpFans() {

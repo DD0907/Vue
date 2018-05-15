@@ -1,5 +1,8 @@
 <template>
   <section style="background:#ffffff;">
+    <section>
+     <div style="height:25px;font-size:14px;"><span style="margin:10px;">头像与昵称</span></div>
+    </section>
     <section style="background:#ffffff;">
       <van-card :title="nickname" :thumb="imageURL">
         <div slot="footer">
@@ -22,7 +25,7 @@
               <div @click="JumpBindingPhone">
               <van-col span="12">
                 <div style="text-align:right;">
-                 <van-cell>
+                 <van-cell is-link>
                   <template slot="title">
                     <span v-if="phone==''" @click="JumpBindingPhone">去绑定手机号</span>
                     <span v-else>{{phone}}</span>
@@ -49,7 +52,7 @@
               <div @click="JumpBindingWeixin">
               <van-col span="12">
                 <div style="text-align:right;">
-                 <van-cell>
+                 <van-cell is-link>
                   <template slot="title">
                     <span v-if="weixinnumber==''" @click="JumpBindingWeixin">暂无微信号</span>
                     <span v-else>{{weixinnumber}}</span>
@@ -73,13 +76,13 @@
                   </template>
                 </van-cell>
               </van-col>
-              <div @click="JumpBindingWeixin">
+              <div @click="JumpBindingWeixinfriendScan">
               <van-col span="12">
                 <div style="text-align:right;">
-                 <van-cell>
+                 <van-cell is-link>
                   <template slot="title">
-                    <span v-if="weixinnfriendScan==true">已添加</span>
-                    <span v-else>未添加></span>
+                    <span v-if="wxQrcode!=''">已添加</span>
+                    <span v-else>未添加</span>
                   </template>
                 </van-cell>
                 </div>
@@ -101,13 +104,13 @@
                   </template>
                 </van-cell>
               </van-col>
-              <div @click="JumpBindingWeixin">
+              <div @click="JumpBindingWeixinmoneyScan">
               <van-col span="12">
                 <div style="text-align:right;">
-                 <van-cell>
+                 <van-cell is-link>
                   <template slot="title">
-                    <span v-if="weixinnmoneyScan==true">已添加</span>
-                    <span v-else>未添加></span>
+                    <span v-if="wxMoneyQrcode!=''">已添加</span>
+                    <span v-else>未添加</span>
                   </template>
                 </van-cell>
                 </div>
@@ -120,26 +123,94 @@
   </section>
 </template>
 <script>
-import icon_nickname from "../../assets/icon/icon_nickname.png";
-import fansVue from './fans.vue';
+import icon_nickname from "../../assets/icon/icon_head.png";
+import fansVue from "./fans.vue";
 
 export default {
   data() {
     return {
+      id: "",
+      url: "http://ptk.baolinzhe.com/ptk/api/",
       phone: "",
-      nickname:'昵称',
-      weixinnumber: '',
-      weixinnfriendScan:false,
-      weixinnmoneyScan:false,
-      imageURL:icon_nickname
+      nickname: "",
+      weixinnumber: "",
+      imageURL: icon_nickname,
+      wxMoneyQrcode:'',
+      wxQrcode:''
     };
   },
+  mounted() {
+    this.id = sessionStorage.getItem("userId");
+    this.getUserData();
+  },
   methods: {
+    getUserData() {
+      let _this = this;
+      if (_this.id == "") {
+        _this.$toast("当前您还未登录哦");
+      } else {
+        // 此处使用node做了代理
+        this.$axios
+          .post(_this.url + "/v1/user/" + _this.id)
+          .then(function(response) {
+            // 将得到的数据放到vue中的data
+            _this.userdata = response.data.result;
+            _this.nickname = _this.userdata.nickname;
+            _this.phone=_this.userdata.phone;
+            _this.weixinnumber=_this.userdata.wxId;
+            _this.wxMoneyQrcode=_this.userdata.wxMoneyQrcode;
+            _this.wxQrcode=_this.userdata.wxQrcode;    
+            if (_this.userdata.headPic == "") {
+              _this.imageURL = _this.imageURL;
+            } else {
+              _this.imageURL = _this.userdata.headPic;
+            }
+            console.log(_this.userdata);
+            console.log(_this.wxMoneyQrcode);
+            console.log(_this.wxQrcode);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+    },
     JumpBindingPhone() {
-      this.$toast("绑定手机号")
+      this.$router.push({
+        path: "/ping",
+        name: "bindingnumber",
+        params: {
+          phone: this.phone,
+          weixinnumber: this.weixinnumber
+        }
+      });
     },
     JumpBindingWeixin() {
-      this.$toast("绑定微信号")
+      this.$router.push({
+        path: "/ping",
+        name: "bindingnumber",
+        params: {
+          phone: this.phone,
+          weixinnumber: this.weixinnumber
+        }
+      });
+    },
+    JumpBindingWeixinfriendScan() {
+      this.$router.push({
+        path: "/ping",
+        name: "bindingfriendscan",
+        params:{
+          wxQrcode:this.wxQrcode
+        }
+      });
+    },
+    JumpBindingWeixinmoneyScan() {
+      this.$router.push({
+        path: "/ping",
+        name: "bindingmoneyscan",
+        params:{
+          wxMoneyQrcode:this.wxMoneyQrcode
+        }
+      });
     }
   }
 };

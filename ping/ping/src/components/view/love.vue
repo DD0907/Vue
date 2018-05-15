@@ -79,22 +79,25 @@
   </section>
 </template>
 <script>
-import { Dialog } from 'vant';
+import { Dialog } from "vant";
 export default {
   data() {
     return {
       isLoading: false,
       url: "http://ptk.baolinzhe.com/ptk/api/",
-      userId: 3,
+      userId: '',
       articles: {},
       rowlength: ""
     };
   },
   created() {
+    //sessionStorage.getItem('userId');
+    this.userId=sessionStorage.getItem('userId')
+    console.log("userId"+sessionStorage.getItem('userId'))
     this.getCollectdata();
   },
   methods: {
-     // 跳转商品详情页
+    // 跳转商品详情页
     JumpPageDetails(goodsId) {
       var goodsId = goodsId;
       // alert(goodsId)
@@ -142,34 +145,37 @@ export default {
     getCollectdata() {
       // 缓存指针
       let _this = this;
-      // 设置一个开关来避免重负请求数据
-      let page = 1;
-      // 此处使用node做了代理
-      this.$axios
-        .post(
-          _this.url +
-            "/v1/product/my_collect?userId=" +
-            _this.userId +
-            "&page=" +
-            page++
-        )
-        .then(function(response) {
-          // 将得到的数据放到vue中的data
-          _this.articles = response.data.result;
-          console.log(_this.articles);
-          var lengths = response.data.result.length;
-          _this.rowlength = lengths;
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      if (_this.userId == "") {
+        _this.$toast("当前您还未登录哦");
+      } else {
+        let page = 1;
+        // 此处使用node做了代理
+        this.$axios
+          .post(
+            _this.url +
+              "/v1/product/my_collect?userId=" +
+              _this.userId +
+              "&page=" +
+              page++
+          )
+          .then(function(response) {
+            // 将得到的数据放到vue中的data
+            _this.articles = response.data.result;
+            console.log(_this.articles);
+            var lengths = response.data.result.length;
+            _this.rowlength = lengths;
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
     },
     JumpDelCollect(productIds) {
-        Dialog.confirm({
+      Dialog.confirm({
         title: "确认删除",
         message: "确定删除您的收藏吗?",
-        confirmButtonText:'确认删除',
-        cancelButtonText:'取消'
+        confirmButtonText: "确认删除",
+        cancelButtonText: "取消"
       })
         .then(() => {
           // 缓存指针
@@ -184,7 +190,7 @@ export default {
                 productIds
             )
             .then(function(response) {
-              if (response.data.code = 1) {
+              if ((response.data.code = 1)) {
                 console.log(response.data.message);
                 _this.getCollectdata();
               }

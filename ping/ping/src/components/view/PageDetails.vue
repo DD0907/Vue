@@ -74,8 +74,8 @@
             <div>取消收藏</div>
           </div>
         </van-goods-action-mini-btn>
-        <van-goods-action-big-btn text="分享赚积分"/>
-        <van-goods-action-big-btn text="去参团" primary />
+        <van-goods-action-big-btn text="领券参团"/>
+        <van-goods-action-big-btn text="领券拼团" primary />
       </van-goods-action>
     </div>
 
@@ -95,11 +95,12 @@ export default {
       images: {},
       helpshow: false,
       bottomhelpshow: false,
-      userId: 3,
+      userId: "",
       hasCollect: false
     };
   },
   mounted() {
+    this.userId = sessionStorage.getItem("userId");
     this.getParams();
     this.getPageDetails();
     this.CheckCollect();
@@ -134,10 +135,13 @@ export default {
       this.helpshow = true;
     },
     JumpAddCollect() {
-        // 缓存指针
-        let _this = this;
+      // 缓存指针
+      let _this = this;
+      if (_this.userId == "") {
+        this.$toast("暂未登录哦");
+      } else {
         //console.log(_this.userId);
-       // console.log(_this.goodsId);
+        // console.log(_this.goodsId);
         // 此处使用node做了代理
         this.$axios
           .post(
@@ -158,51 +162,64 @@ export default {
           .catch(function(error) {
             console.log(error);
           });
+      }
     },
     CheckCollect() {
       // 缓存指针
       let _this = this;
-      // console.log(_this.userId);
-      //console.log(_this.goodsId);
-      // 此处使用node做了代理
-      this.$axios
-        .get(
-          _this.url + "/v1/product/" + _this.goodsId + "?userId=" + _this.userId
-        )
-        .then(function(response) {
-          if (response.data.code == 1) {
-            //console.log(response.data.message);
-            //_this.$toast(response.data.result.hasCollect);
-            _this.hasCollect = response.data.result.hasCollect;
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      if (_this.userId == "") {
+        this.$toast("暂未登录哦");
+      } else {
+        // console.log(_this.userId);
+        //console.log(_this.goodsId);
+        // 此处使用node做了代理
+        this.$axios
+          .get(
+            _this.url +
+              "/v1/product/" +
+              _this.goodsId +
+              "?userId=" +
+              _this.userId
+          )
+          .then(function(response) {
+            if (response.data.code == 1) {
+              //console.log(response.data.message);
+              //_this.$toast(response.data.result.hasCollect);
+              _this.hasCollect = response.data.result.hasCollect;
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
     },
     JumpDelCollect(productIds) {
       // 缓存指针
       let _this = this;
-      // 此处使用node做了代理
-      this.$axios
-        .post(
-          _this.url +
-            "/v1/product/uncollect?userId=" +
-            _this.userId +
-            "&productIds=" +
-            productIds
-        )
-        .then(function(response) {
-          if ((response.data.code = 1)) {
-            _this.$toast(response.data.message);
-            //console.log(response.data.message);
-            _this.getPageDetails();
-            _this.CheckCollect();
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      if (_this.userId == "") {
+        this.$toast("暂未登录哦");
+      } else {
+        // 此处使用node做了代理
+        this.$axios
+          .post(
+            _this.url +
+              "/v1/product/uncollect?userId=" +
+              _this.userId +
+              "&productIds=" +
+              productIds
+          )
+          .then(function(response) {
+            if ((response.data.code = 1)) {
+              _this.$toast(response.data.message);
+              //console.log(response.data.message);
+              _this.getPageDetails();
+              _this.CheckCollect();
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
     }
   },
   watch: {

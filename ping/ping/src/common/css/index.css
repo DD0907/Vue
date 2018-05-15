@@ -44,3 +44,10 @@ body {
     -webkit-box-orient: vertical;
     font-size: 0.3rem;
   }
+
+  .banner_style {
+    border-radius: 5%;
+    -moz-border-radius: 5%;
+    -webkit-border-radius: 5%;
+    text-align: center;
+  }

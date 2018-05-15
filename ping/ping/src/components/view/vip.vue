@@ -3,16 +3,24 @@
     <section style="background:#ffffff;height:3.0rem;">
       <van-row>
         <van-col span="1">&nbsp;</van-col>
-        <van-col span="5" style="margin-top:0.5rem;"><img src="../../assets/icon/icon_user.png" style="width:80%;height:80%;margin:0 auto;"/></van-col>
+        <van-col span="5" style="margin-top:0.5rem;">
+          <div v-if="userdata.headPic==''">
+                <img src="../../assets/icon/icon_user.png" style="width:80%;height:80%;margin:0 auto;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
+            </div>
+             <div v-else>
+                <img :src="headurl" style="width:80%;height:80%;margin:0 auto;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
+            </div>
+        </van-col>
         <!-- <van-col span="1" style="margin-top:0.5rem;">
          &nbsp;
         </van-col> -->
         <van-col span="10" style="margin-top:1.0rem;" >
-          <span style="font-size:16px;">我是最喜欢吃大米的
+          <span style="font-size:16px;">{{userdata.nickname}}
             <div>
-            <van-tag plain style="color:#ffd600;font-size:12px;">
-              超级会员
-            </van-tag>
+              <van-tag plain style="color:#ffd600;font-size:12px;" v-if="userdata.vip==false">拼团客</van-tag>
+              <van-tag plain style="color:#ffd600;font-size:12px;" v-else>超级会员</van-tag>
+            </div>
+            <div>
             </div>
           </span>
         </van-col>
@@ -23,7 +31,9 @@
          <img src="../../assets/icon/icon_course.png" style="width:0.9rem;"/><br>新手教程
         </van-col>
         <van-col span="4" style="text-align:center;margin-top:0.8rem;">
+          <div @click="JumpConsultation">
           <img src="../../assets/icon/icon_referee.png" style="width:0.9rem;"/><br>咨询推荐人
+          </div>
         </van-col>
       </van-row>
     </section>
@@ -61,9 +71,10 @@
     <section style="height:5px;"></section>
     <section>
       <van-cell-group>
-        <van-cell icon="e623" title="专属指导老师" is-link style="color:red;" @click="JumpCommissions"/>
+        <van-cell icon="e623" title="专属指导老师" is-link style="color:red;" @click="JumpPersonal"/>
       </van-cell-group>
     </section>
+     <section style="height:50px;"></section>
     <!-- 底部标签 -->
     <div>
       <van-row>
@@ -108,12 +119,39 @@ import notice from "../../assets/icon/icon_notices.png";
 export default {
   data() {
     return {
-      // nitice: "您已成功邀请2人，还差3人可申请",
-      // notice_icon: notice,
-      // checked: false
+      id: "",
+      url: "http://ptk.baolinzhe.com/ptk/api/",
+      userdata: {},
+      headurl: "",
+      refereId:'' //推荐人
     };
   },
+  mounted() {
+    this.id = sessionStorage.getItem("userId");
+    this.getUserData();
+  },
   methods: {
+    getUserData() {
+      // 缓存指针
+      let _this = this;
+      if (_this.id == "") {
+        _this.$toast("当前您还未登录哦");
+      } else {
+        // 此处使用node做了代理
+        this.$axios
+          .post(_this.url + "/v1/user/" + _this.id)
+          .then(function(response) {
+            // 将得到的数据放到vue中的data
+            _this.userdata = response.data.result;
+            _this.headurl = _this.userdata.headPic;
+            _this.refereId = _this.userdata.refereId;
+            console.log(_this.userdata);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+    },
     JumpShare() {
       this.$router.push({
         path: "/ping",
@@ -183,16 +221,16 @@ export default {
         path: "/ping",
         name: "commissions",
         params: {
-          data: 1
+          data: 0
         }
       });
     },
     JumpPutforward() {
       this.$router.push({
         path: "/ping",
-        name: "viprecord",
+        name: "commissions",
         params: {
-          data: 2
+          data: 3
         }
       });
     },
@@ -201,6 +239,21 @@ export default {
       this.$router.push({
         path: "/ping",
         name: "fans"
+      });
+    },
+    JumpConsultation() {
+      this.$router.push({
+        path: "/ping",
+        name: "personal",
+        params:{
+          refereId:this.refereId
+        }
+      });
+    },
+    JumpPersonal(){
+       this.$router.push({
+        path: "/ping",
+        name: "personal"
       });
     }
   }

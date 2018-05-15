@@ -5,7 +5,7 @@
   "author": "DD0907 <669135386@qq.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 192.168.1.10",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 192.168.1.7",
     "start": "npm run dev",
     "build": "node build/build.js"
   },
@@ -17,8 +17,10 @@
     "vant": "^1.1.0",
     "vue": "^2.5.2",
     "vue-cookie": "^1.1.4",
+    "vue-easy-uploader": "^1.0.5",
     "vue-router": "^3.0.1",
-    "vue-wechat-title": "^2.0.4"
+    "vue-wechat-title": "^2.0.4",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

@@ -19,13 +19,13 @@
     <div style="margin:0px">
     <van-row>
         <van-col span="8">
-            <img src="http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg" class="goods-imgurl">
+            <img src="http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg" class="goods-imgurl banner_style">
         </van-col>
         <van-col span="8">
-            <img src="http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg" class="goods-imgurl">
+            <img src="http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg" class="goods-imgurl banner_style">
         </van-col>
         <van-col span="8">
-            <img src="http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg" class="goods-imgurl">
+            <img src="http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg" class="goods-imgurl banner_style">
         </van-col>
     </van-row>
     </div>
@@ -963,6 +963,7 @@ import qs from "qs";
 export default {
   data() {
     return {
+      id:3,
       images: [
         "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
         "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
@@ -1000,6 +1001,7 @@ export default {
   mounted() {
     // 加载时自动执行
     this.getdata();
+    sessionStorage.setItem('userId',this.id);
     // console.log("我被调用了....");
     // this.$cookie.set("test", "hello", 1);
     // console.log(this.$cookie.get("test"));
