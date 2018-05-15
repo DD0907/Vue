@@ -2,11 +2,12 @@
   <section>
     <section style="background:#ffffff;height:3.0rem;">
       <van-row>
-        <van-col span="5" style="margin-top:0.2rem;"><img src="../../assets/icon/icon_user.png" style="width:100%;height:100%;margin:0 auto;"/></van-col>
+        <van-col span="1">&nbsp;</van-col>
+        <van-col span="5" style="margin-top:0.5rem;"><img src="../../assets/icon/icon_user.png" style="width:80%;height:80%;margin:0 auto;"/></van-col>
         <!-- <van-col span="1" style="margin-top:0.5rem;">
          &nbsp;
         </van-col> -->
-        <van-col span="11" style="margin-top:0.8rem;" >
+        <van-col span="10" style="margin-top:1.0rem;" >
           <span style="font-size:16px;">我是最喜欢吃大米的
             <div>
             <van-tag plain style="color:#ffd600;font-size:12px;">
@@ -18,11 +19,11 @@
         <!-- <van-col span="4" style="margin-top:0.5rem;">
          &nbsp;
         </van-col> -->
-        <van-col span="4" style="text-align:center;margin-top:0.7rem;">
-         <img src="../../assets/icon/icon_course.png" style="width:1.0rem;"/><br>新手教程
+        <van-col span="4" style="text-align:center;margin-top:0.8rem;">
+         <img src="../../assets/icon/icon_course.png" style="width:0.9rem;"/><br>新手教程
         </van-col>
-        <van-col span="4" style="text-align:center;margin-top:0.7rem;">
-          <img src="../../assets/icon/icon_referee.png" style="width:1.0rem;"/><br>咨询推荐人
+        <van-col span="4" style="text-align:center;margin-top:0.8rem;">
+          <img src="../../assets/icon/icon_referee.png" style="width:0.9rem;"/><br>咨询推荐人
         </van-col>
       </van-row>
     </section>
@@ -55,6 +56,12 @@
      <section>
       <van-cell-group>
         <van-cell icon="e600" title="查询佣金币明细" is-link style="color:red;" @click="JumpCommissions"/>
+      </van-cell-group>
+    </section>
+    <section style="height:5px;"></section>
+    <section>
+      <van-cell-group>
+        <van-cell icon="e623" title="专属指导老师" is-link style="color:red;" @click="JumpCommissions"/>
       </van-cell-group>
     </section>
     <!-- 底部标签 -->

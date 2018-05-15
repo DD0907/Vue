@@ -6,18 +6,18 @@
                 <div slot="title">
                     <span>全部</span>
                 </div>
-                <section style="background:#ffffff;margin:5px;">
-                    <div>
+                <section style="background:#ffffff;">
+                    <div style="margin:12px;">
                         <van-row>
-                            <van-col span="12">申请提现</van-col>
-                            <van-col span="12"><div style="text-align:right;color:red;">-100</div></van-col>
+                            <van-col span="12" style="font-size:18px;">申请提现</van-col>
+                            <van-col span="12"><div style="text-align:right;color:red;font-size:18px;">-100</div></van-col>
                         </van-row>
                         <van-row>
-                            <van-col span="12">时间：2018-05-13 20：32：30</van-col>
-                            <van-col span="12"><div style="text-align:right;">佣金币：1000</div></van-col>
+                            <van-col span="12" style="color:#999;font-size:14px;margin-top:5px;">2018-05-13 20：32：30</van-col>
+                            <van-col span="12"><div style="text-align:right;margin-top:5px;">余额：1000</div></van-col>
                         </van-row>
                         <van-row>
-                            <div style="color:#999">审核失败，审核时间：2018-05-14 09：30：23,原因：XXXX</div>
+                            <div style="font-size:14px;margin-top:5px;">审核失败，审核时间：2018-05-14 09：30：23,原因：XXXX</div>
                         </van-row>
                     </div>
                     <section style="height:5px;background:#f1f1f1;"></section>
@@ -28,18 +28,18 @@
                 <div slot="title">
                     <span>佣金</span>
                 </div>
-                <section style="background:#ffffff;margin:5px;">
-                    <div>
+                <section style="background:#ffffff;">
+                    <div style="margin:12px;">
                         <van-row>
-                            <van-col span="12">订单佣金到账</van-col>
-                            <van-col span="12"><div style="text-align:right;color:green;">+100</div></van-col>
+                            <van-col span="12" style="font-size:18px;">订单佣金到账</van-col>
+                            <van-col span="12"><div style="text-align:right;color:green;font-size:18px;">+100</div></van-col>
                         </van-row>
                         <van-row>
-                            <van-col span="12">时间：2018-05-13 20：32：30</van-col>
-                            <van-col span="12"><div style="text-align:right;">佣金币：1000</div></van-col>
+                            <van-col span="12" style="color:#999;font-size:14px;margin-top:5px;">2018-05-13 20：32：30</van-col>
+                            <van-col span="12"><div style="text-align:right;"></div></van-col>
                         </van-row>
                         <van-row>
-                            <div style="color:#999">来自订单号XXX</div>
+                            <div style="font-size:14px;margin-top:5px;">来自订单号XXX</div>
                         </van-row>
                     </div>
                     <section style="height:5px;background:#f1f1f1;"></section>
@@ -49,18 +49,18 @@
                 <div slot="title">
                     <span>收益</span>
                 </div>
-                <section style="background:#ffffff;margin:5px;">
-                    <div>
+                <section style="background:#ffffff;">
+                    <div style="margin:12px;">
                         <van-row>
-                            <van-col span="12">直属超级会员收益到账</van-col>
-                            <van-col span="12"><div style="text-align:right;color:green;">+100</div></van-col>
+                            <van-col span="14" style="font-size:18px;">直属超级会员收益到账</van-col>
+                            <van-col span="10"><div style="text-align:right;color:green;font-size:18px;">+100</div></van-col>
                         </van-row>
                         <van-row>
-                            <van-col span="12">时间：2018-05-13 20：32：30</van-col>
-                            <van-col span="12"><div style="text-align:right;">佣金币：1000</div></van-col>
+                            <van-col span="12" style="color:#999;font-size:14px;margin-top:5px;">2018-05-13 20：32：30</van-col>
+                            <van-col span="12"><div style="text-align:right;"></div></van-col>
                         </van-row>
                         <van-row>
-                            <div style="color:#999">来自XXX的订单号XXX的收益</div>
+                            <div style="font-size:14px;margin-top:5px;">来自XXX的订单号XXX的收益</div>
                         </van-row>
                     </div>
                     <section style="height:5px;background:#f1f1f1;"></section>
@@ -70,18 +70,18 @@
                 <div slot="title">
                     <span>提现</span>
                 </div>
-                <section style="background:#ffffff;margin:5px;">
-                    <div>
+                <section style="background:#ffffff;">
+                    <div style="margin:12px;">
                         <van-row>
-                            <van-col span="12">申请提现</van-col>
-                            <van-col span="12"><div style="text-align:right;color:red;">-100</div></van-col>
+                            <van-col span="12" style="font-size:18px;">申请提现</van-col>
+                            <van-col span="12"><div style="text-align:right;color:red;font-size:18px;">-100</div></van-col>
                         </van-row>
                         <van-row>
-                            <van-col span="12">时间：2018-05-13 20：32：30</van-col>
-                            <van-col span="12"><div style="text-align:right;">佣金币：1000</div></van-col>
+                            <van-col span="12" style="color:#999;font-size:14px;margin-top:5px;">2018-05-13 20：32：30</van-col>
+                            <van-col span="12"><div style="text-align:right;"></div></van-col>
                         </van-row>
                         <van-row>
-                            <div style="color:#999">已打款,打款完成时间：2018-05-14 09：30：23</div>
+                            <div style="font-size:14px;margin-top:5px;">已打款,打款完成时间：2018-05-14 09：30：23</div>
                         </van-row>
                     </div>
                     <section style="height:5px;background:#f1f1f1;"></section>

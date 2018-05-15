@@ -156,7 +156,7 @@ export default new Router({
       name:'commissions',
       component:commissions,
       meta:{
-        title:'佣金明细'
+        title:'佣金币明细'
       }
     },
     {

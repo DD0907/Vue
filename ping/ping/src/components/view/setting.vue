@@ -1,25 +1,15 @@
 <template>
   <section style="background:#ffffff;">
     <section style="background:#ffffff;">
-      <van-row>
-        <div style="text-align:center;margin:5px;">
-          <van-col span="6"><img src="../../assets/icon/icon_users.png" style="width:2.0rem;height:2.0rem;margin:0 auto;"/></van-col>
+      <van-card :title="nickname" :thumb="imageURL">
+        <div slot="footer">
+          <van-button>同步微信头像昵称</van-button>
         </div>
-        <van-col span="6" style="margin-top:0.5rem;" >
-          <span>小米</span>
-        </van-col>
-        <van-col span="3" style="margin-top:0.5rem;">
-         &nbsp;
-        </van-col>
-        <van-col span="9">
-          <div style="text-align:right;margin:-0.5rem;">
-            <van-button>同步微信头像</van-button>
-          </div>
-        </van-col>
-      </van-row>
+      </van-card>
     </section>
-      <section style="height:2px;background:#f1f1f1;"></section>
+      <section style="height:5px;background:#f1f1f1;"></section>
     <section>
+      <van-cell-group>
         <div> 
             <van-row>
               <van-col span="12">
@@ -34,7 +24,8 @@
                 <div style="text-align:right;">
                  <van-cell>
                   <template slot="title">
-                    <span>去绑定手机号</span>
+                    <span v-if="phone==''" @click="JumpBindingPhone">去绑定手机号</span>
+                    <span v-else>{{phone}}</span>
                   </template>
                 </van-cell>
                 </div>
@@ -42,9 +33,10 @@
               </div>
             </van-row>
         </div>
+      </van-cell-group>
     </section>
-    <section style="height:10px;background:#f1f1f1;"></section>
     <section>
+      <van-cell-group>
             <div> 
             <van-row>
               <van-col span="12">
@@ -59,7 +51,8 @@
                 <div style="text-align:right;">
                  <van-cell>
                   <template slot="title">
-                    <span>暂无微信号</span>
+                    <span v-if="weixinnumber==''" @click="JumpBindingWeixin">暂无微信号</span>
+                    <span v-else>{{weixinnumber}}</span>
                   </template>
                 </van-cell>
                 </div>
@@ -67,59 +60,90 @@
               </div>
             </van-row>
         </div>
+      </van-cell-group>
     </section>
-    <section style="height:2px;background:#f1f1f1;"></section>
-    <section style="background:#ffffff">
-      <div style="text-align:center;">
-        <img src="../../assets/icon/icon_scan.png" style="width:5.0rem;height:5.0rem;border:1px solid #999"/>
-            <div><van-button type="primary" size="normal">上传微信二维码</van-button></div>
-      </div>
-      <section style="height:5px;"></section>
-      <div style="text-align:center;">
-        <img src="../../assets/icon/icon_scan_receivable.png" style="width:5.0rem;height:5.0rem;border:1px solid #999"/>
-            <div><van-button type="primary" size="normal">上传微信收款二维码</van-button></div>
-      </div>
+    <section>
+      <van-cell-group>
+            <div> 
+            <van-row>
+              <van-col span="12">
+                <van-cell>
+                  <template slot="title">
+                    <span>微信加好友二维码</span>
+                  </template>
+                </van-cell>
+              </van-col>
+              <div @click="JumpBindingWeixin">
+              <van-col span="12">
+                <div style="text-align:right;">
+                 <van-cell>
+                  <template slot="title">
+                    <span v-if="weixinnfriendScan==true">已添加</span>
+                    <span v-else>未添加></span>
+                  </template>
+                </van-cell>
+                </div>
+              </van-col>
+              </div>
+            </van-row>
+        </div>
+      </van-cell-group>
     </section>
-
-    <van-popup v-model="phoneshow">
-        <div style="width:300px;background:#999">
-          <van-field v-model="phone" label="手机号" placeholder="请输入手机号" type="tel" />
-          <van-button style="width:50%;" type="danger" size="normal">取消</van-button><van-button style="width:50%;" type="primary" size="normal">确认</van-button>
+    <section style="height:10px;background:#f1f1f1;"></section>
+    <section>
+      <van-cell-group>
+            <div> 
+            <van-row>
+              <van-col span="12">
+                <van-cell>
+                  <template slot="title">
+                    <span>微信收款二维码</span>
+                  </template>
+                </van-cell>
+              </van-col>
+              <div @click="JumpBindingWeixin">
+              <van-col span="12">
+                <div style="text-align:right;">
+                 <van-cell>
+                  <template slot="title">
+                    <span v-if="weixinnmoneyScan==true">已添加</span>
+                    <span v-else>未添加></span>
+                  </template>
+                </van-cell>
+                </div>
+              </van-col>
+              </div>
+            </van-row>
         </div>
-    </van-popup>
-
-    <van-popup v-model="weixinshow">
-        <div style="width:300px;background:#999">
-          <van-field v-model="weixinnumber" label="微信号" placeholder="请输入微信号" type="text" />
-          <van-button style="width:50%;" type="danger" size="normal">取消</van-button><van-button style="width:50%;" type="primary" size="normal">确认</van-button>
-        </div>
-    </van-popup>
+      </van-cell-group>
+    </section>
   </section>
 </template>
 <script>
+import icon_nickname from "../../assets/icon/icon_nickname.png";
+import fansVue from './fans.vue';
+
 export default {
   data() {
     return {
-      phoneshow: false,
-      weixinshow: false,
       phone: "",
-      weixinnumber: ""
+      nickname:'昵称',
+      weixinnumber: '',
+      weixinnfriendScan:false,
+      weixinnmoneyScan:false,
+      imageURL:icon_nickname
     };
   },
   methods: {
     JumpBindingPhone() {
-      this.phoneshow = true;
+      this.$toast("绑定手机号")
     },
     JumpBindingWeixin() {
-      this.weixinshow = true;
+      this.$toast("绑定微信号")
     }
   }
 };
 </script>
-
-<style>
-
-</style>
 
 <style>
 

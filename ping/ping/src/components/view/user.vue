@@ -5,14 +5,16 @@
               <!-- <span style="margin:20px;font-size:0.5rem;" @click="jumpPhone">绑定手机号</span> -->
           </div>
           <div style="text-align:center;">
-            <div>
+            <div >
                 <img src="../../assets/icon/icon_users.png" style="width:2.0rem;height:2.0rem;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
             </div>
             <div>
                 <span style="font-size:18px;">小米</span>
                 <div><van-tag plain style="color:#ffd600;font-size:12px;">拼团客</van-tag></div>
+                <div>我的粉丝：100</div>
             </div>
           </div>
+          <div style="height:10px;"></div>
       </section>
         <div @click="JumpSetting"> 
                 <van-cell-group>

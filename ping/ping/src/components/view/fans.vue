@@ -26,16 +26,19 @@
                 <div>
                     <div style="background:#ffffff">
                         <van-row>
-                            <van-col span="6">
+                            <van-col span="5">
                               <div class="imgs">
                                 <img src="../../assets/icon/icon_users.png"/>
                               </div >  
                             </van-col>
                             <van-col span="6">
-                                <div style="margin-top:30%;">我是拼团客</div>
+                                <div style="margin-top:35%;font-size:18px;">我是拼团客</div>
                             </van-col>
-                            <van-col span="10">
-                                <div style="text-align:right;margin-top:20%;" @click="JumpPersonal">查看个人主页</div>
+                            <van-col span="12">
+                                <div style="text-align:right;margin-top:14%;color:red;" @click="JumpPersonal">
+                                  <van-icon name="e630"/>
+                                  <div>查看</div>
+                                  </div>
                             </van-col>
                         </van-row>
                       </div>
@@ -48,16 +51,19 @@
                 <div>
                     <div style="background:#ffffff">
                         <van-row>
-                            <van-col span="6">
+                            <van-col span="5">
                               <div class="imgs">
                                 <img src="../../assets/icon/icon_users.png"/>
                               </div >  
                             </van-col>
-                            <van-col span="6">
-                                <div style="margin-top:30%;">我是超级会员</div>
+                            <van-col span="7">
+                                <div style="margin-top:30%;font-size:18px;">我是超级会员</div>
                             </van-col>
-                            <van-col span="10">
-                                <div style="text-align:right;margin-top:20%;" @click="JumpPersonalVip">查看个人主页</div>
+                            <van-col span="11">
+                                <div style="text-align:right;margin-top:14%;color:red;" @click="JumpPersonalVip">
+                                  <van-icon name="e630"/>
+                                  <div>查看</div>
+                                  </div>
                             </van-col>
                         </van-row>
                       </div>
@@ -108,20 +114,23 @@ export default {
 };
 </script>
 <style>
+@import "../../common/css/fontface.css";
+
 body {
   background: #f1f1f1;
 }
 .imgs {
   background: #ffffff;
-  height: 2rem;
+  height: 1.5rem;
+  margin: 15px;
   text-align: center;
 }
 .imgs img {
   border-radius: 50%;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
-  width: 2rem;
-  height: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   margin: 0px auto;
 }
 </style>

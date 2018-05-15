@@ -31,7 +31,7 @@
                 <div style="text-align:right;">
                  <van-cell>
                   <template slot="title">
-                    <span>去绑定手机号</span>
+                    <span>12344567</span>
                   </template>
                 </van-cell>
                 </div>

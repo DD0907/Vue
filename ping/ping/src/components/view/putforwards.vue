@@ -6,12 +6,13 @@
         <van-cell-group>
          <van-cell title="可提现佣金币余额" />
         </van-cell-group>
-        <van-cell-group>
+        <van-cell-group style="height:2.0rem;">
         <van-cell>
             <template slot="title">
-                <div style="text-align:center;font-size:18px;">
-                <van-tag type="danger">金币</van-tag>
-                <span class="van-cell-text">1000</span>
+                <div style="text-align:center;font-size:28px;margin-top:0.4rem;">
+                  <van-icon name="e610" style="color:#ffd600;"/>
+                  <span>{{money}}</span>
+                  <div style="color:#999;font-size:12px;">(100佣金币=1元)</div>
                 </div>
             </template>
         </van-cell>
@@ -21,24 +22,25 @@
       <section>
         <van-cell-group>
             <van-field center v-model="number" label="佣金币" placeholder="请输入佣金币数量" type="number">
-            <van-button slot="button" size="small" type="primary">全部提现</van-button>
+            <div slot="button" style="color:#d81e06;" @click="JumpTotalMoney">全部提现
+            </div>
             </van-field>
-            <van-cell title="到账金额" value="1000"/>
-            <van-cell title="手续费" value="10"/>
+            <van-cell title="微信收款二维码" value="未绑定" is-link/>
+            <div style="height:0.6rem;margin-top:5px;">
+              <span style="font-size:16px;margin:15px;">到账金额</span>
+              <span style="margin:0px 0px 0px 15px;color:red;">{{(number-(number%100))/100}}.00元</span>
+            </div>
+            <van-field center  label="手续费" placeholder="免收手续费"  disabled :error="true"/>
         </van-cell-group>
       </section>
       <section>
-            <van-cell :title="titledesc" style="font-size:10px;"/>
+            <!-- <van-cell :title="titledesc" style="font-size:10px;"/> -->
+            <div style="margin:15px;color:#999">{{titledesc}}</div>
             <div style="text-align:center;">
-                  <van-button type="primary" size="large">申请提现</van-button>
-                  <div style="font-size:14px;">查看提现记录</div>
-                  <div style="text-align:center;">
-                    <div>我的微信收款二维码</div>
-                    <div style="">
-                        <img src="../../assets/icon/icon_scan.png" style="width:3.0rem;height:3.0rem;border:1px solid #999"/>
-                    </div>
-                    <div>如何查看我的微信收款二维码?</div>
+                  <div style="margin:30px 15px 0px 15px;" @click="JumpCash">
+                    <van-button type="default" size="large" style="background:#d81e06;color:#ffffff">申请提现</van-button>
                   </div>
+                  <div style="font-size:16px;margin-top:15px;color:red;" @click="JumpDeti">查看提现记录<van-icon name="arrow" style="font-size:14px;" /></div>
             </div>
       </section>
   </section>
@@ -51,15 +53,36 @@ export default {
       nitice: "满1000佣金币即可提现，需整百提现",
       notice_icon: notice,
       number: "",
+      money: 990,
       titledesc:
-        "每天可成功兑换一次，提现审核时间为9：00-21：00,审核成功后客服会根据您提供的微信二维码，进行打款操作"
+        "每天可成功兑换一次，提现审核时间为9:00-21:00,审核成功后客服会根据您提供的微信二维码，进行打款操作"
     };
   },
-  methods: {  
+  methods: {
+    JumpTotalMoney() {
+      this.number = this.money - this.money % 100;
+      if (this.number <= 0) {
+        this.$toast("满1000佣金币才能提现");
+        this.number='';
+      }
+    },
+    JumpCash() {
+      this.$toast("您已申请成功");
+    },
+    JumpDeti(){
+      this.$router.push({
+        path: "/ping",
+        name: "commissions",
+        params: {
+          data: 3
+        }
+      });
+    }
   }
 };
 </script>
 <style>
+@import "../../common/css/fontface.css";
 body {
   background: #f1f1f1;
 }

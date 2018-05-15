@@ -12,7 +12,7 @@
     <!-- 搜索框 -->
     <div>
         <van-search v-model.trim="value" show-action placeholder="搜索拼多多优惠券商品" style="padding:2px;">
-            <div slot="action"><van-button size="small" @click="JumpSearch" style="background:red">搜索</van-button></div>
+            <div slot="action"><van-button size="small" @click="JumpSearch" style="background:red;"><span style="color:#ffffff;">搜索</span></van-button></div>
         </van-search>
     </div>
     <!-- 快捷按钮 -->
