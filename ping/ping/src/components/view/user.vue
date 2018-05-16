@@ -6,7 +6,7 @@
           </div>
           <div style="text-align:center;">
             <div v-if="userdata.headPic==''">
-                <img src="../../assets/icon/icon_user.png" style="width:2.0rem;height:2.0rem;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
+                <img src="../../assets/icon/icon_head.png" style="width:2.0rem;height:2.0rem;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
             </div>
              <div v-else>
                 <img :src="headurl" style="width:2.0rem;height:2.0rem;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
@@ -151,7 +151,7 @@ export default {
     jumpRecommendation() {
       this.$router.push({
         path: "/ping",
-        name: "personal",
+        name: "personalReferee",
         params:{
           refereId:this.refereId
         }

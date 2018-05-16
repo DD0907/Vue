@@ -60,7 +60,7 @@
                     </span>
                     <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
                     <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                    <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                    <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                     </div>
                     <div style="height:0.8rem">
                     <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -82,7 +82,7 @@
                       </span>
                       <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
                       <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                      <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                      <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                       </div>
                       <div style="height:0.8rem">
                       <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -128,7 +128,7 @@
                                                 </span>
                                                 <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -150,7 +150,7 @@
                                                 </span>
                                                <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -196,7 +196,7 @@
                                                 </span>
                                                 <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -218,7 +218,7 @@
                                                 </span>
                                                <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -264,7 +264,7 @@
                                                 </span>
                                                 <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -286,7 +286,7 @@
                                                 </span>
                                                <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -332,7 +332,7 @@
                                                 </span>
                                                 <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -354,7 +354,7 @@
                                                 </span>
                                                <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -400,7 +400,7 @@
                                                 </span>
                                                 <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -422,7 +422,7 @@
                                                 </span>
                                                <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -468,7 +468,7 @@
                                                 </span>
                                                 <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -490,7 +490,7 @@
                                                 </span>
                                                <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -536,7 +536,7 @@
                                                 </span>
                                                 <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -558,7 +558,7 @@
                                                 </span>
                                                <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -604,7 +604,7 @@
                                                 </span>
                                                 <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -626,7 +626,7 @@
                                                 </span>
                                                <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -672,7 +672,7 @@
                                                 </span>
                                                 <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -694,7 +694,7 @@
                                                 </span>
                                                <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -739,7 +739,7 @@
                                                 </span>
                                                 <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -761,7 +761,7 @@
                                                 </span>
                                                <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -806,7 +806,7 @@
                                                 </span>
                                                 <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -828,7 +828,7 @@
                                                 </span>
                                                <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -873,7 +873,7 @@
                                                 </span>
                                                 <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -895,7 +895,7 @@
                                                 </span>
                                                <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -963,7 +963,8 @@ import qs from "qs";
 export default {
   data() {
     return {
-      id:3,
+      id: 1,
+      isVip: false,
       images: [
         "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
         "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
@@ -971,7 +972,7 @@ export default {
         "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg"
       ],
       active: 0,
-      isLoading: false,
+      isLoading: true,
       img: "",
       url: "http://ptk.baolinzhe.com/ptk/api/",
       goodsId: "",
@@ -1001,7 +1002,8 @@ export default {
   mounted() {
     // 加载时自动执行
     this.getdata();
-    sessionStorage.setItem('userId',this.id);
+    sessionStorage.setItem("userId", this.id);
+    sessionStorage.setItem("isVip", this.isVip);
     // console.log("我被调用了....");
     // this.$cookie.set("test", "hello", 1);
     // console.log(this.$cookie.get("test"));
@@ -2230,7 +2232,8 @@ export default {
               name: "search",
               query: { keyword: this.value },
               params: {
-                data: this.value
+                data: this.value,
+                isVip: this.isVip
               }
             });
           } else {
@@ -2284,7 +2287,8 @@ export default {
         name: "PageDetails",
         params: {
           // data: this.value,
-          goodsId: goodsId
+          goodsId: goodsId,
+          isVip: this.isVip
         }
       });
     }

@@ -39,51 +39,68 @@ export default {
   },
   mounted(){
     this.id = sessionStorage.getItem("userId");
-    this.getParams();
+    this.getUserData();
   },
   methods: {
-    getParams() {
-      // 取到路由带过来的参数
-      var wxMoneyQrcodes = this.$route.params.wxMoneyQrcode;
-      // 将数据放在当前组件的数据内
-      this.wxMoneyQrcode = wxMoneyQrcodes;
-       if (wxMoneyQrcodes == "") {
-        this.wxMoneyQrcode = this.scan;
-      }
-    },
-    onRead(file) {
-      this.filepath = file;
-      console.log(file);
-      console.log("图片路径");
-      console.log(this.filepath);
-      this.SaveScan();
-    },
-    SaveScan() {
+    getUserData() {
       let _this = this;
-      var data = qs.stringify({
-        wxMoneyQrcode:_this.filepath
-      });
       if (_this.id == "") {
         _this.$toast("当前您还未登录哦");
       } else {
         // 此处使用node做了代理
+        var time = new Date();
+        var times = Date.parse(time);
+        console.log(times);
         this.$axios
-          .post(_this.url + "/v1/user/" + _this.id + "/update/qrcode?type=2&", data)
+          .post(_this.url + "/v1/user/" + _this.id)
           .then(function(response) {
             // 将得到的数据放到vue中的data
-            if (response.data.code == 1) {
-              _this.$toast("信息更改成功");
-              console.log(response.data.result);
-              _this.$router.push({
-                path: "/ping",
-                name: "setting"
-              });
+            _this.userdata = response.data.result;
+            _this.wxMoneyQrcode = _this.userdata.wxMoneyQrcode + "?time=" + times;
+            if (_this.wxMoneyQrcode == "" || _this.wxMoneyQrcode == null) {
+              _this.wxMoneyQrcode = _this.scan;
             }
+            console.log(_this.wxMoneyQrcode);
           })
           .catch(function(error) {
             console.log(error);
           });
       }
+    },
+    onRead(file) {
+      var windowURL = window.URL || window.webkitURL;
+      this.filepath = file.file; //创建图片文件的url
+      this.wxMoneyQrcode = windowURL.createObjectURL(this.filepath);
+      let formdatas = new FormData();
+      formdatas.append("qrcode", this.filepath);
+      console.log(this.filepath);
+      console.log(formdatas);
+      let config = {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      };
+      let _this = this;
+      this.$axios
+        .post(
+          _this.url + "/v1/user/" + _this.id + "/update/qrcode?type=2",
+          formdatas,
+          config
+        )
+        .then(function(response) {
+          //做处理
+          console.log(response.data.code);
+          if (response.data.code == 1) {
+            _this.$toast("二维码上传成功");
+            _this.$router.push({
+              path: "/ping",
+              name: "setting"
+            });
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
   }
 };

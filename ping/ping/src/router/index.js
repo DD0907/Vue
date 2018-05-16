@@ -22,6 +22,7 @@ import setting from '@/components/view/setting'
 import putforwards from '@/components/view/putforwards'
 import personal from '@/components/view/personal'
 import personalVip from '@/components/view/personalVip'
+import personalReferee from '@/components/view/personalReferee'
 import commissions from '@/components/view/commissions'
 import bindingnumber from '@/components/view/bindingnumber'
 import bindingfriendscan from '@/components/view/bindingfriendscan'
@@ -29,7 +30,7 @@ import bindingmoneyscan from '@/components/view/bindingmoneyscan'
 
 Vue.use(Router)
 export default new Router({
-   mode: 'history',
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -115,7 +116,7 @@ export default new Router({
       name:'viprecord',
       component:viprecord,
       meta:{
-        title:'超级会员订单记录',
+        title:'订单记录',
       }
     },
     {
@@ -168,7 +169,7 @@ export default new Router({
       name:'personal',
       component:personal,
       meta:{
-        title:'个人主页'        
+        title:'拼团客个人主页'        
       }
     },
     {
@@ -176,7 +177,15 @@ export default new Router({
       name:'personalVip',
       component:personalVip,
       meta:{
-        title:'个人主页'        
+        title:'超级会员个人主页'        
+      }
+    },
+    {
+      path:'/ping/personalReferee',
+      name:'personalReferee',
+      component:personalReferee,
+      meta:{
+        title:'我的推荐人'        
       }
     },
     {

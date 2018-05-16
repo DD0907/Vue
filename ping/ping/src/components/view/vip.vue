@@ -4,8 +4,8 @@
       <van-row>
         <van-col span="1">&nbsp;</van-col>
         <van-col span="5" style="margin-top:0.5rem;">
-          <div v-if="userdata.headPic==''">
-                <img src="../../assets/icon/icon_user.png" style="width:80%;height:80%;margin:0 auto;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
+          <div v-if="userdata.headPic==''||userdata.headPic==null">
+                <img src="../../assets/icon/icon_head.png" style="width:80%;height:80%;margin:0 auto;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
             </div>
              <div v-else>
                 <img :src="headurl" style="width:80%;height:80%;margin:0 auto;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
@@ -40,16 +40,16 @@
     <section style="height:1px;"></section>
     <section style="background:#ffffff;">
        <van-cell-group>
-          <van-cell title="可提现佣金币" value="10000" label="100佣金币=1元,点击去提现" @click="JumpPutforwards" />
+          <van-cell title="可提现佣金币" :value="whiteIntegral" label="100佣金币=1元,点击去提现" @click="JumpPutforwards" />
        </van-cell-group>
 
     </section>
     <section>
       <van-cell-group>
-          <van-cell title="待确认收货" value="10000" label="确认收货后进入审核" @click="JumpGoods"/>
-          <van-cell title="审核中" value="10000" label="15天若无售后发生则发放奖励" @click="JumpExamine"/>
+          <van-cell title="待确认收货" :value="extractSum" label="确认收货后进入审核" @click="JumpGoods"/>
+          <van-cell title="审核中" :value="waitAudit" label="15天若无售后发生则发放奖励" @click="JumpExamine"/>
           <!-- <van-cell title="已结算的佣金币" value="10000" label="已奖励的订单" @click="JumpSettlement" /> -->
-          <van-cell title="已提现" value="10000" label="点击可查看提现记录" @click="JumpPutforward"/>
+          <van-cell title="已提现" :value="audit" label="点击可查看提现记录" @click="JumpPutforward"/>
       </van-cell-group>
     </section>
     <section style="height:5px;"></section>
@@ -123,12 +123,17 @@ export default {
       url: "http://ptk.baolinzhe.com/ptk/api/",
       userdata: {},
       headurl: "",
-      refereId:'' //推荐人
+      refereId: "", //推荐人
+      whiteIntegral: "",
+      extractSum: 0,
+      audit: 0,
+      waitAudit: 0
     };
   },
   mounted() {
     this.id = sessionStorage.getItem("userId");
     this.getUserData();
+    this.getVipCountdata();
   },
   methods: {
     getUserData() {
@@ -145,7 +150,32 @@ export default {
             _this.userdata = response.data.result;
             _this.headurl = _this.userdata.headPic;
             _this.refereId = _this.userdata.refereId;
+            _this.whiteIntegral = _this.userdata.whiteIntegral;
             console.log(_this.userdata);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+    },
+    getVipCountdata() {
+      // 缓存指针
+      let _this = this;
+      if (_this.id == "") {
+        _this.$toast("当前您还未登录哦");
+      } else {
+        // 此处使用node做了代理
+        this.$axios
+          .get(_this.url + "/v1/integral/count?userId=" + _this.id)
+          .then(function(response) {
+            // 将得到的数据放到vue中的data
+            if(response.data.code==1){
+              _this.userdatas = response.data.result;
+              _this.extractSum = _this.userdatas.extractSum;
+              _this.audit = _this.userdatas.audit;
+              _this.waitAudit = _this.userdatas.waitAudit;
+              console.log(response.data.result);
+            }
           })
           .catch(function(error) {
             console.log(error);
@@ -186,7 +216,10 @@ export default {
     JumpPutforwards() {
       this.$router.push({
         path: "/ping",
-        name: "putforwards"
+        name: "putforwards",
+        // params:{
+
+        // }
       });
     },
     JumpGoods() {
@@ -244,14 +277,14 @@ export default {
     JumpConsultation() {
       this.$router.push({
         path: "/ping",
-        name: "personal",
-        params:{
-          refereId:this.refereId
+        name: "personalReferee",
+        params: {
+          refereId: this.refereId
         }
       });
     },
-    JumpPersonal(){
-       this.$router.push({
+    JumpPersonal() {
+      this.$router.push({
         path: "/ping",
         name: "personal"
       });

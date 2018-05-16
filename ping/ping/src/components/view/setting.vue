@@ -135,8 +135,8 @@ export default {
       nickname: "",
       weixinnumber: "",
       imageURL: icon_nickname,
-      wxMoneyQrcode:'',
-      wxQrcode:''
+      wxMoneyQrcode: "",
+      wxQrcode: ""
     };
   },
   mounted() {
@@ -156,10 +156,10 @@ export default {
             // 将得到的数据放到vue中的data
             _this.userdata = response.data.result;
             _this.nickname = _this.userdata.nickname;
-            _this.phone=_this.userdata.phone;
-            _this.weixinnumber=_this.userdata.wxId;
-            _this.wxMoneyQrcode=_this.userdata.wxMoneyQrcode;
-            _this.wxQrcode=_this.userdata.wxQrcode;    
+            _this.phone = _this.userdata.phone;
+            _this.weixinnumber = _this.userdata.wxId;
+            _this.wxMoneyQrcode = _this.userdata.wxMoneyQrcode;
+            _this.wxQrcode = _this.userdata.wxQrcode;
             if (_this.userdata.headPic == "") {
               _this.imageURL = _this.imageURL;
             } else {
@@ -198,18 +198,12 @@ export default {
       this.$router.push({
         path: "/ping",
         name: "bindingfriendscan",
-        params:{
-          wxQrcode:this.wxQrcode
-        }
       });
     },
     JumpBindingWeixinmoneyScan() {
       this.$router.push({
         path: "/ping",
         name: "bindingmoneyscan",
-        params:{
-          wxMoneyQrcode:this.wxMoneyQrcode
-        }
       });
     }
   }
@@ -217,5 +211,4 @@ export default {
 </script>
 
 <style>
-
 </style>

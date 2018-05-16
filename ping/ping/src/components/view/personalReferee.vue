@@ -2,6 +2,7 @@
   <section>
      <section class="back_img">
           <div style="height:30px;text-align:right;">
+              <!-- <span style="margin:20px;font-size:0.5rem;" @click="jumpPhone">绑定手机号</span> -->
           </div>
           <div style="text-align:center;">
             <div v-if="userdata.headPic==''||userdata.headPic==null">
@@ -129,11 +130,8 @@
               </div>
             </van-row>
         </van-cell-group>
-
-        <van-cell-group>
-          <van-cell title="已奖励订单" is-link value="查看" />
-        </van-cell-group>
       </section>
+
       <van-dialog v-model="sacnshow" :show-confirm-button="false" title="我的二维码" :close-on-click-overlay="true">
         <div style="text-align:center;"><img :src="wxQrcode" style="width:80%"/></div>
       </van-dialog>
@@ -144,16 +142,14 @@
   </section>
 </template>
 <script>
-import { Dialog } from 'vant';
-
 export default {
   data() {
     return {
       id: "",
       url: "http://ptk.baolinzhe.com/ptk/api/",
-      friendVipId:'',
       phone: "",
       weixinnumber: "",
+      refereId: "",
       headurl: "",
       userdata: {},
       wxMoneyQrcode: "",
@@ -168,18 +164,18 @@ export default {
     this.getUserData();
   },
   methods: {
-      JumpScanShowScan(){
+    getParams() {
+      // 取到路由带过来的参数
+      var refereId = this.$route.params.refereId;
+      // 将数据放在当前组件的数据内
+      this.refereId = refereId;
+      console.log(this.refereId);
+    }, 
+    JumpScanShowScan(){
       this.sacnshow=true;
     },
     JumpMoneyShowScan(){
       this.moneyshow=true;
-    },
-     getParams() {
-      // 取到路由带过来的参数
-      var routerParams = this.$route.params.friendVipId;
-      // 将数据放在当前组件的数据内
-      this.friendVipId = routerParams;
-      console.log(this.friendVipId)
     },
     getUserData() {
       // 缓存指针
@@ -189,7 +185,13 @@ export default {
       } else {
         // 此处使用node做了代理
         this.$axios
-          .post(_this.url + "/v1/user/" + _this.friendVipId)
+          .get(
+            _this.url +
+              "/v1/user/" +
+              _this.id +
+              "/superior?refereId=" +
+              _this.refereId
+          )
           .then(function(response) {
             // 将得到的数据放到vue中的data
             _this.userdata = response.data.result;

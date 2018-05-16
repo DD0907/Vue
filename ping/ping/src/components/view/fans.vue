@@ -8,11 +8,11 @@
             </van-col>
             <van-col span="8">
                 <h3>拼团客</h3>
-                <van-circle v-model="currentRate2" :rate="VIPNumbers" :speed="50" color="#13ce66" :text="VIPNumber" :stroke-width="60"/>
+                <van-circle v-model="currentRate2" :rate="NorNumbers" :speed="50" color="#13ce66" :text="NorNumber" :stroke-width="60"/>
             </van-col>
             <van-col span="8">
                 <h3>超级会员</h3>
-                <van-circle v-model="currentRate3" :rate="NorNumbers" :speed="50" color="cyan" :text="NorNumber" :stroke-width="60"/>
+                <van-circle v-model="currentRate3" :rate="VIPNumbers" :speed="50" color="cyan" :text="VIPNumber" :stroke-width="60"/>
             </van-col>
         </van-row>
         <div style="border-bottom:0.1px solid #f1f1f1;">&nbsp;</div>
@@ -24,23 +24,31 @@
                     <span>拼团客</span>
                 </div>
                 <div>
-                    <div style="background:#ffffff">
+                    <div v-if="NorNumbers == 0">
+                    <div style="text-align:center;">这里什么也没有</div>
+                    </div>
+                    <div v-else style="background:#ffffff" v-for="(r, key) in frienddata" :key="key">
+                      <div >
                         <van-row>
                             <van-col span="5">
-                              <div class="imgs">
-                                <img src="../../assets/icon/icon_users.png"/>
+                              <div class="imgs" v-if="r.headPic!=''">
+                                <img :src="r.headPic"/>
+                              </div > 
+                              <div class="imgs" v-else>
+                                <img :src="imageURL"/>
                               </div >  
                             </van-col>
                             <van-col span="6">
-                                <div style="margin-top:35%;font-size:18px;">我是拼团客</div>
+                                <div style="margin-top:35%;font-size:18px;">{{r.nickname}}</div>
                             </van-col>
                             <van-col span="12">
-                                <div style="text-align:right;margin-top:14%;color:red;" @click="JumpPersonal">
+                                <div style="text-align:right;margin-top:14%;color:red;" @click="JumpPersonal(r.id)">
                                   <van-icon name="e630"/>
                                   <div>查看</div>
                                   </div>
                             </van-col>
                         </van-row>
+                      </div>
                       </div>
                 </div>
             </van-tab>
@@ -49,23 +57,31 @@
                     <span>超级会员</span>
                 </div>
                 <div>
-                    <div style="background:#ffffff">
+                  <div v-if="VIPNumbers == 0">
+                      <div style="text-align:center;">这里什么也没有...</div>
+                    </div>
+                  <div v-else style="background:#ffffff" v-for="(r, key) in frienddataVip" :key="key">
+                      <div >
                         <van-row>
                             <van-col span="5">
-                              <div class="imgs">
-                                <img src="../../assets/icon/icon_users.png"/>
+                              <div class="imgs" v-if="r.headPic!=''">
+                                <img :src="r.headPic"/>
+                              </div > 
+                              <div class="imgs" v-else>
+                                <img :src="imageURL"/>
                               </div >  
                             </van-col>
-                            <van-col span="7">
-                                <div style="margin-top:30%;font-size:18px;">我是超级会员</div>
+                            <van-col span="6">
+                                <div style="margin-top:35%;font-size:18px;">{{r.nickname}}</div>
                             </van-col>
-                            <van-col span="11">
-                                <div style="text-align:right;margin-top:14%;color:red;" @click="JumpPersonalVip">
+                            <van-col span="12">
+                                <div style="text-align:right;margin-top:14%;color:red;" @click="JumpPersonalVip(r.id)">
                                   <van-icon name="e630"/>
                                   <div>查看</div>
                                   </div>
                             </van-col>
                         </van-row>
+                      </div>
                       </div>
                 </div>
             </van-tab>
@@ -74,40 +90,101 @@
   </div>
 </template>
 <script>
+import icon_nickname from "../../assets/icon/icon_head.png";
+
 export default {
   data() {
     return {
+      userId: "",
+      url: "http://ptk.baolinzhe.com/ptk/api/",
+      imageURL: icon_nickname,
+      frienddata: [],
+      frienddataVip: [],
       currentRate1: 0,
       currentRate2: 0,
       currentRate3: 0,
-      totalNumbers: 100,
-      VIPNumbers: 54,
-      NorNumbers: 46
+      totalNumbers: 0,
+      VIPNumbers: 0,
+      NorNumbers: 0,
+      VipLength: 0
     };
   },
   computed: {
     totalNumber() {
       return this.currentRate1.toFixed(0) + "%";
     },
-    VIPNumber() {
+    NorNumber() {
       return this.currentRate2.toFixed(0) + "%";
     },
-    NorNumber() {
+    VIPNumber() {
       return this.currentRate3.toFixed(0) + "%";
     }
   },
-  mounted() {},
+  mounted() {
+    this.userId = sessionStorage.getItem("userId");
+    console.log(this.userId);
+    this.getfrienddata();
+  },
   methods: {
-    JumpPersonal() {
+    getfrienddata() {
+      // 缓存指针
+      let _this = this;
+      let page = 1;
+      let pageSize = 20;
+      if (_this.id == "") {
+        _this.$toast("当前您还未登录哦");
+      } else {
+        // 此处使用node做了代理
+        this.$axios
+          .get(
+            _this.url +
+              "/v1/user/" +
+              _this.userId +
+              "/myfriends?page=" +
+              page++ +
+              "&pageSize=" +
+              pageSize
+          )
+          .then(function(response) {
+            // 将得到的数据放到vue中的data
+            var lengths = response.data.result.length;
+            _this.totalNumbers = lengths / lengths * 100;
+            for (var i = 0; i < lengths; i++) {
+              if (response.data.result[i].vip == false) {
+                _this.frienddata.push(response.data.result[i]);
+              } else {
+                _this.frienddataVip.push(response.data.result[i]);
+              }
+            }
+            //console.log(_this.frienddata.length);
+            _this.NorNumbers =
+              _this.frienddata.length / _this.totalNumbers * 100;
+            _this.VIPNumbers =
+              _this.frienddataVip.length / _this.totalNumbers * 100;
+            _this.frienddataVip.length = _this.VipLength;
+            //console.log(_this.frienddataVip.length);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+    },
+    JumpPersonal(id) {
       this.$router.push({
         path: "/ping",
-        name: "personal"
+        name: "personal",
+        params: {
+          friendId: id
+        }
       });
     },
-    JumpPersonalVip(){
-        this.$router.push({
+    JumpPersonalVip(Vipid) {
+      this.$router.push({
         path: "/ping",
-        name: "personalVip"
+        name: "personalVip",
+        params: {
+          friendVipId: Vipid
+        }
       });
     }
   }

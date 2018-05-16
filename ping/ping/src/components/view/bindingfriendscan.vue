@@ -9,13 +9,14 @@
             <img :src="wxQrcode" alt="暂无上传" style="width:8.0rem;height:8.0rem;" />
         </div>
         <div style="margin:20px;">
-          <form ref="form" enctype="multipart/form-data">
+          <!-- <form ref="form" enctype="multipart/form-data"> -->
           <van-uploader accept="image/jpeg,image/png,image.jpg" multiple :after-read="onRead">
           <van-button size="large" type="default" style="width:8.0rem;background:red;color:#ffffff" >上传微信二维码</van-button>
           </van-uploader>
-          </form>
+          <!-- </form> -->
         </div>
         <section style="height:10px;"></section>
+         <img :src="src"/>
         <div>如何正确操作?</div>
       </div>
     </section>
@@ -36,45 +37,74 @@ export default {
       notice_icon: notice,
       wxQrcode: "",
       scan: scan,
-      filecontent:''
+      filecontent: "",
+      src: "",
+      filepath: ""
     };
   },
   mounted() {
     this.id = sessionStorage.getItem("userId");
-    this.getParams();
+    this.getUserData();
   },
   methods: {
-    getParams() {
-      // 取到路由带过来的参数
-      var wxQrcodes = this.$route.params.wxQrcode;
-      // 将数据放在当前组件的数据内
-      this.wxQrcode = wxQrcodes;
-      console.log(this.scan);
-      if (wxQrcodes == "") {
-        this.wxQrcode = this.scan;
+    getUserData() {
+      let _this = this;
+      if (_this.id == "") {
+        _this.$toast("当前您还未登录哦");
+      } else {
+        // 此处使用node做了代理
+        var time = new Date();
+        var times = Date.parse(time);
+        console.log(times);
+        this.$axios
+          .post(_this.url + "/v1/user/" + _this.id)
+          .then(function(response) {
+            // 将得到的数据放到vue中的data
+            _this.userdata = response.data.result;
+            _this.wxQrcode = _this.userdata.wxQrcode + "?time=" + times;
+            if (_this.wxQrcode == "" || _this.wxQrcode == null) {
+              _this.wxQrcode = _this.scan;
+            }
+            console.log(_this.wxQrcode);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
       }
     },
     onRead(file) {
-      //var formData = new FormData(this.$refs.file);
-      //console.log(formData)
-      // console.log('file',file.content)
-       this.filecontent=file.content;
-       let  _this=this;
-       let formdata = new FormData();
-       formdata.append("file", _this.filecontent);
-       console.log(_this.filecontent)
-       let config = {
-       headers: {
-           "Content-Type": "multipart/form-data"
-         }
-       };
-       _this.$axios
-         .post(_this.url+"/v1/user/"+ _this.id + "/update/qrcode?type=1", _this.formData, config)
-       .then(function(response) {
-           //做处理
-           console.log(response)
-         })
-         .catch(function(error) {
+      //console.log("file", file.file);
+      var windowURL = window.URL || window.webkitURL;
+      this.filepath = file.file; //创建图片文件的url
+      this.wxQrcode = windowURL.createObjectURL(this.filepath);
+      let formdatas = new FormData();
+      formdatas.append("qrcode", this.filepath);
+      console.log(this.filepath);
+      console.log(formdatas);
+      let config = {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      };
+      let _this = this;
+      this.$axios
+        .post(
+          _this.url + "/v1/user/" + _this.id + "/update/qrcode?type=1",
+          formdatas,
+          config
+        )
+        .then(function(response) {
+          //做处理
+          console.log(response.data.code);
+          if (response.data.code == 1) {
+            _this.$toast("二维码上传成功");
+            _this.$router.push({
+              path: "/ping",
+              name: "setting"
+            });
+          }
+        })
+        .catch(function(error) {
           console.log(error);
         });
     }

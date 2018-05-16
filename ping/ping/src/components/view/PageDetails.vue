@@ -39,7 +39,7 @@
 
     <!-- 奖励 -->
     <div style="background:#ffffff">
-      <div style="">
+      <div v-if="isVip">
         <div>
          <van-cell-group>
           <van-cell is-link value="奖励说明" @click="jumpmessage" >
@@ -64,13 +64,13 @@
       <van-goods-action>
         <van-goods-action-mini-btn @click="JumpAddCollect" v-if="hasCollect==false">
           <div style="text-align:center;">
-            <img src="../../assets/icon/icon_love_current.png" style="width:25%;">
+            <van-icon name="e619"/>
             <div>加入收藏夹</div>
           </div>
         </van-goods-action-mini-btn>
         <van-goods-action-mini-btn @click="JumpDelCollect(goodsId)" v-else>
-          <div style="text-align:center;">
-            <img src="../../assets/icon/icon_love.png" style="width:25%;">
+          <div style="text-align:center;color:red;">
+             <van-icon name="e619"/>
             <div>取消收藏</div>
           </div>
         </van-goods-action-mini-btn>
@@ -89,6 +89,7 @@
 export default {
   data() {
     return {
+      isVip: '',
       url: "http://ptk.baolinzhe.com/ptk/api/",
       goodsId: "",
       articles: {},
@@ -128,8 +129,10 @@ export default {
     getParams() {
       // 取到路由带过来的参数
       var routerParams = this.$route.params.goodsId;
+      var isVips=this.$route.params.isVip;
       // 将数据放在当前组件的数据内
       this.goodsId = routerParams;
+      this.isVip=isVips;
     },
     jumpmessage() {
       this.helpshow = true;
@@ -229,6 +232,8 @@ export default {
 };
 </script>
 <style lang="less">
+@import "../../common/css/fontface.css";
+
 .goods {
   &-swipe {
     img {

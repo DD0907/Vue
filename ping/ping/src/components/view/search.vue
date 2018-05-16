@@ -4,7 +4,7 @@
     <!-- 搜索框 -->
     <div :class="searchBarFixed == true ? 'isFixed' :''">
         <van-search v-model="value" show-action placeholder="搜索拼多多商品得白积分奖励" style="padding:2px;">
-            <div slot="action"><van-button type="primary" size="small" @click="getdatas">搜索</van-button></div>
+            <div slot="action"><van-button type="default" size="small" @click="getdatas" style="background:red;color:#ffffff;">搜索</van-button></div>
         </van-search>
     </div>
     </section>
@@ -38,7 +38,7 @@
                                                 </span>
                                                 <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag plain class="intergral_style"  v-else>已赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -60,7 +60,7 @@
                                                 </span>
                                                <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag> -->
-                                                <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -106,7 +106,7 @@
                                                 </span>
                                                 <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag plain class="intergral_style"  v-else>约奖:{{r.integral}} 白积分</van-tag> -->
-                                              <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                              <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -128,7 +128,7 @@
                                                 </span>
                                                <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag> -->
-                                              <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                              <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -174,7 +174,7 @@
                                                 </span>
                                                 <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag plain class="intergral_style"  v-else>约奖:{{r.integral}} 白积分</van-tag> -->
-                                              <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                              <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -196,7 +196,7 @@
                                                 </span>
                                                <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag> -->
-                                              <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                              <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -243,7 +243,7 @@
                                                 </span>
                                                 <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag plain class="intergral_style"  v-else>约奖:{{r.integral}} 白积分</van-tag> -->
-                                              <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                              <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -265,7 +265,7 @@
                                                 </span>
                                                <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag> -->
-                                              <van-tag plain class="intergral_style">约赚:{{r.integral}} 佣金币</van-tag>
+                                              <van-tag plain v-if="vip=true" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -287,7 +287,7 @@
         </div>
     </van-tabs>
     </section>
-        <div class="bottom_nav5"><img src="../../assets/icon/icon_tops.png" style="width:50px;" @click="back_top"/></div> 
+        <div class="bottom_nav5"><van-icon name="e752" @click="back_top" style="font-size:36px;color:red;"/></div> 
 </div>
 </template>
 <script>
@@ -295,6 +295,7 @@ import { Toast } from "vant";
 export default {
   data() {
     return {
+      isVip:'',
       active: 0,
       isLoading: true,
       url: "http://ptk.baolinzhe.com/ptk/api/",
@@ -314,7 +315,7 @@ export default {
     };
   },
   mounted() {
-    this.getParams();
+    this.getParams();    
     //this.getdata();
     window.addEventListener('scroll', this.handleScroll);
     this.getdatas();
@@ -684,7 +685,8 @@ export default {
     getParams() {
       // 取到路由带过来的参数
       var routerParams = this.$route.params.data;
-
+      var isVips=this.$route.params.isVip;
+      this.isVip=isVips;
       //this.$toast(this.$route.params.datas);
       // 将数据放在当前组件的数据内
       this.value = routerParams;
@@ -724,7 +726,8 @@ export default {
         name: "PageDetails",
         params: {
           goodsId: goodsId,
-          data: this.value
+          data: this.value,
+          isVip: this.isVip
         }
       });
     }
@@ -740,7 +743,7 @@ export default {
 </script>
 <style lang="less">
 @import '../../common/css/search.css';
-
+@import "../../common/css/fontface.css";
 .searchBar{
   .isFixed{
     position:fixed;
