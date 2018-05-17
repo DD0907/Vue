@@ -169,7 +169,7 @@ export default {
           .get(_this.url + "/v1/integral/count?userId=" + _this.id)
           .then(function(response) {
             // 将得到的数据放到vue中的data
-            if(response.data.code==1){
+            if (response.data.code == 1) {
               _this.userdatas = response.data.result;
               _this.extractSum = _this.userdatas.extractSum;
               _this.audit = _this.userdatas.audit;
@@ -216,7 +216,7 @@ export default {
     JumpPutforwards() {
       this.$router.push({
         path: "/ping",
-        name: "putforwards",
+        name: "putforwards"
         // params:{
 
         // }
