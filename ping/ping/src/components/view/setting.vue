@@ -6,7 +6,7 @@
     <section style="background:#ffffff;">
       <van-card :title="nickname" :thumb="imageURL">
         <div slot="footer">
-          <van-button>同步微信头像昵称</van-button>
+          <van-button @click="Jumpsynchronization">同步微信头像昵称</van-button>
         </div>
       </van-card>
     </section>
@@ -165,12 +165,31 @@ export default {
             } else {
               _this.imageURL = _this.userdata.headPic;
             }
-            console.log(_this.userdata);
-            console.log(_this.wxMoneyQrcode);
-            console.log(_this.wxQrcode);
+            // console.log(_this.userdata);
+            // console.log(_this.wxMoneyQrcode);
+            // console.log(_this.wxQrcode);
           })
           .catch(function(error) {
             console.log(error);
+          });
+      }
+    },
+    Jumpsynchronization() {
+      let _this = this;
+      if (_this.id == "") {
+        _this.$toast("当前您还未登录哦");
+      } else {
+        // 此处使用node做了代理
+        this.$axios
+          .post(_this.url + "/v1/user/" + _this.id + "/update/nickname")
+          .then(function(response) {
+            if (response.data.code == 1) {
+              _this.$toast("微信头像和昵称同步成功");
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+            _this.$toast("微信头像和昵称同步失败了");
           });
       }
     },
@@ -197,13 +216,13 @@ export default {
     JumpBindingWeixinfriendScan() {
       this.$router.push({
         path: "/ping",
-        name: "bindingfriendscan",
+        name: "bindingfriendscan"
       });
     },
     JumpBindingWeixinmoneyScan() {
       this.$router.push({
         path: "/ping",
-        name: "bindingmoneyscan",
+        name: "bindingmoneyscan"
       });
     }
   }

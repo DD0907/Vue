@@ -46,10 +46,10 @@
     </section>
     <section>
       <van-cell-group>
-          <van-cell title="待确认收货" :value="extractSum" label="确认收货后进入审核" @click="JumpGoods"/>
-          <van-cell title="审核中" :value="waitAudit" label="15天若无售后发生则发放奖励" @click="JumpExamine"/>
+          <van-cell title="待确认收货" :value="waitAudit" label="确认收货后进入审核" @click="JumpGoods"/>
+          <van-cell title="审核中" :value="audit" label="15天若无售后发生则发放奖励" @click="JumpExamine"/>
           <!-- <van-cell title="已结算的佣金币" value="10000" label="已奖励的订单" @click="JumpSettlement" /> -->
-          <van-cell title="已提现" :value="audit" label="点击可查看提现记录" @click="JumpPutforward"/>
+          <van-cell title="已提现" :value="extractSum" label="点击可查看提现记录" @click="JumpPutforward"/>
       </van-cell-group>
     </section>
     <section style="height:5px;"></section>
@@ -82,19 +82,19 @@
             <van-goods-action-mini-btn style="width:25%;" @click="JumpIndex">
                 <div style="text-align:center;">
                   <van-icon name="e606"/>
-                  <div style="margin:1px;">首页</div>
+                  <div style="margin:3px;"><span style="font-size:14px;">首页</span></div>
                 </div>
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpLove">
               <div style="text-align:center;">
                   <van-icon name="e619"/>
-                  <div style="margin:1px;">收藏</div>
+                  <div style="margin:3px;"><span style="font-size:14px;">收藏</span></div>
               </div>
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpVip">
               <div style="text-align:center;color:red;">
                   <van-icon name="e607"/>
-                  <div style="margin:1px;">超级会员</div>
+                  <div style="margin:3px;"><span style="font-size:14px;">超级会员</span></div>
               </div>
             </van-goods-action-mini-btn>
             <!-- <van-goods-action-mini-btn  style="width:25%;" @click="JumpShare">
@@ -106,7 +106,7 @@
             <van-goods-action-mini-btn style="width:25%;" @click="JumpUser">
                 <div style="text-align:center;">
                   <van-icon name="e6a4"/>
-                  <div style="margin:1px;">我的</div>
+                  <div style="margin:3px;"><span style="font-size:14px;">我的</span></div>
                 </div>
             </van-goods-action-mini-btn>
         </van-goods-action>
@@ -125,17 +125,35 @@ export default {
       headurl: "",
       refereId: "", //推荐人
       whiteIntegral: "",
-      extractSum: 0,
-      audit: 0,
-      waitAudit: 0
+      extractSum: 0, //已提现
+      audit: 0, //审核中
+      waitAudit: 0, //待确认收货
+      wxMoneyQrcode: ""
     };
   },
   mounted() {
-    this.id = sessionStorage.getItem("userId");
-    this.getUserData();
-    this.getVipCountdata();
+    if (this.isWeiXin()) {
+      this.id = sessionStorage.getItem("userId");
+      this.getUserData();
+      this.getVipCountdata();
+    } else {
+      this.$router.push({
+        path: "/ping",
+        name: "errors"
+      });
+    }
   },
   methods: {
+    //判断是否微信登陆 是不是微信浏览器
+    isWeiXin() {
+      let ua = window.navigator.userAgent.toLowerCase();
+      console.log(ua); //mozilla/5.0 (iphone; cpu iphone os 9_1 like mac os x) applewebkit/601.1.46 (khtml, like gecko)version/9.0 mobile/13b143 safari/601.1
+      if (ua.match(/MicroMessenger/i) == "micromessenger") {
+        return true;
+      } else {
+        return false;
+      }
+    },
     getUserData() {
       // 缓存指针
       let _this = this;
@@ -151,7 +169,8 @@ export default {
             _this.headurl = _this.userdata.headPic;
             _this.refereId = _this.userdata.refereId;
             _this.whiteIntegral = _this.userdata.whiteIntegral;
-            console.log(_this.userdata);
+            _this.wxMoneyQrcode = _this.userdata.wxMoneyQrcode;
+            // console.log(_this.userdata);
           })
           .catch(function(error) {
             console.log(error);
@@ -174,7 +193,7 @@ export default {
               _this.extractSum = _this.userdatas.extractSum;
               _this.audit = _this.userdatas.audit;
               _this.waitAudit = _this.userdatas.waitAudit;
-              console.log(response.data.result);
+              // console.log(response.data.result);
             }
           })
           .catch(function(error) {
@@ -217,9 +236,6 @@ export default {
       this.$router.push({
         path: "/ping",
         name: "putforwards"
-        // params:{
-
-        // }
       });
     },
     JumpGoods() {

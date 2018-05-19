@@ -3,10 +3,13 @@
     <!--轮播图片-->
     <!-- <button @click="gettest()">test</button> -->
     <div>
-      <van-swipe class="goods-swipe" :autoplay="3000">
+      <van-swipe class="goods-swipe" :autoplay="3000" v-if="images.length!=0">
         <van-swipe-item v-for="(image, index) in images" :key="index">
         <img :src="image">
         </van-swipe-item>
+      </van-swipe>
+       <van-swipe class="goods-swipe" :autoplay="3000" v-else>
+        <img src="../../assets/icon/icon_scan.png" style="height:4.0rem;">
       </van-swipe>
     </div>
     <!-- 搜索框 -->
@@ -58,13 +61,11 @@
                     <span>
                     <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                     </span>
-                    <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                    <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
                     <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                     </div>
                     <div style="height:0.8rem">
-                    <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                    <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                    <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                    <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                     <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                     </div>
                     </van-cell-group>
@@ -80,13 +81,11 @@
                       <span>
                       <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                       </span>
-                      <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                      <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
                       <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                       </div>
                       <div style="height:0.8rem">
-                      <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                      <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                      <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                      <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                       <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                       </div>
                       </van-cell-group>                                    
@@ -95,7 +94,9 @@
                       </div>
                       </div>  
                       </van-row>
-                      <div style="text-align:center;font-size:16px;background:#ffffff;color:#999;">{{messages}}</div>
+                      <div style="text-align:center;font-size:14px;background:#f1f1f1;">
+                          <div style="text-align:center;"><van-loading color="black" type="spinner" size="20px" style="margin-left:33%"/><div style="margin-top:-18px;">&nbsp;{{messages}}</div></div>                        
+                      </div>
                       </van-list>
                   </div>
               </div>
@@ -126,13 +127,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
                                                 <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                                <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                                <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -148,13 +147,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
                                                 <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                              <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                              <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -163,7 +160,9 @@
                                     </div>
                                 </div>  
                                   </van-row>
-                                <div style="text-align:center;font-size:16px;background:#ffffff;color:#999;">{{messages}}</div>
+                                <div style="text-align:center;font-size:14px;background:#f1f1f1;">
+                                  <div style="text-align:center;"><van-loading color="black" type="spinner" size="20px" style="margin-left:33%"/><div style="margin-top:-18px;">&nbsp;{{messages}}</div></div>                        
+                                </div>
                             </van-list>
                             </div>
                         </div>
@@ -194,13 +193,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
                                                 <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                                <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                                <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -216,13 +213,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                              <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                              <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                              <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -231,7 +226,9 @@
                                     </div>
                                 </div>  
                                   </van-row>
-                                <div style="text-align:center;font-size:16px;background:#ffffff;color:#999;">{{messages}}</div>
+                                <div style="text-align:center;font-size:14px;background:#f1f1f1;">
+                                    <div style="text-align:center;"><van-loading color="black" type="spinner" size="20px" style="margin-left:33%"/><div style="margin-top:-18px;">&nbsp;{{messages}}</div></div>                        
+                                </div>
                             </van-list>
                             </div>
                         </div>
@@ -262,13 +259,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                              <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                                <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                                <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -284,13 +279,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                              <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                              <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                              <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -299,7 +292,9 @@
                                     </div>
                                 </div>  
                                   </van-row>
-                                <div style="text-align:center;font-size:16px;background:#ffffff;color:#999;">{{messages}}</div>
+                                <div style="text-align:center;font-size:14px;background:#f1f1f1;">
+                                    <div style="text-align:center;"><van-loading color="black" type="spinner" size="20px" style="margin-left:33%"/><div style="margin-top:-18px;">&nbsp;{{messages}}</div></div>                        
+                                </div>
                             </van-list>
                             </div>
                         </div>
@@ -330,13 +325,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
                                                 <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                                <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                                <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -352,13 +345,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                             <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                              <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                              <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -367,7 +358,9 @@
                                     </div>
                                 </div>  
                                   </van-row>
-                                <div style="text-align:center;font-size:16px;background:#ffffff;color:#999;">{{messages}}</div>
+                                   <div style="text-align:center;font-size:14px;background:#f1f1f1;">
+                                    <div style="text-align:center;"><van-loading color="black" type="spinner" size="20px" style="margin-left:33%"/><div style="margin-top:-18px;">&nbsp;{{messages}}</div></div>                        
+                                </div>
                             </van-list>
                             </div>
                         </div>
@@ -398,13 +391,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
                                                 <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                                <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                                <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -420,13 +411,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                 <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                              <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                              <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -435,7 +424,9 @@
                                     </div>
                                 </div>  
                                   </van-row>
-                                <div style="text-align:center;font-size:16px;background:#ffffff;color:#999;">{{messages}}</div>
+                                   <div style="text-align:center;font-size:14px;background:#f1f1f1;">
+                                    <div style="text-align:center;"><van-loading color="black" type="spinner" size="20px" style="margin-left:33%"/><div style="margin-top:-18px;">&nbsp;{{messages}}</div></div>                        
+                                </div>
                             </van-list>
                             </div>
                         </div>
@@ -466,13 +457,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                 <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                                <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                                <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -488,13 +477,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
                                                 <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                              <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                              <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -503,7 +490,9 @@
                                     </div>
                                 </div>  
                                   </van-row>
-                                <div style="text-align:center;font-size:16px;background:#ffffff;color:#999;">{{messages}}</div>
+                                   <div style="text-align:center;font-size:14px;background:#f1f1f1;">
+                                    <div style="text-align:center;"><van-loading color="black" type="spinner" size="20px" style="margin-left:33%"/><div style="margin-top:-18px;">&nbsp;{{messages}}</div></div>                        
+                                </div>
                             </van-list>
                             </div>
                         </div>
@@ -534,13 +523,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
                                                 <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                                <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                                <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -556,13 +543,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                               <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                              <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                              <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -571,7 +556,9 @@
                                     </div>
                                 </div>  
                                   </van-row>
-                                <div style="text-align:center;font-size:16px;background:#ffffff;color:#999;">{{messages}}</div>
+                                   <div style="text-align:center;font-size:14px;background:#f1f1f1;">
+                                    <div style="text-align:center;"><van-loading color="black" type="spinner" size="20px" style="margin-left:33%"/><div style="margin-top:-18px;">&nbsp;{{messages}}</div></div>                        
+                                </div>
                             </van-list>
                             </div>
                         </div>
@@ -602,13 +589,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                 <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                                <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                                <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -624,13 +609,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                 <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                              <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                              <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -639,7 +622,9 @@
                                     </div>
                                 </div>  
                                   </van-row>
-                                <div style="text-align:center;font-size:16px;background:#ffffff;color:#999;">{{messages}}</div>
+                                   <div style="text-align:center;font-size:14px;background:#f1f1f1;">
+                                    <div style="text-align:center;"><van-loading color="black" type="spinner" size="20px" style="margin-left:33%"/><div style="margin-top:-18px;">&nbsp;{{messages}}</div></div>                        
+                                </div>
                             </van-list>
                             </div>
                         </div>
@@ -670,13 +655,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
                                                 <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                                <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                                <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -692,13 +675,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
                                                 <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                              <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                              <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -707,7 +688,9 @@
                                     </div>
                                 </div>  
                                   </van-row>
-                                <div style="text-align:center;font-size:16px;background:#ffffff;color:#999;">{{messages}}</div>
+                                   <div style="text-align:center;font-size:14px;background:#f1f1f1;">
+                                    <div style="text-align:center;"><van-loading color="black" type="spinner" size="20px" style="margin-left:33%"/><div style="margin-top:-18px;">&nbsp;{{messages}}</div></div>                        
+                                </div>
                             </van-list>
                             </div>
                         </div>
@@ -737,13 +720,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                 <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                                <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                                <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -759,13 +740,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                               <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                              <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                              <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -774,7 +753,9 @@
                                     </div>
                                 </div>  
                                   </van-row>
-                                <div style="text-align:center;font-size:16px;background:#ffffff;color:#999;">{{messages}}</div>
+                                   <div style="text-align:center;font-size:14px;background:#f1f1f1;">
+                                    <div style="text-align:center;"><van-loading color="black" type="spinner" size="20px" style="margin-left:33%"/><div style="margin-top:-18px;">&nbsp;{{messages}}</div></div>                        
+                                </div>
                             </van-list>
                             </div>
                         </div>
@@ -804,13 +785,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <!-- <van-tag plain class="intergral_style" v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag plain class="intergral_style"  v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                               <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                                <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                                <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -826,13 +805,11 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约赚:{{r.integral}} 佣金币</van-tag> -->
-                                                <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                               <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                              <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                              <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -841,7 +818,9 @@
                                     </div>
                                 </div>  
                                   </van-row>
-                                <div style="text-align:center;font-size:16px;background:#ffffff;color:#999;">{{messages}}</div>
+                                   <div style="text-align:center;font-size:14px;background:#f1f1f1;">
+                                    <div style="text-align:center;"><van-loading color="black" type="spinner" size="20px" style="margin-left:33%"/><div style="margin-top:-18px;">&nbsp;{{messages}}</div></div>                        
+                                </div>
                             </van-list>
                             </div>
                         </div>
@@ -876,8 +855,8 @@
                                                 <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                                <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                                <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -898,8 +877,8 @@
                                                 <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                              <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                              <span class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -908,7 +887,9 @@
                                     </div>
                                 </div>  
                                   </van-row>
-                                <div style="text-align:center;font-size:16px;background:#ffffff;color:#999;">{{messages}}</div>
+                                   <div style="text-align:center;font-size:14px;background:#f1f1f1;">
+                                    <div style="text-align:center;"><van-loading color="black" type="spinner" size="20px" style="margin-left:33%"/><div style="margin-top:-18px;">&nbsp;{{messages}}</div></div>                        
+                                </div>
                             </van-list>
                             </div>
                         </div>
@@ -925,19 +906,19 @@
             <van-goods-action-mini-btn style="width:25%;">
                 <div style="text-align:center;color:red;">
                   <van-icon name="e606"/>
-                  <div style="margin:1px;">首页</div>
+                 <div style="margin:3px;"><span style="font-size:14px;">首页</span></div>
                 </div>
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpLove">
               <div style="text-align:center;">
                   <van-icon name="e619"/>
-                  <div style="margin:1px;">收藏</div>
+                 <div style="margin:3px;"><span style="font-size:14px;">收藏</span></div>
               </div>
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpVip">
               <div style="text-align:center;">
                   <van-icon name="e607"/>
-                  <div style="margin:1px;">超级会员</div>
+                  <div style="margin:3px;"><span style="font-size:14px;">超级会员</span></div>
               </div>
             </van-goods-action-mini-btn>
             <!-- <van-goods-action-mini-btn  style="width:25%;" @click="JumpShare">
@@ -949,7 +930,7 @@
             <van-goods-action-mini-btn style="width:25%;" @click="JumpUser">
                 <div style="text-align:center;">
                   <van-icon name="e6a4"/>
-                  <div style="margin:1px;">我的</div>
+                   <div style="margin:3px;"><span style="font-size:14px;">我的</span></div>
                 </div>
             </van-goods-action-mini-btn>
         </van-goods-action>
@@ -959,12 +940,14 @@
 </template>
 <script>
 import { Toast } from "vant";
+import { Loading } from "vant";
 import qs from "qs";
+import fansVue from "./fans.vue";
 export default {
   data() {
     return {
-      id: 1,
-      isVip: false,
+      id: "",
+      isVip: true,
       images: [
         "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
         "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
@@ -1001,94 +984,49 @@ export default {
   },
   mounted() {
     // 加载时自动执行
-    this.getdata();
-    sessionStorage.setItem("userId", this.id);
-    sessionStorage.setItem("isVip", this.isVip);
-    // console.log("我被调用了....");
-    // this.$cookie.set("test", "hello", 1);
-    // console.log(this.$cookie.get("test"));
+    if (this.isWeiXin()) {
+      //是来自微信内置浏览器
+      console.log(getCookie("userData"));
+      var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+      this.id = dataJson.id;
+      this.isVip = dataJson.vip;
+      sessionStorage.setItem("userId", this.id);
+      sessionStorage.setItem("isVip", this.isVip);
+      this.getdata();
+    } else {
+      //不是来自微信内置浏览器
+      // window.location.href = "/ping/errors";
+      this.$router.push({
+        path: "/ping",
+        name: "errors"
+      });
+    }
+    function getCookie(name) {
+      name = name + "=";
+      var start = document.cookie.indexOf(name),
+        value = null;
+      if (start > -1) {
+        var end = document.cookie.indexOf(";", start);
+        if (end == -1) {
+          end = document.cookie.length;
+        }
+        value = document.cookie.substring(start + name.length, end);
+      }
+      return value;
+    }
   },
   methods: {
+    //判断是否微信登陆 是不是微信浏览器
+    isWeiXin() {
+      let ua = window.navigator.userAgent.toLowerCase();
+      console.log(ua); //mozilla/5.0 (iphone; cpu iphone os 9_1 like mac os x) applewebkit/601.1.46 (khtml, like gecko)version/9.0 mobile/13b143 safari/601.1
+      if (ua.match(/MicroMessenger/i) == "micromessenger") {
+        return true;
+      } else {
+        return false;
+      }
+    },
     getdata() {
-      // 缓存指针
-      let _this = this;
-      // 设置一个开关来避免重负请求数据
-      let sw = true;
-      // 此处使用node做了代理
-      var data = qs.stringify({
-        categoryId: _this.categoryId,
-        page: _this.page++,
-        pageSize: _this.pageSize,
-        sortType: 0,
-        withCoupon: false
-      });
-      this.$axios
-        .get(_this.url + "/v1/product/list", data)
-        .then(function(response) {
-          // 将得到的数据放到vue中的data
-          _this.articles = response.data.result;
-          console.log(_this.articles);
-          var lengths = response.data.result.length;
-          _this.rowlength = lengths;
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      // 注册scroll事件并监听
-      // window.addEventListener
-      window.addEventListener("scroll", function() {
-        var a =
-          window.innerHeight ||
-          document.documentElement.clientHeight ||
-          document.body.clientHeight;
-        var b =
-          document.documentElement.scrollTop == 0
-            ? document.body.scrollTop
-            : document.documentElement.scrollTop;
-        var c =
-          document.documentElement.scrollTop == 0
-            ? document.body.scrollHeight
-            : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //alert("到达底部");
-          console.log(sw);
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(_this.url + "/v1/product/list", data)
-              .then(function(response) {
-                // 将新获取的数据push到vue中的data，就会反应到视图中了
-                var lengths = response.data.result.length;
-                for (var i = 0; i < lengths; i++) {
-                  _this.articles.push(response.data.result[i]);
-                }
-                // 数据更新完毕，将开关打开
-                sw = true;
-              })
-              .catch(function(error) {
-                console.log(error);
-              });
-          }
-          if (sw == false) {
-            const toast = Toast.loading({
-              forbidClick: true, // 禁用背景点击
-              duration: 1000,
-              message: "正在加载中"
-            });
-            console.log("正在加载中");
-          }
-        }
-        console.log(sw);
-      });
-    },
-    gettest() {
-      this.getCommondata(13, this.testdata);
-    },
-    getCommondata(categoryId, datarow) {
-      var categoryIds = categoryId;
-      var datarows = datarow;
       // 缓存指针
       let _this = this;
       // 设置一个开关来避免重负请求数据
@@ -1098,9 +1036,7 @@ export default {
       this.$axios
         .get(
           _this.url +
-            "/v1/product/list?categoryId=" +
-            categoryIds +
-            "&page=" +
+            "/v1/product/list?page=" +
             pages++ +
             "&pageSize=" +
             _this.pageSize +
@@ -1108,8 +1044,8 @@ export default {
         )
         .then(function(response) {
           // 将得到的数据放到vue中的data
-          _this.datarows = response.data.result;
-          console.log(_this.datarows);
+          _this.articles = response.data.result;
+          // console.log(_this.articles);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1142,9 +1078,8 @@ export default {
               .get(
                 _this.url +
                   "/v1/product/list?categoryId=" +
-                  categoryIds +
                   "&page=" +
-                  _this.pages++ +
+                  pages++ +
                   "&pageSize=" +
                   _this.pageSize +
                   "&sortType=0&withCoupon=false"
@@ -1153,9 +1088,8 @@ export default {
                 // 将新获取的数据push到vue中的data，就会反应到视图中了
                 var lengths = response.data.result.length;
                 for (var i = 0; i < lengths; i++) {
-                  _this.datarows.push(response.data.result[i]);
+                  _this.articles.push(response.data.result[i]);
                 }
-                console.log(lengths);
                 // 数据更新完毕，将开关打开
                 sw = true;
               })
@@ -1164,18 +1098,12 @@ export default {
               });
           }
           if (sw == false) {
-            const toast = Toast.loading({
-              forbidClick: true, // 禁用背景点击
-              duration: 1000,
-              message: "正在加载中"
-            });
-            console.log("正在加载中");
+            _this.messages = "正在加载中...";
           }
         }
-        console.log(sw);
+        // console.log(sw);
       });
     },
-
     getfruit() {
       // 缓存指针
       let _this = this;
@@ -1197,7 +1125,7 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.fruit = response.data.result;
-          console.log(_this.fruit);
+          // console.log(_this.fruit);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1221,7 +1149,7 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          console.log(sw);
+          // console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -1251,15 +1179,10 @@ export default {
               });
           }
           if (sw == false) {
-            const toast = Toast.loading({
-              forbidClick: true, // 禁用背景点击
-              duration: 1000,
-              message: "正在加载中"
-            });
-            console.log("正在加载中");
+            _this.messages = "正在加载中...";
           }
         }
-        console.log(sw);
+        // console.log(sw);
       });
     },
     getfood() {
@@ -1283,7 +1206,7 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.food = response.data.result;
-          console.log(_this.food);
+          // console.log(_this.food);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1337,15 +1260,10 @@ export default {
               });
           }
           if (sw == false) {
-            const toast = Toast.loading({
-              forbidClick: true, // 禁用背景点击
-              duration: 1000,
-              message: "正在加载中"
-            });
-            console.log("正在加载中");
+            _this.messages = "正在加载中...";
           }
         }
-        console.log(sw);
+        // console.log(sw);
       });
     },
     getclothes() {
@@ -1369,7 +1287,7 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.clothes = response.data.result;
-          console.log(_this.clothes);
+          // console.log(_this.clothes);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1423,15 +1341,10 @@ export default {
               });
           }
           if (sw == false) {
-            const toast = Toast.loading({
-              forbidClick: true, // 禁用背景点击
-              duration: 1000,
-              message: "正在加载中"
-            });
-            console.log("正在加载中");
+            _this.messages = "正在加载中...";
           }
         }
-        console.log(sw);
+        // console.log(sw);
       });
     },
     getmotherbaby() {
@@ -1455,7 +1368,7 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.motherbabyrow = response.data.result;
-          console.log(_this.motherbabyrow);
+          // console.log(_this.motherbabyrow);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1509,15 +1422,10 @@ export default {
               });
           }
           if (sw == false) {
-            const toast = Toast.loading({
-              forbidClick: true, // 禁用背景点击
-              duration: 1000,
-              message: "正在加载中"
-            });
-            console.log("正在加载中");
+            _this.messages = "正在加载中...";
           }
         }
-        console.log(sw);
+        // console.log(sw);
       });
     },
     getsdeptstore() {
@@ -1541,7 +1449,7 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.deptstore = response.data.result;
-          console.log(_this.deptstore);
+          // console.log(_this.deptstore);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1595,15 +1503,10 @@ export default {
               });
           }
           if (sw == false) {
-            const toast = Toast.loading({
-              forbidClick: true, // 禁用背景点击
-              duration: 1000,
-              message: "正在加载中"
-            });
-            console.log("正在加载中");
+            _this.messages = "正在加载中...";
           }
         }
-        console.log(sw);
+        // console.log(sw);
       });
     },
     getbeauty() {
@@ -1627,7 +1530,7 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.beautyrow = response.data.result;
-          console.log(_this.beautyrow);
+          // console.log(_this.beautyrow);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1681,15 +1584,10 @@ export default {
               });
           }
           if (sw == false) {
-            const toast = Toast.loading({
-              forbidClick: true, // 禁用背景点击
-              duration: 1000,
-              message: "正在加载中"
-            });
-            console.log("正在加载中");
+            _this.messages = "正在加载中...";
           }
         }
-        console.log(sw);
+        // console.log(sw);
       });
     },
     getshoebag() {
@@ -1713,7 +1611,7 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.shoebag = response.data.result;
-          console.log(_this.shoebag);
+          // console.log(_this.shoebag);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1767,15 +1665,10 @@ export default {
               });
           }
           if (sw == false) {
-            const toast = Toast.loading({
-              forbidClick: true, // 禁用背景点击
-              duration: 1000,
-              message: "正在加载中"
-            });
-            console.log("正在加载中");
+            _this.messages = "正在加载中...";
           }
         }
-        console.log(sw);
+        // console.log(sw);
       });
     },
     getelectric() {
@@ -1799,7 +1692,7 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.electric = response.data.result;
-          console.log(_this.electric);
+          // console.log(_this.electric);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1853,15 +1746,10 @@ export default {
               });
           }
           if (sw == false) {
-            const toast = Toast.loading({
-              forbidClick: true, // 禁用背景点击
-              duration: 1000,
-              message: "正在加载中"
-            });
-            console.log("正在加载中");
+            _this.messages = "正在加载中...";
           }
         }
-        console.log(sw);
+        // console.log(sw);
       });
     },
     getmanclothing() {
@@ -1885,7 +1773,7 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.manclothing = response.data.result;
-          console.log(_this.manclothing);
+          // console.log(_this.manclothing);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1939,15 +1827,10 @@ export default {
               });
           }
           if (sw == false) {
-            const toast = Toast.loading({
-              forbidClick: true, // 禁用背景点击
-              duration: 1000,
-              message: "正在加载中"
-            });
-            console.log("正在加载中");
+            _this.messages = "正在加载中...";
           }
         }
-        console.log(sw);
+        // console.log(sw);
       });
     },
     gethometextiles() {
@@ -1971,7 +1854,7 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.hometextiles = response.data.result;
-          console.log(_this.hometextiles);
+          // console.log(_this.hometextiles);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -2025,15 +1908,10 @@ export default {
               });
           }
           if (sw == false) {
-            const toast = Toast.loading({
-              forbidClick: true, // 禁用背景点击
-              duration: 1000,
-              message: "正在加载中"
-            });
-            console.log("正在加载中");
+            _this.messages = "正在加载中...";
           }
         }
-        console.log(sw);
+        // console.log(sw);
       });
     },
     getphone() {
@@ -2057,7 +1935,7 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.phone = response.data.result;
-          console.log(_this.phone);
+          // console.log(_this.phone);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -2111,15 +1989,10 @@ export default {
               });
           }
           if (sw == false) {
-            const toast = Toast.loading({
-              forbidClick: true, // 禁用背景点击
-              duration: 1000,
-              message: "正在加载中"
-            });
-            console.log("正在加载中");
+            _this.messages = "正在加载中...";
           }
         }
-        console.log(sw);
+        // console.log(sw);
       });
     },
     getmovement() {
@@ -2143,7 +2016,7 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.movement = response.data.result;
-          console.log(_this.movement);
+          // console.log(_this.movement);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -2197,15 +2070,10 @@ export default {
               });
           }
           if (sw == false) {
-            const toast = Toast.loading({
-              forbidClick: true, // 禁用背景点击
-              duration: 1000,
-              message: "正在加载中"
-            });
-            console.log("正在加载中");
+            _this.messages = "正在加载中...";
           }
         }
-        console.log(sw);
+        // console.log(sw);
       });
     },
     back_top() {
@@ -2258,7 +2126,8 @@ export default {
     JumpLove() {
       this.$router.push({
         path: "/ping",
-        name: "love"
+        name: "love",
+        query: { isVip: this.isVip }
       });
     },
     JumpUser() {
@@ -2285,9 +2154,10 @@ export default {
       this.$router.push({
         path: "/ping",
         name: "PageDetails",
+        query: { goodsId: goodsId },
         params: {
           // data: this.value,
-          goodsId: goodsId,
+          // goodsId: goodsId,
           isVip: this.isVip
         }
       });

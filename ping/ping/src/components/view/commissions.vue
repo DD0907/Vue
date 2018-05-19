@@ -4,102 +4,167 @@
           <van-tabs v-model="active">
             <van-tab>
                 <div slot="title">
-                    <span>全部</span>
+                    <span @click="getcommissiondata">全部</span>
                 </div>
-                <section style="background:#ffffff;">
-                    <div style="margin:12px;">
-                        <van-row>
-                            <van-col span="12" style="font-size:18px;">申请提现</van-col>
-                            <van-col span="12"><div style="text-align:right;color:red;font-size:18px;">-100</div></van-col>
-                        </van-row>
-                        <van-row>
-                            <van-col span="12" style="color:#999;font-size:14px;margin-top:5px;">2018-05-13 20：32：30</van-col>
-                            <van-col span="12"><div style="text-align:right;margin-top:5px;">余额：1000</div></van-col>
-                        </van-row>
-                        <van-row>
-                            <div style="font-size:14px;margin-top:5px;">审核失败，审核时间：2018-05-14 09：30：23,原因：XXXX</div>
-                        </van-row>
+                <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+                <van-list>
+                    <section style="background:#ffffff;">
+                    <div v-if="lengths==''" style="text-align:center;">
+                        暂无数据
                     </div>
-                    <section style="height:5px;background:#f1f1f1;"></section>
+                    <div v-else v-for="(r, key) in recordsdata" :key="key" >
+                        <div style="margin:12px;">
+                        <van-row>
+                            <van-col span="12" style="font-size:18px;">{{r.source}}</van-col>
+                            <van-col span="12">
+                                <div style="text-align:right;font-size:18px;">
+                                    <span v-if="r.ptype==1" style="color:green">+{{r.integral}}</span>
+                                    <span v-else-if="r.ptype==2" style="color:red">-{{r.integral}}</span>
+                                </div></van-col>
+                        </van-row>
+                        <van-row>
+                            <van-col span="12" style="color:#999;font-size:14px;margin-top:5px;">{{r.createdAt}}</van-col>
+                            <van-col span="12"><div style="text-align:right;margin-top:5px;">余额：{{r.surplusIntegral}}</div></van-col>
+                        </van-row>
+                        <van-row>
+                            <div style="font-size:14px;margin-top:5px;">{{r.note}}</div>
+                        </van-row>
+                        </div>
+                        <section style="height:5px;background:#f1f1f1;"></section>
+                    </div>
                 </section>
-                
+                </van-list>
+                </van-pull-refresh>
             </van-tab>
            <van-tab>
                 <div slot="title">
-                    <span>佣金</span>
+                    <span @click="getyongjindata">佣金</span>
                 </div>
-                <section style="background:#ffffff;">
-                    <div style="margin:12px;">
-                        <van-row>
-                            <van-col span="12" style="font-size:18px;">订单佣金到账</van-col>
-                            <van-col span="12"><div style="text-align:right;color:green;font-size:18px;">+100</div></van-col>
-                        </van-row>
-                        <van-row>
-                            <van-col span="12" style="color:#999;font-size:14px;margin-top:5px;">2018-05-13 20：32：30</van-col>
-                            <van-col span="12"><div style="text-align:right;"></div></van-col>
-                        </van-row>
-                        <van-row>
-                            <div style="font-size:14px;margin-top:5px;">来自订单号XXX</div>
-                        </van-row>
+                <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+                <van-list>
+                    <section style="background:#ffffff;">
+                    <div v-if="lengths==''" style="text-align:center;">
+                        暂无数据
                     </div>
-                    <section style="height:5px;background:#f1f1f1;"></section>
+                    <div v-else v-for="(r, key) in yongjindata" :key="key" >
+                        <div style="margin:12px;">
+                        <van-row>
+                            <van-col span="12" style="font-size:18px;">{{r.source}}</van-col>
+                            <van-col span="12">
+                                <div style="text-align:right;font-size:18px;">
+                                    <span v-if="r.ptype==1" style="color:green">+{{r.integral}}</span>
+                                    <span v-else-if="r.ptype==2" style="color:red">-{{r.integral}}</span>
+                                </div></van-col>
+                        </van-row>
+                        <van-row>
+                            <van-col span="12" style="color:#999;font-size:14px;margin-top:5px;">{{r.createdAt}}</van-col>
+                            <van-col span="12"><div style="text-align:right;margin-top:5px;">余额：{{r.surplusIntegral}}</div></van-col>
+                        </van-row>
+                        <van-row>
+                            <div style="font-size:14px;margin-top:5px;">{{r.note}}</div>
+                        </van-row>
+                        </div>
+                        <section style="height:5px;background:#f1f1f1;"></section>
+                    </div>
                 </section>
+                </van-list>
+                </van-pull-refresh>
             </van-tab>
            <van-tab>
                 <div slot="title">
-                    <span>收益</span>
+                    <span @click="getshouyidata">收益</span>
                 </div>
-                <section style="background:#ffffff;">
-                    <div style="margin:12px;">
-                        <van-row>
-                            <van-col span="14" style="font-size:18px;">直属超级会员收益到账</van-col>
-                            <van-col span="10"><div style="text-align:right;color:green;font-size:18px;">+100</div></van-col>
-                        </van-row>
-                        <van-row>
-                            <van-col span="12" style="color:#999;font-size:14px;margin-top:5px;">2018-05-13 20：32：30</van-col>
-                            <van-col span="12"><div style="text-align:right;"></div></van-col>
-                        </van-row>
-                        <van-row>
-                            <div style="font-size:14px;margin-top:5px;">来自XXX的订单号XXX的收益</div>
-                        </van-row>
+                <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+                <van-list>
+                    <section style="background:#ffffff;">
+                    <div v-if="lengths==''" style="text-align:center;">
+                        暂无数据
                     </div>
-                    <section style="height:5px;background:#f1f1f1;"></section>
+                    <div v-else v-for="(r, key) in shouyidata" :key="key" >
+                        <div style="margin:12px;">
+                        <van-row>
+                            <van-col span="12" style="font-size:18px;">{{r.source}}</van-col>
+                            <van-col span="12">
+                                <div style="text-align:right;font-size:18px;">
+                                    <span v-if="r.ptype==1" style="color:green">+{{r.integral}}</span>
+                                    <span v-else-if="r.ptype==2" style="color:red">-{{r.integral}}</span>
+                                </div></van-col>
+                        </van-row>
+                        <van-row>
+                            <van-col span="12" style="color:#999;font-size:14px;margin-top:5px;">{{r.createdAt}}</van-col>
+                            <van-col span="12"><div style="text-align:right;margin-top:5px;">余额：{{r.surplusIntegral}}</div></van-col>
+                        </van-row>
+                        <van-row>
+                            <div style="font-size:14px;margin-top:5px;">{{r.note}}</div>
+                        </van-row>
+                        </div>
+                        <section style="height:5px;background:#f1f1f1;"></section>
+                    </div>
                 </section>
+                </van-list>
+                </van-pull-refresh>
             </van-tab>
            <van-tab>
                 <div slot="title">
-                    <span>提现</span>
+                    <span @click="gettixiandata">提现</span>
                 </div>
-                <section style="background:#ffffff;">
-                    <div style="margin:12px;">
-                        <van-row>
-                            <van-col span="12" style="font-size:18px;">申请提现</van-col>
-                            <van-col span="12"><div style="text-align:right;color:red;font-size:18px;">-100</div></van-col>
-                        </van-row>
-                        <van-row>
-                            <van-col span="12" style="color:#999;font-size:14px;margin-top:5px;">2018-05-13 20：32：30</van-col>
-                            <van-col span="12"><div style="text-align:right;"></div></van-col>
-                        </van-row>
-                        <van-row>
-                            <div style="font-size:14px;margin-top:5px;">已打款,打款完成时间：2018-05-14 09：30：23</div>
-                        </van-row>
+                <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+                <van-list>
+                    <section style="background:#ffffff;">
+                    <div v-if="lengths==''" style="text-align:center;">
+                        暂无数据
                     </div>
-                    <section style="height:5px;background:#f1f1f1;"></section>
+                    <div v-else v-for="(r, key) in tixiandata" :key="key" >
+                        <div style="margin:12px;">
+                        <van-row>
+                            <van-col span="12" style="font-size:18px;">{{r.source}}</van-col>
+                            <van-col span="12">
+                                <div style="text-align:right;font-size:18px;">
+                                    <span v-if="r.ptype==1" style="color:green">+{{r.integral}}</span>
+                                    <span v-else-if="r.ptype==2" style="color:red">-{{r.integral}}</span>
+                                </div></van-col>
+                        </van-row>
+                        <van-row>
+                            <van-col span="12" style="color:#999;font-size:14px;margin-top:5px;">{{r.createdAt}}</van-col>
+                            <van-col span="12"><div style="text-align:right;margin-top:5px;">余额：{{r.surplusIntegral}}</div></van-col>
+                        </van-row>
+                        <van-row>
+                            <div style="font-size:14px;margin-top:5px;">{{r.note}}</div>
+                        </van-row>
+                        </div>
+                        <section style="height:5px;background:#f1f1f1;"></section>
+                    </div>
                 </section>
+                </van-list>
+                </van-pull-refresh>
             </van-tab>
         </van-tabs>
       </section>
   </div>
 </template>
 <script>
+import { Toast } from "vant";
+
 export default {
   data() {
     return {
-      active: 0
+      active: 0,
+      id: "",
+      url: "http://ptk.baolinzhe.com/ptk/api/",
+      recordsdata: {},
+      yongjindata: {},
+      shouyidata: {},
+      tixiandata: {},
+      isLoading: true,
+      lengths: ""
     };
   },
   mounted() {
     this.getParams();
+    this.id = sessionStorage.getItem("userId");
+    this.getcommissiondata();
+    this.gettixiandata();
+    this.getshouyidata();
   },
   methods: {
     getParams() {
@@ -108,6 +173,368 @@ export default {
       // 将数据放在当前组件的数据内
       this.active = routerParams;
       //alert(this.active)
+    },
+    onRefresh() {
+      // 下拉刷新
+      setTimeout(() => {
+        this.$toast("刷新成功");
+        this.isLoading = false;
+        this.count++;
+      }, 500);
+    },
+    getcommissiondata() {
+      // 缓存指针
+      let _this = this;
+      if (_this.id == "") {
+        _this.$toast("当前您还未登录哦");
+      } else {
+        // 此处使用node做了代理
+        let page = 1;
+        let pageSize = 20;
+        let sw = true;
+        this.$axios
+          .get(
+            _this.url +
+              "/v1/integral/records?userId=" +
+              _this.id +
+              "&type=0&page=" +
+              page +
+              "&pageSize=" +
+              pageSize
+          )
+          .then(function(response) {
+            // 将得到的数据放到vue中的data
+            if (response.data.code == 1) {
+              console.log(response.data.result);
+              _this.recordsdata = response.data.result.records;
+              _this.lengths = response.data.result.records.length;
+              console.log(_this.recordsdata);
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+        // 注册scroll事件并监听
+        // window.addEventListener
+        window.addEventListener("scroll", function() {
+          var a =
+            window.innerHeight ||
+            document.documentElement.clientHeight ||
+            document.body.clientHeight;
+          var b =
+            document.documentElement.scrollTop == 0
+              ? document.body.scrollTop
+              : document.documentElement.scrollTop;
+          var c =
+            document.documentElement.scrollTop == 0
+              ? document.body.scrollHeight
+              : document.documentElement.scrollHeight;
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            // console.log(sw);
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/integral/records?userId=" +
+                    _this.id +
+                    "&type=0&page=" +
+                    page +
+                    "&pageSize=" +
+                    pageSize
+                )
+                .then(function(response) {
+                  // 将得到的数据放到vue中的data
+                  if (response.data.code == 1) {
+                    // console.log(response.data.result);
+                    var lengths = response.data.result.length;
+                    for (var i = 0; i < lengths; i++) {
+                      _this.recordsdata.push(response.data.result[i]);
+                    }
+                  }
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              // const toast = Toast.loading({
+              //   forbidClick: true, // 禁用背景点击
+              //   duration: 1000,
+              //   message: "正在加载中"
+              // });
+              console.log("正在加载中");
+            }
+          }
+          // console.log(sw);
+        });
+      }
+    },
+    getyongjindata() {
+      let _this = this;
+      let page = 1;
+      let pageSize = 10;
+      let sw=true;
+      this.$axios
+        .get(
+          _this.url +
+            "/v1/integral/records?userId=" +
+            _this.id +
+            "&type=1&page=" +
+            page +
+            "&pageSize=" +
+            pageSize
+        )
+        .then(function(response) {
+          // 将得到的数据放到vue中的data
+          if (response.data.code == 1) {
+            console.log(response.data.result);
+            _this.yongjindata = response.data.result.records;
+            _this.lengths = response.data.result.records.length;
+            console.log(_this.yongjindata);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      // 注册scroll事件并监听
+      // window.addEventListener
+      window.addEventListener("scroll", function() {
+        var a =
+          window.innerHeight ||
+          document.documentElement.clientHeight ||
+          document.body.clientHeight;
+        var b =
+          document.documentElement.scrollTop == 0
+            ? document.body.scrollTop
+            : document.documentElement.scrollTop;
+        var c =
+          document.documentElement.scrollTop == 0
+            ? document.body.scrollHeight
+            : document.documentElement.scrollHeight;
+        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+          //alert("到达底部");
+          console.log(sw);
+          //如果开关打开则加载数据
+          if (sw == true) {
+            // 将开关关闭
+            sw = false;
+            _this.$axios
+              .get(
+                _this.url +
+                  "/v1/integral/records?userId=" +
+                  _this.id +
+                  "&type=1&page=" +
+                  page +
+                  "&pageSize=" +
+                  pageSize
+              )
+              .then(function(response) {
+                // 将得到的数据放到vue中的data
+                if (response.data.code == 1) {
+                  if (response.data.code == 1) {
+                    // console.log(response.data.result);
+                    var lengths = response.data.result.length;
+                    for (var i = 0; i < lengths; i++) {
+                      _this.yongjindata.push(response.data.result[i]);
+                    }
+                  }
+                }
+                sw = true;
+              })
+              .catch(function(error) {
+                console.log(error);
+              });
+          }
+          if (sw == false) {
+            // const toast = Toast.loading({
+            //   forbidClick: true, // 禁用背景点击
+            //   duration: 1000,
+            //   message: "正在加载中"
+            // });
+            console.log("正在加载中");
+          }
+        }
+        // console.log(sw);
+      });
+    },
+    getshouyidata() {
+      let _this = this;
+      let page = 1;
+      let pageSize = 10;
+       let sw = true;
+      this.$axios
+        .get(
+          _this.url +
+            "/v1/integral/records?userId=" +
+            _this.id +
+            "&type=2&page=" +
+            page +
+            "&pageSize=" +
+            pageSize
+        )
+        .then(function(response) {
+          // 将得到的数据放到vue中的data
+          if (response.data.code == 1) {
+            console.log(response.data.result);
+            _this.shouyidata = response.data.result.records;
+            _this.lengths = response.data.result.records.length;
+            console.log(_this.shouyidata);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        }); // 注册scroll事件并监听
+      // window.addEventListener
+      window.addEventListener("scroll", function() {
+        var a =
+          window.innerHeight ||
+          document.documentElement.clientHeight ||
+          document.body.clientHeight;
+        var b =
+          document.documentElement.scrollTop == 0
+            ? document.body.scrollTop
+            : document.documentElement.scrollTop;
+        var c =
+          document.documentElement.scrollTop == 0
+            ? document.body.scrollHeight
+            : document.documentElement.scrollHeight;
+        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+          //alert("到达底部");
+          console.log(sw);
+          //如果开关打开则加载数据
+          if (sw == true) {
+            // 将开关关闭
+            sw = false;
+            _this.$axios
+              .get(
+                _this.url +
+                  "/v1/integral/records?userId=" +
+                  _this.id +
+                  "&type=2&page=" +
+                  page +
+                  "&pageSize=" +
+                  pageSize
+              )
+              .then(function(response) {
+                // 将得到的数据放到vue中的data
+                 if (response.data.code == 1) {
+                  if (response.data.code == 1) {
+                    // console.log(response.data.result);
+                    var lengths = response.data.result.length;
+                    for (var i = 0; i < lengths; i++) {
+                      _this.shouyidata.push(response.data.result[i]);
+                    }
+                  }
+                }
+                sw = true;
+              })
+              .catch(function(error) {
+                console.log(error);
+              });
+          }
+          if (sw == false) {
+            // const toast = Toast.loading({
+            //   forbidClick: true, // 禁用背景点击
+            //   duration: 1000,
+            //   message: "正在加载中"
+            // });
+            console.log("正在加载中");
+          }
+        }
+        // console.log(sw);
+      });
+    },
+    gettixiandata() {
+      let _this = this;
+      let page = 1;
+      let pageSize = 10;
+       let sw = true;
+      this.$axios
+        .get(
+          _this.url +
+            "/v1/integral/records?userId=" +
+            _this.id +
+            "&type=3&page=" +
+            page +
+            "&pageSize=" +
+            pageSize
+        )
+        .then(function(response) {
+          // 将得到的数据放到vue中的data
+          if (response.data.code == 1) {
+            console.log(response.data.result);
+            _this.tixiandata = response.data.result.records;
+            _this.lengths = response.data.result.records.length;
+            console.log(_this.tixiandata);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      // 注册scroll事件并监听
+      // window.addEventListener
+      window.addEventListener("scroll", function() {
+        var a =
+          window.innerHeight ||
+          document.documentElement.clientHeight ||
+          document.body.clientHeight;
+        var b =
+          document.documentElement.scrollTop == 0
+            ? document.body.scrollTop
+            : document.documentElement.scrollTop;
+        var c =
+          document.documentElement.scrollTop == 0
+            ? document.body.scrollHeight
+            : document.documentElement.scrollHeight;
+        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+          //alert("到达底部");
+          console.log(sw);
+          //如果开关打开则加载数据
+          if (sw == true) {
+            // 将开关关闭
+            sw = false;
+            _this.$axios
+              .get(
+                _this.url +
+                  "/v1/integral/records?userId=" +
+                  _this.id +
+                  "&type=3&page=" +
+                  page +
+                  "&pageSize=" +
+                  pageSize
+              )
+              .then(function(response) {
+                if (response.data.code == 1) {
+                  if (response.data.code == 1) {
+                    // console.log(response.data.result);
+                    var lengths = response.data.result.length;
+                    for (var i = 0; i < lengths; i++) {
+                      _this.tixiandata.push(response.data.result[i]);
+                    }
+                  }
+                }
+                sw = true;
+              })
+              .catch(function(error) {
+                console.log(error);
+              });
+          }
+          if (sw == false) {
+            // const toast = Toast.loading({
+            //   forbidClick: true, // 禁用背景点击
+            //   duration: 1000,
+            //   message: "正在加载中"
+            // });
+            console.log("正在加载中");
+          }
+        }
+        // console.log(sw);
+      });
     }
   }
 };

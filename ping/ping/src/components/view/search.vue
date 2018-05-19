@@ -265,7 +265,7 @@
                                                 </span>
                                                <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
                                                 <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag> -->
-                                              <van-tag plain v-if="vip=true" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                              <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
@@ -291,11 +291,11 @@
 </div>
 </template>
 <script>
-import { Toast } from "vant";
+// import { Toast } from "vant";
 export default {
   data() {
     return {
-      isVip:'',
+      isVip: "",
       active: 0,
       isLoading: true,
       url: "http://ptk.baolinzhe.com/ptk/api/",
@@ -303,7 +303,7 @@ export default {
       highreward: {},
       highdiscount: {},
       highsales: {},
-      searchBarFixed:false,
+      searchBarFixed: false,
       img: "",
       messages: "",
       rowlength: "",
@@ -315,22 +315,25 @@ export default {
     };
   },
   mounted() {
-    this.getParams();    
+    this.getParams();
     //this.getdata();
-    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener("scroll", this.handleScroll);
     this.getdatas();
   },
   methods: {
-    handleScroll(){
-      var scrollTop=window.pageXOffset||document.documentElement.scrollTop||document.body.scrollTop;
-      var offsetTop =window.document.querySelector('#searchBar').offsetTop;
-      if(scrollTop>offsetTop){
+    handleScroll() {
+      var scrollTop =
+        window.pageXOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      var offsetTop = window.document.querySelector("#searchBar").offsetTop;
+      if (scrollTop > offsetTop) {
         this.searchBarFixed = true;
-      }else{
+      } else {
         this.searchBarFixed = false;
       }
       console.log(scrollTop);
-      console.log(offsetTop)
+      console.log(offsetTop);
     },
     getdata() {
       // 缓存指针
@@ -353,7 +356,7 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.articles = response.data.result;
-          console.log(_this.articles);
+          // console.log(_this.articles);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -401,24 +404,17 @@ export default {
                 }
                 // 数据更新完毕，将开关打开
                 sw = true;
-                if (lengths == response.data.result.length) {
-                  _this.messages = "我已经到底了";
-                }
               })
               .catch(function(error) {
                 console.log(error);
               });
           }
           if (sw == false) {
-            const toast = Toast.loading({
-              forbidClick: true, // 禁用背景点击
-              duration: 1000,
-              message: "正在加载中"
-            });
+            _this.messages = "正在加载中...";
             console.log("正在加载中");
           }
         }
-        console.log(sw);
+        // console.log(sw);
       });
     },
     getdatahighreward() {
@@ -442,7 +438,7 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.highreward = response.data.result;
-          console.log(_this.highreward);
+          // console.log(_this.highreward);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -496,15 +492,11 @@ export default {
               });
           }
           if (sw == false) {
-            const toast = Toast.loading({
-              forbidClick: true, // 禁用背景点击
-              duration: 1000,
-              message: "正在加载中"
-            });
+            _this.messages = "正在加载中...";
             console.log("正在加载中");
           }
         }
-        console.log(sw);
+        // console.log(sw);
       });
     },
     getdatahighdiscount() {
@@ -528,7 +520,7 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.highdiscount = response.data.result;
-          console.log(_this.highdiscount);
+          // console.log(_this.highdiscount);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -582,15 +574,11 @@ export default {
               });
           }
           if (sw == false) {
-            const toast = Toast.loading({
-              forbidClick: true, // 禁用背景点击
-              duration: 1000,
-              message: "正在加载中"
-            });
+             _this.messages = "正在加载中...";
             console.log("正在加载中");
           }
         }
-        console.log(sw);
+        // console.log(sw);
       });
     },
     getdatahighsales() {
@@ -614,7 +602,7 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.highsales = response.data.result;
-          console.log(_this.highsales);
+          // console.log(_this.highsales);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -668,15 +656,11 @@ export default {
               });
           }
           if (sw == false) {
-            const toast = Toast.loading({
-              forbidClick: true, // 禁用背景点击
-              duration: 1000,
-              message: "正在加载中"
-            });
+            _this.messages = "正在加载中...";
             console.log("正在加载中");
           }
         }
-        console.log(sw);
+        // console.log(sw);
       });
     },
     back_top() {
@@ -685,8 +669,8 @@ export default {
     getParams() {
       // 取到路由带过来的参数
       var routerParams = this.$route.params.data;
-      var isVips=this.$route.params.isVip;
-      this.isVip=isVips;
+      var isVips = this.$route.params.isVip;
+      this.isVip = isVips;
       //this.$toast(this.$route.params.datas);
       // 将数据放在当前组件的数据内
       this.value = routerParams;
@@ -724,16 +708,16 @@ export default {
       this.$router.push({
         path: "/ping",
         name: "PageDetails",
+        query: { goodsId: goodsId },
         params: {
-          goodsId: goodsId,
           data: this.value,
           isVip: this.isVip
         }
       });
     }
   },
-  destroyed () {
-    window.removeEventListener('scroll', this.handleScroll)
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
   watch: {
     // 监测路由变化,只要变化了就调用获取路由参数方法将数据存储本组件即可
@@ -742,12 +726,12 @@ export default {
 };
 </script>
 <style lang="less">
-@import '../../common/css/search.css';
+@import "../../common/css/search.css";
 @import "../../common/css/fontface.css";
-.searchBar{
-  .isFixed{
-    position:fixed;
-    z-index:999;
+.searchBar {
+  .isFixed {
+    position: fixed;
+    z-index: 999;
     width: 100%;
   }
 }

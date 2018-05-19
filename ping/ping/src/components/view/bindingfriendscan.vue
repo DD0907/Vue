@@ -62,7 +62,7 @@ export default {
             // 将得到的数据放到vue中的data
             _this.userdata = response.data.result;
             _this.wxQrcode = _this.userdata.wxQrcode + "?time=" + times;
-            if (_this.wxQrcode == "" || _this.wxQrcode == null) {
+            if (_this.wxQrcode == "" || _this.wxQrcode == + "?time=" + times) {
               _this.wxQrcode = _this.scan;
             }
             console.log(_this.wxQrcode);

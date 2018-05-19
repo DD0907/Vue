@@ -3,10 +3,14 @@
       <!-- <h2>{{goodsId}}</h2> -->
      <!--轮播图片-->
     <div>
-      <van-swipe class="goods-swipe" :autoplay="4000">
+      <van-swipe class="goods-swipe" :autoplay="4000" v-if="rowlength!=0">
         <van-swipe-item v-for="(img, index) in images" :key="index">
         <img :src="img" style="height:10.0rem;">
         </van-swipe-item>
+      </van-swipe>
+
+      <van-swipe class="goods-swipe" :autoplay="4000" v-else>
+        <img src="../../assets/icon/icon_scan.png" style="height:10.0rem;">
       </van-swipe>
     </div>
     <!-- 价格 -->
@@ -15,8 +19,8 @@
       <div style="margin:0.1rem;">
         <div>
           <div style="float:left;">
-          <span style="font-size:0.5rem;color:red;">{{articles.normalCouponAfterPrice}}元</span> 
-          <span v-if="articles.hasCoupon==true" style="text-decoration:line-through;color:#999">￥{{articles.minNormalPrice}}</span> 
+          <span style="font-size:0.5rem;color:red;">{{articles.groupCouponAfterPrice}}元</span> 
+          <span v-if="articles.hasCoupon==true" style="text-decoration:line-through;color:#999">￥{{articles.minGroupPrice}}</span> 
           </div>
           <div style="text-align:right;color:#999;">
           已拼{{articles.salesNum}}件
@@ -74,8 +78,8 @@
             <div>取消收藏</div>
           </div>
         </van-goods-action-mini-btn>
-        <van-goods-action-big-btn text="领券参团"/>
-        <van-goods-action-big-btn text="领券拼团" primary />
+        <van-goods-action-big-btn text="领券参团" @click="JumpnormalUrl"/>
+        <van-goods-action-big-btn text="领券拼团" primary @click="JumpgroupUrl" />
       </van-goods-action>
     </div>
 
@@ -89,7 +93,7 @@
 export default {
   data() {
     return {
-      isVip: '',
+      isVip: "",
       url: "http://ptk.baolinzhe.com/ptk/api/",
       goodsId: "",
       articles: {},
@@ -97,16 +101,53 @@ export default {
       helpshow: false,
       bottomhelpshow: false,
       userId: "",
-      hasCollect: false
+      hasCollect: false,
+      normalUrl: "",
+      groupUrl: "",
+      googsIdsss: "",
+      rowlength: ""
     };
   },
   mounted() {
     this.userId = sessionStorage.getItem("userId");
+    var keyword = window.location.href;
+    var i = keyword.indexOf("Id=");
+    this.goodsId = decodeURI(keyword.substring(i + 3, keyword.length));
+    // alert(this.goodsId)
     this.getParams();
+    this.getConvertUrl();
     this.getPageDetails();
     this.CheckCollect();
   },
   methods: {
+    JumpgroupUrl() {
+      window.location.href = this.groupUrl;
+    },
+    JumpnormalUrl() {
+      window.location.href = this.normalUrl;
+    },
+    getConvertUrl() {
+      // 缓存指针
+      let _this = this;
+      // 此处使用node做了代理
+      this.$axios
+        .get(
+          "http://ptk.baolinzhe.com/ptk/api/v1/product/convert-url?productId=" +
+            _this.goodsId +
+            "&id=" +
+            _this.userId
+        )
+        .then(function(response) {
+          // console.log(response.data.result);
+          _this.normalUrl = response.data.result.normalUrl;
+          _this.groupUrl = response.data.result.groupUrl;
+          //console.log(_this.normalUrl)
+          // console.log(_this.groupUrl)
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
     getPageDetails() {
       // 缓存指针
       let _this = this;
@@ -118,6 +159,8 @@ export default {
           // 将得到的数据放到vue中的data
           _this.articles = response.data.result;
           _this.images = response.data.result.images;
+          _this.rowlength = _this.images.length;
+          // alert(_this.images.length)
           //console.log(_this.articles);
           // console.log(_this.images);
           // console.log(response.data.result.goodsName);
@@ -128,11 +171,11 @@ export default {
     },
     getParams() {
       // 取到路由带过来的参数
-      var routerParams = this.$route.params.goodsId;
-      var isVips=this.$route.params.isVip;
+      // var routerParams = this.$route.params.goodsId;
+      var isVips = this.$route.params.isVip;
       // 将数据放在当前组件的数据内
-      this.goodsId = routerParams;
-      this.isVip=isVips;
+      // this.goodsId = routerParams;
+      this.isVip = isVips;
     },
     jumpmessage() {
       this.helpshow = true;

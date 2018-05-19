@@ -18,8 +18,6 @@ var VueCookie = require('vue-cookie');
 withCredentials: true
 Vue.use(VueCookie);
 Vue.use(require('vue-wechat-title'))
-    // import setTitle from './assets/util/setTitle.js'
-    // Window.setTitle=setTitle
 Vue.use(VueQriously)
 Vue.prototype.$axios = axios;
 Vue.use(Vant);

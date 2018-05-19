@@ -4,15 +4,15 @@
         <van-row>
             <van-col span="8">
                 <h3>粉丝总人数</h3>
-                <van-circle v-model="currentRate1" :rate="totalNumbers" :speed="50" :text="totalNumber" :stroke-width="60"/>
+                <van-circle v-model="currentRate1" :rate="100" :speed="50" :text="totalNumber" :stroke-width="60"/>
             </van-col>
             <van-col span="8">
                 <h3>拼团客</h3>
-                <van-circle v-model="currentRate2" :rate="NorNumbers" :speed="50" color="#13ce66" :text="NorNumber" :stroke-width="60"/>
+                <van-circle v-model="currentRate2" :rate="(NorNumbers/totalNumbers)*100" :speed="50" color="#13ce66" :text="NorNumber" :stroke-width="60"/>
             </van-col>
             <van-col span="8">
                 <h3>超级会员</h3>
-                <van-circle v-model="currentRate3" :rate="VIPNumbers" :speed="50" color="cyan" :text="VIPNumber" :stroke-width="60"/>
+                <van-circle v-model="currentRate3" :rate="(VIPNumbers/totalNumbers)*100" :speed="50" color="cyan" :text="VIPNumber" :stroke-width="60"/>
             </van-col>
         </van-row>
         <div style="border-bottom:0.1px solid #f1f1f1;">&nbsp;</div>
@@ -44,7 +44,7 @@
                             <van-col span="12">
                                 <div style="text-align:right;margin-top:14%;color:red;" @click="JumpPersonal(r.id)">
                                   <van-icon name="e630"/>
-                                  <div>查看</div>
+                                  <div style="font-size:14px;">查 看</div>
                                   </div>
                             </van-col>
                         </van-row>
@@ -77,7 +77,7 @@
                             <van-col span="12">
                                 <div style="text-align:right;margin-top:14%;color:red;" @click="JumpPersonalVip(r.id)">
                                   <van-icon name="e630"/>
-                                  <div>查看</div>
+                                  <div style="font-size:14px;">查 看</div>
                                   </div>
                             </van-col>
                         </van-row>
@@ -106,18 +106,17 @@ export default {
       totalNumbers: 0,
       VIPNumbers: 0,
       NorNumbers: 0,
-      VipLength: 0
     };
   },
   computed: {
     totalNumber() {
-      return this.currentRate1.toFixed(0) + "%";
+      return this.totalNumbers + "人";
     },
     NorNumber() {
-      return this.currentRate2.toFixed(0) + "%";
+      return this.NorNumbers + "人";
     },
     VIPNumber() {
-      return this.currentRate3.toFixed(0) + "%";
+      return this.VIPNumbers + "人";
     }
   },
   mounted() {
@@ -148,7 +147,7 @@ export default {
           .then(function(response) {
             // 将得到的数据放到vue中的data
             var lengths = response.data.result.length;
-            _this.totalNumbers = lengths / lengths * 100;
+            _this.totalNumbers = lengths;
             for (var i = 0; i < lengths; i++) {
               if (response.data.result[i].vip == false) {
                 _this.frienddata.push(response.data.result[i]);
@@ -157,12 +156,10 @@ export default {
               }
             }
             //console.log(_this.frienddata.length);
-            _this.NorNumbers =
-              _this.frienddata.length / _this.totalNumbers * 100;
-            _this.VIPNumbers =
-              _this.frienddataVip.length / _this.totalNumbers * 100;
-            _this.frienddataVip.length = _this.VipLength;
-            //console.log(_this.frienddataVip.length);
+            _this.currentRate2=0;
+            _this.currentRate3=100;
+            _this.NorNumbers = _this.frienddata.length;
+            _this.VIPNumbers = _this.frienddataVip.length;
           })
           .catch(function(error) {
             console.log(error);
@@ -182,9 +179,7 @@ export default {
       this.$router.push({
         path: "/ping",
         name: "personalVip",
-        params: {
-          friendVipId: Vipid
-        }
+        query:{userid:Vipid},
       });
     }
   }

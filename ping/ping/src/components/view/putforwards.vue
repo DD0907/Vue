@@ -21,11 +21,40 @@
       <section style="height:5px;"></section>
       <section>
         <van-cell-group>
-            <van-field center v-model="number" label="佣金币" placeholder="请输入佣金币数量" type="number">
+            <van-field center v-model="number" label="佣金币" placeholder="请输入佣金币数量" type="number" v-on:input="myFocus">
             <div slot="button" style="color:#d81e06;" @click="JumpTotalMoney">全部提现
             </div>
             </van-field>
-            <van-cell title="微信收款二维码" value="未绑定" is-link/>
+           <van-cell-group>
+           <van-row>
+              <van-col span="12">
+                <van-cell>
+                  <template slot="title">
+                    <span>微信收钱码</span>
+                  </template>
+                </van-cell>
+              </van-col>
+              <div>
+              <van-col span="12">
+               
+                <div style="text-align:right;" v-if="wxMoneyQrcode=='?time='+times">
+                 <van-cell is-link @click="JumpBindingMoneysacn">
+                  <template slot="title">
+                    <span>未添加</span>
+                  </template>
+                </van-cell>
+                </div>
+                 <div style="text-align:right;" v-else  @click="JumpMoneyShowScan">
+                 <van-cell>
+                  <template slot="title">
+                    <span ><img :src="wxMoneyQrcode" style="width:10%;" /></span>
+                  </template>
+                </van-cell>
+                </div>
+              </van-col>
+              </div>
+            </van-row>
+            </van-cell-group>
             <div style="height:0.6rem;margin-top:5px;">
               <span style="font-size:16px;margin:15px;">到账金额</span>
               <span style="margin:0px 0px 0px 15px;color:red;">{{(number-(number%100))/100}}.00元</span>
@@ -43,6 +72,9 @@
                   <div style="font-size:16px;margin-top:15px;color:red;" @click="JumpDeti">查看提现记录<van-icon name="arrow" style="font-size:14px;" /></div>
             </div>
       </section>
+      <van-dialog v-model="moneyshow" :show-confirm-button="false" title="我的收钱二维码" :close-on-click-overlay="true">
+        <div style="text-align:center;"><img :src="wxMoneyQrcode" style="width:80%"/></div>
+      </van-dialog>
   </section>
 </template>
 <script>
@@ -50,26 +82,85 @@ import notice from "../../assets/icon/icon_notices.png";
 export default {
   data() {
     return {
+      id: "",
+      url: "http://ptk.baolinzhe.com/ptk/api/",
+      userdata: {},
+      wxMoneyQrcode: "",
       nitice: "满1000佣金币即可提现，需整百提现",
       notice_icon: notice,
       number: "",
       money: 990,
       titledesc:
-        "每天可成功兑换一次，提现审核时间为9:00-21:00,审核成功后客服会根据您提供的微信二维码，进行打款操作"
+        "每天可成功兑换一次，提现审核时间为9:00-21:00,审核成功后客服会根据您提供的微信二维码，进行打款操作",
+      times:'',
+      moneyshow: false,
     };
   },
+  mounted() {
+    this.id = sessionStorage.getItem("userId");
+    this.getUserData();
+  },
   methods: {
-    JumpTotalMoney() {
-      this.number = this.money - this.money % 100;
-      if (this.number <= 0) {
-        this.$toast("满1000佣金币才能提现");
-        this.number='';
+     JumpMoneyShowScan() {
+      this.moneyshow = true;
+    },
+    getUserData() {
+      // 缓存指针
+      let _this = this;
+      if (_this.id == "") {
+        _this.$toast("当前您还未登录哦");
+      } else {
+        // 此处使用node做了代理
+        var time = new Date();
+        var times = Date.parse(time);
+         _this.times=times;
+        this.$axios
+          .post(_this.url + "/v1/user/" + _this.id)
+          .then(function(response) {
+            // 将得到的数据放到vue中的data
+            _this.userdata = response.data.result;
+            _this.money = _this.userdata.whiteIntegral;
+            _this.wxMoneyQrcode = _this.userdata.wxMoneyQrcode+ "?time=" + times;
+            //console.log(_this.userdata);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
       }
     },
-    JumpCash() {
-      this.$toast("您已申请成功");
+    myFocus() {
+      if (this.money < 1000) {
+        this.$toast("您的佣金币还未到达1000哦");
+        this.number = "";
+      } else if (this.number > this.money) {
+        this.$toast("您输入的佣金币数量有误");
+        this.number = "";
+      }
     },
-    JumpDeti(){
+    JumpTotalMoney() {
+      this.number = this.money - this.money % 100;
+      if (this.money < 1000) {
+        this.$toast("满1000佣金币才能提现哦");
+        this.number = "";
+      }
+    },
+    JumpBindingMoneysacn(){
+      this.$router.push({
+        path: "/ping",
+        name: "bindingmoneyscan",
+      });
+    },
+    JumpCash() {
+      if (this.money < 1000) {
+        this.$toast("满1000佣金币才能提现哦");
+      } else if (this.number < 100) {
+        this.$toast("您输入的佣金币数量有误");
+        this.number = "";
+      } else {
+        this.$toast("您已申请成功,请等待审核");
+      }
+    },
+    JumpDeti() {
       this.$router.push({
         path: "/ping",
         name: "commissions",
@@ -78,6 +169,10 @@ export default {
         }
       });
     }
+  },
+  watch: {
+    // 监测路由变化,只要变化了就调用获取路由参数方法将数据存储本组件即可
+    $route: "getParams"
   }
 };
 </script>

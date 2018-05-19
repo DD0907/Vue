@@ -56,7 +56,7 @@ export default {
             // 将得到的数据放到vue中的data
             if (response.data.code == 1) {
               _this.$toast("信息更改成功");
-              console.log(response.data.result);
+              // console.log(response.data.result);
               _this.$router.push({
                 path: "/ping",
                 name: "setting"

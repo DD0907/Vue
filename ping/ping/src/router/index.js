@@ -29,7 +29,7 @@ import commissions from '@/components/view/commissions'
 import bindingnumber from '@/components/view/bindingnumber'
 import bindingfriendscan from '@/components/view/bindingfriendscan'
 import bindingmoneyscan from '@/components/view/bindingmoneyscan'
-
+import errors from '@/components/view/errors'
 Vue.use(Router)
 export default new Router({
     mode: 'history',
@@ -219,6 +219,14 @@ export default new Router({
             component: putforwards,
             meta: {
                 title: '可提现的佣金币',
+            }
+        },
+        {
+            path: '/ping/errors',
+            name: 'errors',
+            component: errors,
+            meta: {
+                title: '错误提示',
             }
         },
         {

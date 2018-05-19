@@ -57,7 +57,7 @@ export default {
             // 将得到的数据放到vue中的data
             _this.userdata = response.data.result;
             _this.wxMoneyQrcode = _this.userdata.wxMoneyQrcode + "?time=" + times;
-            if (_this.wxMoneyQrcode == "" || _this.wxMoneyQrcode == null) {
+            if (_this.wxMoneyQrcode == "" || _this.wxMoneyQrcode == "?time=" + times) {
               _this.wxMoneyQrcode = _this.scan;
             }
             console.log(_this.wxMoneyQrcode);

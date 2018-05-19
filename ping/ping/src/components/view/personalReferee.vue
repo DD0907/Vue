@@ -38,7 +38,7 @@
                  <van-cell>
                   <template slot="title">
                     <span v-if="phone==''">未添加</span>
-                    <span v-else>{{phone}}</span>
+                    <span v-else @click="callPhone">{{phone}} ></span>
                   </template>
                 </van-cell>
                 </div>
@@ -62,7 +62,7 @@
                  <van-cell>
                   <template slot="title">
                     <span v-if="weixinnumber==''">未添加</span>
-                    <span v-else>{{weixinnumber}}</span>
+                    <span v-else>{{weixinnumber}} ></span>
                   </template>
                 </van-cell>
                 </div>
@@ -82,17 +82,17 @@
               </van-col>
               <div>
               <van-col span="12">
-                <div style="text-align:right;" @click="JumpScanShowScan" v-if="wxQrcode!=''">
-                 <van-cell>
-                  <template slot="title">
-                    <span><img :src="wxQrcode" style="width:10%;" /></span>
-                  </template>
-                </van-cell>
-                </div>
-                <div style="text-align:right;" v-else>
+                <div style="text-align:right;" v-if="wxQrcode=='?time='+times||wxQrcode==''">
                  <van-cell>
                   <template slot="title">
                     <span >未添加</span>
+                  </template>
+                </van-cell>
+                </div>
+                <div style="text-align:right;" @click="JumpScanShowScan" v-else>
+                 <van-cell>
+                  <template slot="title">
+                    <span><img :src="wxQrcode" style="width:10%;" /> ></span>
                   </template>
                 </van-cell>
                 </div>
@@ -112,17 +112,17 @@
               </van-col>
               <div>
               <van-col span="12">
-                <div style="text-align:right;" v-if="wxMoneyQrcode!=''" @click="JumpMoneyShowScan">
-                 <van-cell>
-                  <template slot="title">
-                    <span ><img :src="wxMoneyQrcode" style="width:10%;" /></span>
-                  </template>
-                </van-cell>
-                </div>
-                <div style="text-align:right;" v-else>
+                <div style="text-align:right;" v-if="wxMoneyQrcode=='?times='+times||wxMoneyQrcode==''">
                  <van-cell>
                   <template slot="title">
                     <span>未添加</span>
+                  </template>
+                </van-cell>
+                </div>
+                <div style="text-align:right;" v-else  @click="JumpMoneyShowScan">
+                 <van-cell>
+                  <template slot="title">
+                     <span ><img :src="wxMoneyQrcode" style="width:10%;"/> ></span>
                   </template>
                 </van-cell>
                 </div>
@@ -155,7 +155,8 @@ export default {
       wxMoneyQrcode: "",
       wxQrcode: "",
       sacnshow: false,
-      moneyshow:false
+      moneyshow: false,
+      times:""
     };
   },
   mounted() {
@@ -164,18 +165,21 @@ export default {
     this.getUserData();
   },
   methods: {
+    callPhone(){
+      window.location.href = 'tel:'+this.phone;
+    },
     getParams() {
       // 取到路由带过来的参数
       var refereId = this.$route.params.refereId;
       // 将数据放在当前组件的数据内
       this.refereId = refereId;
       console.log(this.refereId);
-    }, 
-    JumpScanShowScan(){
-      this.sacnshow=true;
     },
-    JumpMoneyShowScan(){
-      this.moneyshow=true;
+    JumpScanShowScan() {
+      this.sacnshow = true;
+    },
+    JumpMoneyShowScan() {
+      this.moneyshow = true;
     },
     getUserData() {
       // 缓存指针
@@ -184,6 +188,10 @@ export default {
         _this.$toast("当前您还未登录哦");
       } else {
         // 此处使用node做了代理
+        var time = new Date();
+        var times = Date.parse(time);
+        _this.times=times;
+        // alert(_this.times)
         this.$axios
           .get(
             _this.url +
@@ -198,9 +206,11 @@ export default {
             _this.headurl = _this.userdata.headPic;
             _this.phone = _this.userdata.phone;
             _this.weixinnumber = _this.userdata.wxId;
-            _this.wxMoneyQrcode = _this.userdata.wxMoneyQrcode;
-            _this.wxQrcode = _this.userdata.wxQrcode;
+            _this.wxMoneyQrcode =
+              _this.userdata.wxMoneyQrcode + "?times=" + _this.times;
+            _this.wxQrcode = _this.userdata.wxQrcode + "?time=" + _this.times;
             console.log(_this.userdata);
+            console.log(_this.wxMoneyQrcode)
           })
           .catch(function(error) {
             console.log(error);

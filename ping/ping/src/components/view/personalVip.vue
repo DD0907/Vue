@@ -37,7 +37,7 @@
                  <van-cell>
                   <template slot="title">
                     <span v-if="phone==''">未添加</span>
-                    <span v-else>{{phone}}</span>
+                    <span v-else @click="callPhone">{{phone}} ></span>
                   </template>
                 </van-cell>
                 </div>
@@ -61,7 +61,7 @@
                  <van-cell>
                   <template slot="title">
                     <span v-if="weixinnumber==''">未添加</span>
-                    <span v-else>{{weixinnumber}}</span>
+                    <span v-else>{{weixinnumber}} ></span>
                   </template>
                 </van-cell>
                 </div>
@@ -81,17 +81,17 @@
               </van-col>
               <div>
               <van-col span="12">
-                <div style="text-align:right;" @click="JumpScanShowScan" v-if="wxQrcode!=''">
-                 <van-cell>
-                  <template slot="title">
-                    <span><img :src="wxQrcode" style="width:10%;" /></span>
-                  </template>
-                </van-cell>
-                </div>
-                <div style="text-align:right;" v-else>
+                <div style="text-align:right;" v-if="wxQrcode=='?times='+times||wxQrcode==''">
                  <van-cell>
                   <template slot="title">
                     <span >未添加</span>
+                  </template>
+                </van-cell>
+                </div>
+                <div style="text-align:right;" @click="JumpScanShowScan" v-else>
+                 <van-cell>
+                  <template slot="title">
+                    <span><img :src="wxQrcode" style="width:10%;" /> ></span>
                   </template>
                 </van-cell>
                 </div>
@@ -111,17 +111,17 @@
               </van-col>
               <div>
               <van-col span="12">
-                <div style="text-align:right;" v-if="wxMoneyQrcode!=''" @click="JumpMoneyShowScan">
-                 <van-cell>
-                  <template slot="title">
-                    <span ><img :src="wxMoneyQrcode" style="width:10%;" /></span>
-                  </template>
-                </van-cell>
-                </div>
-                <div style="text-align:right;" v-else>
+                <div style="text-align:right;"  v-if="wxMoneyQrcode=='?time='+times||wxMoneyQrcode==''">
                  <van-cell>
                   <template slot="title">
                     <span>未添加</span>
+                  </template>
+                </van-cell>
+                </div>
+                <div style="text-align:right;" v-else @click="JumpMoneyShowScan">
+                 <van-cell>
+                  <template slot="title">
+                    <span ><img :src="wxMoneyQrcode" style="width:10%;" /></span>
                   </template>
                 </van-cell>
                 </div>
@@ -131,7 +131,7 @@
         </van-cell-group>
 
         <van-cell-group>
-          <van-cell title="已奖励订单" is-link value="查看" />
+          <van-cell title="已奖励订单" is-link value="查看" @click="JumpRewarddata" />
         </van-cell-group>
       </section>
       <van-dialog v-model="sacnshow" :show-confirm-button="false" title="我的二维码" :close-on-click-overlay="true">
@@ -144,14 +144,14 @@
   </section>
 </template>
 <script>
-import { Dialog } from 'vant';
+import { Dialog } from "vant";
 
 export default {
   data() {
     return {
       id: "",
       url: "http://ptk.baolinzhe.com/ptk/api/",
-      friendVipId:'',
+      friendVipId: "",
       phone: "",
       weixinnumber: "",
       headurl: "",
@@ -159,7 +159,8 @@ export default {
       wxMoneyQrcode: "",
       wxQrcode: "",
       sacnshow: false,
-      moneyshow:false
+      moneyshow: false,
+      times: ""
     };
   },
   mounted() {
@@ -168,18 +169,20 @@ export default {
     this.getUserData();
   },
   methods: {
-      JumpScanShowScan(){
-      this.sacnshow=true;
+    callPhone() {
+      window.location.href = "tel:" + this.phone;
     },
-    JumpMoneyShowScan(){
-      this.moneyshow=true;
+    JumpScanShowScan() {
+      this.sacnshow = true;
     },
-     getParams() {
-      // 取到路由带过来的参数
-      var routerParams = this.$route.params.friendVipId;
-      // 将数据放在当前组件的数据内
-      this.friendVipId = routerParams;
-      console.log(this.friendVipId)
+    JumpMoneyShowScan() {
+      this.moneyshow = true;
+    },
+    getParams() {
+      var keyword = window.location.href;
+      var i = keyword.indexOf("=");
+      this.friendVipId = decodeURI(keyword.substring(i + 1, keyword.length));
+      console.log(this.friendVipId);
     },
     getUserData() {
       // 缓存指针
@@ -188,6 +191,9 @@ export default {
         _this.$toast("当前您还未登录哦");
       } else {
         // 此处使用node做了代理
+        var time = new Date();
+        var times = Date.parse(time);
+        _this.times = times;
         this.$axios
           .post(_this.url + "/v1/user/" + _this.friendVipId)
           .then(function(response) {
@@ -196,14 +202,25 @@ export default {
             _this.headurl = _this.userdata.headPic;
             _this.phone = _this.userdata.phone;
             _this.weixinnumber = _this.userdata.wxId;
-            _this.wxMoneyQrcode = _this.userdata.wxMoneyQrcode;
-            _this.wxQrcode = _this.userdata.wxQrcode;
-            console.log(_this.userdata);
+            _this.wxMoneyQrcode =
+              _this.userdata.wxMoneyQrcode + "?time=" + times;
+            _this.wxQrcode = _this.userdata.wxQrcode + "?times=" + times;
+            // console.log(_this.userdata);
           })
           .catch(function(error) {
             console.log(error);
           });
       }
+    },
+    JumpRewarddata(){
+      // 已奖励订单
+      this.$router.push({
+        path: "/ping",
+        name: "viprecord",
+        params: {
+          data: 2
+        }
+      });
     }
   },
   watch: {

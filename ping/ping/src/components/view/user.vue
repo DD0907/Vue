@@ -5,7 +5,7 @@
               <!-- <span style="margin:20px;font-size:0.5rem;" @click="jumpPhone">绑定手机号</span> -->
           </div>
           <div style="text-align:center;">
-            <div v-if="userdata.headPic==''">
+            <div v-if="userdata.headPic==''||userdata.headPic==null">
                 <img src="../../assets/icon/icon_head.png" style="width:2.0rem;height:2.0rem;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
             </div>
              <div v-else>
@@ -41,7 +41,7 @@
                 </van-cell-group>
                 <section style="height:5px;">&nbsp;</section>
                 <van-cell-group>
-                  <van-cell title="升级超级会员"  icon="e607" @click="jumpFans" is-link style="color:red;"/>
+                  <van-cell title="升级超级会员"  icon="e607" @click="jumpUpgradeVip" is-link style="color:red;"/>
                    <van-cell title="官方客服"  icon="e604" @click="jumpTeam" is-link style="color:red;"/>
                 </van-cell-group>
             </div>
@@ -54,19 +54,19 @@
             <van-goods-action-mini-btn style="width:25%;" @click="jumpIndex">
                 <div style="text-align:center;">
                   <van-icon name="e606"/>
-                  <div style="margin:1px;">首页</div>
+                  <div style="margin:3px;"><span style="font-size:14px;">首页</span></div>
                 </div>
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpLove">
               <div style="text-align:center;">
                   <van-icon name="e619"/>
-                  <div style="margin:1px;">收藏</div>
+                  <div style="margin:3px;"><span style="font-size:14px;">收藏</span></div>
               </div>
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpVip">
               <div style="text-align:center;">
                   <van-icon name="e607"/>
-                  <div style="margin:1px;">超级会员</div>
+                  <div style="margin:3px;"><span style="font-size:14px;">超级会员</span></div>
               </div>
             </van-goods-action-mini-btn>
             <!-- <van-goods-action-mini-btn  style="width:25%;" @click="JumpShare">
@@ -78,7 +78,7 @@
             <van-goods-action-mini-btn style="width:25%;">
                 <div style="text-align:center;color:red;">
                   <van-icon name="e6a4"/>
-                  <div style="margin:1px;">我的</div>
+                  <div style="margin:3px;"><span style="font-size:14px;">我的</span></div>
                 </div>
             </van-goods-action-mini-btn>
         </van-goods-action>
@@ -87,21 +87,40 @@
   </div>
 </template>
 <script>
+import qs from "qs";
+
 export default {
   data() {
     return {
       id: "",
       url: "http://ptk.baolinzhe.com/ptk/api/",
-      userdata:{},
-      headurl:'',
-      refereId:''
+      userdata: {},
+      headurl: "",
+      refereId: ""
     };
   },
   mounted() {
-    this.id=sessionStorage.getItem('userId');
-    this.getUserData();
+    if (this.isWeiXin()) {
+      this.id = sessionStorage.getItem("userId");
+      this.getUserData();
+    } else {
+      this.$router.push({
+        path: "/ping",
+        name: "errors"
+      });
+    }
   },
   methods: {
+    //判断是否微信登陆 是不是微信浏览器
+    isWeiXin() {
+      let ua = window.navigator.userAgent.toLowerCase();
+      console.log(ua); //mozilla/5.0 (iphone; cpu iphone os 9_1 like mac os x) applewebkit/601.1.46 (khtml, like gecko)version/9.0 mobile/13b143 safari/601.1
+      if (ua.match(/MicroMessenger/i) == "micromessenger") {
+        return true;
+      } else {
+        return false;
+      }
+    },
     getUserData() {
       // 缓存指针
       let _this = this;
@@ -115,7 +134,7 @@ export default {
           .then(function(response) {
             // 将得到的数据放到vue中的data
             _this.userdata = response.data.result;
-            _this.headurl=_this.userdata.headPic;
+            _this.headurl = _this.userdata.headPic;
             _this.refereId = _this.userdata.refereId;
             console.log(_this.userdata);
           })
@@ -152,10 +171,14 @@ export default {
       this.$router.push({
         path: "/ping",
         name: "personalReferee",
-        params:{
-          refereId:this.refereId
+        params: {
+          refereId: this.refereId
         }
       });
+    },
+    jumpUpgradeVip() {
+      sessionStorage.setItem("isVip", true);
+      console.log(sessionStorage.getItem("isVip"));
     },
     jumpFans() {
       this.$router.push({

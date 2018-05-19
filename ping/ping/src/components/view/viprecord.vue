@@ -3,7 +3,7 @@
       <section>
         <van-tabs v-model="active">
             <van-tab>
-                <div slot="title">
+                <div slot="title" @click="getdata">
                    待确认收货
                 </div>
                  <!-- <section style="height:2px;">&nbsp;</section> -->
@@ -11,7 +11,7 @@
                     <div v-if="NoReceiptdata.length==0" style="text-align:center;">
                         这里什么也没有
                     </div>
-                    <div v-else v-for="(r, key) in NoReceiptdata" :key="key">
+                    <div v-else v-for="(r, key) in NoReceiptdata" :key="key" track-ty='key'>
                         <div class="leftbox">
                             <img :src="r.goodsImageUrl" style="width:1.5rem;" />
                         </div>
@@ -40,7 +40,7 @@
                  </div>
             </van-tab>
             <van-tab>
-                <div slot="title">
+                <div slot="title" @click="getReviewdata">
                    审核中
                 </div>
                 <section style="height:2px;">&nbsp;</section>
@@ -77,7 +77,7 @@
                  </div>
             </van-tab>
             <van-tab>
-                <div slot="title">
+                <div slot="title" @click="getRewarddata">
                    已奖励
                 </div>
                 <section style="height:2px;">&nbsp;</section>
@@ -114,7 +114,7 @@
                  </div>
             </van-tab>
             <van-tab>
-                <div slot="title">
+                <div slot="title" @click="getFailuredata">
                    已失效
                 </div>
                 <section style="height:2px;">&nbsp;</section>
@@ -161,16 +161,18 @@ export default {
       id: "",
       url: "http://ptk.baolinzhe.com/ptk/api/",
       active: 0,
-      NoReceiptdata:[], //待确认收货
-      Reviewdata:[],    //审核中
-      Rewarddata:[],    //已奖励
-      Failuredata:[]    //已失效
+      NoReceiptdata: {}, //待确认收货
+      Reviewdata: {}, //审核中
+      Rewarddata: {}, //已奖励
+      Failuredata: {} //已失效
     };
   },
   mounted() {
     this.id = sessionStorage.getItem("userId");
     this.getParams();
     this.getdata();
+    this.getReviewdata();
+    this.getRewarddata();
   },
   methods: {
     getParams() {
@@ -188,8 +190,9 @@ export default {
       } else {
         // 此处使用node做了代理
         let page = 1;
-        let pageSize = 10;
-        let orderStatus = 0;
+        let pageSize = 20;
+        let sw = true;
+        let orderStatus = 1;
         this.$axios
           .get(
             _this.url +
@@ -204,27 +207,324 @@ export default {
           )
           .then(function(response) {
             // 将得到的数据放到vue中的data
-             var lengths = response.data.result.length;
-              for (var i = 0; i < lengths; i++) {
-              if (response.data.result[i].orderStatus == 1) {
-                _this.NoReceiptdata.push(response.data.result[i]);
-              } else if(response.data.result[i].orderStatus == 2) {
-                _this.Reviewdata.push(response.data.result[i]);
-              }else if(response.data.result[i].orderStatus == 3) {
-                _this.Rewarddata.push(response.data.result[i]);
-              }else if(response.data.result[i].orderStatus == 4) {
-                _this.Failuredata.push(response.data.result[i]);
-              }
+            if (response.data.code == 1) {
+              _this.NoReceiptdata = response.data.result;
             }
-            console.log(_this.NoReceiptdata);
-            console.log(_this.NoReceiptdata.length);
-            console.log(_this.Reviewdata.length);
-            console.log(_this.Rewarddata.length);
-            console.log(_this.Failuredata.length);
           })
           .catch(function(error) {
             console.log(error);
           });
+        // 注册scroll事件并监听
+        // window.addEventListener
+        window.addEventListener("scroll", function() {
+          var a =
+            window.innerHeight ||
+            document.documentElement.clientHeight ||
+            document.body.clientHeight;
+          var b =
+            document.documentElement.scrollTop == 0
+              ? document.body.scrollTop
+              : document.documentElement.scrollTop;
+          var c =
+            document.documentElement.scrollTop == 0
+              ? document.body.scrollHeight
+              : document.documentElement.scrollHeight;
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            console.log(sw);
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/order/list?userId=" +
+                    _this.id +
+                    "&orderStatus=" +
+                    orderStatus +
+                    "&page=" +
+                    page++ +
+                    "&pageSize=" +
+                    pageSize
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.NoReceiptdata.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              console.log("正在加载中");
+            }
+          }
+          // console.log(sw);
+        });
+      }
+    },
+    getReviewdata() {
+      // 缓存指针
+      let _this = this;
+      if (_this.id == "") {
+        _this.$toast("当前您还未登录哦");
+      } else {
+        // 此处使用node做了代理
+        let page = 1;
+        let pageSize = 20;
+        let sw = true;
+        let orderStatus = 2;
+        this.$axios
+          .get(
+            _this.url +
+              "/v1/order/list?userId=" +
+              _this.id +
+              "&orderStatus=" +
+              orderStatus +
+              "&page=" +
+              page++ +
+              "&pageSize=" +
+              pageSize
+          )
+          .then(function(response) {
+            // 将得到的数据放到vue中的data
+            if (response.data.code == 1) {
+              _this.Reviewdata = response.data.result;
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+        // 注册scroll事件并监听
+        // window.addEventListener
+        window.addEventListener("scroll", function() {
+          var a =
+            window.innerHeight ||
+            document.documentElement.clientHeight ||
+            document.body.clientHeight;
+          var b =
+            document.documentElement.scrollTop == 0
+              ? document.body.scrollTop
+              : document.documentElement.scrollTop;
+          var c =
+            document.documentElement.scrollTop == 0
+              ? document.body.scrollHeight
+              : document.documentElement.scrollHeight;
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            console.log(sw);
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/order/list?userId=" +
+                    _this.id +
+                    "&orderStatus=" +
+                    orderStatus +
+                    "&page=" +
+                    page++ +
+                    "&pageSize=" +
+                    pageSize
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.Reviewdata.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              console.log("正在加载中");
+            }
+          }
+        });
+      }
+    },
+    getRewarddata() {
+      // 缓存指针
+      let _this = this;
+      if (_this.id == "") {
+        _this.$toast("当前您还未登录哦");
+      } else {
+        // 此处使用node做了代理
+        let page = 1;
+        let pageSize = 20;
+        let sw = true;
+        let orderStatus = 3;
+        this.$axios
+          .get(
+            _this.url +
+              "/v1/order/list?userId=" +
+              _this.id +
+              "&orderStatus=" +
+              orderStatus +
+              "&page=" +
+              page++ +
+              "&pageSize=" +
+              pageSize
+          )
+          .then(function(response) {
+            // 将得到的数据放到vue中的data
+            if (response.data.code == 1) {
+              _this.Rewarddata = response.data.result;
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+        // 注册scroll事件并监听
+        // window.addEventListener
+        window.addEventListener("scroll", function() {
+          var a =
+            window.innerHeight ||
+            document.documentElement.clientHeight ||
+            document.body.clientHeight;
+          var b =
+            document.documentElement.scrollTop == 0
+              ? document.body.scrollTop
+              : document.documentElement.scrollTop;
+          var c =
+            document.documentElement.scrollTop == 0
+              ? document.body.scrollHeight
+              : document.documentElement.scrollHeight;
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            console.log(sw);
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/order/list?userId=" +
+                    _this.id +
+                    "&orderStatus=" +
+                    orderStatus +
+                    "&page=" +
+                    page++ +
+                    "&pageSize=" +
+                    pageSize
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.Rewarddata.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              console.log("正在加载中");
+            }
+          }
+        });
+      }
+    },
+    getFailuredata() {
+      // 缓存指针
+      let _this = this;
+      if (_this.id == "") {
+        _this.$toast("当前您还未登录哦");
+      } else {
+        // 此处使用node做了代理
+        let page = 1;
+        let pageSize = 20;
+        let sw = true;
+        let orderStatus = 4;
+        this.$axios
+          .get(
+            _this.url +
+              "/v1/order/list?userId=" +
+              _this.id +
+              "&orderStatus=" +
+              orderStatus +
+              "&page=" +
+              page++ +
+              "&pageSize=" +
+              pageSize
+          )
+          .then(function(response) {
+            // 将得到的数据放到vue中的data
+            if (response.data.code == 1) {
+              _this.Failuredata = response.data.result;
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+        // 注册scroll事件并监听
+        // window.addEventListener
+        window.addEventListener("scroll", function() {
+          var a =
+            window.innerHeight ||
+            document.documentElement.clientHeight ||
+            document.body.clientHeight;
+          var b =
+            document.documentElement.scrollTop == 0
+              ? document.body.scrollTop
+              : document.documentElement.scrollTop;
+          var c =
+            document.documentElement.scrollTop == 0
+              ? document.body.scrollHeight
+              : document.documentElement.scrollHeight;
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            console.log(sw);
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/order/list?userId=" +
+                    _this.id +
+                    "&orderStatus=" +
+                    orderStatus +
+                    "&page=" +
+                    page++ +
+                    "&pageSize=" +
+                    pageSize
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.Failuredata.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              console.log("正在加载中");
+            }
+          }
+        });
       }
     }
   }
@@ -237,8 +537,8 @@ export default {
   float: left;
   border: 0.1rem solid #ffffff;
 }
-body{
-    background: #f1f1f1;
+body {
+  background: #f1f1f1;
 }
 </style>
 
