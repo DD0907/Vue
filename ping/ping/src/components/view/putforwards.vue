@@ -92,8 +92,8 @@ export default {
       money: 990,
       titledesc:
         "每天可成功兑换一次，提现审核时间为9:00-21:00,审核成功后客服会根据您提供的微信二维码，进行打款操作",
-      times:'',
-      moneyshow: false,
+      times: "",
+      moneyshow: false
     };
   },
   mounted() {
@@ -101,7 +101,7 @@ export default {
     this.getUserData();
   },
   methods: {
-     JumpMoneyShowScan() {
+    JumpMoneyShowScan() {
       this.moneyshow = true;
     },
     getUserData() {
@@ -113,14 +113,15 @@ export default {
         // 此处使用node做了代理
         var time = new Date();
         var times = Date.parse(time);
-         _this.times=times;
+        _this.times = times;
         this.$axios
           .post(_this.url + "/v1/user/" + _this.id)
           .then(function(response) {
             // 将得到的数据放到vue中的data
             _this.userdata = response.data.result;
             _this.money = _this.userdata.whiteIntegral;
-            _this.wxMoneyQrcode = _this.userdata.wxMoneyQrcode+ "?time=" + times;
+            _this.wxMoneyQrcode =
+              _this.userdata.wxMoneyQrcode + "?time=" + times;
             //console.log(_this.userdata);
           })
           .catch(function(error) {
@@ -133,7 +134,7 @@ export default {
         this.$toast("您的佣金币还未到达1000哦");
         this.number = "";
       } else if (this.number > this.money) {
-        this.$toast("您输入的佣金币数量有误");
+        this.$toast("您输入的佣金币超过了可提现佣金币的余额");
         this.number = "";
       }
     },
@@ -144,20 +145,39 @@ export default {
         this.number = "";
       }
     },
-    JumpBindingMoneysacn(){
+    JumpBindingMoneysacn() {
       this.$router.push({
         path: "/ping",
-        name: "bindingmoneyscan",
+        name: "bindingmoneyscan"
       });
     },
     JumpCash() {
       if (this.money < 1000) {
         this.$toast("满1000佣金币才能提现哦");
-      } else if (this.number < 100) {
-        this.$toast("您输入的佣金币数量有误");
+      } else if (this.number < 1000) {
+        this.$toast("您输入的佣金币要大于或等于1000");
         this.number = "";
       } else {
-        this.$toast("您已申请成功,请等待审核");
+        let _this = this;
+        if (_this.id == "") {
+          _this.$toast("当前您还未登录哦");
+        } else {
+          this.$axios
+            .post(
+              _this.url +
+                "/v1/integral/extract?userId=" +
+                _this.id +
+                "&integral=" +
+                _this.number
+            )
+            .then(function(response) {
+              // 将得到的数据放到vue中的data
+              _this.$toast(response.data.message);
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+        }
       }
     },
     JumpDeti() {

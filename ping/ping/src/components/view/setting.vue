@@ -184,6 +184,7 @@ export default {
           .post(_this.url + "/v1/user/" + _this.id + "/update/nickname")
           .then(function(response) {
             if (response.data.code == 1) {
+              _this.getUserData();
               _this.$toast("微信头像和昵称同步成功");
             }
           })

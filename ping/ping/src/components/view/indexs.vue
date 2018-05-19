@@ -3,9 +3,9 @@
     <!--轮播图片-->
     <!-- <button @click="gettest()">test</button> -->
     <div>
-      <van-swipe class="goods-swipe" :autoplay="3000" v-if="images.length!=0">
+      <van-swipe class="goods-swipe" :autoplay="3000" v-if="code==1">
         <van-swipe-item v-for="(image, index) in images" :key="index">
-        <img :src="image">
+        <img :src="image.imgUrl" style="height:4.0rem;" @click="JumpPageDetails(image.itemId)">
         </van-swipe-item>
       </van-swipe>
        <van-swipe class="goods-swipe" :autoplay="3000" v-else>
@@ -14,8 +14,13 @@
     </div>
     <!-- 搜索框 -->
     <div>
+      <!-- v-model.trim 去除空格 -->
         <van-search v-model.trim="value" show-action placeholder="搜索拼多多优惠券商品" style="padding:2px;">
-            <div slot="action"><van-button size="small" @click="JumpSearch" style="background:red;"><span style="color:#ffffff;">搜索</span></van-button></div>
+            <div slot="action">
+              <van-button size="small" @click="JumpSearch" style="background:red;">
+              <span style="color:#ffffff;">搜索</span>
+              </van-button>
+            </div>
         </van-search>
     </div>
     <!-- 快捷按钮 -->
@@ -45,6 +50,7 @@
              <!-- 无数据的情况 -->
             <div v-if='rowlength==0'>
              <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
+             <div style="text-align:center;">暂无数据哦......</div>
             </div>
          <!-- list列表 -->
         <div v-else>
@@ -948,12 +954,14 @@ export default {
     return {
       id: "",
       isVip: true,
-      images: [
-        "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
-        "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
-        "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
-        "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg"
-      ],
+      images: {},
+      code:'',
+      // images: [
+      //   "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
+      //   "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
+      //   "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
+      //   "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg"
+      // ],
       active: 0,
       isLoading: true,
       img: "",
@@ -991,23 +999,18 @@ export default {
     //   this.id = dataJson.id;
     //   this.isVip = dataJson.vip;
     //   sessionStorage.setItem("userId", this.id);
-    //   sessionStorage.setItem("isVip", this.isVip);
     //   this.getdata();
     // } else {
     //   //不是来自微信内置浏览器
-    //   // window.location.href = "/ping/errors";
     //   this.$router.push({
     //     path: "/ping",
     //     name: "errors"
     //   });
     // }
-    this.id = 18; 
-    this.isVip=false;
+
+    this.id = 18;
+    this.isVip = true;
     sessionStorage.setItem("userId", this.id);
-    var keyword = window.location.href;
-    var i = keyword.indexOf("isVip=");
-    this.isVip = decodeURI(keyword.substring(i + 6, keyword.length))=='true';
-    // alert(this.isVip)
     this.getdata();
     function getCookie(name) {
       name = name + "=";
@@ -1022,6 +1025,8 @@ export default {
       }
       return value;
     }
+    //加载轮播图
+    this.getbannerdata();
   },
   methods: {
     //判断是否微信登陆 是不是微信浏览器
@@ -1033,6 +1038,22 @@ export default {
       } else {
         return false;
       }
+    },
+    getbannerdata() {
+      let _this = this;
+      this.$axios
+        .get(_this.url + "/v1/banner/list")
+        .then(function(response) {
+          // console.log(response.data.result);
+          if(response.data.code==1){
+            _this.images = response.data.result;
+            _this.code=1;
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+          _this.code=0;
+        });
     },
     getdata() {
       // 缓存指针
@@ -2155,7 +2176,7 @@ export default {
       }, 500);
     },
     destroyed() {
-      window.removeEventListener("scroll");
+      window.removeEventListener("scroll",scroll);
     },
     // 跳转商品详情页
     JumpPageDetails(goodsId) {

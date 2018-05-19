@@ -14,7 +14,7 @@
           </van-uploader>
         </div>
         <section style="height:10px;"></section>
-        <div>如何正确操作?</div>
+        <div>如何正确操作▶</div>
       </div>
     </section>
   </section>

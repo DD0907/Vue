@@ -14,7 +14,7 @@
             <div>
                 <span style="font-size:18px;">{{userdata.nickname}}</span>
                 <div>
-                  <van-tag plain style="color:#ffd600;font-size:12px;" v-if="userdata.vip==false">拼团客</van-tag>
+                  <van-tag plain style="color:#ffd600;font-size:12px;" v-if="userdata.vip=='false'||userdata.vip==false">拼团客</van-tag>
                   <van-tag plain style="color:#ffd600;font-size:12px;" v-else>超级会员</van-tag>
                 </div>
                 <div>我的粉丝：{{userdata.invitationNum}}</div>
@@ -93,7 +93,7 @@ export default {
   data() {
     return {
       id: "",
-      isVip:'',
+      isVip: false,
       url: "http://ptk.baolinzhe.com/ptk/api/",
       userdata: {},
       headurl: "",
@@ -105,9 +105,14 @@ export default {
     this.getUserData();
     var keyword = window.location.href;
     var i = keyword.indexOf("isVip=");
-    this.isVip = decodeURI(keyword.substring(i + 6, keyword.length))=='true';
+    this.isVip = decodeURI(keyword.substring(i + 6, keyword.length))=="true";
+
     // if (this.isWeiXin()) {
     //   this.id = sessionStorage.getItem("userId");
+    //   var keyword = window.location.href;
+    //   var i = keyword.indexOf("isVip=");
+    //   this.isVip =
+    //     decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
     //   this.getUserData();
     // } else {
     //   this.$router.push({
@@ -142,7 +147,7 @@ export default {
             _this.userdata = response.data.result;
             _this.headurl = _this.userdata.headPic;
             _this.refereId = _this.userdata.refereId;
-            console.log(_this.userdata);
+            // console.log(_this.userdata);
           })
           .catch(function(error) {
             console.log(error);
@@ -186,7 +191,9 @@ export default {
       });
     },
     jumpUpgradeVip() {
-      this.isVip=true;
+      this.isVip = true;
+      // sessionStorage.setItem("isVip",this.isVip);
+      this.$toast("您已提交申请,请等待审核...");
     },
     jumpFans() {
       this.$router.push({

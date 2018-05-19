@@ -187,7 +187,7 @@ export default {
       var refereId = this.$route.params.refereId;
       // 将数据放在当前组件的数据内
       this.refereId = refereId;
-      console.log(this.refereId);
+      // console.log(this.refereId);
     },
     JumpScanShowScan() {
       this.sacnshow = true;
@@ -223,8 +223,8 @@ export default {
             _this.wxMoneyQrcode =
               _this.userdata.wxMoneyQrcode + "?times=" + _this.times;
             _this.wxQrcode = _this.userdata.wxQrcode + "?time=" + _this.times;
-            console.log(_this.userdata);
-            console.log(_this.wxMoneyQrcode);
+            // console.log(_this.userdata);
+            // console.log(_this.wxMoneyQrcode);
           })
           .catch(function(error) {
             console.log(error);

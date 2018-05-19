@@ -326,14 +326,19 @@ export default {
         window.pageXOffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop;
-      var offsetTop = window.document.querySelector("#searchBar").offsetTop;
-      if (scrollTop > offsetTop) {
+      var a =
+        window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight;
+      var offsetTops = a;
+      // var offsetTops = window.document.querySelector("#searchBar").offsetTop;
+      if (scrollTop + offsetTops > offsetTops) {
         this.searchBarFixed = true;
       } else {
         this.searchBarFixed = false;
       }
-      console.log(scrollTop);
-      console.log(offsetTop);
+      // console.log(scrollTop);
+      // console.log(offsetTops);
     },
     getdata() {
       // 缓存指针
@@ -380,7 +385,7 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          console.log(sw);
+          // console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -411,7 +416,7 @@ export default {
           }
           if (sw == false) {
             _this.messages = "正在加载中...";
-            console.log("正在加载中");
+            // console.log("正在加载中");
           }
         }
         // console.log(sw);
@@ -462,7 +467,7 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          console.log(sw);
+          // console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -493,7 +498,7 @@ export default {
           }
           if (sw == false) {
             _this.messages = "正在加载中...";
-            console.log("正在加载中");
+            // console.log("正在加载中");
           }
         }
         // console.log(sw);
@@ -574,8 +579,8 @@ export default {
               });
           }
           if (sw == false) {
-             _this.messages = "正在加载中...";
-            console.log("正在加载中");
+            _this.messages = "正在加载中...";
+            // console.log("正在加载中");
           }
         }
         // console.log(sw);
@@ -626,7 +631,7 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          console.log(sw);
+          // console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -657,7 +662,7 @@ export default {
           }
           if (sw == false) {
             _this.messages = "正在加载中...";
-            console.log("正在加载中");
+            // console.log("正在加载中");
           }
         }
         // console.log(sw);
@@ -699,7 +704,16 @@ export default {
           data: this.value
         }
       });
-      this.getdata();
+      // alert(this.active);
+      if (this.active == 0) {
+        this.getdata();
+      } else if (this.active == 1) {
+        this.getdatahighreward();
+      } else if (this.active == 2) {
+        this.getdatahighdiscount();
+      } else if (this.active == 3) {
+        this.getdatahighsales();
+      }
     },
     // 跳转商品详情页
     JumpPageDetails(goodsId) {

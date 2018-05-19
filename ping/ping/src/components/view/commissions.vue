@@ -143,8 +143,6 @@
   </div>
 </template>
 <script>
-import { Toast } from "vant";
-
 export default {
   data() {
     return {
@@ -172,7 +170,6 @@ export default {
       var routerParams = this.$route.params.data;
       // 将数据放在当前组件的数据内
       this.active = routerParams;
-      //alert(this.active)
     },
     onRefresh() {
       // 下拉刷新
@@ -205,10 +202,8 @@ export default {
           .then(function(response) {
             // 将得到的数据放到vue中的data
             if (response.data.code == 1) {
-              console.log(response.data.result);
               _this.recordsdata = response.data.result.records;
               _this.lengths = response.data.result.records.length;
-              console.log(_this.recordsdata);
             }
           })
           .catch(function(error) {
@@ -230,8 +225,6 @@ export default {
               ? document.body.scrollHeight
               : document.documentElement.scrollHeight;
           if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-            //alert("到达底部");
-            // console.log(sw);
             //如果开关打开则加载数据
             if (sw == true) {
               // 将开关关闭
@@ -249,7 +242,6 @@ export default {
                 .then(function(response) {
                   // 将得到的数据放到vue中的data
                   if (response.data.code == 1) {
-                    // console.log(response.data.result);
                     var lengths = response.data.result.length;
                     for (var i = 0; i < lengths; i++) {
                       _this.recordsdata.push(response.data.result[i]);
@@ -262,15 +254,9 @@ export default {
                 });
             }
             if (sw == false) {
-              // const toast = Toast.loading({
-              //   forbidClick: true, // 禁用背景点击
-              //   duration: 1000,
-              //   message: "正在加载中"
-              // });
               console.log("正在加载中");
             }
           }
-          // console.log(sw);
         });
       }
     },
@@ -278,7 +264,7 @@ export default {
       let _this = this;
       let page = 1;
       let pageSize = 10;
-      let sw=true;
+      let sw = true;
       this.$axios
         .get(
           _this.url +
@@ -292,10 +278,8 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           if (response.data.code == 1) {
-            console.log(response.data.result);
             _this.yongjindata = response.data.result.records;
             _this.lengths = response.data.result.records.length;
-            console.log(_this.yongjindata);
           }
         })
         .catch(function(error) {
@@ -336,12 +320,10 @@ export default {
               .then(function(response) {
                 // 将得到的数据放到vue中的data
                 if (response.data.code == 1) {
-                  if (response.data.code == 1) {
-                    // console.log(response.data.result);
-                    var lengths = response.data.result.length;
-                    for (var i = 0; i < lengths; i++) {
-                      _this.yongjindata.push(response.data.result[i]);
-                    }
+                  // console.log(response.data.result);
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.yongjindata.push(response.data.result[i]);
                   }
                 }
                 sw = true;
@@ -351,22 +333,16 @@ export default {
               });
           }
           if (sw == false) {
-            // const toast = Toast.loading({
-            //   forbidClick: true, // 禁用背景点击
-            //   duration: 1000,
-            //   message: "正在加载中"
-            // });
             console.log("正在加载中");
           }
         }
-        // console.log(sw);
       });
     },
     getshouyidata() {
       let _this = this;
       let page = 1;
       let pageSize = 10;
-       let sw = true;
+      let sw = true;
       this.$axios
         .get(
           _this.url +
@@ -380,10 +356,10 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           if (response.data.code == 1) {
-            console.log(response.data.result);
+            //console.log(response.data.result);
             _this.shouyidata = response.data.result.records;
             _this.lengths = response.data.result.records.length;
-            console.log(_this.shouyidata);
+            // console.log(_this.shouyidata);
           }
         })
         .catch(function(error) {
@@ -404,8 +380,7 @@ export default {
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //alert("到达底部");
-          console.log(sw);
+          //console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -422,13 +397,10 @@ export default {
               )
               .then(function(response) {
                 // 将得到的数据放到vue中的data
-                 if (response.data.code == 1) {
-                  if (response.data.code == 1) {
-                    // console.log(response.data.result);
-                    var lengths = response.data.result.length;
-                    for (var i = 0; i < lengths; i++) {
-                      _this.shouyidata.push(response.data.result[i]);
-                    }
+                if (response.data.code == 1) {
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.shouyidata.push(response.data.result[i]);
                   }
                 }
                 sw = true;
@@ -438,22 +410,16 @@ export default {
               });
           }
           if (sw == false) {
-            // const toast = Toast.loading({
-            //   forbidClick: true, // 禁用背景点击
-            //   duration: 1000,
-            //   message: "正在加载中"
-            // });
             console.log("正在加载中");
           }
         }
-        // console.log(sw);
       });
     },
     gettixiandata() {
       let _this = this;
       let page = 1;
       let pageSize = 10;
-       let sw = true;
+      let sw = true;
       this.$axios
         .get(
           _this.url +
@@ -467,10 +433,8 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           if (response.data.code == 1) {
-            console.log(response.data.result);
             _this.tixiandata = response.data.result.records;
             _this.lengths = response.data.result.records.length;
-            console.log(_this.tixiandata);
           }
         })
         .catch(function(error) {
@@ -510,12 +474,9 @@ export default {
               )
               .then(function(response) {
                 if (response.data.code == 1) {
-                  if (response.data.code == 1) {
-                    // console.log(response.data.result);
-                    var lengths = response.data.result.length;
-                    for (var i = 0; i < lengths; i++) {
-                      _this.tixiandata.push(response.data.result[i]);
-                    }
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.tixiandata.push(response.data.result[i]);
                   }
                 }
                 sw = true;
@@ -525,15 +486,9 @@ export default {
               });
           }
           if (sw == false) {
-            // const toast = Toast.loading({
-            //   forbidClick: true, // 禁用背景点击
-            //   duration: 1000,
-            //   message: "正在加载中"
-            // });
             console.log("正在加载中");
           }
         }
-        // console.log(sw);
       });
     }
   }

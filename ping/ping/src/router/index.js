@@ -41,7 +41,8 @@ export default new Router({
             name: 'search',
             component: search,
             meta: {
-                title: '搜索'
+                title: '搜索',
+                keepAlive: true
             }
         },
         {

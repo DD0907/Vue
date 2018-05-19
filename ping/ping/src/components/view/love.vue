@@ -129,20 +129,24 @@ export default {
       articles: {},
       rowlength: "",
       messages: "",
-      noshopPic:noshopPic,
-      offHeight:''
+      noshopPic: noshopPic,
+      offHeight: ""
     };
   },
   mounted() {
     this.userId = sessionStorage.getItem("userId");
     var keyword = window.location.href;
     var i = keyword.indexOf("isVip=");
-    this.isVips = decodeURI(keyword.substring(i + 6, keyword.length))=='true';
+    this.isVips = decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
     //  alert(this.isVips)
-    // this.isVips = sessionStorage.getItem("isVip") == "true";
     this.getCollectdata();
+
     // if (this.isWeiXin()) {
     //   this.userId = sessionStorage.getItem("userId");
+    //   var keyword = window.location.href;
+    //   var i = keyword.indexOf("isVip=");
+    //   this.isVips =
+    //     decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
     //   this.getCollectdata();
     // } else {
     //   this.$router.push({
@@ -304,7 +308,7 @@ export default {
                 productIds
             )
             .then(function(response) {
-              if ((response.data.code == 1)) {
+              if (response.data.code == 1) {
                 console.log(response.data.message);
                 _this.getCollectdata();
               }
@@ -312,8 +316,8 @@ export default {
             .catch(function(error) {
               console.log(error);
             });
-            // alert(productIds)
-            // alert(_this.userId)
+          // alert(productIds)
+          // alert(_this.userId)
         })
         .catch(() => {
           // on cancel

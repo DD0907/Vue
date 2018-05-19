@@ -17,7 +17,7 @@
         <van-col span="10" style="margin-top:1.0rem;" >
           <span style="font-size:16px;">{{userdata.nickname}}
             <div>
-              <van-tag plain style="color:#ffd600;font-size:12px;" v-if="userdata.vip==false">拼团客</van-tag>
+              <van-tag plain style="color:#ffd600;font-size:12px;" v-if="userdata.vip=='false'||userdata.vip==false">拼团客</van-tag>
               <van-tag plain style="color:#ffd600;font-size:12px;" v-else>超级会员</van-tag>
             </div>
             <div>
@@ -120,7 +120,7 @@ export default {
   data() {
     return {
       id: "",
-      isVip:'',   
+      isVip: false,
       url: "http://ptk.baolinzhe.com/ptk/api/",
       userdata: {},
       headurl: "",
@@ -138,9 +138,13 @@ export default {
     this.getVipCountdata();
     var keyword = window.location.href;
     var i = keyword.indexOf("isVip=");
-    this.isVip = decodeURI(keyword.substring(i + 6, keyword.length))=='true';
+    this.isVip = decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
     // if (this.isWeiXin()) {
     //   this.id = sessionStorage.getItem("userId");
+    //   var keyword = window.location.href;
+    //   var i = keyword.indexOf("isVip=");
+    //   this.isVip =
+    //     decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
     //   this.getUserData();
     //   this.getVipCountdata();
     // } else {

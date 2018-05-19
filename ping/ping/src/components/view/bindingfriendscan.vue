@@ -17,7 +17,7 @@
         </div>
         <section style="height:10px;"></section>
          <img :src="src"/>
-        <div>如何正确操作?</div>
+        <div>如何正确操作▶</div>
       </div>
     </section>
   </section>
