@@ -9,13 +9,7 @@ import {
 import PageDetails from '@/components/view/PageDetails'
 import share from '@/components/view/share'
 import user from '@/components/view/user'
-import order from '@/components/view/order'
 import fans from '@/components/view/fans'
-import team from '@/components/view/team'
-import recommendation from '@/components/view/recommendation'
-import Integraldetail from '@/components/view/Integraldetail'
-import IntegralDraw from '@/components/view/IntegralDraw'
-import Integralmall from '@/components/view/Integralmall'
 import love from '@/components/view/love'
 import vip from '@/components/view/vip'
 import vipnotice from '@/components/view/vipnotice'
@@ -121,11 +115,6 @@ export default new Router({
             }
         },
         {
-            path: '/ping/order',
-            name: 'order',
-            component: order
-        },
-        {
             path: '/ping/setting',
             name: 'setting',
             component: setting,
@@ -198,22 +187,6 @@ export default new Router({
             }
         },
         {
-            path: '/ping/team',
-            name: 'team',
-            component: team,
-            meta: {
-                title: '邀请好友',
-            }
-        },
-        {
-            path: '/ping/recommendation',
-            name: 'recommendation',
-            component: recommendation,
-            meta: {
-                title: '我的推荐人',
-            }
-        },
-        {
             path: '/ping/putforwards',
             name: 'putforwards',
             component: putforwards,
@@ -228,21 +201,6 @@ export default new Router({
             meta: {
                 title: '错误提示',
             }
-        },
-        {
-            path: '/ping/Integraldetail',
-            name: 'Integraldetail',
-            component: Integraldetail,
-        },
-        {
-            path: '/ping/IntegralDraw',
-            name: 'IntegralDraw',
-            component: IntegralDraw
-        },
-        {
-            path: '/ping/Integralmall',
-            name: 'Integralmall',
-            component: Integralmall
         },
     ],
 

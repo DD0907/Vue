@@ -16,6 +16,7 @@
     "lib-flexible": "^0.3.2",
     "vant": "^1.1.0",
     "vue": "^2.5.2",
+    "vue-clipboard2": "^0.1.1",
     "vue-cookie": "^1.1.4",
     "vue-easy-uploader": "^1.0.5",
     "vue-router": "^3.0.1",

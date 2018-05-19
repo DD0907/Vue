@@ -11,7 +11,7 @@
             <div style="float:left;"><van-checkbox v-model="checked" shape="square"/></div>
             <span style="margin-left:5px;">同意《超级会员用户协议》</span>
         </div>
-        <h7>&nbsp;</h7>
+        <h6>&nbsp;</h6>
         <van-button type="primary" style="width:100%;margin:2px;">申请成为超级会员</van-button>
       </section>
   </section>

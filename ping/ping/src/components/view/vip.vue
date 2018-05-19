@@ -120,6 +120,7 @@ export default {
   data() {
     return {
       id: "",
+      isVip:'',   
       url: "http://ptk.baolinzhe.com/ptk/api/",
       userdata: {},
       headurl: "",
@@ -132,16 +133,22 @@ export default {
     };
   },
   mounted() {
-    if (this.isWeiXin()) {
-      this.id = sessionStorage.getItem("userId");
-      this.getUserData();
-      this.getVipCountdata();
-    } else {
-      this.$router.push({
-        path: "/ping",
-        name: "errors"
-      });
-    }
+    this.id = sessionStorage.getItem("userId");
+    this.getUserData();
+    this.getVipCountdata();
+    var keyword = window.location.href;
+    var i = keyword.indexOf("isVip=");
+    this.isVip = decodeURI(keyword.substring(i + 6, keyword.length))=='true';
+    // if (this.isWeiXin()) {
+    //   this.id = sessionStorage.getItem("userId");
+    //   this.getUserData();
+    //   this.getVipCountdata();
+    // } else {
+    //   this.$router.push({
+    //     path: "/ping",
+    //     name: "errors"
+    //   });
+    // }
   },
   methods: {
     //判断是否微信登陆 是不是微信浏览器
@@ -210,13 +217,15 @@ export default {
     JumpLove() {
       this.$router.push({
         path: "/ping",
-        name: "love"
+        name: "love",
+        query: { isVip: this.isVip }
       });
     },
     JumpVip() {
       this.$router.push({
         path: "/ping",
-        name: "vip"
+        name: "vip",
+        query: { isVip: this.isVip }
       });
     },
     JumpIndex() {
@@ -228,7 +237,8 @@ export default {
     JumpUser() {
       this.$router.push({
         path: "/ping",
-        name: "user"
+        name: "user",
+        query: { isVip: this.isVip }
       });
     },
 

@@ -93,6 +93,7 @@ export default {
   data() {
     return {
       id: "",
+      isVip:'',
       url: "http://ptk.baolinzhe.com/ptk/api/",
       userdata: {},
       headurl: "",
@@ -100,15 +101,20 @@ export default {
     };
   },
   mounted() {
-    if (this.isWeiXin()) {
-      this.id = sessionStorage.getItem("userId");
-      this.getUserData();
-    } else {
-      this.$router.push({
-        path: "/ping",
-        name: "errors"
-      });
-    }
+    this.id = sessionStorage.getItem("userId");
+    this.getUserData();
+    var keyword = window.location.href;
+    var i = keyword.indexOf("isVip=");
+    this.isVip = decodeURI(keyword.substring(i + 6, keyword.length))=='true';
+    // if (this.isWeiXin()) {
+    //   this.id = sessionStorage.getItem("userId");
+    //   this.getUserData();
+    // } else {
+    //   this.$router.push({
+    //     path: "/ping",
+    //     name: "errors"
+    //   });
+    // }
   },
   methods: {
     //判断是否微信登陆 是不是微信浏览器
@@ -146,19 +152,22 @@ export default {
     jumpIndex() {
       this.$router.push({
         path: "/ping",
-        name: "indexs"
+        name: "indexs",
+        query: { isVip: this.isVip }
       });
     },
     JumpVip() {
       this.$router.push({
         path: "/ping",
-        name: "vip"
+        name: "vip",
+        query: { isVip: this.isVip }
       });
     },
     JumpLove() {
       this.$router.push({
         path: "/ping",
-        name: "love"
+        name: "love",
+        query: { isVip: this.isVip }
       });
     },
     JumpSetting() {
@@ -177,8 +186,7 @@ export default {
       });
     },
     jumpUpgradeVip() {
-      sessionStorage.setItem("isVip", true);
-      console.log(sessionStorage.getItem("isVip"));
+      this.isVip=true;
     },
     jumpFans() {
       this.$router.push({

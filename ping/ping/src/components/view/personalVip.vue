@@ -61,7 +61,12 @@
                  <van-cell>
                   <template slot="title">
                     <span v-if="weixinnumber==''">未添加</span>
-                    <span v-else>{{weixinnumber}} ></span>
+                    <span v-else 
+                    v-clipboard:copy="weixinnumber"
+                    v-clipboard:success="onCopy"
+                    v-clipboard:error="onError">
+                    {{weixinnumber}} >
+                    </span>
                   </template>
                 </van-cell>
                 </div>
@@ -160,7 +165,7 @@ export default {
       wxQrcode: "",
       sacnshow: false,
       moneyshow: false,
-      times: ""
+      times: "",
     };
   },
   mounted() {
@@ -169,6 +174,17 @@ export default {
     this.getUserData();
   },
   methods: {
+    onCopy: function(e) {
+      // console.log("你刚刚复制: " + e.text);
+      // alert("微信号已复制成功"+e.text)
+      this.$toast("微信号已复制成功:"+e.text);
+      // alert(e.text);
+    },
+    onError: function(e) {
+      console.log("无法复制文本！");
+      // alert("微信号复制失败了哦")
+      this.$toast("微信号复制失败了哦");
+    },
     callPhone() {
       window.location.href = "tel:" + this.phone;
     },
@@ -212,7 +228,7 @@ export default {
           });
       }
     },
-    JumpRewarddata(){
+    JumpRewarddata() {
       // 已奖励订单
       this.$router.push({
         path: "/ping",

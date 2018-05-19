@@ -1,5 +1,6 @@
 <template>
   <section>
+    <section>
       <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
         <div>
           <!-- 无数据的情况 -->
@@ -10,6 +11,7 @@
           <div v-else>
           <van-list>
               <section v-for="(r, key) in articles" :key="key" track-ty='key'>
+                <div v-if="r.exists">
                   <van-card :thumb="r.goodsThumbnailUrl" class="goods-imgurl">
                       <div slot="title">
                         <span style="font-size:12px;" @click="JumpPageDetails(r.goodsId)">{{r.goodsName}}</span>
@@ -36,15 +38,41 @@
                               </section>
                           </div>
                   </van-card>
+                  </div>
+                  <div v-else>
+                    <van-card :thumb="noshopPic" class="goods-imgurl">
+                      <div slot="title">
+                        <span style="font-size:12px;color:#999">{{r.goodsName}}</span>
+                      </div>
+                      <div slot="desc">
+                        <span style="color:#999;font-size:10px;"></span>
+                      </div>
+                      <div slot="tags" style="text-align:left;">
+                              <span>&nbsp;</span>
+                          </div>
+                          <div slot="tags" style="text-align:left;">
+                              <span style="font-size:10px;">
+                                <p>&nbsp;</p>
+                                </span>
+                          </div>
+                          <div slot="footer" style="text-align:right;">
+                              <section style="text-align:center;" @click="JumpDelCollect(r.goodsId)">
+                              <img src="../../assets/icon/icon_del.png" style="width:0.4rem;"/>
+                              <span style="font-size:14px;color:#999">删除</span>
+                              </section>
+                          </div>
+                  </van-card>
+                  </div>
                   <section style="height:2px;"></section>
               </section>
               <div style="text-align:center;font-size:14px;background:#f1f1f1;">
-                <div style="text-align:center;"><div style="margin-top:-18px;">&nbsp;{{messages}}</div></div>                        
+                <div style="text-align:center;"><div>&nbsp;{{messages}}</div></div>                        
                </div>
             </van-list>
           </div>
         </div>
       </van-pull-refresh>
+    </section>
     <!-- 底部标签 -->
     <div>
         <van-row>
@@ -89,6 +117,7 @@
 import { Dialog } from "vant";
 import { Toast } from "vant";
 import { Loading } from "vant";
+import noshopPic from "../../assets/icon/icon_noshopPic.png";
 
 export default {
   data() {
@@ -99,23 +128,28 @@ export default {
       userId: "",
       articles: {},
       rowlength: "",
-      messages: ""
+      messages: "",
+      noshopPic:noshopPic,
+      offHeight:''
     };
   },
   mounted() {
-    if (this.isWeiXin()) {
-      this.userId = sessionStorage.getItem("userId");
-      this.isVips = sessionStorage.getItem("isVip") == "true";
-      // alert(sessionStorage.getItem("isVip"))
-      // alert(this.isVips)
-      // console.log("userId" + sessionStorage.getItem("userId"));
-      this.getCollectdata();
-    } else {
-      this.$router.push({
-        path: "/ping",
-        name: "errors"
-      });
-    }
+    this.userId = sessionStorage.getItem("userId");
+    var keyword = window.location.href;
+    var i = keyword.indexOf("isVip=");
+    this.isVips = decodeURI(keyword.substring(i + 6, keyword.length))=='true';
+    //  alert(this.isVips)
+    // this.isVips = sessionStorage.getItem("isVip") == "true";
+    this.getCollectdata();
+    // if (this.isWeiXin()) {
+    //   this.userId = sessionStorage.getItem("userId");
+    //   this.getCollectdata();
+    // } else {
+    //   this.$router.push({
+    //     path: "/ping",
+    //     name: "errors"
+    //   });
+    // }
   },
   methods: {
     //判断是否微信登陆 是不是微信浏览器
@@ -145,7 +179,8 @@ export default {
     JumpVip() {
       this.$router.push({
         path: "/ping",
-        name: "vip"
+        name: "vip",
+        query: { isVip: this.isVips }
       });
     },
     JumpIndex() {
@@ -157,7 +192,8 @@ export default {
     JumpUser() {
       this.$router.push({
         path: "/ping",
-        name: "user"
+        name: "user",
+        query: { isVip: this.isVips }
       });
     },
     getCollectdata() {
@@ -183,7 +219,10 @@ export default {
             //console.log(_this.articles);
             var lengths = response.data.result.length;
             _this.rowlength = lengths;
-            // alert(page)
+            if (lengths == 10) {
+              _this.messages = "我已经到底了";
+            }
+            // alert(lengths);
           })
           .catch(function(error) {
             console.log(error);
@@ -221,12 +260,13 @@ export default {
                 .then(function(response) {
                   // 将新获取的数据push到vue中的data，就会反应到视图中了
                   var lengths = response.data.result.length;
+                  // alert(lengths)
                   for (var i = 0; i < lengths; i++) {
                     _this.articles.push(response.data.result[i]);
                   }
                   // 数据更新完毕，将开关打开
                   sw = true;
-                  if (lengths == 0) {
+                  if (lengths == 0 || lengths == null) {
                     _this.messages = "我已经到底了";
                   }
                 })
@@ -234,12 +274,8 @@ export default {
                   console.log(error);
                 });
             }
+            // alert(sw)
             if (sw == false) {
-              // const toast = Toast.loading({
-              //   forbidClick: true, // 禁用背景点击
-              //   duration: 1000,
-              //   message: "正在加载中"
-              // });
               _this.messages = "正在加载中...";
               console.log("正在加载中");
             }
@@ -268,7 +304,7 @@ export default {
                 productIds
             )
             .then(function(response) {
-              if ((response.data.code = 1)) {
+              if ((response.data.code == 1)) {
                 console.log(response.data.message);
                 _this.getCollectdata();
               }
@@ -276,6 +312,8 @@ export default {
             .catch(function(error) {
               console.log(error);
             });
+            // alert(productIds)
+            // alert(_this.userId)
         })
         .catch(() => {
           // on cancel

@@ -984,23 +984,31 @@ export default {
   },
   mounted() {
     // 加载时自动执行
-    if (this.isWeiXin()) {
-      //是来自微信内置浏览器
-      console.log(getCookie("userData"));
-      var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
-      this.id = dataJson.id;
-      this.isVip = dataJson.vip;
-      sessionStorage.setItem("userId", this.id);
-      sessionStorage.setItem("isVip", this.isVip);
-      this.getdata();
-    } else {
-      //不是来自微信内置浏览器
-      // window.location.href = "/ping/errors";
-      this.$router.push({
-        path: "/ping",
-        name: "errors"
-      });
-    }
+    // if (this.isWeiXin()) {
+    //   //是来自微信内置浏览器
+    //   console.log(getCookie("userData"));
+    //   var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+    //   this.id = dataJson.id;
+    //   this.isVip = dataJson.vip;
+    //   sessionStorage.setItem("userId", this.id);
+    //   sessionStorage.setItem("isVip", this.isVip);
+    //   this.getdata();
+    // } else {
+    //   //不是来自微信内置浏览器
+    //   // window.location.href = "/ping/errors";
+    //   this.$router.push({
+    //     path: "/ping",
+    //     name: "errors"
+    //   });
+    // }
+    this.id = 18; 
+    this.isVip=false;
+    sessionStorage.setItem("userId", this.id);
+    var keyword = window.location.href;
+    var i = keyword.indexOf("isVip=");
+    this.isVip = decodeURI(keyword.substring(i + 6, keyword.length))=='true';
+    // alert(this.isVip)
+    this.getdata();
     function getCookie(name) {
       name = name + "=";
       var start = document.cookie.indexOf(name),
@@ -2114,7 +2122,8 @@ export default {
     JumpVip() {
       this.$router.push({
         path: "/ping",
-        name: "vip"
+        name: "vip",
+        query: { isVip: this.isVip }
       });
     },
     JumpShare() {
@@ -2133,7 +2142,8 @@ export default {
     JumpUser() {
       this.$router.push({
         path: "/ping",
-        name: "user"
+        name: "user",
+        query: { isVip: this.isVip }
       });
     },
     onRefresh() {

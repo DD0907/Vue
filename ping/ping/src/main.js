@@ -10,10 +10,8 @@ import 'vant/lib/vant-css/index.css'
 import 'lib-flexible'
 import axios from 'axios'
 import VueQriously from 'vue-qriously'
-// import uploader  from 'vue-easy-uploader'
-// import Vuex from 'vuex'
-// let store = new Vuex.Store({})
-// Vue.use(uploader, store)
+import VueClipboard from 'vue-clipboard2' //复制文字
+Vue.use(VueClipboard)
 var VueCookie = require('vue-cookie');
 withCredentials: true
 Vue.use(VueCookie);

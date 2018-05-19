@@ -62,7 +62,10 @@
                  <van-cell>
                   <template slot="title">
                     <span v-if="weixinnumber==''">未添加</span>
-                    <span v-else>{{weixinnumber}} ></span>
+                    <span v-else 
+                    v-clipboard:copy="weixinnumber"
+                    v-clipboard:success="onCopy"
+                    v-clipboard:error="onError">{{weixinnumber}} ></span>
                   </template>
                 </van-cell>
                 </div>
@@ -156,7 +159,7 @@ export default {
       wxQrcode: "",
       sacnshow: false,
       moneyshow: false,
-      times:""
+      times: ""
     };
   },
   mounted() {
@@ -165,8 +168,19 @@ export default {
     this.getUserData();
   },
   methods: {
-    callPhone(){
-      window.location.href = 'tel:'+this.phone;
+    onCopy: function(e) {
+      // console.log("你刚刚复制: " + e.text);
+      // alert("微信号已复制成功"+e.text)
+      this.$toast("微信号已复制成功:"+e.text);
+      // alert(e.text);
+    },
+    onError: function(e) {
+      console.log("无法复制文本！");
+      // alert("微信号复制失败了哦")
+      this.$toast("微信号复制失败了哦");
+    },
+    callPhone() {
+      window.location.href = "tel:" + this.phone;
     },
     getParams() {
       // 取到路由带过来的参数
@@ -190,7 +204,7 @@ export default {
         // 此处使用node做了代理
         var time = new Date();
         var times = Date.parse(time);
-        _this.times=times;
+        _this.times = times;
         // alert(_this.times)
         this.$axios
           .get(
@@ -210,7 +224,7 @@ export default {
               _this.userdata.wxMoneyQrcode + "?times=" + _this.times;
             _this.wxQrcode = _this.userdata.wxQrcode + "?time=" + _this.times;
             console.log(_this.userdata);
-            console.log(_this.wxMoneyQrcode)
+            console.log(_this.wxMoneyQrcode);
           })
           .catch(function(error) {
             console.log(error);
