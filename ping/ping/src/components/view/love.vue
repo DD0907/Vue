@@ -17,32 +17,27 @@
                         <span style="font-size:12px;" @click="JumpPageDetails(r.goodsId)">{{r.goodsName}}</span>
                       </div>
                       <div slot="desc">
-                        <span style="color:#999;font-size:10px;">已拼{{r.salesNum}}件</span>
+                        <span style="color:#999;font-size:10px;">已拼{{r.salesNum}}件&nbsp;&nbsp;&nbsp;
+                          <van-tag plain v-if="isVips" style="color: #fa2509;font-size:8px;">约赚:{{r.integral}} 佣金币</van-tag>
+                        </span>
                       </div>
-                      <div slot="tags" style="text-align:left;">
+                       <div slot="tags" style="text-align:left;">
                               <span style="font-size:16px;color:red">￥{{r.groupCouponAfterPrice}}</span>
                               <span style="font-size:12px;text-decoration:line-through;color:#999">￥{{r.minGroupPrice}}</span>
                               <van-tag type="danger">优惠券{{r.couponPrice}}元</van-tag>
-                          </div>
-                          <div slot="tags" style="text-align:left;">
-                              <span style="font-size:10px;">
-                                <van-tag plain v-if="isVips" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
-                                <!-- <van-tag plain type="danger">约赚{{r.integral}}佣金币</van-tag> -->
-                                <!-- <van-tag v-if="false">123 </van-tag> -->
-                                </span>
-                          </div>
-                          <div slot="footer" style="text-align:right;">
-                              <section style="text-align:center;" @click="JumpDelCollect(r.goodsId)">
-                              <img src="../../assets/icon/icon_del.png" style="width:0.4rem;"/>
-                              <span style="font-size:14px;color:#999">删除</span>
-                              </section>
-                          </div>
+                      </div>
+                      <div slot="footer" style="text-align:right;">
+                        <section style="text-align:center;" @click="JumpDelCollect(r.goodsId)">
+                        <img src="../../assets/icon/icon_del.png" style="width:0.4rem;"/>
+                        <span style="font-size:14px;color:#999">删除</span>
+                        </section>
+                      </div>
                   </van-card>
                   </div>
                   <div v-else>
                     <van-card :thumb="noshopPic" class="goods-imgurl">
                       <div slot="title">
-                        <span style="font-size:12px;color:#999">{{r.goodsName}}</span>
+                        <span style="font-size:12px;color:#999;text-decoration:line-through;">{{r.goodsName}}</span>
                       </div>
                       <div slot="desc">
                         <span style="color:#999;font-size:10px;"></span>
@@ -79,20 +74,23 @@
             <van-goods-action>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpIndex">
                 <div style="text-align:center;">
-                  <van-icon name="e606"/>
-                  <div style="margin:3px;"><span style="font-size:14px;">首页</span></div>
+                  <!-- <van-icon name="e606"/> -->
+                <img src="../../assets/icon/icons_index.png" style="width:0.7rem;"/>
+                  <div><span style="font-size:14px;">首页</span></div>
                 </div>
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" >
               <div style="text-align:center;color:red;">
-                  <van-icon name="e619"/>
-                  <div style="margin:3px;"><span style="font-size:14px;">收藏</span></div>
+                  <!-- <van-icon name="e619"/> -->
+                  <img src="../../assets/icon/icons_love_current.png" style="width:0.7rem;"/>
+                  <div><span style="font-size:14px;">收藏</span></div>
               </div>
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpVip">
               <div style="text-align:center;">
-                  <van-icon name="e607"/>
-                   <div style="margin:3px;"><span style="font-size:14px;">超级会员</span></div>
+                  <!-- <van-icon name="e607"/> -->
+                  <img src="../../assets/icon/icons_vip.png" style="width:0.7rem;"/>
+                   <div><span style="font-size:14px;">超级会员</span></div>
               </div>
             </van-goods-action-mini-btn>
             <!-- <van-goods-action-mini-btn  style="width:25%;" @click="JumpShare">
@@ -103,8 +101,9 @@
             </van-goods-action-mini-btn> -->
             <van-goods-action-mini-btn style="width:25%;" @click="JumpUser">
                 <div style="text-align:center;">
-                  <van-icon name="e6a4"/>
-                  <div style="margin:3px;"><span style="font-size:14px;">我的</span></div>
+                  <!-- <van-icon name="e6a4"/> -->
+                  <img src="../../assets/icon/icons_my.png" style="width:0.7rem;"/>
+                  <div><span style="font-size:14px;">我的</span></div>
                 </div>
             </van-goods-action-mini-btn>
         </van-goods-action>
@@ -135,6 +134,7 @@ export default {
   },
   mounted() {
     this.userId = sessionStorage.getItem("userId");
+    // this.userId=1;
     var keyword = window.location.href;
     var i = keyword.indexOf("isVip=");
     this.isVips = decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
@@ -230,6 +230,7 @@ export default {
           })
           .catch(function(error) {
             console.log(error);
+            _this.$toast("网络异常错误...")
           });
         // 注册scroll事件并监听
         //window.addEventListener
@@ -248,7 +249,7 @@ export default {
               : document.documentElement.scrollHeight;
           if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
             //alert("到达底部");
-            console.log(sw);
+            // console.log(sw);
             //如果开关打开则加载数据
             if (sw == true) {
               // 将开关关闭
@@ -264,7 +265,6 @@ export default {
                 .then(function(response) {
                   // 将新获取的数据push到vue中的data，就会反应到视图中了
                   var lengths = response.data.result.length;
-                  // alert(lengths)
                   for (var i = 0; i < lengths; i++) {
                     _this.articles.push(response.data.result[i]);
                   }
@@ -276,15 +276,14 @@ export default {
                 })
                 .catch(function(error) {
                   console.log(error);
+                  _this.$toast("网络异常错误...")
                 });
             }
-            // alert(sw)
             if (sw == false) {
               _this.messages = "正在加载中...";
-              console.log("正在加载中");
+              // console.log("正在加载中");
             }
           }
-          // console.log(sw);
         });
       }
     },
@@ -315,6 +314,7 @@ export default {
             })
             .catch(function(error) {
               console.log(error);
+              _this.$toast("网络异常错误...")
             });
           // alert(productIds)
           // alert(_this.userId)

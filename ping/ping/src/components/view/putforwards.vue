@@ -173,6 +173,8 @@ export default {
             .then(function(response) {
               // 将得到的数据放到vue中的data
               _this.$toast(response.data.message);
+              _this.number='';
+              _this.getUserData();
             })
             .catch(function(error) {
               console.log(error);

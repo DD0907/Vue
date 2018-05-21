@@ -171,6 +171,7 @@ export default {
           })
           .catch(function(error) {
             console.log(error);
+            _this.$toast("网络异常错误...")
           });
       }
     },
@@ -186,6 +187,8 @@ export default {
             if (response.data.code == 1) {
               _this.getUserData();
               _this.$toast("微信头像和昵称同步成功");
+            }else{
+              _this.$toast("微信头像和昵称同步失败了");
             }
           })
           .catch(function(error) {

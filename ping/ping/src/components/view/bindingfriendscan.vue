@@ -25,9 +25,7 @@
 <script>
 import notice from "../../assets/icon/icon_notices.png";
 import scan from "../../assets/icon/icon_scan.png";
-
 import qs from "qs";
-
 export default {
   data() {
     return {
@@ -37,7 +35,6 @@ export default {
       notice_icon: notice,
       wxQrcode: "",
       scan: scan,
-      filecontent: "",
       src: "",
       filepath: ""
     };
@@ -55,17 +52,17 @@ export default {
         // 此处使用node做了代理
         var time = new Date();
         var times = Date.parse(time);
-        console.log(times);
+        // console.log(times);
         this.$axios
           .post(_this.url + "/v1/user/" + _this.id)
           .then(function(response) {
             // 将得到的数据放到vue中的data
             _this.userdata = response.data.result;
             _this.wxQrcode = _this.userdata.wxQrcode + "?time=" + times;
-            if (_this.wxQrcode == "" || _this.wxQrcode == + "?time=" + times) {
+            if (_this.wxQrcode == "?time=" + times) {
               _this.wxQrcode = _this.scan;
             }
-            console.log(_this.wxQrcode);
+            // console.log(_this.wxQrcode);
           })
           .catch(function(error) {
             console.log(error);
@@ -79,8 +76,8 @@ export default {
       this.wxQrcode = windowURL.createObjectURL(this.filepath);
       let formdatas = new FormData();
       formdatas.append("qrcode", this.filepath);
-      console.log(this.filepath);
-      console.log(formdatas);
+      // console.log(this.filepath);
+      // console.log(formdatas);
       let config = {
         headers: {
           "Content-Type": "multipart/form-data"
@@ -95,7 +92,7 @@ export default {
         )
         .then(function(response) {
           //做处理
-          console.log(response.data.code);
+          // console.log(response.data.code);
           if (response.data.code == 1) {
             _this.$toast("二维码上传成功");
             _this.$router.push({

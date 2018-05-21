@@ -1,7 +1,6 @@
 <template>
   <div>
     <!--轮播图片-->
-    <!-- <button @click="gettest()">test</button> -->
     <div>
       <van-swipe class="goods-swipe" :autoplay="3000" v-if="code==1">
         <van-swipe-item v-for="(image, index) in images" :key="index">
@@ -24,8 +23,13 @@
         </van-search>
     </div>
     <!-- 快捷按钮 -->
-    <div style="margin:0px">
-    <van-row>
+    <!-- <div style="margin:0px;" v-if="code==1" > -->
+    <div style="margin:0px;">
+    <!-- <van-row v-for="(image, index) in images" :key="index"> -->
+        <van-row>
+        <!-- <van-col :span="24/(images.length)">
+            <img :src="image.imgUrl" class="goods-imgurl banner_style" style="height:1.6rem;">
+        </van-col> -->
         <van-col span="8">
             <img src="http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg" class="goods-imgurl banner_style">
         </van-col>
@@ -37,6 +41,13 @@
         </van-col>
     </van-row>
     </div>
+    <!-- <div style="margin:0px" v-else>
+    <van-row>
+        <van-col span="24">
+            <img src="../../assets/icon/icon_scan.png" class="goods-imgurl banner_style" style="height:1.0rem;">
+        </van-col>
+    </van-row>
+    </div> -->
     <div style="height:1px;background:#f1f1f1"></div>
     <!-- 滑动菜单 -->
     <div>
@@ -911,20 +922,23 @@
         <van-goods-action>
             <van-goods-action-mini-btn style="width:25%;">
                 <div style="text-align:center;color:red;">
-                  <van-icon name="e606"/>
-                 <div style="margin:3px;"><span style="font-size:14px;">首页</span></div>
+                  <!-- <van-icon name="e606"/> -->
+                  <img src="../../assets/icon/icons_index_current.png" style="width:0.7rem;"/>
+                 <div><span style="font-size:14px;">首页</span></div>
                 </div>
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpLove">
               <div style="text-align:center;">
-                  <van-icon name="e619"/>
-                 <div style="margin:3px;"><span style="font-size:14px;">收藏</span></div>
+                  <!-- <van-icon name="e619"/> -->
+              <img src="../../assets/icon/icons_love.png" style="width:0.7rem;"/>
+                 <div><span style="font-size:14px;">收藏</span></div>
               </div>
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpVip">
               <div style="text-align:center;">
-                  <van-icon name="e607"/>
-                  <div style="margin:3px;"><span style="font-size:14px;">超级会员</span></div>
+                  <!-- <van-icon name="e607"/> -->
+                  <img src="../../assets/icon/icons_vip.png" style="width:0.7rem;"/>
+                  <div><span style="font-size:14px;">超级会员</span></div>
               </div>
             </van-goods-action-mini-btn>
             <!-- <van-goods-action-mini-btn  style="width:25%;" @click="JumpShare">
@@ -935,8 +949,9 @@
             </van-goods-action-mini-btn> -->
             <van-goods-action-mini-btn style="width:25%;" @click="JumpUser">
                 <div style="text-align:center;">
-                  <van-icon name="e6a4"/>
-                   <div style="margin:3px;"><span style="font-size:14px;">我的</span></div>
+                  <!-- <van-icon name="e6a4"/> -->
+                  <img src="../../assets/icon/icons_my.png" style="width:0.7rem;"/>
+                   <div><span style="font-size:14px;">我的</span></div>
                 </div>
             </van-goods-action-mini-btn>
         </van-goods-action>
@@ -955,7 +970,7 @@ export default {
       id: "",
       isVip: true,
       images: {},
-      code:'',
+      code: "",
       // images: [
       //   "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
       //   "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
@@ -994,7 +1009,7 @@ export default {
     // 加载时自动执行
     // if (this.isWeiXin()) {
     //   //是来自微信内置浏览器
-    //   console.log(getCookie("userData"));
+    //   // console.log(getCookie("userData"));
     //   var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
     //   this.id = dataJson.id;
     //   this.isVip = dataJson.vip;
@@ -1008,10 +1023,11 @@ export default {
     //   });
     // }
 
-    this.id = 18;
+    this.id = 1;
     this.isVip = true;
     sessionStorage.setItem("userId", this.id);
     this.getdata();
+
     function getCookie(name) {
       name = name + "=";
       var start = document.cookie.indexOf(name),
@@ -1044,15 +1060,15 @@ export default {
       this.$axios
         .get(_this.url + "/v1/banner/list")
         .then(function(response) {
-          // console.log(response.data.result);
-          if(response.data.code==1){
+          if (response.data.code == 1) {
             _this.images = response.data.result;
-            _this.code=1;
+            _this.code = 1;
           }
         })
         .catch(function(error) {
           console.log(error);
-          _this.code=0;
+          _this.code = 0;
+          _this.$toast("网络异常错误...");
         });
     },
     getdata() {
@@ -1074,12 +1090,12 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.articles = response.data.result;
-          // console.log(_this.articles);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
         .catch(function(error) {
           console.log(error);
+          _this.$toast("网络异常错误...");
         });
       // 注册scroll事件并监听
       // window.addEventListener
@@ -1097,8 +1113,6 @@ export default {
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //alert("到达底部");
-          console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -1124,13 +1138,13 @@ export default {
               })
               .catch(function(error) {
                 console.log(error);
+                _this.$toast("网络异常错误...");
               });
           }
           if (sw == false) {
             _this.messages = "正在加载中...";
           }
         }
-        // console.log(sw);
       });
     },
     getfruit() {
@@ -1154,7 +1168,6 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.fruit = response.data.result;
-          // console.log(_this.fruit);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1178,7 +1191,6 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          // console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -1211,7 +1223,6 @@ export default {
             _this.messages = "正在加载中...";
           }
         }
-        // console.log(sw);
       });
     },
     getfood() {
@@ -1235,7 +1246,6 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.food = response.data.result;
-          // console.log(_this.food);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1259,7 +1269,6 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -1292,7 +1301,6 @@ export default {
             _this.messages = "正在加载中...";
           }
         }
-        // console.log(sw);
       });
     },
     getclothes() {
@@ -1316,7 +1324,6 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.clothes = response.data.result;
-          // console.log(_this.clothes);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1340,7 +1347,6 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -1373,7 +1379,6 @@ export default {
             _this.messages = "正在加载中...";
           }
         }
-        // console.log(sw);
       });
     },
     getmotherbaby() {
@@ -1397,7 +1402,6 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.motherbabyrow = response.data.result;
-          // console.log(_this.motherbabyrow);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1421,7 +1425,6 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -1454,7 +1457,6 @@ export default {
             _this.messages = "正在加载中...";
           }
         }
-        // console.log(sw);
       });
     },
     getsdeptstore() {
@@ -1478,7 +1480,6 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.deptstore = response.data.result;
-          // console.log(_this.deptstore);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1502,7 +1503,6 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -1535,7 +1535,6 @@ export default {
             _this.messages = "正在加载中...";
           }
         }
-        // console.log(sw);
       });
     },
     getbeauty() {
@@ -1559,7 +1558,6 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.beautyrow = response.data.result;
-          // console.log(_this.beautyrow);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1583,7 +1581,6 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -1616,7 +1613,6 @@ export default {
             _this.messages = "正在加载中...";
           }
         }
-        // console.log(sw);
       });
     },
     getshoebag() {
@@ -1640,7 +1636,6 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.shoebag = response.data.result;
-          // console.log(_this.shoebag);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1664,7 +1659,6 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -1697,7 +1691,6 @@ export default {
             _this.messages = "正在加载中...";
           }
         }
-        // console.log(sw);
       });
     },
     getelectric() {
@@ -1721,7 +1714,6 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.electric = response.data.result;
-          // console.log(_this.electric);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1745,7 +1737,6 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -1778,7 +1769,6 @@ export default {
             _this.messages = "正在加载中...";
           }
         }
-        // console.log(sw);
       });
     },
     getmanclothing() {
@@ -1802,7 +1792,6 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.manclothing = response.data.result;
-          // console.log(_this.manclothing);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1826,7 +1815,6 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -1859,7 +1847,6 @@ export default {
             _this.messages = "正在加载中...";
           }
         }
-        // console.log(sw);
       });
     },
     gethometextiles() {
@@ -1883,7 +1870,6 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.hometextiles = response.data.result;
-          // console.log(_this.hometextiles);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1907,7 +1893,6 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -1940,7 +1925,6 @@ export default {
             _this.messages = "正在加载中...";
           }
         }
-        // console.log(sw);
       });
     },
     getphone() {
@@ -1964,7 +1948,6 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.phone = response.data.result;
-          // console.log(_this.phone);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -1988,7 +1971,6 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -2021,7 +2003,6 @@ export default {
             _this.messages = "正在加载中...";
           }
         }
-        // console.log(sw);
       });
     },
     getmovement() {
@@ -2045,7 +2026,6 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           _this.movement = response.data.result;
-          // console.log(_this.movement);
           var lengths = response.data.result.length;
           _this.rowlength = lengths;
         })
@@ -2069,7 +2049,6 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -2102,7 +2081,6 @@ export default {
             _this.messages = "正在加载中...";
           }
         }
-        // console.log(sw);
       });
     },
     back_top() {
@@ -2129,8 +2107,8 @@ export default {
               name: "search",
               query: { keyword: this.value },
               params: {
-                data: this.value,
-                isVip: this.isVip
+                data: this.value
+                // isVip: this.isVip
               }
             });
           } else {
@@ -2157,7 +2135,9 @@ export default {
       this.$router.push({
         path: "/ping",
         name: "love",
-        query: { isVip: this.isVip }
+        query: {
+          isVip: this.isVip
+        }
       });
     },
     JumpUser() {
@@ -2170,13 +2150,39 @@ export default {
     onRefresh() {
       // 下拉刷新
       setTimeout(() => {
-        this.$toast("刷新成功");
+        if (this.active == 0) {
+          this.getdata();
+        } else if (this.active == 1) {
+          this.getfruit();
+        } else if (this.active == 2) {
+          this.getfood();
+        } else if (this.active == 3) {
+          this.getclothes();
+        } else if (this.active == 4) {
+          this.getmotherbaby();
+        } else if (this.active == 5) {
+          this.getsdeptstore();
+        } else if (this.active == 6) {
+          this.getbeauty();
+        } else if (this.active == 7) {
+          this.getshoebag();
+        } else if (this.active == 8) {
+          this.getelectric();
+        } else if (this.active == 9) {
+          this.getmanclothing();
+        } else if (this.active == 10) {
+          this.gethometextiles();
+        } else if (this.active == 11) {
+          this.getphone();
+        } else if (this.active == 12) {
+          this.getmovement();
+        }
         this.isLoading = false;
-        this.count++;
+        this.$toast("刷新成功");
       }, 500);
     },
     destroyed() {
-      window.removeEventListener("scroll",scroll);
+      window.removeEventListener("scroll", scroll);
     },
     // 跳转商品详情页
     JumpPageDetails(goodsId) {
@@ -2199,7 +2205,6 @@ export default {
 <style lang="less">
 @import "../../common/css/index.css";
 @import "../../common/css/fontface.css";
-
 .goods {
   &-swipe {
     img {

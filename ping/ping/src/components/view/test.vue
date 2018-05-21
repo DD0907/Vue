@@ -1,26 +1,19 @@
 <template>
     <div>
         <div id="sample">
-
      	  <!--accept定义接收的文件类型,这里只接受图片-->
-
      	  <input id="fileinput" @change="uploading($event)" type="file" accept="image/*">
-
            <button  @click="submit($event)">上传</button>
-
            <!--图片展示-->
-<br>
            <img :src="src"/>
-
-     </div>
+         </div>
         <!-- <section>
                 <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
                     <img src="../../assets/icon/icon_down.png"/>
                 <p>刷新次数: {{ count }}</p>
                 </van-pull-refresh>
         </section>
-
-
+        
         <ul>
             <li v-for="(item,index) in articles" :key="index">
                 <img :src="item.goodsThumbnailUrl" alt="">
@@ -98,44 +91,48 @@ export default {
     //     }
     uploading(event) {
       this.file = event.target.files[0]; //获取文件
-      console.log(1)
-      console.log(this.file)
+      console.log(1);
+      console.log(this.file);
       var windowURL = window.URL || window.webkitURL;
       this.file = event.target.files[0]; //创建图片文件的url
-      console.log(2)
+      console.log(2);
       this.src = windowURL.createObjectURL(event.target.files[0]);
-      console.log(3)
-      this.submit(event,this.file);
+      console.log(3);
+      this.submit(event, this.file);
     },
-    submit(event,file) {
+    submit(event, file) {
       event.preventDefault(); //取消默认行为
       let formdatas = new FormData();
       formdatas.append("qrcode", file);
-      console.log(file)
+      console.log(file);
       console.log(4);
-      console.log(formdatas)
+      console.log(formdatas);
       let config = {
         headers: {
           "Content-Type": "multipart/form-data" //表单传数据的格式来传递fromdata
         }
       };
       var data = {
-        qrcode:formdatas,
-        type:1
+        qrcode: formdatas,
+        type: 1
       };
-        console.log(5);
-        this.$axios
-        .post("http://ptk.baolinzhe.com:8081/ptk/api/v1/user/1/update/qrcode?type=1", formdatas, config)
-         .then(function(response) {
-           //做处理
-            console.log(6);
-           console.log(response)
-         })
-         .catch(function(error) {
+      console.log(5);
+      this.$axios
+        .post(
+          "http://ptk.baolinzhe.com:8081/ptk/api/v1/user/1/update/qrcode?type=1",
+          formdatas,
+          config
+        )
+        .then(function(response) {
+          //做处理
+          console.log(6);
+          console.log(response);
+        })
+        .catch(function(error) {
           console.log(error);
           console.log(7);
         });
-        console.log(8);
+      console.log(8);
     }
   }
 };

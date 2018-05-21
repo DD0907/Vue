@@ -3,7 +3,7 @@
     <section class="searchBar" id="searchBar">
     <!-- 搜索框 -->
     <div :class="searchBarFixed == true ? 'isFixed' :''">
-        <van-search v-model="value" show-action placeholder="搜索拼多多商品得白积分奖励" style="padding:2px;">
+        <van-search v-model="value" show-action placeholder="搜索拼多多优惠券商品" style="padding:2px;">
             <div slot="action"><van-button type="default" size="small" @click="getdatas" style="background:red;color:#ffffff;">搜索</van-button></div>
         </van-search>
     </div>
@@ -41,8 +41,8 @@
                                                 <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                                <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                                <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -63,8 +63,8 @@
                                                 <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                              <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                              <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -109,8 +109,8 @@
                                               <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                                <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                                <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -131,8 +131,8 @@
                                               <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                              <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                              <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -177,8 +177,8 @@
                                               <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                                <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                                <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -199,8 +199,8 @@
                                               <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                              <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                              <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -246,8 +246,8 @@
                                               <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                                <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                                <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                                <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                                <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                                 <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
@@ -268,8 +268,8 @@
                                               <van-tag plain v-if="isVip" class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
-                                              <span class="price_style">￥{{r.normalCouponAfterPrice}}</span>
-                                              <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minNormalPrice}}</span>
+                                              <span class="price_style">￥{{r.groupCouponAfterPrice}}</span>
+                                              <span v-if="r.hasCoupon==true" class="goods-express">&nbsp;原价:￥{{r.minGroupPrice}}</span>
                                               <span class="salenumber_style">已拼{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
@@ -315,10 +315,24 @@ export default {
     };
   },
   mounted() {
-    this.getParams();
-    //this.getdata();
     window.addEventListener("scroll", this.handleScroll);
+    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+    this.isVip = dataJson.vip;
+    this.getParams();
     this.getdatas();
+    function getCookie(name) {
+      name = name + "=";
+      var start = document.cookie.indexOf(name),
+        value = null;
+      if (start > -1) {
+        var end = document.cookie.indexOf(";", start);
+        if (end == -1) {
+          end = document.cookie.length;
+        }
+        value = document.cookie.substring(start + name.length, end);
+      }
+      return value;
+    }
   },
   methods: {
     handleScroll() {
@@ -412,6 +426,7 @@ export default {
               })
               .catch(function(error) {
                 console.log(error);
+                _this.$toast("网络异常错误...")
               });
           }
           if (sw == false) {
@@ -494,6 +509,7 @@ export default {
               })
               .catch(function(error) {
                 console.log(error);
+                _this.$toast("网络异常错误...")
               });
           }
           if (sw == false) {
@@ -549,7 +565,7 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          console.log(sw);
+          // console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -576,6 +592,7 @@ export default {
               })
               .catch(function(error) {
                 console.log(error);
+                _this.$toast("网络异常错误...");
               });
           }
           if (sw == false) {
@@ -658,6 +675,7 @@ export default {
               })
               .catch(function(error) {
                 console.log(error);
+                _this.$toast("网络异常错误...")
               });
           }
           if (sw == false) {
@@ -674,12 +692,12 @@ export default {
     getParams() {
       // 取到路由带过来的参数
       var routerParams = this.$route.params.data;
-      var isVips = this.$route.params.isVip;
-      this.isVip = isVips;
-      //this.$toast(this.$route.params.datas);
       // 将数据放在当前组件的数据内
       this.value = routerParams;
-      //this.$toast(this.value);
+
+      // var isVips = this.$route.params.isVip;
+      // this.isVip = isVips;
+      
       var keyword = window.location.href;
       var i = keyword.indexOf("=");
       this.value = decodeURI(keyword.substring(i + 1, keyword.length));
@@ -692,6 +710,7 @@ export default {
       setTimeout(() => {
         this.$toast("刷新成功");
         this.isLoading = false;
+        this.getdatas();
         this.count++;
       }, 500);
     },
@@ -704,7 +723,7 @@ export default {
           data: this.value
         }
       });
-      // alert(this.active);
+      //  alert(this.active);
       if (this.active == 0) {
         this.getdata();
       } else if (this.active == 1) {

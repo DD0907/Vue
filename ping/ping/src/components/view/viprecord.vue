@@ -8,8 +8,8 @@
                 </div>
                  <!-- <section style="height:2px;">&nbsp;</section> -->
                  <div style="background:#ffffff;border:0.5px solid #f1f1f1;padding:2px;">
-                    <div v-if="NoReceiptdata.length==0" style="text-align:center;">
-                        这里什么也没有
+                    <div v-if="NoReceiptdata.length==0" style="text-align:center;color:#999">
+                          ---------------------------我是有底线的---------------------------
                     </div>
                     <div v-else v-for="(r, key) in NoReceiptdata" :key="key" track-ty='key'>
                         <div class="leftbox">
@@ -45,8 +45,8 @@
                 </div>
                 <section style="height:2px;">&nbsp;</section>
                  <div style="background:#ffffff;border:0.5px solid #f1f1f1;padding:2px;">
-                    <div v-if="Reviewdata.length==0" style="text-align:center;">
-                        这里什么也没有
+                    <div v-if="Reviewdata.length==0" style="text-align:center;color:#999">
+                         ---------------------------我是有底线的---------------------------
                     </div>
                     <div v-else v-for="(r, key) in Reviewdata" :key="key">
                         <div class="leftbox">
@@ -82,8 +82,8 @@
                 </div>
                 <section style="height:2px;">&nbsp;</section>
                  <div style="background:#ffffff;border:0.5px solid #f1f1f1;padding:2px;">
-                    <div v-if="Rewarddata.length==0" style="text-align:center;">
-                        这里什么也没有
+                    <div v-if="Rewarddata.length==0" style="text-align:center;color:#999">
+                        ---------------------------我是有底线的---------------------------
                     </div>
                     <div v-else v-for="(r, key) in Rewarddata" :key="key">
                         <div class="leftbox">
@@ -119,8 +119,8 @@
                 </div>
                 <section style="height:2px;">&nbsp;</section>
                  <div style="background:#ffffff;border:0.5px solid #f1f1f1;padding:2px;">
-                    <div v-if="Failuredata.length==0" style="text-align:center;">
-                        这里什么也没有
+                    <div v-if="Failuredata.length==0" style="text-align:center;color:#999">
+                        ---------------------------我是有底线的---------------------------
                     </div>
                     <div v-else v-for="(r, key) in Failuredata" :key="key">
                         <div class="leftbox">
@@ -231,7 +231,7 @@ export default {
               : document.documentElement.scrollHeight;
           if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
             //alert("到达底部");
-            console.log(sw);
+            // console.log(sw);
             //如果开关打开则加载数据
             if (sw == true) {
               // 将开关关闭
@@ -262,7 +262,7 @@ export default {
                 });
             }
             if (sw == false) {
-              console.log("正在加载中");
+              // console.log("正在加载中");
             }
           }
           // console.log(sw);
@@ -318,7 +318,7 @@ export default {
               : document.documentElement.scrollHeight;
           if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
             //alert("到达底部");
-            console.log(sw);
+            // console.log(sw);
             //如果开关打开则加载数据
             if (sw == true) {
               // 将开关关闭
@@ -349,7 +349,7 @@ export default {
                 });
             }
             if (sw == false) {
-              console.log("正在加载中");
+              // console.log("正在加载中");
             }
           }
         });
@@ -404,7 +404,7 @@ export default {
               : document.documentElement.scrollHeight;
           if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
             //alert("到达底部");
-            console.log(sw);
+            // console.log(sw);
             //如果开关打开则加载数据
             if (sw == true) {
               // 将开关关闭
@@ -435,7 +435,7 @@ export default {
                 });
             }
             if (sw == false) {
-              console.log("正在加载中");
+              // console.log("正在加载中");
             }
           }
         });
@@ -490,7 +490,7 @@ export default {
               : document.documentElement.scrollHeight;
           if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
             //alert("到达底部");
-            console.log(sw);
+            // console.log(sw);
             //如果开关打开则加载数据
             if (sw == true) {
               // 将开关关闭
@@ -521,7 +521,7 @@ export default {
                 });
             }
             if (sw == false) {
-              console.log("正在加载中");
+              // console.log("正在加载中");
             }
           }
         });

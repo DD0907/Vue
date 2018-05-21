@@ -1,6 +1,6 @@
 <template>
   <div>
-      <section style="text-align:center;background-image:url('https://img.yzcdn.cn/public_files/2017/10/23/8690bb321356070e0b8c4404d087f8fd.png');">
+      <section style="text-align:center;" :style="{backgroundImage: 'url('+ require('../../assets/icon/icon_personalbg.png') + ')'}" >
         <van-row>
             <van-col span="8">
                 <h3>粉丝总人数</h3>
@@ -121,7 +121,7 @@ export default {
   },
   mounted() {
     this.userId = sessionStorage.getItem("userId");
-    console.log(this.userId);
+    // console.log(this.userId);
     this.getfrienddata();
   },
   methods: {
@@ -163,6 +163,7 @@ export default {
           })
           .catch(function(error) {
             console.log(error);
+            _this.$toast("网络异常错误...")
           });
       }
     },

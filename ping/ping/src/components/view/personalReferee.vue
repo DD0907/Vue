@@ -1,6 +1,6 @@
 <template>
   <section>
-     <section class="back_img">
+     <section class="back_img" :style="{backgroundImage: 'url('+ require('../../assets/icon/icon_personalbg.png') + ')'}" >
           <div style="height:30px;text-align:right;">
               <!-- <span style="margin:20px;font-size:0.5rem;" @click="jumpPhone">绑定手机号</span> -->
           </div>
@@ -228,6 +228,7 @@ export default {
           })
           .catch(function(error) {
             console.log(error);
+            _this.$toast("网络异常错误...")
           });
       }
     }
@@ -240,7 +241,6 @@ export default {
 </script>
 <style>
 .back_img {
-  background-image: url("https://img.yzcdn.cn/public_files/2017/10/23/8690bb321356070e0b8c4404d087f8fd.png");
   width: 100%;
   height: 100%;
   margin: auto;

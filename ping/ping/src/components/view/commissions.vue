@@ -9,8 +9,8 @@
                 <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
                 <van-list>
                     <section style="background:#ffffff;">
-                    <div v-if="lengths==''" style="text-align:center;">
-                        暂无数据
+                    <div v-if="lengths==''" style="text-align:center;color:#999">
+                        ---------------------------我也是有底线的---------------------------
                     </div>
                     <div v-else v-for="(r, key) in recordsdata" :key="key" >
                         <div style="margin:12px;">
@@ -33,6 +33,7 @@
                         <section style="height:5px;background:#f1f1f1;"></section>
                     </div>
                 </section>
+                <div style="color:#999;text-align:center;" v-if="lengths!=0">{{messages}}</div>
                 </van-list>
                 </van-pull-refresh>
             </van-tab>
@@ -43,8 +44,8 @@
                 <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
                 <van-list>
                     <section style="background:#ffffff;">
-                    <div v-if="lengths==''" style="text-align:center;">
-                        暂无数据
+                    <div v-if="lengths==''" style="text-align:center;color:#999">
+                 ---------------------------我也是有底线的---------------------------
                     </div>
                     <div v-else v-for="(r, key) in yongjindata" :key="key" >
                         <div style="margin:12px;">
@@ -67,6 +68,7 @@
                         <section style="height:5px;background:#f1f1f1;"></section>
                     </div>
                 </section>
+                <div style="color:#999;text-align:center;" v-if="lengths!=0">{{messages}}</div>
                 </van-list>
                 </van-pull-refresh>
             </van-tab>
@@ -77,8 +79,8 @@
                 <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
                 <van-list>
                     <section style="background:#ffffff;">
-                    <div v-if="lengths==''" style="text-align:center;">
-                        暂无数据
+                    <div v-if="lengths==''" style="text-align:center;color:#999">
+                        ---------------------------我也是有底线的---------------------------
                     </div>
                     <div v-else v-for="(r, key) in shouyidata" :key="key" >
                         <div style="margin:12px;">
@@ -101,6 +103,7 @@
                         <section style="height:5px;background:#f1f1f1;"></section>
                     </div>
                 </section>
+                <div style="color:#999;text-align:center;" v-if="lengths!=0">{{messages}}</div>
                 </van-list>
                 </van-pull-refresh>
             </van-tab>
@@ -111,8 +114,8 @@
                 <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
                 <van-list>
                     <section style="background:#ffffff;">
-                    <div v-if="lengths==''" style="text-align:center;">
-                        暂无数据
+                    <div v-if="lengths==''" style="text-align:center;color:#999">
+                        ---------------------------我也是有底线的---------------------------
                     </div>
                     <div v-else v-for="(r, key) in tixiandata" :key="key" >
                         <div style="margin:12px;">
@@ -136,6 +139,7 @@
                     </div>
                 </section>
                 </van-list>
+                <div style="color:#999;text-align:center;" v-if="lengths!=0">{{messages}}</div>
                 </van-pull-refresh>
             </van-tab>
         </van-tabs>
@@ -154,7 +158,8 @@ export default {
       shouyidata: {},
       tixiandata: {},
       isLoading: true,
-      lengths: ""
+      lengths: "",
+      messages: ""
     };
   },
   mounted() {
@@ -248,13 +253,18 @@ export default {
                     }
                   }
                   sw = true;
+                  if (lengths == 0 || lengths == null) {
+                    _this.messages =
+                      "---------------------------我也是有底线的---------------------------";
+                  }
                 })
                 .catch(function(error) {
                   console.log(error);
                 });
             }
             if (sw == false) {
-              console.log("正在加载中");
+               _this.messages ="正在加载中....";
+              // console.log("正在加载中");
             }
           }
         });
@@ -302,7 +312,7 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          console.log(sw);
+          // console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -327,13 +337,18 @@ export default {
                   }
                 }
                 sw = true;
+                if (lengths == 0 || lengths == null) {
+                  _this.messages =
+                    "---------------------------我也是有底线的---------------------------";
+                }
               })
               .catch(function(error) {
                 console.log(error);
               });
           }
           if (sw == false) {
-            console.log("正在加载中");
+            _this.messages ="正在加载中....";
+            // console.log("正在加载中");
           }
         }
       });
@@ -404,13 +419,18 @@ export default {
                   }
                 }
                 sw = true;
+                if (lengths == 0 || lengths == null) {
+                  _this.messages =
+                    "---------------------------我也是有底线的---------------------------";
+                }
               })
               .catch(function(error) {
                 console.log(error);
               });
           }
           if (sw == false) {
-            console.log("正在加载中");
+             _this.messages ="正在加载中....";
+            // console.log("正在加载中");
           }
         }
       });
@@ -457,7 +477,7 @@ export default {
             : document.documentElement.scrollHeight;
         if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
           //alert("到达底部");
-          console.log(sw);
+          // console.log(sw);
           //如果开关打开则加载数据
           if (sw == true) {
             // 将开关关闭
@@ -480,13 +500,17 @@ export default {
                   }
                 }
                 sw = true;
+                if (lengths == 0 || lengths == null) {
+                  _this.messages =
+                    "---------------------------我也是有底线的---------------------------";
+                }
               })
               .catch(function(error) {
                 console.log(error);
               });
           }
           if (sw == false) {
-            console.log("正在加载中");
+            _this.messages ="正在加载中....";
           }
         }
       });

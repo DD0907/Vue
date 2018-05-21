@@ -81,20 +81,23 @@
         <van-goods-action>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpIndex">
                 <div style="text-align:center;">
-                  <van-icon name="e606"/>
-                  <div style="margin:3px;"><span style="font-size:14px;">首页</span></div>
+                  <!-- <van-icon name="e606"/> -->
+                  <img src="../../assets/icon/icons_index.png" style="width:0.7rem;"/>
+                  <div><span style="font-size:14px;">首页</span></div>
                 </div>
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpLove">
               <div style="text-align:center;">
-                  <van-icon name="e619"/>
-                  <div style="margin:3px;"><span style="font-size:14px;">收藏</span></div>
+                  <!-- <van-icon name="e619"/> -->
+                  <img src="../../assets/icon/icons_love.png" style="width:0.7rem;"/>
+                  <div><span style="font-size:14px;">收藏</span></div>
               </div>
             </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpVip">
               <div style="text-align:center;color:red;">
-                  <van-icon name="e607"/>
-                  <div style="margin:3px;"><span style="font-size:14px;">超级会员</span></div>
+                  <!-- <van-icon name="e607"/> -->
+                  <img src="../../assets/icon/icons_vip_current.png" style="width:0.7rem;"/>
+                  <div><span style="font-size:14px;">超级会员</span></div>
               </div>
             </van-goods-action-mini-btn>
             <!-- <van-goods-action-mini-btn  style="width:25%;" @click="JumpShare">
@@ -105,8 +108,9 @@
             </van-goods-action-mini-btn> -->
             <van-goods-action-mini-btn style="width:25%;" @click="JumpUser">
                 <div style="text-align:center;">
-                  <van-icon name="e6a4"/>
-                  <div style="margin:3px;"><span style="font-size:14px;">我的</span></div>
+                  <!-- <van-icon name="e6a4"/> -->
+                  <img src="../../assets/icon/icons_my.png" style="width:0.7rem;"/>
+                  <div><span style="font-size:14px;">我的</span></div>
                 </div>
             </van-goods-action-mini-btn>
         </van-goods-action>
@@ -139,6 +143,7 @@ export default {
     var keyword = window.location.href;
     var i = keyword.indexOf("isVip=");
     this.isVip = decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
+
     // if (this.isWeiXin()) {
     //   this.id = sessionStorage.getItem("userId");
     //   var keyword = window.location.href;
@@ -185,6 +190,7 @@ export default {
           })
           .catch(function(error) {
             console.log(error);
+            _this.$toast("网络异常错误...")
           });
       }
     },
@@ -209,6 +215,7 @@ export default {
           })
           .catch(function(error) {
             console.log(error);
+            _this.$toast("网络异常错误...")
           });
       }
     },
@@ -316,7 +323,7 @@ export default {
     JumpPersonal() {
       this.$router.push({
         path: "/ping",
-        name: "personal"
+        name: "personalteach"
       });
     }
   }

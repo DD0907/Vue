@@ -1,6 +1,6 @@
 <template>
   <section>
-     <section class="back_img">
+     <section class="back_img" :style="{backgroundImage: 'url('+ require('../../assets/icon/icon_personalbg.png') + ')'}">
           <div style="height:30px;text-align:right;">
           </div>
           <div style="text-align:center;">
@@ -198,7 +198,7 @@ export default {
       var keyword = window.location.href;
       var i = keyword.indexOf("=");
       this.friendVipId = decodeURI(keyword.substring(i + 1, keyword.length));
-      console.log(this.friendVipId);
+      // console.log(this.friendVipId);
     },
     getUserData() {
       // 缓存指针
@@ -225,6 +225,7 @@ export default {
           })
           .catch(function(error) {
             console.log(error);
+            _this.$toast("网络异常错误...")
           });
       }
     },
@@ -247,7 +248,6 @@ export default {
 </script>
 <style>
 .back_img {
-  background-image: url("https://img.yzcdn.cn/public_files/2017/10/23/8690bb321356070e0b8c4404d087f8fd.png");
   width: 100%;
   height: 100%;
   margin: auto;

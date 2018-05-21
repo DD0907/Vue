@@ -45,8 +45,13 @@ export default {
         _this.$toast("当前您还未登录哦");
       } else {
         //console.log(_this.phonenumber.length);
-        if (_this.phonenumber.length != 11) {
-          _this.$toast("手机号格式不正确");
+         var reg=11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
+        if (_this.phonenumber=='') {
+          _this.$toast("请输入手机号码");
+          return;
+        }
+        if(!reg.test(_this.phonenumber)){
+          _this.$toast("手机格式不正确");
           return;
         }
         // 此处使用node做了代理

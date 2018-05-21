@@ -50,17 +50,15 @@ export default {
         // 此处使用node做了代理
         var time = new Date();
         var times = Date.parse(time);
-        console.log(times);
         this.$axios
           .post(_this.url + "/v1/user/" + _this.id)
           .then(function(response) {
             // 将得到的数据放到vue中的data
             _this.userdata = response.data.result;
             _this.wxMoneyQrcode = _this.userdata.wxMoneyQrcode + "?time=" + times;
-            if (_this.wxMoneyQrcode == "" || _this.wxMoneyQrcode == "?time=" + times) {
+            if (_this.wxMoneyQrcode == "?time=" + times) {
               _this.wxMoneyQrcode = _this.scan;
             }
-            console.log(_this.wxMoneyQrcode);
           })
           .catch(function(error) {
             console.log(error);
@@ -73,8 +71,8 @@ export default {
       this.wxMoneyQrcode = windowURL.createObjectURL(this.filepath);
       let formdatas = new FormData();
       formdatas.append("qrcode", this.filepath);
-      console.log(this.filepath);
-      console.log(formdatas);
+      // console.log(this.filepath);
+      // console.log(formdatas);
       let config = {
         headers: {
           "Content-Type": "multipart/form-data"
@@ -89,7 +87,7 @@ export default {
         )
         .then(function(response) {
           //做处理
-          console.log(response.data.code);
+          // console.log(response.data.code);
           if (response.data.code == 1) {
             _this.$toast("二维码上传成功");
             _this.$router.push({

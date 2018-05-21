@@ -167,8 +167,7 @@ export default {
     };
   },
   mounted() {
-    this.id = sessionStorage.getItem("userId");
-    this.getParams();
+    this.id = 19;
     this.getUserData();
   },
   methods: {
@@ -185,12 +184,6 @@ export default {
     },
     callPhone() {
       window.location.href = "tel:" + this.phone;
-    },
-    getParams() {
-      // 取到路由带过来的参数
-      var routerParams = this.$route.params.friendId;
-      // 将数据放在当前组件的数据内
-      this.friendId = routerParams;
     },
     JumpScanShowScan() {
       this.sacnshow = true;
@@ -209,7 +202,7 @@ export default {
         var times = Date.parse(time);
         _this.times = times;
         this.$axios
-          .post(_this.url + "/v1/user/" + _this.friendId)
+          .post(_this.url + "/v1/user/" + _this.id)
           .then(function(response) {
             // 将得到的数据放到vue中的data
             _this.userdata = response.data.result;

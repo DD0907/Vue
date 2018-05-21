@@ -19,14 +19,16 @@ import putforwards from '@/components/view/putforwards'
 import personal from '@/components/view/personal'
 import personalVip from '@/components/view/personalVip'
 import personalReferee from '@/components/view/personalReferee'
+import personalteach from '@/components/view/personalteach'
 import commissions from '@/components/view/commissions'
 import bindingnumber from '@/components/view/bindingnumber'
 import bindingfriendscan from '@/components/view/bindingfriendscan'
 import bindingmoneyscan from '@/components/view/bindingmoneyscan'
 import errors from '@/components/view/errors'
+import qrcodetest from '@/components/view/qrcodetest'
 Vue.use(Router)
 export default new Router({
-    mode: 'history',
+    // mode: 'history',
     routes: [{
             path: '/',
             name: 'indexs',
@@ -58,6 +60,17 @@ export default new Router({
             path: '/ping/test',
             name: 'test',
             component: test,
+            meta: {
+                title: '测试',
+            }
+        },
+        {
+            path: '/ping/qrcodetest',
+            name: 'qrcodetest',
+            component: qrcodetest,
+            meta: {
+                title: '二维码测试',
+            }
         },
         {
             path: '/ping/PageDetails',
@@ -89,6 +102,7 @@ export default new Router({
             component: love,
             meta: {
                 title: '我的收藏',
+                keepAlive: true
             }
         },
         {
@@ -180,6 +194,14 @@ export default new Router({
             }
         },
         {
+            path: '/ping/personalteach',
+            name: 'personalteach',
+            component: personalteach,
+            meta: {
+                title: '我的专属指导老师'
+            }
+        },
+        {
             path: '/ping/commissions',
             name: 'commissions',
             component: commissions,
@@ -200,7 +222,7 @@ export default new Router({
             name: 'errors',
             component: errors,
             meta: {
-                title: '错误提示',
+                title: '错误提示信息',
             }
         },
     ],
