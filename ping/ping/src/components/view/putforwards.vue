@@ -9,7 +9,7 @@
         <van-cell-group style="height:2.0rem;">
         <van-cell>
             <template slot="title">
-                <div style="text-align:center;font-size:28px;margin-top:0.4rem;">
+                <div style="text-align:center;font-size:26px;margin-top:0.4rem;">
                   <van-icon name="e610" style="color:#ffd600;"/>
                   <span>{{money}}</span>
                   <div style="color:#999;font-size:12px;">(100佣金币=1元)</div>
@@ -18,7 +18,7 @@
         </van-cell>
         </van-cell-group>
       </section>
-      <section style="height:5px;"></section>
+      <section style="height:10px;"></section>
       <section>
         <van-cell-group>
             <van-field center v-model="number" label="佣金币" placeholder="请输入佣金币数量" type="number" v-on:input="myFocus">
@@ -89,7 +89,7 @@ export default {
       nitice: "满1000佣金币即可提现，需整百提现",
       notice_icon: notice,
       number: "",
-      money: 990,
+      money: 999,
       titledesc:
         "每天可成功兑换一次，提现审核时间为9:00-21:00,审核成功后客服会根据您提供的微信二维码，进行打款操作",
       times: "",
@@ -162,6 +162,7 @@ export default {
         if (_this.id == "") {
           _this.$toast("当前您还未登录哦");
         } else {
+          _this.number = _this.number - (_this.number % 100);
           this.$axios
             .post(
               _this.url +
@@ -173,7 +174,7 @@ export default {
             .then(function(response) {
               // 将得到的数据放到vue中的data
               _this.$toast(response.data.message);
-              _this.number='';
+              _this.number = "";
               _this.getUserData();
             })
             .catch(function(error) {

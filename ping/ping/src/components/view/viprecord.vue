@@ -229,43 +229,43 @@ export default {
             document.documentElement.scrollTop == 0
               ? document.body.scrollHeight
               : document.documentElement.scrollHeight;
-          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-            //alert("到达底部");
-            // console.log(sw);
-            //如果开关打开则加载数据
-            if (sw == true) {
-              // 将开关关闭
-              sw = false;
-              _this.$axios
-                .get(
-                  _this.url +
-                    "/v1/order/list?userId=" +
-                    _this.id +
-                    "&orderStatus=" +
-                    orderStatus +
-                    "&page=" +
-                    page++ +
-                    "&pageSize=" +
-                    pageSize
-                )
-                .then(function(response) {
-                  // 将新获取的数据push到vue中的data，就会反应到视图中了
-                  var lengths = response.data.result.length;
-                  for (var i = 0; i < lengths; i++) {
-                    _this.NoReceiptdata.push(response.data.result[i]);
-                  }
-                  // 数据更新完毕，将开关打开
-                  sw = true;
-                })
-                .catch(function(error) {
-                  console.log(error);
-                });
-            }
-            if (sw == false) {
-              // console.log("正在加载中");
+          if (_this.active == 0) {
+            if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+              //alert("到达底部");
+              //如果开关打开则加载数据
+              if (sw == true) {
+                // 将开关关闭
+                sw = false;
+                _this.$axios
+                  .get(
+                    _this.url +
+                      "/v1/order/list?userId=" +
+                      _this.id +
+                      "&orderStatus=" +
+                      orderStatus +
+                      "&page=" +
+                      page++ +
+                      "&pageSize=" +
+                      pageSize
+                  )
+                  .then(function(response) {
+                    // 将新获取的数据push到vue中的data，就会反应到视图中了
+                    var lengths = response.data.result.length;
+                    for (var i = 0; i < lengths; i++) {
+                      _this.NoReceiptdata.push(response.data.result[i]);
+                    }
+                    // 数据更新完毕，将开关打开
+                    sw = true;
+                  })
+                  .catch(function(error) {
+                    console.log(error);
+                  });
+              }
+              if (sw == false) {
+                // console.log("正在加载中");
+              }
             }
           }
-          // console.log(sw);
         });
       }
     },
@@ -316,40 +316,42 @@ export default {
             document.documentElement.scrollTop == 0
               ? document.body.scrollHeight
               : document.documentElement.scrollHeight;
-          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-            //alert("到达底部");
-            // console.log(sw);
-            //如果开关打开则加载数据
-            if (sw == true) {
-              // 将开关关闭
-              sw = false;
-              _this.$axios
-                .get(
-                  _this.url +
-                    "/v1/order/list?userId=" +
-                    _this.id +
-                    "&orderStatus=" +
-                    orderStatus +
-                    "&page=" +
-                    page++ +
-                    "&pageSize=" +
-                    pageSize
-                )
-                .then(function(response) {
-                  // 将新获取的数据push到vue中的data，就会反应到视图中了
-                  var lengths = response.data.result.length;
-                  for (var i = 0; i < lengths; i++) {
-                    _this.Reviewdata.push(response.data.result[i]);
-                  }
-                  // 数据更新完毕，将开关打开
-                  sw = true;
-                })
-                .catch(function(error) {
-                  console.log(error);
-                });
-            }
-            if (sw == false) {
-              // console.log("正在加载中");
+          if (_this.active == 1) {
+            if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+              //alert("到达底部");
+              // console.log(sw);
+              //如果开关打开则加载数据
+              if (sw == true) {
+                // 将开关关闭
+                sw = false;
+                _this.$axios
+                  .get(
+                    _this.url +
+                      "/v1/order/list?userId=" +
+                      _this.id +
+                      "&orderStatus=" +
+                      orderStatus +
+                      "&page=" +
+                      page++ +
+                      "&pageSize=" +
+                      pageSize
+                  )
+                  .then(function(response) {
+                    // 将新获取的数据push到vue中的data，就会反应到视图中了
+                    var lengths = response.data.result.length;
+                    for (var i = 0; i < lengths; i++) {
+                      _this.Reviewdata.push(response.data.result[i]);
+                    }
+                    // 数据更新完毕，将开关打开
+                    sw = true;
+                  })
+                  .catch(function(error) {
+                    console.log(error);
+                  });
+              }
+              if (sw == false) {
+                // console.log("正在加载中");
+              }
             }
           }
         });
@@ -402,40 +404,42 @@ export default {
             document.documentElement.scrollTop == 0
               ? document.body.scrollHeight
               : document.documentElement.scrollHeight;
-          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-            //alert("到达底部");
-            // console.log(sw);
-            //如果开关打开则加载数据
-            if (sw == true) {
-              // 将开关关闭
-              sw = false;
-              _this.$axios
-                .get(
-                  _this.url +
-                    "/v1/order/list?userId=" +
-                    _this.id +
-                    "&orderStatus=" +
-                    orderStatus +
-                    "&page=" +
-                    page++ +
-                    "&pageSize=" +
-                    pageSize
-                )
-                .then(function(response) {
-                  // 将新获取的数据push到vue中的data，就会反应到视图中了
-                  var lengths = response.data.result.length;
-                  for (var i = 0; i < lengths; i++) {
-                    _this.Rewarddata.push(response.data.result[i]);
-                  }
-                  // 数据更新完毕，将开关打开
-                  sw = true;
-                })
-                .catch(function(error) {
-                  console.log(error);
-                });
-            }
-            if (sw == false) {
-              // console.log("正在加载中");
+          if (_this.active == 2) {
+            if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+              //alert("到达底部");
+              // console.log(sw);
+              //如果开关打开则加载数据
+              if (sw == true) {
+                // 将开关关闭
+                sw = false;
+                _this.$axios
+                  .get(
+                    _this.url +
+                      "/v1/order/list?userId=" +
+                      _this.id +
+                      "&orderStatus=" +
+                      orderStatus +
+                      "&page=" +
+                      page++ +
+                      "&pageSize=" +
+                      pageSize
+                  )
+                  .then(function(response) {
+                    // 将新获取的数据push到vue中的data，就会反应到视图中了
+                    var lengths = response.data.result.length;
+                    for (var i = 0; i < lengths; i++) {
+                      _this.Rewarddata.push(response.data.result[i]);
+                    }
+                    // 数据更新完毕，将开关打开
+                    sw = true;
+                  })
+                  .catch(function(error) {
+                    console.log(error);
+                  });
+              }
+              if (sw == false) {
+                // console.log("正在加载中");
+              }
             }
           }
         });
@@ -488,40 +492,42 @@ export default {
             document.documentElement.scrollTop == 0
               ? document.body.scrollHeight
               : document.documentElement.scrollHeight;
-          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-            //alert("到达底部");
-            // console.log(sw);
-            //如果开关打开则加载数据
-            if (sw == true) {
-              // 将开关关闭
-              sw = false;
-              _this.$axios
-                .get(
-                  _this.url +
-                    "/v1/order/list?userId=" +
-                    _this.id +
-                    "&orderStatus=" +
-                    orderStatus +
-                    "&page=" +
-                    page++ +
-                    "&pageSize=" +
-                    pageSize
-                )
-                .then(function(response) {
-                  // 将新获取的数据push到vue中的data，就会反应到视图中了
-                  var lengths = response.data.result.length;
-                  for (var i = 0; i < lengths; i++) {
-                    _this.Failuredata.push(response.data.result[i]);
-                  }
-                  // 数据更新完毕，将开关打开
-                  sw = true;
-                })
-                .catch(function(error) {
-                  console.log(error);
-                });
-            }
-            if (sw == false) {
-              // console.log("正在加载中");
+          if (_this.active == 3) {
+            if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+              //alert("到达底部");
+              // console.log(sw);
+              //如果开关打开则加载数据
+              if (sw == true) {
+                // 将开关关闭
+                sw = false;
+                _this.$axios
+                  .get(
+                    _this.url +
+                      "/v1/order/list?userId=" +
+                      _this.id +
+                      "&orderStatus=" +
+                      orderStatus +
+                      "&page=" +
+                      page++ +
+                      "&pageSize=" +
+                      pageSize
+                  )
+                  .then(function(response) {
+                    // 将新获取的数据push到vue中的data，就会反应到视图中了
+                    var lengths = response.data.result.length;
+                    for (var i = 0; i < lengths; i++) {
+                      _this.Failuredata.push(response.data.result[i]);
+                    }
+                    // 数据更新完毕，将开关打开
+                    sw = true;
+                  })
+                  .catch(function(error) {
+                    console.log(error);
+                  });
+              }
+              if (sw == false) {
+                // console.log("正在加载中");
+              }
             }
           }
         });

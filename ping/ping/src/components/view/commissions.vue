@@ -159,7 +159,8 @@ export default {
       tixiandata: {},
       isLoading: true,
       lengths: "",
-      messages: ""
+      messages: "",
+      currentname: "全部"
     };
   },
   mounted() {
@@ -179,14 +180,23 @@ export default {
     onRefresh() {
       // 下拉刷新
       setTimeout(() => {
-        this.$toast("刷新成功");
+        if (this.currentname == "全部") {
+          this.getcommissiondata();
+        } else if (this.currentname == "佣金") {
+          this.getyongjindata();
+        } else if (this.currentname == "收益") {
+          this.getshouyidata();
+        } else if (this.currentname == "提现") {
+          this.gettixiandata();
+        }
+        this.$toast("数据刷新成功");
         this.isLoading = false;
-        this.count++;
       }, 500);
     },
     getcommissiondata() {
       // 缓存指针
       let _this = this;
+      _this.currentname = "全部";
       if (_this.id == "") {
         _this.$toast("当前您还未登录哦");
       } else {
@@ -229,42 +239,44 @@ export default {
             document.documentElement.scrollTop == 0
               ? document.body.scrollHeight
               : document.documentElement.scrollHeight;
-          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-            //如果开关打开则加载数据
-            if (sw == true) {
-              // 将开关关闭
-              sw = false;
-              _this.$axios
-                .get(
-                  _this.url +
-                    "/v1/integral/records?userId=" +
-                    _this.id +
-                    "&type=0&page=" +
-                    page +
-                    "&pageSize=" +
-                    pageSize
-                )
-                .then(function(response) {
-                  // 将得到的数据放到vue中的data
-                  if (response.data.code == 1) {
-                    var lengths = response.data.result.length;
-                    for (var i = 0; i < lengths; i++) {
-                      _this.recordsdata.push(response.data.result[i]);
+          if (_this.currentname == "全部") {
+            if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+              //如果开关打开则加载数据
+              if (sw == true) {
+                // 将开关关闭
+                sw = false;
+                _this.$axios
+                  .get(
+                    _this.url +
+                      "/v1/integral/records?userId=" +
+                      _this.id +
+                      "&type=0&page=" +
+                      page +
+                      "&pageSize=" +
+                      pageSize
+                  )
+                  .then(function(response) {
+                    // 将得到的数据放到vue中的data
+                    if (response.data.code == 1) {
+                      var lengths = response.data.result.length;
+                      for (var i = 0; i < lengths; i++) {
+                        _this.recordsdata.push(response.data.result[i]);
+                      }
                     }
-                  }
-                  sw = true;
-                  if (lengths == 0 || lengths == null) {
-                    _this.messages =
-                      "---------------------------我也是有底线的---------------------------";
-                  }
-                })
-                .catch(function(error) {
-                  console.log(error);
-                });
-            }
-            if (sw == false) {
-               _this.messages ="正在加载中....";
-              // console.log("正在加载中");
+                    sw = true;
+                    if (lengths == 0 || lengths == null) {
+                      _this.messages =
+                        "---------------------------我也是有底线的---------------------------";
+                    }
+                  })
+                  .catch(function(error) {
+                    console.log(error);
+                  });
+              }
+              if (sw == false) {
+                _this.messages = "正在加载中....";
+                // console.log("正在加载中");
+              }
             }
           }
         });
@@ -272,6 +284,7 @@ export default {
     },
     getyongjindata() {
       let _this = this;
+      _this.currentname = "佣金";
       let page = 1;
       let pageSize = 10;
       let sw = true;
@@ -310,51 +323,54 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //alert("到达底部");
-          // console.log(sw);
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(
-                _this.url +
-                  "/v1/integral/records?userId=" +
-                  _this.id +
-                  "&type=1&page=" +
-                  page +
-                  "&pageSize=" +
-                  pageSize
-              )
-              .then(function(response) {
-                // 将得到的数据放到vue中的data
-                if (response.data.code == 1) {
-                  // console.log(response.data.result);
-                  var lengths = response.data.result.length;
-                  for (var i = 0; i < lengths; i++) {
-                    _this.yongjindata.push(response.data.result[i]);
+        if (_this.currentname == "佣金") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            // console.log(sw);
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/integral/records?userId=" +
+                    _this.id +
+                    "&type=1&page=" +
+                    page +
+                    "&pageSize=" +
+                    pageSize
+                )
+                .then(function(response) {
+                  // 将得到的数据放到vue中的data
+                  if (response.data.code == 1) {
+                    // console.log(response.data.result);
+                    var lengths = response.data.result.length;
+                    for (var i = 0; i < lengths; i++) {
+                      _this.yongjindata.push(response.data.result[i]);
+                    }
                   }
-                }
-                sw = true;
-                if (lengths == 0 || lengths == null) {
-                  _this.messages =
-                    "---------------------------我也是有底线的---------------------------";
-                }
-              })
-              .catch(function(error) {
-                console.log(error);
-              });
-          }
-          if (sw == false) {
-            _this.messages ="正在加载中....";
-            // console.log("正在加载中");
+                  sw = true;
+                  if (lengths == 0 || lengths == null) {
+                    _this.messages =
+                      "---------------------------我也是有底线的---------------------------";
+                  }
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中....";
+              // console.log("正在加载中");
+            }
           }
         }
       });
     },
     getshouyidata() {
       let _this = this;
+      _this.currentname = "收益";
       let page = 1;
       let pageSize = 10;
       let sw = true;
@@ -394,49 +410,52 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //console.log(sw);
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(
-                _this.url +
-                  "/v1/integral/records?userId=" +
-                  _this.id +
-                  "&type=2&page=" +
-                  page +
-                  "&pageSize=" +
-                  pageSize
-              )
-              .then(function(response) {
-                // 将得到的数据放到vue中的data
-                if (response.data.code == 1) {
-                  var lengths = response.data.result.length;
-                  for (var i = 0; i < lengths; i++) {
-                    _this.shouyidata.push(response.data.result[i]);
+        if (_this.currentname == "收益") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //console.log(sw);
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/integral/records?userId=" +
+                    _this.id +
+                    "&type=2&page=" +
+                    page +
+                    "&pageSize=" +
+                    pageSize
+                )
+                .then(function(response) {
+                  // 将得到的数据放到vue中的data
+                  if (response.data.code == 1) {
+                    var lengths = response.data.result.length;
+                    for (var i = 0; i < lengths; i++) {
+                      _this.shouyidata.push(response.data.result[i]);
+                    }
                   }
-                }
-                sw = true;
-                if (lengths == 0 || lengths == null) {
-                  _this.messages =
-                    "---------------------------我也是有底线的---------------------------";
-                }
-              })
-              .catch(function(error) {
-                console.log(error);
-              });
-          }
-          if (sw == false) {
-             _this.messages ="正在加载中....";
-            // console.log("正在加载中");
+                  sw = true;
+                  if (lengths == 0 || lengths == null) {
+                    _this.messages =
+                      "---------------------------我也是有底线的---------------------------";
+                  }
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中....";
+              // console.log("正在加载中");
+            }
           }
         }
       });
     },
     gettixiandata() {
       let _this = this;
+      _this.currentname = "提现";
       let page = 1;
       let pageSize = 10;
       let sw = true;
@@ -475,42 +494,44 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //alert("到达底部");
-          // console.log(sw);
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(
-                _this.url +
-                  "/v1/integral/records?userId=" +
-                  _this.id +
-                  "&type=3&page=" +
-                  page +
-                  "&pageSize=" +
-                  pageSize
-              )
-              .then(function(response) {
-                if (response.data.code == 1) {
-                  var lengths = response.data.result.length;
-                  for (var i = 0; i < lengths; i++) {
-                    _this.tixiandata.push(response.data.result[i]);
+        if (_this.currentname == "提现") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            // console.log(sw);
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/integral/records?userId=" +
+                    _this.id +
+                    "&type=3&page=" +
+                    page +
+                    "&pageSize=" +
+                    pageSize
+                )
+                .then(function(response) {
+                  if (response.data.code == 1) {
+                    var lengths = response.data.result.length;
+                    for (var i = 0; i < lengths; i++) {
+                      _this.tixiandata.push(response.data.result[i]);
+                    }
                   }
-                }
-                sw = true;
-                if (lengths == 0 || lengths == null) {
-                  _this.messages =
-                    "---------------------------我也是有底线的---------------------------";
-                }
-              })
-              .catch(function(error) {
-                console.log(error);
-              });
-          }
-          if (sw == false) {
-            _this.messages ="正在加载中....";
+                  sw = true;
+                  if (lengths == 0 || lengths == null) {
+                    _this.messages =
+                      "---------------------------我也是有底线的---------------------------";
+                  }
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中....";
+            }
           }
         }
       });

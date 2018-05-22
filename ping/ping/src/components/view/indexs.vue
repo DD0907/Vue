@@ -999,10 +999,10 @@ export default {
       messages: "",
       rowlength: "",
       page: 1, //页数
-      categoryId: "", //分类
       pageSize: 10, //每页条数
       sortType: "0", //排列次数
-      value: "" //搜索关键字
+      value: "", //搜索关键字
+      currentName: "精选"
     };
   },
   mounted() {
@@ -1076,6 +1076,7 @@ export default {
       let _this = this;
       // 设置一个开关来避免重负请求数据
       let sw = true;
+      _this.currentName = "精选";
       let pages = 1;
       // 此处使用node做了代理
       this.$axios
@@ -1112,37 +1113,38 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(
-                _this.url +
-                  "/v1/product/list?categoryId=" +
-                  "&page=" +
-                  pages++ +
-                  "&pageSize=" +
-                  _this.pageSize +
-                  "&sortType=0&withCoupon=false"
-              )
-              .then(function(response) {
-                // 将新获取的数据push到vue中的data，就会反应到视图中了
-                var lengths = response.data.result.length;
-                for (var i = 0; i < lengths; i++) {
-                  _this.articles.push(response.data.result[i]);
-                }
-                // 数据更新完毕，将开关打开
-                sw = true;
-              })
-              .catch(function(error) {
-                console.log(error);
-                _this.$toast("网络异常错误...");
-              });
-          }
-          if (sw == false) {
-            _this.messages = "正在加载中...";
+        if (_this.currentName == "精选") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/product/list?page=" +
+                    pages++ +
+                    "&pageSize=" +
+                    _this.pageSize +
+                    "&sortType=0&withCoupon=false"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.articles.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                  _this.$toast("网络异常错误...");
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+            }
           }
         }
       });
@@ -1150,6 +1152,7 @@ export default {
     getfruit() {
       // 缓存指针
       let _this = this;
+      _this.currentName = "水果";
       // 设置一个开关来避免重负请求数据
       let sw = true;
       let pages = 1;
@@ -1189,38 +1192,40 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //alert("到达底部");
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(
-                _this.url +
-                  "/v1/product/list?categoryId=" +
-                  13 +
-                  "&page=" +
-                  pages++ +
-                  "&pageSize=" +
-                  _this.pageSize +
-                  "&sortType=0&withCoupon=false"
-              )
-              .then(function(response) {
-                // 将新获取的数据push到vue中的data，就会反应到视图中了
-                var lengths = response.data.result.length;
-                for (var i = 0; i < lengths; i++) {
-                  _this.fruit.push(response.data.result[i]);
-                }
-                // 数据更新完毕，将开关打开
-                sw = true;
-              })
-              .catch(function(error) {
-                console.log(error);
-              });
-          }
-          if (sw == false) {
-            _this.messages = "正在加载中...";
+        if (_this.currentName == "水果") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/product/list?categoryId=" +
+                    13 +
+                    "&page=" +
+                    pages++ +
+                    "&pageSize=" +
+                    _this.pageSize +
+                    "&sortType=0&withCoupon=false"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.fruit.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+            }
           }
         }
       });
@@ -1228,6 +1233,7 @@ export default {
     getfood() {
       // 缓存指针
       let _this = this;
+      _this.currentName = "美食";
       // 设置一个开关来避免重负请求数据
       let sw = true;
       let pages = 1;
@@ -1267,38 +1273,40 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //alert("到达底部");
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(
-                _this.url +
-                  "/v1/product/list?categoryId=" +
-                  1 +
-                  "&page=" +
-                  pages++ +
-                  "&pageSize=" +
-                  _this.pageSize +
-                  "&sortType=0&withCoupon=false"
-              )
-              .then(function(response) {
-                // 将新获取的数据push到vue中的data，就会反应到视图中了
-                var lengths = response.data.result.length;
-                for (var i = 0; i < lengths; i++) {
-                  _this.food.push(response.data.result[i]);
-                }
-                // 数据更新完毕，将开关打开
-                sw = true;
-              })
-              .catch(function(error) {
-                console.log(error);
-              });
-          }
-          if (sw == false) {
-            _this.messages = "正在加载中...";
+        if (_this.currentName == "美食") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/product/list?categoryId=" +
+                    1 +
+                    "&page=" +
+                    pages++ +
+                    "&pageSize=" +
+                    _this.pageSize +
+                    "&sortType=0&withCoupon=false"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.food.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+            }
           }
         }
       });
@@ -1306,6 +1314,7 @@ export default {
     getclothes() {
       // 缓存指针
       let _this = this;
+      _this.currentName = "服饰";
       // 设置一个开关来避免重负请求数据
       let sw = true;
       let pages = 1;
@@ -1345,38 +1354,40 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //alert("到达底部");
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(
-                _this.url +
-                  "/v1/product/list?categoryId=" +
-                  14 +
-                  "&page=" +
-                  pages++ +
-                  "&pageSize=" +
-                  _this.pageSize +
-                  "&sortType=0&withCoupon=false"
-              )
-              .then(function(response) {
-                // 将新获取的数据push到vue中的data，就会反应到视图中了
-                var lengths = response.data.result.length;
-                for (var i = 0; i < lengths; i++) {
-                  _this.clothes.push(response.data.result[i]);
-                }
-                // 数据更新完毕，将开关打开
-                sw = true;
-              })
-              .catch(function(error) {
-                console.log(error);
-              });
-          }
-          if (sw == false) {
-            _this.messages = "正在加载中...";
+        if (_this.currentName == "服饰") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/product/list?categoryId=" +
+                    14 +
+                    "&page=" +
+                    pages++ +
+                    "&pageSize=" +
+                    _this.pageSize +
+                    "&sortType=0&withCoupon=false"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.clothes.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+            }
           }
         }
       });
@@ -1384,6 +1395,7 @@ export default {
     getmotherbaby() {
       // 缓存指针
       let _this = this;
+      _this.currentName = "母婴";
       // 设置一个开关来避免重负请求数据
       let sw = true;
       let pages = 1;
@@ -1423,38 +1435,40 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //alert("到达底部");
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(
-                _this.url +
-                  "/v1/product/list?categoryId=" +
-                  4 +
-                  "&page=" +
-                  pages++ +
-                  "&pageSize=" +
-                  _this.pageSize +
-                  "&sortType=0&withCoupon=false"
-              )
-              .then(function(response) {
-                // 将新获取的数据push到vue中的data，就会反应到视图中了
-                var lengths = response.data.result.length;
-                for (var i = 0; i < lengths; i++) {
-                  _this.motherbabyrow.push(response.data.result[i]);
-                }
-                // 数据更新完毕，将开关打开
-                sw = true;
-              })
-              .catch(function(error) {
-                console.log(error);
-              });
-          }
-          if (sw == false) {
-            _this.messages = "正在加载中...";
+        if (_this.currentName == "母婴") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/product/list?categoryId=" +
+                    4 +
+                    "&page=" +
+                    pages++ +
+                    "&pageSize=" +
+                    _this.pageSize +
+                    "&sortType=0&withCoupon=false"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.motherbabyrow.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+            }
           }
         }
       });
@@ -1462,6 +1476,7 @@ export default {
     getsdeptstore() {
       // 缓存指针
       let _this = this;
+      _this.currentName = "百货";
       // 设置一个开关来避免重负请求数据
       let sw = true;
       let pages = 1;
@@ -1501,38 +1516,40 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //alert("到达底部");
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(
-                _this.url +
-                  "/v1/product/list?categoryId=" +
-                  15 +
-                  "&page=" +
-                  pages++ +
-                  "&pageSize=" +
-                  _this.pageSize +
-                  "&sortType=0&withCoupon=false"
-              )
-              .then(function(response) {
-                // 将新获取的数据push到vue中的data，就会反应到视图中了
-                var lengths = response.data.result.length;
-                for (var i = 0; i < lengths; i++) {
-                  _this.deptstore.push(response.data.result[i]);
-                }
-                // 数据更新完毕，将开关打开
-                sw = true;
-              })
-              .catch(function(error) {
-                console.log(error);
-              });
-          }
-          if (sw == false) {
-            _this.messages = "正在加载中...";
+        if (_this.currentName == "百货") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/product/list?categoryId=" +
+                    15 +
+                    "&page=" +
+                    pages++ +
+                    "&pageSize=" +
+                    _this.pageSize +
+                    "&sortType=0&withCoupon=false"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.deptstore.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+            }
           }
         }
       });
@@ -1540,6 +1557,7 @@ export default {
     getbeauty() {
       // 缓存指针
       let _this = this;
+      _this.currentName = "美妆";
       // 设置一个开关来避免重负请求数据
       let sw = true;
       let pages = 1;
@@ -1579,38 +1597,40 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //alert("到达底部");
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(
-                _this.url +
-                  "/v1/product/list?categoryId=" +
-                  16 +
-                  "&page=" +
-                  pages++ +
-                  "&pageSize=" +
-                  _this.pageSize +
-                  "&sortType=0&withCoupon=false"
-              )
-              .then(function(response) {
-                // 将新获取的数据push到vue中的data，就会反应到视图中了
-                var lengths = response.data.result.length;
-                for (var i = 0; i < lengths; i++) {
-                  _this.beautyrow.push(response.data.result[i]);
-                }
-                // 数据更新完毕，将开关打开
-                sw = true;
-              })
-              .catch(function(error) {
-                console.log(error);
-              });
-          }
-          if (sw == false) {
-            _this.messages = "正在加载中...";
+        if (_this.currentName == "美妆") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/product/list?categoryId=" +
+                    16 +
+                    "&page=" +
+                    pages++ +
+                    "&pageSize=" +
+                    _this.pageSize +
+                    "&sortType=0&withCoupon=false"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.beautyrow.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+            }
           }
         }
       });
@@ -1618,6 +1638,7 @@ export default {
     getshoebag() {
       // 缓存指针
       let _this = this;
+      _this.currentName = "鞋包";
       // 设置一个开关来避免重负请求数据
       let sw = true;
       let pages = 1;
@@ -1657,38 +1678,40 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //alert("到达底部");
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(
-                _this.url +
-                  "/v1/product/list?categoryId=" +
-                  1281 +
-                  "&page=" +
-                  pages++ +
-                  "&pageSize=" +
-                  _this.pageSize +
-                  "&sortType=0&withCoupon=false"
-              )
-              .then(function(response) {
-                // 将新获取的数据push到vue中的data，就会反应到视图中了
-                var lengths = response.data.result.length;
-                for (var i = 0; i < lengths; i++) {
-                  _this.shoebag.push(response.data.result[i]);
-                }
-                // 数据更新完毕，将开关打开
-                sw = true;
-              })
-              .catch(function(error) {
-                console.log(error);
-              });
-          }
-          if (sw == false) {
-            _this.messages = "正在加载中...";
+        if (_this.currentName == "鞋包") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/product/list?categoryId=" +
+                    1281 +
+                    "&page=" +
+                    pages++ +
+                    "&pageSize=" +
+                    _this.pageSize +
+                    "&sortType=0&withCoupon=false"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.shoebag.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+            }
           }
         }
       });
@@ -1696,6 +1719,7 @@ export default {
     getelectric() {
       // 缓存指针
       let _this = this;
+      _this.currentName = "电器";
       // 设置一个开关来避免重负请求数据
       let sw = true;
       let pages = 1;
@@ -1735,38 +1759,40 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //alert("到达底部");
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(
-                _this.url +
-                  "/v1/product/list?categoryId=" +
-                  18 +
-                  "&page=" +
-                  pages++ +
-                  "&pageSize=" +
-                  _this.pageSize +
-                  "&sortType=0&withCoupon=false"
-              )
-              .then(function(response) {
-                // 将新获取的数据push到vue中的data，就会反应到视图中了
-                var lengths = response.data.result.length;
-                for (var i = 0; i < lengths; i++) {
-                  _this.electric.push(response.data.result[i]);
-                }
-                // 数据更新完毕，将开关打开
-                sw = true;
-              })
-              .catch(function(error) {
-                console.log(error);
-              });
-          }
-          if (sw == false) {
-            _this.messages = "正在加载中...";
+        if (_this.currentName == "电器") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/product/list?categoryId=" +
+                    18 +
+                    "&page=" +
+                    pages++ +
+                    "&pageSize=" +
+                    _this.pageSize +
+                    "&sortType=0&withCoupon=false"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.electric.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+            }
           }
         }
       });
@@ -1774,6 +1800,7 @@ export default {
     getmanclothing() {
       // 缓存指针
       let _this = this;
+      _this.currentName = "男装";
       // 设置一个开关来避免重负请求数据
       let sw = true;
       let pages = 1;
@@ -1813,38 +1840,40 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //alert("到达底部");
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(
-                _this.url +
-                  "/v1/product/list?categoryId=" +
-                  743 +
-                  "&page=" +
-                  pages++ +
-                  "&pageSize=" +
-                  _this.pageSize +
-                  "&sortType=0&withCoupon=false"
-              )
-              .then(function(response) {
-                // 将新获取的数据push到vue中的data，就会反应到视图中了
-                var lengths = response.data.result.length;
-                for (var i = 0; i < lengths; i++) {
-                  _this.manclothing.push(response.data.result[i]);
-                }
-                // 数据更新完毕，将开关打开
-                sw = true;
-              })
-              .catch(function(error) {
-                console.log(error);
-              });
-          }
-          if (sw == false) {
-            _this.messages = "正在加载中...";
+        if (_this.currentName == "男装") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/product/list?categoryId=" +
+                    743 +
+                    "&page=" +
+                    pages++ +
+                    "&pageSize=" +
+                    _this.pageSize +
+                    "&sortType=0&withCoupon=false"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.manclothing.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+            }
           }
         }
       });
@@ -1852,6 +1881,7 @@ export default {
     gethometextiles() {
       // 缓存指针
       let _this = this;
+      _this.currentName = "家纺";
       // 设置一个开关来避免重负请求数据
       let sw = true;
       let pages = 1;
@@ -1891,38 +1921,40 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //alert("到达底部");
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(
-                _this.url +
-                  "/v1/product/list?categoryId=" +
-                  818 +
-                  "&page=" +
-                  pages++ +
-                  "&pageSize=" +
-                  _this.pageSize +
-                  "&sortType=0&withCoupon=false"
-              )
-              .then(function(response) {
-                // 将新获取的数据push到vue中的data，就会反应到视图中了
-                var lengths = response.data.result.length;
-                for (var i = 0; i < lengths; i++) {
-                  _this.hometextiles.push(response.data.result[i]);
-                }
-                // 数据更新完毕，将开关打开
-                sw = true;
-              })
-              .catch(function(error) {
-                console.log(error);
-              });
-          }
-          if (sw == false) {
-            _this.messages = "正在加载中...";
+        if (_this.currentName == "家纺") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/product/list?categoryId=" +
+                    818 +
+                    "&page=" +
+                    pages++ +
+                    "&pageSize=" +
+                    _this.pageSize +
+                    "&sortType=0&withCoupon=false"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.hometextiles.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+            }
           }
         }
       });
@@ -1930,6 +1962,7 @@ export default {
     getphone() {
       // 缓存指针
       let _this = this;
+      _this.currentName = "手机";
       // 设置一个开关来避免重负请求数据
       let sw = true;
       let pages = 1;
@@ -1969,38 +2002,40 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //alert("到达底部");
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(
-                _this.url +
-                  "/v1/product/list?categoryId=" +
-                  1543 +
-                  "&page=" +
-                  pages++ +
-                  "&pageSize=" +
-                  _this.pageSize +
-                  "&sortType=0&withCoupon=false"
-              )
-              .then(function(response) {
-                // 将新获取的数据push到vue中的data，就会反应到视图中了
-                var lengths = response.data.result.length;
-                for (var i = 0; i < lengths; i++) {
-                  _this.phone.push(response.data.result[i]);
-                }
-                // 数据更新完毕，将开关打开
-                sw = true;
-              })
-              .catch(function(error) {
-                console.log(error);
-              });
-          }
-          if (sw == false) {
-            _this.messages = "正在加载中...";
+        if (_this.currentName == "手机") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/product/list?categoryId=" +
+                    1543 +
+                    "&page=" +
+                    pages++ +
+                    "&pageSize=" +
+                    _this.pageSize +
+                    "&sortType=0&withCoupon=false"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.phone.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+            }
           }
         }
       });
@@ -2008,6 +2043,7 @@ export default {
     getmovement() {
       // 缓存指针
       let _this = this;
+      _this.currentName = "运动";
       // 设置一个开关来避免重负请求数据
       let sw = true;
       let pages = 1;
@@ -2047,38 +2083,40 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //alert("到达底部");
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(
-                _this.url +
-                  "/v1/product/list?categoryId=" +
-                  1451 +
-                  "&page=" +
-                  pages++ +
-                  "&pageSize=" +
-                  _this.pageSize +
-                  "&sortType=0&withCoupon=false"
-              )
-              .then(function(response) {
-                // 将新获取的数据push到vue中的data，就会反应到视图中了
-                var lengths = response.data.result.length;
-                for (var i = 0; i < lengths; i++) {
-                  _this.movement.push(response.data.result[i]);
-                }
-                // 数据更新完毕，将开关打开
-                sw = true;
-              })
-              .catch(function(error) {
-                console.log(error);
-              });
-          }
-          if (sw == false) {
-            _this.messages = "正在加载中...";
+        if (_this.currentName == "运动") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/product/list?categoryId=" +
+                    1451 +
+                    "&page=" +
+                    pages++ +
+                    "&pageSize=" +
+                    _this.pageSize +
+                    "&sortType=0&withCoupon=false"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.movement.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+            }
           }
         }
       });
@@ -2150,31 +2188,31 @@ export default {
     onRefresh() {
       // 下拉刷新
       setTimeout(() => {
-        if (this.active == 0) {
+        if (this.currentName == "精选") {
           this.getdata();
-        } else if (this.active == 1) {
+        } else if (this.currentName == "水果") {
           this.getfruit();
-        } else if (this.active == 2) {
+        } else if (this.currentName == "美食") {
           this.getfood();
-        } else if (this.active == 3) {
+        } else if (this.currentName == "服饰") {
           this.getclothes();
-        } else if (this.active == 4) {
+        } else if (this.currentName == "母婴") {
           this.getmotherbaby();
-        } else if (this.active == 5) {
+        } else if (this.currentName == "百货") {
           this.getsdeptstore();
-        } else if (this.active == 6) {
+        } else if (this.currentName == "美妆") {
           this.getbeauty();
-        } else if (this.active == 7) {
+        } else if (this.currentName == "鞋包") {
           this.getshoebag();
-        } else if (this.active == 8) {
+        } else if (this.currentName == "电器") {
           this.getelectric();
-        } else if (this.active == 9) {
+        } else if (this.currentName == "男装") {
           this.getmanclothing();
-        } else if (this.active == 10) {
+        } else if (this.currentName == "家纺") {
           this.gethometextiles();
-        } else if (this.active == 11) {
+        } else if (this.currentName == "手机") {
           this.getphone();
-        } else if (this.active == 12) {
+        } else if (this.currentName == "运动") {
           this.getmovement();
         }
         this.isLoading = false;

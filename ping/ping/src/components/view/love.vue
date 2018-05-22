@@ -134,7 +134,6 @@ export default {
   },
   mounted() {
     this.userId = sessionStorage.getItem("userId");
-    // this.userId=1;
     var keyword = window.location.href;
     var i = keyword.indexOf("isVip=");
     this.isVips = decodeURI(keyword.substring(i + 6, keyword.length)) == "true";

@@ -19,6 +19,21 @@
                 <img :src="item.goodsThumbnailUrl" alt="">
             </li>
         </ul> -->
+
+        <van-tabs @click="onClick">
+          <van-tab :title="'选项 ' ">
+            内容3
+          </van-tab>
+           <van-tab :title="'选项1 ' ">
+            内容4
+          </van-tab>
+           <van-tab :title="'选项 2' ">
+            内容5
+          </van-tab>
+           <van-tab :title="'选项 3' ">
+            内容6
+          </van-tab>
+        </van-tabs>
     </div>
 </template>
 <script>
@@ -89,6 +104,10 @@ export default {
     //         this.count++;
     //     }, 500);
     //     }
+    onClick(index, title) {
+      
+      this.$toast(title+"index:"+index);
+    },
     uploading(event) {
       this.file = event.target.files[0]; //获取文件
       console.log(1);
