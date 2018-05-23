@@ -51,6 +51,7 @@
           <div style="height:2px;">&nbsp;</div>
         <div style="text-align:center;"><img :src="posterUrl" style="width:98%"/></div>
         </van-dialog>
+        
    <!-- 底部标签 -->
     <div>
     <van-row>
@@ -111,25 +112,34 @@ export default {
     };
   },
   mounted() {
-    this.id = sessionStorage.getItem("userId");
+    //if (this.isWeiXin()) {
+    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+    this.id = dataJson.id;
+    this.isVip = dataJson.vip;
+    // var keyword = window.location.href;
+    // var i = keyword.indexOf("isVip=");
+    // this.isVip =
+    //   decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
     this.getUserData();
-    var keyword = window.location.href;
-    var i = keyword.indexOf("isVip=");
-    this.isVip = decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
-
-    // if (this.isWeiXin()) {
-    //   this.id = sessionStorage.getItem("userId");
-    //   var keyword = window.location.href;
-    //   var i = keyword.indexOf("isVip=");
-    //   this.isVip =
-    //     decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
-    //   this.getUserData();
     // } else {
     //   this.$router.push({
     //     path: "/ping",
     //     name: "errors"
     //   });
     // }
+    function getCookie(name) {
+      name = name + "=";
+      var start = document.cookie.indexOf(name),
+        value = null;
+      if (start > -1) {
+        var end = document.cookie.indexOf(";", start);
+        if (end == -1) {
+          end = document.cookie.length;
+        }
+        value = document.cookie.substring(start + name.length, end);
+      }
+      return value;
+    }
   },
   methods: {
     //判断是否微信登陆 是不是微信浏览器
@@ -175,11 +185,18 @@ export default {
       });
     },
     JumpVip() {
-      this.$router.push({
-        path: "/ping",
-        name: "vip",
-        query: { isVip: this.isVip }
-      });
+      if (this.isVip == true) {
+        this.$router.push({
+          path: "/ping",
+          name: "vip",
+          query: { isVip: this.isVip }
+        });
+      } else {
+        this.$router.push({
+          path: "/ping",
+          name: "vipnotice"
+        });
+      }
     },
     JumpLove() {
       this.$router.push({
@@ -236,14 +253,18 @@ export default {
       });
     },
     jumpPosterUrl() {
-      if(this.posterUrl==''||this.posterUrl==null){
-        this.$toast("暂时不能查看您的专属推广海报，请及时联系客服进行解决")
-      }else{
+      if (this.posterUrl == "" || this.posterUrl == null) {
+        this.$toast("暂时不能查看您的专属推广海报，请及时联系客服进行解决");
+      } else {
         this.postUrlshow = true;
       }
     },
     jumpTeam() {
-     this.$toast("此功能暂未实现...")
+      // this.$toast("此功能暂未上线");
+      this.$router.push({
+        path: "/ping",
+        name: "customerservice"
+      });
     }
   }
 };

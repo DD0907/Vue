@@ -133,20 +133,34 @@ export default {
     };
   },
   mounted() {
-    this.userId = sessionStorage.getItem("userId");
-    var keyword = window.location.href;
-    var i = keyword.indexOf("isVip=");
-    this.isVips = decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
-    //  alert(this.isVips)
-    this.getCollectdata();
+    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+    this.userId = dataJson.id;
+    this.isVips = dataJson.vip;
+    function getCookie(name) {
+      name = name + "=";
+      var start = document.cookie.indexOf(name),
+        value = null;
+      if (start > -1) {
+        var end = document.cookie.indexOf(";", start);
+        if (end == -1) {
+          end = document.cookie.length;
+        }
+        value = document.cookie.substring(start + name.length, end);
+      }
+      return value;
+    }
+    // this.userId = sessionStorage.getItem("userId");
+    // var keyword = window.location.href;
+    // var i = keyword.indexOf("isVip=");
+    // this.isVips = decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
+    // //  alert(this.isVips)
+    // this.getCollectdata();
 
-    // if (this.isWeiXin()) {
-    //   this.userId = sessionStorage.getItem("userId");
-    //   var keyword = window.location.href;
-    //   var i = keyword.indexOf("isVip=");
-    //   this.isVips =
-    //     decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
-    //   this.getCollectdata();
+    //if (this.isWeiXin()) {
+    // this.userId = sessionStorage.getItem("userId");
+    // alert("love:"+userId)
+    // sessionStorage.setItem("userId", this.id);
+    this.getCollectdata();
     // } else {
     //   this.$router.push({
     //     path: "/ping",
@@ -180,11 +194,18 @@ export default {
       });
     },
     JumpVip() {
-      this.$router.push({
-        path: "/ping",
-        name: "vip",
-        query: { isVip: this.isVips }
-      });
+      if (this.isVips == true) {
+        this.$router.push({
+          path: "/ping",
+          name: "vip",
+          query: { isVip: this.isVips }
+        });
+      } else {
+        this.$router.push({
+          path: "/ping",
+          name: "vipnotice"
+        });
+      }
     },
     JumpIndex() {
       this.$router.push({
@@ -229,7 +250,7 @@ export default {
           })
           .catch(function(error) {
             console.log(error);
-            _this.$toast("网络异常错误...")
+            _this.$toast("网络异常错误...");
           });
         // 注册scroll事件并监听
         //window.addEventListener
@@ -275,7 +296,7 @@ export default {
                 })
                 .catch(function(error) {
                   console.log(error);
-                  _this.$toast("网络异常错误...")
+                  _this.$toast("网络异常错误...");
                 });
             }
             if (sw == false) {
@@ -313,7 +334,7 @@ export default {
             })
             .catch(function(error) {
               console.log(error);
-              _this.$toast("网络异常错误...")
+              _this.$toast("网络异常错误...");
             });
           // alert(productIds)
           // alert(_this.userId)

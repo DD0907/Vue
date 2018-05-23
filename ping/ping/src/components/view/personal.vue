@@ -137,6 +137,7 @@
 
       <van-dialog v-model="sacnshow" :show-confirm-button="false" title="我的二维码" :close-on-click-overlay="true">
         <div style="text-align:center;"><img :src="wxQrcode" style="width:80%"/></div>
+        <div style="text-align:center;">长按可识别二维码,添加好友</div>
       </van-dialog>
 
       <van-dialog v-model="moneyshow" :show-confirm-button="false" title="我的收钱二维码" :close-on-click-overlay="true">
@@ -167,9 +168,24 @@ export default {
     };
   },
   mounted() {
-    this.id = sessionStorage.getItem("userId");
+    // this.id = sessionStorage.getItem("userId");
+    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+    this.id = dataJson.id;
     this.getParams();
     this.getUserData();
+    function getCookie(name) {
+      name = name + "=";
+      var start = document.cookie.indexOf(name),
+        value = null;
+      if (start > -1) {
+        var end = document.cookie.indexOf(";", start);
+        if (end == -1) {
+          end = document.cookie.length;
+        }
+        value = document.cookie.substring(start + name.length, end);
+      }
+      return value;
+    }
   },
   methods: {
     onCopy: function(e) {
@@ -209,7 +225,13 @@ export default {
         var times = Date.parse(time);
         _this.times = times;
         this.$axios
-          .post(_this.url + "/v1/user/" + _this.friendId)
+          .get(
+            _this.url +
+              "/v1/user/" +
+              _this.id +
+              "/superior?refereId=" +
+              _this.friendId
+          )
           .then(function(response) {
             // 将得到的数据放到vue中的data
             _this.userdata = response.data.result;
@@ -223,7 +245,7 @@ export default {
           })
           .catch(function(error) {
             console.log(error);
-           _this.$toast("网络异常错误...")
+            _this.$toast("网络异常错误...");
           });
       }
     }

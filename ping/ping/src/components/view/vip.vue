@@ -28,7 +28,9 @@
          &nbsp;
         </van-col> -->
         <van-col span="4" style="text-align:center;margin-top:0.8rem;">
-         <img src="../../assets/icon/icon_course.png" style="width:0.9rem;"/><br>新手教程
+          <div @click="JumpCourse">
+            <img src="../../assets/icon/icon_course.png" style="width:0.9rem;"/><br>新手教程
+          </div>
         </van-col>
         <van-col span="4" style="text-align:center;margin-top:0.8rem;">
           <div @click="JumpConsultation">
@@ -137,27 +139,45 @@ export default {
     };
   },
   mounted() {
-    this.id = sessionStorage.getItem("userId");
-    this.getUserData();
-    this.getVipCountdata();
-    var keyword = window.location.href;
-    var i = keyword.indexOf("isVip=");
-    this.isVip = decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
+    // this.id = sessionStorage.getItem("userId");
+    // this.getUserData();
+    // this.getVipCountdata();
+    // var keyword = window.location.href;
+    // var i = keyword.indexOf("isVip=");
+    // this.isVip = decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
 
     // if (this.isWeiXin()) {
-    //   this.id = sessionStorage.getItem("userId");
-    //   var keyword = window.location.href;
-    //   var i = keyword.indexOf("isVip=");
-    //   this.isVip =
-    //     decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
-    //   this.getUserData();
-    //   this.getVipCountdata();
+    // this.id = sessionStorage.getItem("userId");
+    // var keyword = window.location.href;
+    // var i = keyword.indexOf("isVip=");
+    // this.isVip =
+    //   decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
+    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+    this.id = dataJson.id;
+    this.isVip = dataJson.vip;
+    this.getUserData();
+    this.getVipCountdata();
+
     // } else {
     //   this.$router.push({
     //     path: "/ping",
     //     name: "errors"
     //   });
     // }
+
+    function getCookie(name) {
+      name = name + "=";
+      var start = document.cookie.indexOf(name),
+        value = null;
+      if (start > -1) {
+        var end = document.cookie.indexOf(";", start);
+        if (end == -1) {
+          end = document.cookie.length;
+        }
+        value = document.cookie.substring(start + name.length, end);
+      }
+      return value;
+    }
   },
   methods: {
     //判断是否微信登陆 是不是微信浏览器
@@ -190,7 +210,7 @@ export default {
           })
           .catch(function(error) {
             console.log(error);
-            _this.$toast("网络异常错误...")
+            _this.$toast("网络异常错误...");
           });
       }
     },
@@ -215,7 +235,7 @@ export default {
           })
           .catch(function(error) {
             console.log(error);
-            _this.$toast("网络异常错误...")
+            _this.$toast("网络异常错误...");
           });
       }
     },
@@ -252,7 +272,9 @@ export default {
         query: { isVip: this.isVip }
       });
     },
-
+    JumpCourse() {
+      this.$toast("此功能暂未上线");
+    },
     JumpPutforwards() {
       this.$router.push({
         path: "/ping",

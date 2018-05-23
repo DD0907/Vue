@@ -7,16 +7,17 @@
                    待确认收货
                 </div>
                  <!-- <section style="height:2px;">&nbsp;</section> -->
+                 <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
                  <div style="background:#ffffff;border:0.5px solid #f1f1f1;padding:2px;">
                     <div v-if="NoReceiptdata.length==0" style="text-align:center;color:#999">
-                          ---------------------------我是有底线的---------------------------
+                          ---------------------------我也是有底线的---------------------------
                     </div>
                     <div v-else v-for="(r, key) in NoReceiptdata" :key="key" track-ty='key'>
                         <div class="leftbox">
                             <img :src="r.goodsImageUrl" style="width:1.5rem;" />
                         </div>
                         <div>
-                            <div style="font-size:0.2rem;padding:2px;">
+                            <div style="font-size:0.4rem;padding:2px;">
                                     {{r.goodsName}}
                             </div>
                             <div>
@@ -28,7 +29,7 @@
                         <div style="padding:2px;">
                             <van-row>
                                 <van-col span="12">  
-                                    <div style="padding:2px;color:#999;">{{r.orderCreateTime}}已付款</div>
+                                    <div style="padding:2px;color:#999;">{{r.orderPayTime}}已付款</div>
                                 </van-col>
                                 <van-col span="12"> 
                                     <div style="text-align:right;color:#999"></div>
@@ -37,23 +38,25 @@
                         </div>
                         <section style="height:5px;background:#f1f1f1">&nbsp;</section>
                     </div>
+                    <div style="color:#999;text-align:center;" v-if="NoReceiptdata.length!=0">{{messages}}</div>
                  </div>
+                 </van-pull-refresh>
             </van-tab>
             <van-tab>
                 <div slot="title" @click="getReviewdata">
                    审核中
                 </div>
-                <section style="height:2px;">&nbsp;</section>
+                <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
                  <div style="background:#ffffff;border:0.5px solid #f1f1f1;padding:2px;">
                     <div v-if="Reviewdata.length==0" style="text-align:center;color:#999">
-                         ---------------------------我是有底线的---------------------------
+                         ---------------------------我也是有底线的---------------------------
                     </div>
                     <div v-else v-for="(r, key) in Reviewdata" :key="key">
                         <div class="leftbox">
                             <img :src="r.goodsImageUrl" style="width:1.5rem;" />
                         </div>
                         <div>
-                            <div style="font-size:0.2rem;padding:2px;">
+                            <div style="font-size:0.4rem;padding:2px;">
                                     {{r.goodsName}}
                             </div>
                             <div>
@@ -73,24 +76,26 @@
                             </van-row>
                         </div>
                         <section style="height:5px;background:#f1f1f1">&nbsp;</section>
-                    </div>                 
+                    </div>  
+                    <div style="color:#999;text-align:center;" v-if="Reviewdata.length!=0">{{messages}}</div>               
                  </div>
+                </van-pull-refresh>
             </van-tab>
             <van-tab>
                 <div slot="title" @click="getRewarddata">
                    已奖励
                 </div>
-                <section style="height:2px;">&nbsp;</section>
+                <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
                  <div style="background:#ffffff;border:0.5px solid #f1f1f1;padding:2px;">
                     <div v-if="Rewarddata.length==0" style="text-align:center;color:#999">
-                        ---------------------------我是有底线的---------------------------
+                        ---------------------------我也是有底线的---------------------------
                     </div>
                     <div v-else v-for="(r, key) in Rewarddata" :key="key">
                         <div class="leftbox">
                             <img :src="r.goodsImageUrl" style="width:1.5rem;" />
                         </div>
                         <div>
-                            <div style="font-size:0.2rem;padding:2px;">
+                            <div style="font-size:0.4rem;padding:2px;">
                                     {{r.goodsName}}
                             </div>
                             <div>
@@ -110,24 +115,26 @@
                             </van-row>
                         </div>
                        <section style="height:5px;background:#f1f1f1">&nbsp;</section>
-                    </div>                    
+                    </div>     
+                    <div style="color:#999;text-align:center;" v-if="Rewarddata.length!=0">{{messages}}</div>               
                  </div>
+                </van-pull-refresh>
             </van-tab>
             <van-tab>
                 <div slot="title" @click="getFailuredata">
                    已失效
                 </div>
-                <section style="height:2px;">&nbsp;</section>
+                <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
                  <div style="background:#ffffff;border:0.5px solid #f1f1f1;padding:2px;">
                     <div v-if="Failuredata.length==0" style="text-align:center;color:#999">
-                        ---------------------------我是有底线的---------------------------
+                        ---------------------------我也是有底线的---------------------------
                     </div>
                     <div v-else v-for="(r, key) in Failuredata" :key="key">
                         <div class="leftbox">
                             <img :src="r.goodsImageUrl" style="width:1.5rem;" />
                         </div>
                         <div>
-                            <div style="font-size:0.2rem;padding:2px;">
+                            <div style="font-size:0.4rem;padding:2px;">
                                     {{r.goodsName}}
                             </div>
                             <div>
@@ -139,7 +146,7 @@
                         <div style="padding:2px;">
                             <van-row>
                                 <van-col span="12">  
-                                    <div style="padding:2px;color:#999;">{{r.deductIntegralTime}}已失效</div>
+                                    <div style="padding:2px;color:#999;">{{r.orderVerifyTime}}已失效</div>
                                 </van-col>
                                 <van-col span="12"> 
                                     <div style="text-align:right;color:#999"></div>
@@ -147,8 +154,10 @@
                             </van-row>
                         </div>
                        <section style="height:5px;background:#f1f1f1">&nbsp;</section> 
-                    </div>                   
+                    </div>  
+                    <div style="color:#999;text-align:center;" v-if="Failuredata.length!=0">{{messages}}</div>                 
                  </div>
+                </van-pull-refresh>
             </van-tab>
         </van-tabs>
       </section>
@@ -164,15 +173,34 @@ export default {
       NoReceiptdata: {}, //待确认收货
       Reviewdata: {}, //审核中
       Rewarddata: {}, //已奖励
-      Failuredata: {} //已失效
+      Failuredata: {}, //已失效
+      messages: "",
+      lengths: "",
+      isLoading: true,
+      currentname: "待确认收货"
     };
   },
   mounted() {
-    this.id = sessionStorage.getItem("userId");
+    // this.id = sessionStorage.getItem("userId");
+    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+    this.id = dataJson.id;
     this.getParams();
     this.getdata();
     this.getReviewdata();
     this.getRewarddata();
+    function getCookie(name) {
+      name = name + "=";
+      var start = document.cookie.indexOf(name),
+        value = null;
+      if (start > -1) {
+        var end = document.cookie.indexOf(";", start);
+        if (end == -1) {
+          end = document.cookie.length;
+        }
+        value = document.cookie.substring(start + name.length, end);
+      }
+      return value;
+    }
   },
   methods: {
     getParams() {
@@ -182,9 +210,26 @@ export default {
       this.active = routerParams;
       //alert(this.active)
     },
+    onRefresh() {
+      // 下拉刷新
+      setTimeout(() => {
+        if (this.currentname == "待确认收货") {
+          this.getdata();
+        } else if (this.currentname == "审核中") {
+          this.getReviewdata();
+        } else if (this.currentname == "已奖励") {
+          this.getRewarddata();
+        } else if (this.currentname == "已失效") {
+          this.getFailuredata();
+        }
+        this.$toast("数据刷新成功");
+        this.isLoading = false;
+      }, 500);
+    },
     getdata() {
       // 缓存指针
       let _this = this;
+      _this.currentname = "待确认收货";
       if (_this.id == "") {
         _this.$toast("当前您还未登录哦");
       } else {
@@ -209,6 +254,7 @@ export default {
             // 将得到的数据放到vue中的data
             if (response.data.code == 1) {
               _this.NoReceiptdata = response.data.result;
+              _this.lengths = _this.NoReceiptdata.length;
             }
           })
           .catch(function(error) {
@@ -256,6 +302,10 @@ export default {
                     }
                     // 数据更新完毕，将开关打开
                     sw = true;
+                    if (lengths == 0 || lengths == null) {
+                      _this.messages =
+                        "---------------------------我也是有底线的---------------------------";
+                    }
                   })
                   .catch(function(error) {
                     console.log(error);
@@ -263,6 +313,7 @@ export default {
               }
               if (sw == false) {
                 // console.log("正在加载中");
+                _this.messages = "正在加载中....";
               }
             }
           }
@@ -272,6 +323,7 @@ export default {
     getReviewdata() {
       // 缓存指针
       let _this = this;
+      _this.currentname = "审核中";
       if (_this.id == "") {
         _this.$toast("当前您还未登录哦");
       } else {
@@ -296,6 +348,7 @@ export default {
             // 将得到的数据放到vue中的data
             if (response.data.code == 1) {
               _this.Reviewdata = response.data.result;
+              _this.lengths = _this.Reviewdata.length;
             }
           })
           .catch(function(error) {
@@ -316,42 +369,45 @@ export default {
             document.documentElement.scrollTop == 0
               ? document.body.scrollHeight
               : document.documentElement.scrollHeight;
-          if (_this.active == 1) {
-            if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-              //alert("到达底部");
-              // console.log(sw);
-              //如果开关打开则加载数据
-              if (sw == true) {
-                // 将开关关闭
-                sw = false;
-                _this.$axios
-                  .get(
-                    _this.url +
-                      "/v1/order/list?userId=" +
-                      _this.id +
-                      "&orderStatus=" +
-                      orderStatus +
-                      "&page=" +
-                      page++ +
-                      "&pageSize=" +
-                      pageSize
-                  )
-                  .then(function(response) {
-                    // 将新获取的数据push到vue中的data，就会反应到视图中了
-                    var lengths = response.data.result.length;
-                    for (var i = 0; i < lengths; i++) {
-                      _this.Reviewdata.push(response.data.result[i]);
-                    }
-                    // 数据更新完毕，将开关打开
-                    sw = true;
-                  })
-                  .catch(function(error) {
-                    console.log(error);
-                  });
-              }
-              if (sw == false) {
-                // console.log("正在加载中");
-              }
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            // console.log(sw);
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/order/list?userId=" +
+                    _this.id +
+                    "&orderStatus=" +
+                    orderStatus +
+                    "&page=" +
+                    page++ +
+                    "&pageSize=" +
+                    pageSize
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.Reviewdata.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                  if (lengths == 0 || lengths == null) {
+                    _this.messages =
+                      "---------------------------我也是有底线的---------------------------";
+                  }
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
+            if (sw == false) {
+              // console.log("正在加载中");
+              _this.messages = "正在加载中....";
             }
           }
         });
@@ -360,6 +416,8 @@ export default {
     getRewarddata() {
       // 缓存指针
       let _this = this;
+      _this.currentname = "已奖励";
+
       if (_this.id == "") {
         _this.$toast("当前您还未登录哦");
       } else {
@@ -384,6 +442,7 @@ export default {
             // 将得到的数据放到vue中的data
             if (response.data.code == 1) {
               _this.Rewarddata = response.data.result;
+              _this.lengths = _this.Rewarddata.length;
             }
           })
           .catch(function(error) {
@@ -407,7 +466,6 @@ export default {
           if (_this.active == 2) {
             if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
               //alert("到达底部");
-              // console.log(sw);
               //如果开关打开则加载数据
               if (sw == true) {
                 // 将开关关闭
@@ -432,13 +490,17 @@ export default {
                     }
                     // 数据更新完毕，将开关打开
                     sw = true;
+                    if (lengths == 0 || lengths == null) {
+                      _this.messages =
+                        "---------------------------我也是有底线的---------------------------";
+                    }
                   })
                   .catch(function(error) {
                     console.log(error);
                   });
               }
               if (sw == false) {
-                // console.log("正在加载中");
+                _this.messages = "正在加载中....";
               }
             }
           }
@@ -448,6 +510,7 @@ export default {
     getFailuredata() {
       // 缓存指针
       let _this = this;
+      _this.currentname = "已失效";
       if (_this.id == "") {
         _this.$toast("当前您还未登录哦");
       } else {
@@ -472,13 +535,13 @@ export default {
             // 将得到的数据放到vue中的data
             if (response.data.code == 1) {
               _this.Failuredata = response.data.result;
+              _this.lengths = _this.Failuredata.length;
             }
           })
           .catch(function(error) {
             console.log(error);
           });
         // 注册scroll事件并监听
-        // window.addEventListener
         window.addEventListener("scroll", function() {
           var a =
             window.innerHeight ||
@@ -495,7 +558,6 @@ export default {
           if (_this.active == 3) {
             if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
               //alert("到达底部");
-              // console.log(sw);
               //如果开关打开则加载数据
               if (sw == true) {
                 // 将开关关闭
@@ -520,6 +582,10 @@ export default {
                     }
                     // 数据更新完毕，将开关打开
                     sw = true;
+                    if (lengths == 0 || lengths == null) {
+                      _this.messages =
+                        "---------------------------我也是有底线的---------------------------";
+                    }
                   })
                   .catch(function(error) {
                     console.log(error);
@@ -527,6 +593,7 @@ export default {
               }
               if (sw == false) {
                 // console.log("正在加载中");
+                _this.messages = "正在加载中....";
               }
             }
           }

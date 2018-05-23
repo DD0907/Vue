@@ -320,7 +320,7 @@ export default {
     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
     this.isVip = dataJson.vip;
     this.getParams();
-    this.getdata()
+    this.getdata();
     this.getdatas();
     function getCookie(name) {
       name = name + "=";

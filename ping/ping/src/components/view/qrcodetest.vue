@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       bannerUrl: "",
-      canvas:''
+      canvas: ""
     };
   },
   methods: {
@@ -46,5 +46,4 @@ export default {
 .btn-wrap {
   margin: 0 auto;
 }
-
 </style>

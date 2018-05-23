@@ -26,11 +26,11 @@
     <!-- <div style="margin:0px;" v-if="code==1" > -->
     <div style="margin:0px;">
     <!-- <van-row v-for="(image, index) in images" :key="index"> -->
-        <van-row>
+      <van-row>
         <!-- <van-col :span="24/(images.length)">
             <img :src="image.imgUrl" class="goods-imgurl banner_style" style="height:1.6rem;">
         </van-col> -->
-        <van-col span="8">
+        <!-- <van-col span="8">
             <img src="http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg" class="goods-imgurl banner_style">
         </van-col>
         <van-col span="8">
@@ -38,8 +38,8 @@
         </van-col>
         <van-col span="8">
             <img src="http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg" class="goods-imgurl banner_style">
-        </van-col>
-    </van-row>
+        </van-col> -->
+      </van-row>
     </div>
     <!-- <div style="margin:0px" v-else>
     <van-row>
@@ -915,7 +915,7 @@
         </van-tabs>
     </div>
     <div @click="back_top" class="bottom_nav5"><van-icon name="e752" @click="back_top" style="font-size:36px;color:red;"/></div> 
-    <div style="background:#ffffff;height:50px;"></div>
+    <!-- <div style="background:#ffffff;height:50px;"></div> -->
     <!-- 底部标签 -->
     <div>
     <van-row>
@@ -971,12 +971,6 @@ export default {
       isVip: true,
       images: {},
       code: "",
-      // images: [
-      //   "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
-      //   "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
-      //   "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg",
-      //   "http://gdp.alicdn.com/imgextra/i3/2217893634/TB2P42NeDmWBKNjSZFBXXXxUFXa_!!2217893634.jpg"
-      // ],
       active: 0,
       isLoading: true,
       img: "",
@@ -1003,18 +997,19 @@ export default {
       sortType: "0", //排列次数
       value: "", //搜索关键字
       currentName: "精选"
+      // isVipSuccess: false
     };
   },
   mounted() {
     // 加载时自动执行
-    // if (this.isWeiXin()) {
-    //   //是来自微信内置浏览器
-    //   // console.log(getCookie("userData"));
-    //   var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
-    //   this.id = dataJson.id;
-    //   this.isVip = dataJson.vip;
-    //   sessionStorage.setItem("userId", this.id);
-    //   this.getdata();
+    //if (this.isWeiXin()) {
+    //是来自微信内置浏览器
+    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+    this.id = dataJson.id;
+    this.isVip = dataJson.vip;
+    // sessionStorage.setItem("userId", this.id);
+    this.getdata();
+    this.getbannerdata();
     // } else {
     //   //不是来自微信内置浏览器
     //   this.$router.push({
@@ -1022,12 +1017,6 @@ export default {
     //     name: "errors"
     //   });
     // }
-
-    this.id = 1;
-    this.isVip = true;
-    sessionStorage.setItem("userId", this.id);
-    this.getdata();
-
     function getCookie(name) {
       name = name + "=";
       var start = document.cookie.indexOf(name),
@@ -1041,8 +1030,6 @@ export default {
       }
       return value;
     }
-    //加载轮播图
-    this.getbannerdata();
   },
   methods: {
     //判断是否微信登陆 是不是微信浏览器
@@ -1055,6 +1042,7 @@ export default {
         return false;
       }
     },
+    //获取轮播图数据
     getbannerdata() {
       let _this = this;
       this.$axios
@@ -1071,6 +1059,7 @@ export default {
           _this.$toast("网络异常错误...");
         });
     },
+    //精选商品参数
     getdata() {
       // 缓存指针
       let _this = this;
@@ -1099,7 +1088,6 @@ export default {
           _this.$toast("网络异常错误...");
         });
       // 注册scroll事件并监听
-      // window.addEventListener
       window.addEventListener("scroll", function() {
         var a =
           window.innerHeight ||
@@ -1149,6 +1137,7 @@ export default {
         }
       });
     },
+    //获取水果数据
     getfruit() {
       // 缓存指针
       let _this = this;
@@ -1178,7 +1167,6 @@ export default {
           console.log(error);
         });
       // 注册scroll事件并监听
-      // window.addEventListener
       window.addEventListener("scroll", function() {
         var a =
           window.innerHeight ||
@@ -1230,6 +1218,7 @@ export default {
         }
       });
     },
+    // 获取美食数据
     getfood() {
       // 缓存指针
       let _this = this;
@@ -1311,6 +1300,7 @@ export default {
         }
       });
     },
+    // 获取服饰数据
     getclothes() {
       // 缓存指针
       let _this = this;
@@ -1392,6 +1382,7 @@ export default {
         }
       });
     },
+    //获取母婴数据
     getmotherbaby() {
       // 缓存指针
       let _this = this;
@@ -1473,6 +1464,7 @@ export default {
         }
       });
     },
+    //获取百货数据
     getsdeptstore() {
       // 缓存指针
       let _this = this;
@@ -2157,11 +2149,18 @@ export default {
       }
     },
     JumpVip() {
-      this.$router.push({
-        path: "/ping",
-        name: "vip",
-        query: { isVip: this.isVip }
-      });
+      if (this.isVip == true) {
+        this.$router.push({
+          path: "/ping",
+          name: "vip",
+          query: { isVip: this.isVip }
+        });
+      } else {
+        this.$router.push({
+          path: "/ping",
+          name: "vipnotice"
+        });
+      }
     },
     JumpShare() {
       this.$router.push({
@@ -2238,6 +2237,10 @@ export default {
       });
     }
   }
+  // watch: {
+  //   // 监测路由变化,只要变化了就调用获取路由参数方法将数据存储本组件即可
+  //   $route: "getParams"
+  // }
 };
 </script>
 <style lang="less">

@@ -32,7 +32,22 @@ export default {
   },
   mounted() {
     this.getParams();
-    this.id = sessionStorage.getItem("userId");
+    // this.id = sessionStorage.getItem("userId");
+    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+    this.id = dataJson.id;
+    function getCookie(name) {
+      name = name + "=";
+      var start = document.cookie.indexOf(name),
+        value = null;
+      if (start > -1) {
+        var end = document.cookie.indexOf(";", start);
+        if (end == -1) {
+          end = document.cookie.length;
+        }
+        value = document.cookie.substring(start + name.length, end);
+      }
+      return value;
+    }
   },
   methods: {
     SaveUserData() {
@@ -45,12 +60,12 @@ export default {
         _this.$toast("当前您还未登录哦");
       } else {
         //console.log(_this.phonenumber.length);
-         var reg=11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
-        if (_this.phonenumber=='') {
+        var reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
+        if (_this.phonenumber == "") {
           _this.$toast("请输入手机号码");
           return;
         }
-        if(!reg.test(_this.phonenumber)){
+        if (!reg.test(_this.phonenumber)) {
           _this.$toast("手机格式不正确");
           return;
         }

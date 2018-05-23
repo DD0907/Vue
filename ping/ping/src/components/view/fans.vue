@@ -120,9 +120,26 @@ export default {
     }
   },
   mounted() {
-    this.userId = sessionStorage.getItem("userId");
+    // this.userId = sessionStorage.getItem("userId");
+    
+    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+    this.userId = dataJson.id;
     // console.log(this.userId);
     this.getfrienddata();
+    function getCookie(name) {
+      name = name + "=";
+      var start = document.cookie.indexOf(name),
+        value = null;
+      if (start > -1) {
+        var end = document.cookie.indexOf(";", start);
+        if (end == -1) {
+          end = document.cookie.length;
+        }
+        value = document.cookie.substring(start + name.length, end);
+      }
+      return value;
+    }
+    
   },
   methods: {
     getfrienddata() {

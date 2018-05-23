@@ -137,6 +137,7 @@
 
       <van-dialog v-model="sacnshow" :show-confirm-button="false" title="我的二维码" :close-on-click-overlay="true">
         <div style="text-align:center;"><img :src="wxQrcode" style="width:80%"/></div>
+        <div style="text-align:center;">长按可识别二维码,添加好友</div>
       </van-dialog>
 
       <van-dialog v-model="moneyshow" :show-confirm-button="false" title="我的收钱二维码" :close-on-click-overlay="true">
@@ -202,7 +203,7 @@ export default {
         var times = Date.parse(time);
         _this.times = times;
         this.$axios
-          .post(_this.url + "/v1/user/" + _this.id)
+          .get(_this.url + "/v1/user/" + _this.id + "/superior?refereId=19")
           .then(function(response) {
             // 将得到的数据放到vue中的data
             _this.userdata = response.data.result;
@@ -216,7 +217,7 @@ export default {
           })
           .catch(function(error) {
             console.log(error);
-           _this.$toast("网络异常错误...")
+            _this.$toast("网络异常错误...");
           });
       }
     }

@@ -26,6 +26,7 @@ import bindingfriendscan from '@/components/view/bindingfriendscan'
 import bindingmoneyscan from '@/components/view/bindingmoneyscan'
 import errors from '@/components/view/errors'
 import qrcodetest from '@/components/view/qrcodetest'
+import customerservice from '@/components/view/customerservice'
 Vue.use(Router)
 export default new Router({
     // mode: 'history',
@@ -215,6 +216,14 @@ export default new Router({
             component: putforwards,
             meta: {
                 title: '可提现的佣金币',
+            }
+        },
+        {
+            path: '/ping/customerservice',
+            name: 'customerservice',
+            component: customerservice,
+            meta: {
+                title: '官方客服',
             }
         },
         {

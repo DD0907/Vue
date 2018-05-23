@@ -109,7 +109,9 @@ export default {
     };
   },
   mounted() {
-    this.userId = sessionStorage.getItem("userId");
+    // this.userId = sessionStorage.getItem("userId");
+    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+    this.userId = dataJson.id;
     var keyword = window.location.href;
     var i = keyword.indexOf("Id=");
     this.goodsId = decodeURI(keyword.substring(i + 3, keyword.length));
@@ -118,6 +120,19 @@ export default {
     this.getConvertUrl();
     this.getPageDetails();
     this.CheckCollect();
+    function getCookie(name) {
+      name = name + "=";
+      var start = document.cookie.indexOf(name),
+        value = null;
+      if (start > -1) {
+        var end = document.cookie.indexOf(";", start);
+        if (end == -1) {
+          end = document.cookie.length;
+        }
+        value = document.cookie.substring(start + name.length, end);
+      }
+      return value;
+    }
   },
   methods: {
     JumpgroupUrl() {
@@ -155,18 +170,17 @@ export default {
       this.$axios
         .get("http://ptk.baolinzhe.com/ptk/api/v1/product/" + _this.goodsId)
         .then(function(response) {
-          // console.log(JSON.parse(response.data).stories);
           // 将得到的数据放到vue中的data
           _this.articles = response.data.result;
           _this.images = response.data.result.images;
           _this.rowlength = _this.images.length;
-          // alert(_this.images.length)
           //console.log(_this.articles);
           // console.log(_this.images);
           // console.log(response.data.result.goodsName);
         })
         .catch(function(error) {
           console.log(error);
+          _this.$toast("网络异常错误...");
         });
     },
     getParams() {

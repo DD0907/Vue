@@ -34,12 +34,27 @@ export default {
       notice_icon: notice,
       filepath: "",
       scan: scan,
-      wxMoneyQrcode:''
+      wxMoneyQrcode: ""
     };
   },
-  mounted(){
-    this.id = sessionStorage.getItem("userId");
+  mounted() {
+    //  this.id = sessionStorage.getItem("userId");
+    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+    this.id = dataJson.id;
     this.getUserData();
+    function getCookie(name) {
+      name = name + "=";
+      var start = document.cookie.indexOf(name),
+        value = null;
+      if (start > -1) {
+        var end = document.cookie.indexOf(";", start);
+        if (end == -1) {
+          end = document.cookie.length;
+        }
+        value = document.cookie.substring(start + name.length, end);
+      }
+      return value;
+    }
   },
   methods: {
     getUserData() {
@@ -55,7 +70,8 @@ export default {
           .then(function(response) {
             // 将得到的数据放到vue中的data
             _this.userdata = response.data.result;
-            _this.wxMoneyQrcode = _this.userdata.wxMoneyQrcode + "?time=" + times;
+            _this.wxMoneyQrcode =
+              _this.userdata.wxMoneyQrcode + "?time=" + times;
             if (_this.wxMoneyQrcode == "?time=" + times) {
               _this.wxMoneyQrcode = _this.scan;
             }
@@ -107,6 +123,5 @@ export default {
 body {
   background: #f1f1f1;
 }
-
 </style>
 
