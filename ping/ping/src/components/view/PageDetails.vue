@@ -62,6 +62,8 @@
         <div>{{articles.goodsDesc}}</div>
       </div>
     </div>
+        <div class="share" @click="JumpShapePost"><img src="../../assets/icon/icons_share.png"/></div> 
+
     <div style="background:#ffffff;height:60px;">&nbsp;</div>
     <!-- 底部菜单 -->
     <div>
@@ -87,9 +89,36 @@
       <p style="font-size:16px;">1、该奖励为约奖，指通过优惠价购买一件商品的佣金币奖励，多买多得（根据实际付款金额），实际到帐佣金币有上下微小浮动属于正常现象。</p>
       <p style="font-size:16px;">2、必须通过拼团客系统进入直接拼团付款才有奖励，进入后先收藏，再通过多多收藏下单是无奖励的，如需收藏，请使用拼团客系统的收藏夹。</p> 
     </van-actionsheet>
+
+     <van-dialog v-model="postshow" :show-confirm-button="false" :close-on-click-overlay="true" style="width:90%;height:80%;" :lock-scroll="false">
+      <div style="text-align:center;">
+      </div>
+       <div class="banner-box" style="text-align:center;">
+         <div>
+          <img :src="shopimg" style="width:100%;height:100%;display:none;" id="img1" crossorigin="Anonymous"/>
+          <div v-if="imgSrcs!=''">
+            <div>
+              <img :src="imgSrcs" style="width:30%;height:30%;display:none;" id="img2"/>
+              <div>长按识别或扫描二维码,分享给好友</div>
+            </div> 
+          </div>
+          </div>
+          <img :src="scan" style="width:80%;height:80%"/>
+          		<canvas id="myCanvas" style="width:300px;height:400px;display:none;"></canvas>
+          <div>
+            <button @click="createQrcs">分享参团</button>
+            <button @click="createQrc">分享拼团</button>
+          </div>
+          <!-- <input type="text" v-model="bannerUrl" placeholder="输入链接" style="display:none;"/> -->
+          <canvas id="qrccode-canvas"  style="display:none;"></canvas>
+        </div>
+    </van-dialog>
   </div>
 </template>
 <script>
+var QRCode = require("qrcode");
+import addpost from "../../assets/icon/icons_addpost.png";
+
 export default {
   data() {
     return {
@@ -105,13 +134,21 @@ export default {
       normalUrl: "",
       groupUrl: "",
       googsIdsss: "",
-      rowlength: ""
+      rowlength: "",
+      postshow: false,
+      bannerUrl: "https://a.toutiaonanren.com/api/d/xWRKgq",
+      bannerUrls: "https://a.toutiaonanren.com/api/d/xWRKgq",
+      canvas: "",
+      imgSrcs: "",
+      shopimg: "",
+      scan: addpost
     };
   },
   mounted() {
     // this.userId = sessionStorage.getItem("userId");
     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
-    this.userId = dataJson.id;
+    // this.userId = dataJson.id;
+    this.userId = 18;
     var keyword = window.location.href;
     var i = keyword.indexOf("Id=");
     this.goodsId = decodeURI(keyword.substring(i + 3, keyword.length));
@@ -135,6 +172,50 @@ export default {
     }
   },
   methods: {
+    createQrc: function() {
+      QRCode.toCanvas(this.canvas, this.bannerUrl, error => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("success");
+          var canvas = document.getElementById("qrccode-canvas");
+          // console.log(canvas);
+          var imgSrc = canvas.toDataURL("image/png");
+          this.imgSrcs = imgSrc;
+          // console.log(imgSrc);
+          var c = document.getElementById("myCanvas");
+          c.width=300;
+          c.height=300;
+          var ctx = c.getContext("2d");
+          var img = document.getElementById("img1");
+          var img2 = document.getElementById("img2");
+          ctx.drawImage(img, 0, 0,300,300);
+          ctx.drawImage(img2, 200, 200, 80, 80);
+          // console.log(c);
+          c.crossOrigin = "Anonymous";
+          var myCanva = c.toDataURL("image/png");
+          // var imagessss=new Image();
+          // imagessss.crossOrigin("Anonymous");
+          // imagessss.src=myCanva;
+          console.log(myCanva);
+          this.scan = myCanva;
+        }
+      });
+    },
+    createQrcs: function() {
+      QRCode.toCanvas(this.canvas, this.bannerUrls, error => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("success");
+          var canvas = document.getElementById("qrccode-canvas");
+          // console.log(canvas);
+          var imgSrc = canvas.toDataURL("image/png");
+          // console.log(imgSrc);
+          this.imgSrcs = imgSrc;
+        }
+      });
+    },
     JumpgroupUrl() {
       window.location.href = this.groupUrl;
     },
@@ -156,6 +237,9 @@ export default {
           // console.log(response.data.result);
           _this.normalUrl = response.data.result.normalUrl;
           _this.groupUrl = response.data.result.groupUrl;
+          console.log(response.data.result.groupShortUrl);
+          _this.bannerUrl = response.data.result.groupShortUrl;
+          _this.bannerUrls = response.data.result.normalShortUrl;
           //console.log(_this.normalUrl)
           // console.log(_this.groupUrl)
         })
@@ -173,6 +257,8 @@ export default {
           // 将得到的数据放到vue中的data
           _this.articles = response.data.result;
           _this.images = response.data.result.images;
+          // console.log(_this.images[0]);
+          _this.shopimg = _this.images[0];
           _this.rowlength = _this.images.length;
           //console.log(_this.articles);
           // console.log(_this.images);
@@ -280,6 +366,15 @@ export default {
             console.log(error);
           });
       }
+    },
+    JumpShapePost() {
+      // this.createQrc();
+      this.$nextTick(function() {
+        // DOM操作
+        this.canvas = document.getElementById("qrccode-canvas");
+      });
+      // this.$toast("123");
+      this.postshow = true;
     }
   },
   watch: {
@@ -312,6 +407,16 @@ body {
   position: absolute;
   top: 20px;
   left: 15px;
+}
+.share {
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  position: fixed;
+  top: 40px;
+  right: 30px;
+  background-image: #faf609;
+  text-align: center;
 }
 </style>
 

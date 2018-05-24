@@ -22,7 +22,7 @@
                             </div>
                             <div>
                                 <span>实付{{r.goodsPrice}}元</span>
-                                <span>奖励{{r.vipIntegral}}佣金币</span>
+                                <span>奖励{{r.firstIntegral}}佣金币</span>
                             </div>
                         </div>
                         <div style="clear:both;"></div>
@@ -61,7 +61,7 @@
                             </div>
                             <div>
                                 <span>实付{{r.goodsPrice}}元</span>
-                                <span>奖励{{r.vipIntegral}}佣金币</span>
+                                <span>奖励{{r.firstIntegral}}佣金币</span>
                             </div>
                         </div>
                         <div style="clear:both;"></div>
@@ -100,7 +100,7 @@
                             </div>
                             <div>
                                 <span>实付{{r.goodsPrice}}元</span>
-                                <span>奖励{{r.vipIntegral}}佣金币</span>
+                                <span>奖励{{r.firstIntegral}}佣金币</span>
                             </div>
                         </div>
                         <div style="clear:both;"></div>
@@ -139,7 +139,7 @@
                             </div>
                             <div>
                                 <span>实付{{r.goodsPrice}}元</span>
-                                <span>奖励{{r.vipIntegral}}佣金币</span>
+                                <span>奖励{{r.firstIntegral}}佣金币</span>
                             </div>
                         </div>
                         <div style="clear:both;"></div>

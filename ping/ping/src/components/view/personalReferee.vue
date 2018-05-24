@@ -1,6 +1,6 @@
 <template>
   <section>
-     <section class="back_img" :style="{backgroundImage: 'url('+ require('../../assets/icon/icon_personalbg.png') + ')'}" >
+     <section class="back_img" >
           <div style="height:30px;text-align:right;">
               <!-- <span style="margin:20px;font-size:0.5rem;" @click="jumpPhone">绑定手机号</span> -->
           </div>
@@ -261,5 +261,8 @@ export default {
   width: 100%;
   height: 100%;
   margin: auto;
+}
+body{
+  background: #f1f1f1;
 }
 </style>

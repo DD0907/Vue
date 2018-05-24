@@ -1,6 +1,6 @@
 <template>
   <section>
-     <section class="back_img" :style="{backgroundImage: 'url('+ require('../../assets/icon/icon_personalbg.png') + ')'}">
+     <section class="back_img">
           <div style="height:30px;text-align:right;">
           </div>
           <div style="text-align:center;">
@@ -230,9 +230,12 @@ export default {
 </script>
 <style>
 .back_img {
-  background-image: url("../../assets/icon/icon_personalbg.png");
+  /* background-image: url("../../assets/icon/icon_personalbg.png"); */
   width: 100%;
   height: 100%;
   margin: auto;
+}
+body{
+  background: #f1f1f1;
 }
 </style>

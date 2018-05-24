@@ -1,6 +1,6 @@
 <template>
   <div>
-      <section style="text-align:center;" :style="{backgroundImage: 'url('+ require('../../assets/icon/icon_personalbg.png') + ')'}" >
+      <section style="text-align:center;"  >
         <van-row>
             <van-col span="8">
                 <h3>粉丝总人数</h3>

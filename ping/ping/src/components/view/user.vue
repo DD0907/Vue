@@ -1,6 +1,6 @@
 <template>
   <div>
-      <section class="back_img" :style="{backgroundImage: 'url('+ require('../../assets/icon/icon_personalbg.png') + ')'}">
+      <section>
           <div style="height:30px;text-align:right;">
               <!-- <span style="margin:20px;font-size:0.5rem;" @click="jumpPhone">绑定手机号</span> -->
           </div>
@@ -17,6 +17,7 @@
                   <van-tag plain style="color:#ffd600;font-size:12px;" v-if="userdata.vip=='false'||userdata.vip==false">拼团客</van-tag>
                   <van-tag plain style="color:#ffd600;font-size:12px;" v-else>超级会员</van-tag>
                 </div>
+                <div>我的ID:{{id}}</div>
                 <div>我的粉丝：{{userdata.invitationNum}}</div>
             </div>
           </div>
@@ -112,7 +113,7 @@ export default {
     };
   },
   mounted() {
-    //if (this.isWeiXin()) {
+    if (this.isWeiXin()) {
     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
     this.id = dataJson.id;
     this.isVip = dataJson.vip;
@@ -121,12 +122,12 @@ export default {
     // this.isVip =
     //   decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
     this.getUserData();
-    // } else {
-    //   this.$router.push({
-    //     path: "/ping",
-    //     name: "errors"
-    //   });
-    // }
+    } else {
+      this.$router.push({
+        path: "/ping",
+        name: "errors"
+      });
+    }
     function getCookie(name) {
       name = name + "=";
       var start = document.cookie.indexOf(name),
@@ -263,7 +264,10 @@ export default {
       // this.$toast("此功能暂未上线");
       this.$router.push({
         path: "/ping",
-        name: "customerservice"
+        name: "customerservice",
+         params: {
+          userId: this.id
+        }
       });
     }
   }
@@ -272,5 +276,8 @@ export default {
 <style>
 @import "../../common/css/user.css";
 @import "../../common/css/fontface.css";
+body{
+  background: #f1f1f1;
+}
 </style>
 

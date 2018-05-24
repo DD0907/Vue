@@ -156,17 +156,17 @@ export default {
     // //  alert(this.isVips)
     // this.getCollectdata();
 
-    //if (this.isWeiXin()) {
+    if (this.isWeiXin()) {
     // this.userId = sessionStorage.getItem("userId");
     // alert("love:"+userId)
     // sessionStorage.setItem("userId", this.id);
     this.getCollectdata();
-    // } else {
-    //   this.$router.push({
-    //     path: "/ping",
-    //     name: "errors"
-    //   });
-    // }
+    } else {
+      this.$router.push({
+        path: "/ping",
+        name: "errors"
+      });
+    }
   },
   methods: {
     //判断是否微信登陆 是不是微信浏览器

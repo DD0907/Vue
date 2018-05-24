@@ -20,6 +20,7 @@
               <van-tag plain style="color:#ffd600;font-size:12px;" v-if="userdata.vip=='false'||userdata.vip==false">拼团客</van-tag>
               <van-tag plain style="color:#ffd600;font-size:12px;" v-else>超级会员</van-tag>
             </div>
+              <div>我的ID:{{id}}</div>
             <div>
             </div>
           </span>
@@ -146,8 +147,7 @@ export default {
     // var i = keyword.indexOf("isVip=");
     // this.isVip = decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
 
-    // if (this.isWeiXin()) {
-    // this.id = sessionStorage.getItem("userId");
+    if (this.isWeiXin()) {
     // var keyword = window.location.href;
     // var i = keyword.indexOf("isVip=");
     // this.isVip =
@@ -158,12 +158,12 @@ export default {
     this.getUserData();
     this.getVipCountdata();
 
-    // } else {
-    //   this.$router.push({
-    //     path: "/ping",
-    //     name: "errors"
-    //   });
-    // }
+    } else {
+      this.$router.push({
+        path: "/ping",
+        name: "errors"
+      });
+    }
 
     function getCookie(name) {
       name = name + "=";

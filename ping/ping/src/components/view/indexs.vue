@@ -1002,7 +1002,7 @@ export default {
   },
   mounted() {
     // 加载时自动执行
-    //if (this.isWeiXin()) {
+    // if (this.isWeiXin()) {
     //是来自微信内置浏览器
     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
     this.id = dataJson.id;

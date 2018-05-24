@@ -1,6 +1,7 @@
 <template>
   <section>
-     <section class="back_img" :style="{backgroundImage: 'url('+ require('../../assets/icon/icon_personalbg.png') + ')'}">
+         <!-- <section class="back_img" :style="{backgroundImage: 'url('+ require('../../assets/icon/icon_personalbg.png') + ')'}"> -->
+     <section class="back_img">
           <div style="height:30px;text-align:right;">
           </div>
           <div style="text-align:center;">
