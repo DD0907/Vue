@@ -20,9 +20,10 @@
                             <div style="font-size:0.4rem;padding:2px;">
                                     {{r.goodsName}}
                             </div>
-                            <div>
-                                <span>实付{{r.goodsPrice}}元</span>
-                                <span>奖励{{r.firstIntegral}}佣金币</span>
+                            <div><span style="color：#999">订单号:{{r.orderId}}</span></div>
+                            <div >
+                                <span style="color:red">实付{{r.goodsPrice}}元</span>
+                                <span style="color:red">奖励{{r.firstIntegral}}佣金币</span>
                             </div>
                         </div>
                         <div style="clear:both;"></div>
@@ -59,9 +60,10 @@
                             <div style="font-size:0.4rem;padding:2px;">
                                     {{r.goodsName}}
                             </div>
+                             <div><span style="color：#999">订单号:{{r.orderId}}</span></div>
                             <div>
-                                <span>实付{{r.goodsPrice}}元</span>
-                                <span>奖励{{r.firstIntegral}}佣金币</span>
+                                <span style="color:red">实付{{r.goodsPrice}}元</span>
+                                <span style="color:red">奖励{{r.firstIntegral}}佣金币</span>
                             </div>
                         </div>
                         <div style="clear:both;"></div>
@@ -98,9 +100,10 @@
                             <div style="font-size:0.4rem;padding:2px;">
                                     {{r.goodsName}}
                             </div>
+                             <div><span style="color：#999">订单号:{{r.orderId}}</span></div>
                             <div>
-                                <span>实付{{r.goodsPrice}}元</span>
-                                <span>奖励{{r.firstIntegral}}佣金币</span>
+                                <span style="color:red">实付{{r.goodsPrice}}元</span>
+                                <span style="color:red">奖励{{r.firstIntegral}}佣金币</span>
                             </div>
                         </div>
                         <div style="clear:both;"></div>
@@ -137,9 +140,10 @@
                             <div style="font-size:0.4rem;padding:2px;">
                                     {{r.goodsName}}
                             </div>
+                             <div><span style="color：#999">订单号:{{r.orderId}}</span></div>
                             <div>
-                                <span>实付{{r.goodsPrice}}元</span>
-                                <span>奖励{{r.firstIntegral}}佣金币</span>
+                                <span style="color:red">实付{{r.goodsPrice}}元</span>
+                                <span style="color:red">奖励{{r.firstIntegral}}佣金币</span>
                             </div>
                         </div>
                         <div style="clear:both;"></div>
@@ -181,7 +185,6 @@ export default {
     };
   },
   mounted() {
-    // this.id = sessionStorage.getItem("userId");
     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
     this.id = dataJson.id;
     this.getParams();

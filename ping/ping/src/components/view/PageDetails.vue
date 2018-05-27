@@ -55,6 +55,21 @@
         </div>
       </div>
     </div>
+
+    <div style="background:#ffffff">
+      <div>
+        <div>
+         <van-cell-group>
+          <van-cell is-link value="海报分享" @click="JumpShapePost" >
+            <template slot="title">
+              <span style="color:#f05a03"> <img src="../../assets/icon/icons_share2.png" style="width:0.5rem;"/> 分享优惠券</span>
+            </template>
+          </van-cell>
+        </van-cell-group>
+        </div>
+      </div>
+    </div>
+
     <div style="height:0.1rem;">&nbsp;</div>
     <div style="background:#ffffff;">
       <div style="margin:0rem 0.1rem 0rem 0.1rem">
@@ -62,7 +77,7 @@
         <div>{{articles.goodsDesc}}</div>
       </div>
     </div>
-        <div class="share" @click="JumpShapePost"><img src="../../assets/icon/icons_share.png"/></div> 
+        <!-- <div class="share" @click="JumpShapePost"><img src="../../assets/icon/icons_share.png"/></div>  -->
 
     <div style="background:#ffffff;height:60px;">&nbsp;</div>
     <!-- 底部菜单 -->
@@ -88,29 +103,26 @@
     <van-actionsheet v-model="helpshow" title="奖励说明">
       <p style="font-size:16px;">1、该奖励为约奖，指通过优惠价购买一件商品的佣金币奖励，多买多得（根据实际付款金额），实际到帐佣金币有上下微小浮动属于正常现象。</p>
       <p style="font-size:16px;">2、必须通过拼团客系统进入直接拼团付款才有奖励，进入后先收藏，再通过多多收藏下单是无奖励的，如需收藏，请使用拼团客系统的收藏夹。</p> 
+      <p style="height:10px;"></p>
     </van-actionsheet>
 
-     <van-dialog v-model="postshow" :show-confirm-button="false" :close-on-click-overlay="true" style="width:90%;height:80%;" :lock-scroll="false">
-      <div style="text-align:center;">
-      </div>
+     <van-dialog v-model="postshow" :show-confirm-button="false" :close-on-click-overlay="true" style="width:75%;background:#f1f1f1" :lock-scroll="false">
        <div class="banner-box" style="text-align:center;">
-         <div>
+          <img src="../../assets/icon/icon_bg.png" style="width:100%;height:100%;display:none;" id="bg" crossorigin="Anonymous"/>
           <img :src="shopimg" style="width:100%;height:100%;display:none;" id="img1" crossorigin="Anonymous"/>
-          <div v-if="imgSrcs!=''">
-            <div>
-              <img :src="imgSrcs" style="width:30%;height:30%;display:none;" id="img2"/>
-              <div>长按识别或扫描二维码,分享给好友</div>
-            </div> 
-          </div>
-          </div>
-          <img :src="scan" style="width:80%;height:80%"/>
-          		<canvas id="myCanvas" style="width:300px;height:400px;display:none;"></canvas>
-          <div>
-            <button @click="createQrcs">分享参团</button>
-            <button @click="createQrc">分享拼团</button>
-          </div>
-          <!-- <input type="text" v-model="bannerUrl" placeholder="输入链接" style="display:none;"/> -->
+          <img :src="headPic" style="width:100%;height:100%;display:none;" id="headpicimg" crossorigin=''/>
+          <img :src="imgSrcs" style="width:100%;height:100%;display:none;" id="img2" crossorigin="Anonymous"/>
+          <img :src="imgSrcs2" style="width:100%;height:100%;display:none;" id="img3" crossorigin="Anonymous"/>
           <canvas id="qrccode-canvas"  style="display:none;"></canvas>
+          <canvas id="qrccode-canvas2"  style="display:none;"></canvas>
+          <div style="margin-top:5px;"><img :src="scan" style="width:95%;height:95%;" id="scan2" crossorigin="Anonymous"/></div>
+          <canvas id="myCanvas" style="width:100%;;height:100%;display:none;"></canvas>
+          <div>
+          <div style="font-size:0.3rem;">长按图片分享或保存</div>
+          <van-button type="default" @click="createQrcs" style="font-size:0.5rem;background:#FF8855;width:40%;color:#FFFFFF">分享参团</van-button>
+          <van-button type="default" @click="createQrc" style="font-size:0.5rem;background:#FF4444;width:40%;color:#FFFFFF">分享拼团</van-button>
+          <section style="height:5px;"></section>
+          </div>
         </div>
     </van-dialog>
   </div>
@@ -139,21 +151,39 @@ export default {
       bannerUrl: "https://a.toutiaonanren.com/api/d/xWRKgq",
       bannerUrls: "https://a.toutiaonanren.com/api/d/xWRKgq",
       canvas: "",
+      canvas2: "",
+      c: "",
+      c2: "",
       imgSrcs: "",
+      imgSrcs2: "",
       shopimg: "",
-      scan: addpost
+      scan: "",
+      headPic:
+        "http://thirdwx.qlogo.cn/mmopen/aK6Jo53Poiajp1kyZMZMF3EKsAvL7NKI9v6cRtVRyUuy4M23JREEC6utgLJ5RlkrUkicKcr35EyBTDrDFFQTnypFe1IKxqQzK2/132",
+      yuanjia: 1000,
+      xianjia: 100,
+      youhuiquan: 10,
+      goodsName: "1111",
+      nickname: "小杰",
+      scans: "",
+      heads: ""
     };
   },
   mounted() {
-    // this.userId = sessionStorage.getItem("userId");
     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
-    // this.userId = dataJson.id;
-    this.userId = 18;
+    this.userId = dataJson.id;
+    this.isVip = dataJson.vip;
+    this.headPic = dataJson.headPic;
+    this.nickname = dataJson.nickname;
+    // this.userId = 18;
+    // this.isVip = true;
+    var time = new Date();
+    var times = Date.parse(time);
+    this.headPic = this.headPic + "?time" + times;
     var keyword = window.location.href;
     var i = keyword.indexOf("Id=");
     this.goodsId = decodeURI(keyword.substring(i + 3, keyword.length));
-    // alert(this.goodsId)
-    this.getParams();
+    // this.getParams();
     this.getConvertUrl();
     this.getPageDetails();
     this.CheckCollect();
@@ -170,6 +200,15 @@ export default {
       }
       return value;
     }
+    this.$nextTick(function() {
+      // DOM操作
+      this.canvas = document.getElementById("qrccode-canvas");
+      this.canvas2 = document.getElementById("qrccode-canvas2");
+      this.c = document.getElementById("myCanvas");
+      // this.c2 = document.getElementById("CanvasIMAGE");
+    });
+    this.createQrc();
+    this.createQrcs();
   },
   methods: {
     createQrc: function() {
@@ -179,40 +218,122 @@ export default {
         } else {
           console.log("success");
           var canvas = document.getElementById("qrccode-canvas");
-          // console.log(canvas);
           var imgSrc = canvas.toDataURL("image/png");
           this.imgSrcs = imgSrc;
-          // console.log(imgSrc);
           var c = document.getElementById("myCanvas");
-          c.width=300;
-          c.height=300;
+          c.width = 600;
+          c.height = 960;
           var ctx = c.getContext("2d");
           var img = document.getElementById("img1");
           var img2 = document.getElementById("img2");
-          ctx.drawImage(img, 0, 0,300,300);
-          ctx.drawImage(img2, 200, 200, 80, 80);
-          // console.log(c);
+          var headpicimg = document.getElementById("headpicimg");
+          var bg = document.getElementById("bg");
+          ctx.drawImage(bg, 0, 0, 600, 960);
+          ctx.drawImage(img, 10, 10, 580, 580);
+          ctx.drawImage(img2, 380, 740, 230, 230);
+          ctx.drawImage(headpicimg, 10, 700, 110, 110);
+          ctx.font = "normal normal normal 28px Arial";
+          ctx.lineWidth = 1;
+          var lineWidth = 0;
+          var canvasWidth = c.width; //计算canvas的宽度
+          var initHeight = 628; //绘制字体距离canvas顶部初始的高度
+          var lastSubStrIndex = 0; //每次开始截取的字符串的索引
+          for (let i = 0; i < this.goodsName.length; i++) {
+            lineWidth += ctx.measureText(this.goodsName[i]).width;
+            if (lineWidth > canvasWidth) {
+              ctx.fillText(
+                this.goodsName.substring(lastSubStrIndex, i),
+                10,
+                initHeight
+              ); //绘制截取部分
+              initHeight += 30; //28为字体的高度
+              lineWidth = 0;
+              lastSubStrIndex = i;
+            }
+            if (i == this.goodsName.length - 1) {
+              //绘制剩余部分
+              ctx.fillText(
+                this.goodsName.substring(lastSubStrIndex, i + 1),
+                10,
+                initHeight + 10
+              );
+            }
+          }
+          ctx.fillText(this.nickname, 127, 728);
+          ctx.fillStyle = "red";
+          ctx.fillText(this.youhuiquan + "元", 80, 860);
+          ctx.fillStyle = "black";
+          ctx.font = "normal normal normal 24px Arial";
+          ctx.fillText(this.yuanjia + "元", 125, 901);
+          ctx.fillStyle = "red";
+          ctx.font = "normal normal normal 28px Arial";
+          ctx.fillText(this.xianjia + "元", 140, 937);
           c.crossOrigin = "Anonymous";
           var myCanva = c.toDataURL("image/png");
-          // var imagessss=new Image();
-          // imagessss.crossOrigin("Anonymous");
-          // imagessss.src=myCanva;
-          console.log(myCanva);
           this.scan = myCanva;
         }
       });
     },
     createQrcs: function() {
-      QRCode.toCanvas(this.canvas, this.bannerUrls, error => {
+      QRCode.toCanvas(this.canvas2, this.bannerUrls, error => {
         if (error) {
           console.log(error);
         } else {
           console.log("success");
-          var canvas = document.getElementById("qrccode-canvas");
-          // console.log(canvas);
+          var canvas = document.getElementById("qrccode-canvas2");
           var imgSrc = canvas.toDataURL("image/png");
-          // console.log(imgSrc);
-          this.imgSrcs = imgSrc;
+          this.imgSrcs2 = imgSrc;
+          var c = document.getElementById("myCanvas");
+          c.width = 600;
+          c.height = 960;
+          var ctx = c.getContext("2d");
+          var img = document.getElementById("img1");
+          var img3 = document.getElementById("img3");
+          var headpicimg = document.getElementById("headpicimg");
+          var bg = document.getElementById("bg");
+          ctx.drawImage(bg, 0, 0, 600, 960);
+          ctx.drawImage(img, 10, 10, 580, 580);
+          ctx.drawImage(img3, 380, 740, 230, 230);
+          ctx.drawImage(headpicimg, 10, 700, 110, 110);
+          ctx.font = "normal normal normal 28px Arial";
+          ctx.lineWidth = 1;
+          var lineWidth = 0;
+          var canvasWidth = c.width; //计算canvas的宽度
+          var initHeight = 628; //绘制字体距离canvas顶部初始的高度
+          var lastSubStrIndex = 0; //每次开始截取的字符串的索引
+          for (let i = 0; i < this.goodsName.length; i++) {
+            lineWidth += ctx.measureText(this.goodsName[i]).width;
+            if (lineWidth > canvasWidth) {
+              ctx.fillText(
+                this.goodsName.substring(lastSubStrIndex, i),
+                10,
+                initHeight
+              ); //绘制截取部分
+              initHeight += 30; //28为字体的高度
+              lineWidth = 0;
+              lastSubStrIndex = i;
+            }
+            if (i == this.goodsName.length - 1) {
+              //绘制剩余部分
+              ctx.fillText(
+                this.goodsName.substring(lastSubStrIndex, i + 1),
+                10,
+                initHeight + 10
+              );
+            }
+          }
+          ctx.fillText(this.nickname, 127, 728);
+          ctx.fillStyle = "red";
+          ctx.fillText(this.youhuiquan + "元", 80, 860);
+          ctx.fillStyle = "black";
+          ctx.font = "normal normal normal 24px Arial";
+          ctx.fillText(this.yuanjia + "元", 125, 901);
+          ctx.fillStyle = "red";
+          ctx.font = "normal normal normal 28px Arial";
+          ctx.fillText(this.xianjia + "元", 140, 937);
+          c.crossOrigin = "Anonymous";
+          var myCanva = c.toDataURL("image/png");
+          this.scan = myCanva;
         }
       });
     },
@@ -237,11 +358,9 @@ export default {
           // console.log(response.data.result);
           _this.normalUrl = response.data.result.normalUrl;
           _this.groupUrl = response.data.result.groupUrl;
-          console.log(response.data.result.groupShortUrl);
-          _this.bannerUrl = response.data.result.groupShortUrl;
+          // console.log(response.data.result.groupShortUrl);
           _this.bannerUrls = response.data.result.normalShortUrl;
-          //console.log(_this.normalUrl)
-          // console.log(_this.groupUrl)
+          _this.bannerUrl = response.data.result.groupShortUrl;
         })
         .catch(function(error) {
           console.log(error);
@@ -259,14 +378,20 @@ export default {
           _this.images = response.data.result.images;
           // console.log(_this.images[0]);
           _this.shopimg = _this.images[0];
+          // _this.headPic = _this.images[1];
           _this.rowlength = _this.images.length;
+          _this.scan = _this.shopimg;
+          _this.youhuiquan = _this.articles.couponPrice;
+          _this.yuanjia = _this.articles.minGroupPrice;
+          _this.xianjia = _this.articles.groupCouponAfterPrice;
+          _this.goodsName = _this.articles.goodsName;
           //console.log(_this.articles);
           // console.log(_this.images);
           // console.log(response.data.result.goodsName);
         })
         .catch(function(error) {
           console.log(error);
-          _this.$toast("网络异常错误...");
+          _this.$toast("该商品已下架了");
         });
     },
     getParams() {
@@ -368,13 +493,19 @@ export default {
       }
     },
     JumpShapePost() {
-      // this.createQrc();
       this.$nextTick(function() {
         // DOM操作
         this.canvas = document.getElementById("qrccode-canvas");
+        this.canvas2 = document.getElementById("qrccode-canvas2");
+        this.c = document.getElementById("myCanvas");
+        // this.c2 = document.getElementById("CanvasIMAGE");
       });
-      // this.$toast("123");
+      this.createQrc();
+      // alert(2);
+      this.createQrcs();
       this.postshow = true;
+      // alert(1);
+      // alert(3);
     }
   },
   watch: {

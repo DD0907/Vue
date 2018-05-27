@@ -39,7 +39,7 @@
             </van-tab>
            <van-tab>
                 <div slot="title">
-                    <span @click="getyongjindata">佣金</span>
+                    <span @click="getyongjindata">订单佣金</span>
                 </div>
                 <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
                 <van-list>
@@ -74,7 +74,7 @@
             </van-tab>
            <van-tab>
                 <div slot="title">
-                    <span @click="getshouyidata">收益</span>
+                    <span @click="getshouyidata">超级收益</span>
                 </div>
                 <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
                 <van-list>
@@ -109,7 +109,7 @@
             </van-tab>
            <van-tab>
                 <div slot="title">
-                    <span @click="gettixiandata">提现</span>
+                    <span @click="gettixiandata">提现记录</span>
                 </div>
                 <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
                 <van-list>

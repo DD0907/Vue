@@ -42,6 +42,7 @@ export default {
   mounted() {
     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
     this.id = dataJson.id;
+    // this.id=18;
     this.getUserData();
     function getCookie(name) {
       name = name + "=";
@@ -111,7 +112,7 @@ export default {
             _this.$toast("二维码上传成功");
             _this.$router.push({
               path: "/ping",
-              name: "setting"
+              name: "vipnotice"
             });
           }
         })

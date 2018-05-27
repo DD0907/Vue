@@ -140,30 +140,29 @@ export default {
     };
   },
   mounted() {
-    // this.id = sessionStorage.getItem("userId");
-    // this.getUserData();
-    // this.getVipCountdata();
-    // var keyword = window.location.href;
-    // var i = keyword.indexOf("isVip=");
-    // this.isVip = decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
-
-    if (this.isWeiXin()) {
-    // var keyword = window.location.href;
-    // var i = keyword.indexOf("isVip=");
-    // this.isVip =
-    //   decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
-    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
-    this.id = dataJson.id;
-    this.isVip = dataJson.vip;
-    this.getUserData();
-    this.getVipCountdata();
-
-    } else {
-      this.$router.push({
-        path: "/ping",
-        name: "errors"
-      });
-    }
+    // if (this.isWeiXin()) {
+      var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+      this.id = dataJson.id;
+      this.isVip = dataJson.vip;
+      this.getUserData();
+      this.getVipCountdata();
+      if (this.isVip == true) {
+        this.$router.push({
+          path: "/ping",
+          name: "vip"
+        });
+      } else {
+        this.$router.push({
+          path: "/ping",
+          name: "vipnotice"
+        });
+      }
+    // } else {
+    //   this.$router.push({
+    //     path: "/ping",
+    //     name: "errors"
+    //   });
+    // }
 
     function getCookie(name) {
       name = name + "=";
@@ -248,16 +247,21 @@ export default {
     JumpLove() {
       this.$router.push({
         path: "/ping",
-        name: "love",
-        query: { isVip: this.isVip }
+        name: "love"
       });
     },
     JumpVip() {
-      this.$router.push({
-        path: "/ping",
-        name: "vip",
-        query: { isVip: this.isVip }
-      });
+      if (this.isVip == true) {
+        this.$router.push({
+          path: "/ping",
+          name: "vip"
+        });
+      } else {
+        this.$router.push({
+          path: "/ping",
+          name: "vipnotice"
+        });
+      }
     },
     JumpIndex() {
       this.$router.push({
@@ -268,8 +272,7 @@ export default {
     JumpUser() {
       this.$router.push({
         path: "/ping",
-        name: "user",
-        query: { isVip: this.isVip }
+        name: "user"
       });
     },
     JumpCourse() {

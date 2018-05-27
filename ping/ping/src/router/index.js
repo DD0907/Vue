@@ -22,7 +22,9 @@ import personalReferee from '@/components/view/personalReferee'
 import personalteach from '@/components/view/personalteach'
 import commissions from '@/components/view/commissions'
 import bindingnumber from '@/components/view/bindingnumber'
+import addnumber from '@/components/view/addnumber'
 import bindingfriendscan from '@/components/view/bindingfriendscan'
+import addfriendscan from '@/components/view/addfriendscan'
 import bindingmoneyscan from '@/components/view/bindingmoneyscan'
 import errors from '@/components/view/errors'
 import qrcodetest from '@/components/view/qrcodetest'
@@ -155,11 +157,27 @@ export default new Router({
             }
         },
         {
+            path: '/ping/addnumber',
+            name: 'addnumber',
+            component: addnumber,
+            meta: {
+                title: '添加手机号'
+            }
+        },
+        {
             path: '/ping/bindingfriendscan',
             name: 'bindingfriendscan',
             component: bindingfriendscan,
             meta: {
                 title: '上传微信好友二维码'
+            }
+        },
+        {
+            path: '/ping/addfriendscan',
+            name: 'addfriendscan',
+            component: addfriendscan,
+            meta: {
+                title: '添加微信好友二维码'
             }
         },
         {

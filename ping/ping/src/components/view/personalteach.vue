@@ -235,7 +235,7 @@ export default {
   height: 100%;
   margin: auto;
 }
-body{
+body {
   background: #f1f1f1;
 }
 </style>

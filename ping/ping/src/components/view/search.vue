@@ -312,13 +312,14 @@ export default {
       pageSize: 10, //每页条数
       sortType: "0", //排列次数
       value: "", //搜索关键字
-      currentName:'智能推荐'
+      currentName: "智能推荐"
     };
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
-    this.isVip = dataJson.vip;
+    // this.isVip = dataJson.vip;
+    this.isVip=true;
     this.getParams();
     this.getdata();
     this.getdatas();
@@ -359,7 +360,7 @@ export default {
     getdata() {
       // 缓存指针
       let _this = this;
-      _this.currentName="智能推荐"
+      _this.currentName = "智能推荐";
       // 设置一个开关来避免重负请求数据
       let sw = true;
       let page = 1;
@@ -400,51 +401,51 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-            if(_this.currentName=="智能推荐"){
-              if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-                //alert("到达底部");
-                // console.log(sw);
-                //如果开关打开则加载数据
-                if (sw == true) {
-                  // 将开关关闭
-                  sw = false;
-                  _this.$axios
-                    .get(
-                      _this.url +
-                        "/v1/product/list?keyword=" +
-                        _this.value +
-                        "&page=" +
-                        page++ +
-                        "&pageSize=" +
-                        _this.pageSize +
-                        "&sortType=0&withCoupon=false"
-                    )
-                    .then(function(response) {
-                      // 将新获取的数据push到vue中的data，就会反应到视图中了
-                      var lengths = response.data.result.length;
-                      for (var i = 0; i < lengths; i++) {
-                        _this.articles.push(response.data.result[i]);
-                      }
-                      // 数据更新完毕，将开关打开
-                      sw = true;
-                    })
-                    .catch(function(error) {
-                      console.log(error);
-                      _this.$toast("网络异常错误...")
-                    });
-                }
-                if (sw == false) {
-                  _this.messages = "正在加载中...";
-                  // console.log("正在加载中");
-                }
-              }
+        if (_this.currentName == "智能推荐") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            // console.log(sw);
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/product/list?keyword=" +
+                    _this.value +
+                    "&page=" +
+                    page++ +
+                    "&pageSize=" +
+                    _this.pageSize +
+                    "&sortType=0&withCoupon=false"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.articles.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                  _this.$toast("网络异常错误...");
+                });
             }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+              // console.log("正在加载中");
+            }
+          }
+        }
       });
     },
     getdatahighreward() {
       // 缓存指针
       let _this = this;
-      _this.currentName="奖励最高"
+      _this.currentName = "奖励最高";
       // 设置一个开关来避免重负请求数据
       let sw = true;
       let pages = 1;
@@ -485,51 +486,51 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-            if(_this.currentName=="奖励最高"){
-              if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-                //alert("到达底部");
-                // console.log(sw);
-                //如果开关打开则加载数据
-                if (sw == true) {
-                  // 将开关关闭
-                  sw = false;
-                  _this.$axios
-                    .get(
-                      _this.url +
-                        "/v1/product/list?keyword=" +
-                        _this.value +
-                        "&page=" +
-                        pages++ +
-                        "&pageSize=" +
-                        _this.pageSize +
-                        "&sortType=2&withCoupon=false"
-                    )
-                    .then(function(response) {
-                      // 将新获取的数据push到vue中的data，就会反应到视图中了
-                      var lengths = response.data.result.length;
-                      for (var i = 0; i < lengths; i++) {
-                        _this.highreward.push(response.data.result[i]);
-                      }
-                      // 数据更新完毕，将开关打开
-                      sw = true;
-                    })
-                    .catch(function(error) {
-                      console.log(error);
-                      _this.$toast("网络异常错误...")
-                    });
-                }
-                if (sw == false) {
-                  _this.messages = "正在加载中...";
-                  // console.log("正在加载中");
-                }
-              }
+        if (_this.currentName == "奖励最高") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            // console.log(sw);
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/product/list?keyword=" +
+                    _this.value +
+                    "&page=" +
+                    pages++ +
+                    "&pageSize=" +
+                    _this.pageSize +
+                    "&sortType=2&withCoupon=false"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.highreward.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                  _this.$toast("网络异常错误...");
+                });
             }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+              // console.log("正在加载中");
+            }
+          }
+        }
       });
     },
     getdatahighdiscount() {
       // 缓存指针
       let _this = this;
-      _this.currentName="优惠最大"
+      _this.currentName = "优惠最大";
       // 设置一个开关来避免重负请求数据
       let sw = true;
       let pages = 1;
@@ -570,51 +571,51 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-            if(_this.currentName=="优惠最大"){
-              if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-                //alert("到达底部");
-                // console.log(sw);
-                //如果开关打开则加载数据
-                if (sw == true) {
-                  // 将开关关闭
-                  sw = false;
-                  _this.$axios
-                    .get(
-                      _this.url +
-                        "/v1/product/list?keyword=" +
-                        _this.value +
-                        "&page=" +
-                        pages++ +
-                        "&pageSize=" +
-                        _this.pageSize +
-                        "&sortType=8&withCoupon=true"
-                    )
-                    .then(function(response) {
-                      // 将新获取的数据push到vue中的data，就会反应到视图中了
-                      var lengths = response.data.result.length;
-                      for (var i = 0; i < lengths; i++) {
-                        _this.highdiscount.push(response.data.result[i]);
-                      }
-                      // 数据更新完毕，将开关打开
-                      sw = true;
-                    })
-                    .catch(function(error) {
-                      console.log(error);
-                      _this.$toast("网络异常错误...");
-                    });
-                }
-                if (sw == false) {
-                  _this.messages = "正在加载中...";
-                  // console.log("正在加载中");
-                }
-              }
+        if (_this.currentName == "优惠最大") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            // console.log(sw);
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/product/list?keyword=" +
+                    _this.value +
+                    "&page=" +
+                    pages++ +
+                    "&pageSize=" +
+                    _this.pageSize +
+                    "&sortType=8&withCoupon=true"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.highdiscount.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                  _this.$toast("网络异常错误...");
+                });
             }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+              // console.log("正在加载中");
+            }
+          }
+        }
       });
     },
     getdatahighsales() {
       // 缓存指针
       let _this = this;
-      _this.currentName="销量最高"
+      _this.currentName = "销量最高";
       // 设置一个开关来避免重负请求数据
       let sw = true;
       let pages = 1;
@@ -655,45 +656,45 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-            if(_this.currentName=="销量最高"){
-              if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-                //alert("到达底部");
-                // console.log(sw);
-                //如果开关打开则加载数据
-                if (sw == true) {
-                  // 将开关关闭
-                  sw = false;
-                  _this.$axios
-                    .get(
-                      _this.url +
-                        "/v1/product/list?keyword=" +
-                        _this.value +
-                        "&page=" +
-                        pages++ +
-                        "&pageSize=" +
-                        _this.pageSize +
-                        "&sortType=6&withCoupon=true"
-                    )
-                    .then(function(response) {
-                      // 将新获取的数据push到vue中的data，就会反应到视图中了
-                      var lengths = response.data.result.length;
-                      for (var i = 0; i < lengths; i++) {
-                        _this.highsales.push(response.data.result[i]);
-                      }
-                      // 数据更新完毕，将开关打开
-                      sw = true;
-                    })
-                    .catch(function(error) {
-                      console.log(error);
-                      _this.$toast("网络异常错误...")
-                    });
-                }
-                if (sw == false) {
-                  _this.messages = "正在加载中...";
-                  // console.log("正在加载中");
-                }
-              }
+        if (_this.currentName == "销量最高") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //alert("到达底部");
+            // console.log(sw);
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/product/list?keyword=" +
+                    _this.value +
+                    "&page=" +
+                    pages++ +
+                    "&pageSize=" +
+                    _this.pageSize +
+                    "&sortType=6&withCoupon=true"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.highsales.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                  _this.$toast("网络异常错误...");
+                });
             }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+              // console.log("正在加载中");
+            }
+          }
+        }
       });
     },
     back_top() {
@@ -707,7 +708,7 @@ export default {
 
       // var isVips = this.$route.params.isVip;
       // this.isVip = isVips;
-      
+
       var keyword = window.location.href;
       var i = keyword.indexOf("=");
       this.value = decodeURI(keyword.substring(i + 1, keyword.length));
@@ -751,7 +752,10 @@ export default {
       this.$router.push({
         path: "/ping",
         name: "PageDetails",
-        query: { goodsId: goodsId },
+        query: {
+          goodsId: goodsId,
+          // isVip: this.isVip
+        },
         params: {
           data: this.value,
           isVip: this.isVip

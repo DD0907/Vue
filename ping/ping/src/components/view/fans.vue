@@ -119,9 +119,7 @@ export default {
       return this.VIPNumbers + "人";
     }
   },
-  mounted() {
-    // this.userId = sessionStorage.getItem("userId");
-    
+  mounted() {    
     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
     this.userId = dataJson.id;
     // console.log(this.userId);

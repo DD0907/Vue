@@ -992,7 +992,7 @@ export default {
       testdata: {},
       messages: "",
       rowlength: "",
-      page: 1, //页数
+      // page: 1, //页数
       pageSize: 10, //每页条数
       sortType: "0", //排列次数
       value: "", //搜索关键字
@@ -1003,13 +1003,12 @@ export default {
   mounted() {
     // 加载时自动执行
     // if (this.isWeiXin()) {
-    //是来自微信内置浏览器
-    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
-    this.id = dataJson.id;
-    this.isVip = dataJson.vip;
-    // sessionStorage.setItem("userId", this.id);
-    this.getdata();
-    this.getbannerdata();
+      //是来自微信内置浏览器
+      var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+      this.id = dataJson.id;
+      this.isVip = dataJson.vip;
+      this.getdata();
+      this.getbannerdata();
     // } else {
     //   //不是来自微信内置浏览器
     //   this.$router.push({
@@ -2152,8 +2151,7 @@ export default {
       if (this.isVip == true) {
         this.$router.push({
           path: "/ping",
-          name: "vip",
-          query: { isVip: this.isVip }
+          name: "vip"
         });
       } else {
         this.$router.push({
@@ -2171,17 +2169,13 @@ export default {
     JumpLove() {
       this.$router.push({
         path: "/ping",
-        name: "love",
-        query: {
-          isVip: this.isVip
-        }
+        name: "love"
       });
     },
     JumpUser() {
       this.$router.push({
         path: "/ping",
-        name: "user",
-        query: { isVip: this.isVip }
+        name: "user"
       });
     },
     onRefresh() {
@@ -2228,7 +2222,9 @@ export default {
       this.$router.push({
         path: "/ping",
         name: "PageDetails",
-        query: { goodsId: goodsId },
+        query: {
+          goodsId: goodsId
+        },
         params: {
           // data: this.value,
           // goodsId: goodsId,

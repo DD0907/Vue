@@ -64,7 +64,7 @@ export default {
           // 将得到的数据放到vue中的data
           _this.customerdata = response.data.result;
           _this.customerScan = _this.customerdata.kfUrl;
-          console.log(_this.customerScan);
+          // console.log(_this.customerScan);
           if (_this.customerScan == "") {
             _this.customerScan = _this.scan;
           }

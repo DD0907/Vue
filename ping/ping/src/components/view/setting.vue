@@ -141,10 +141,10 @@ export default {
   },
   mounted() {
     // this.id = sessionStorage.getItem("userId");
-     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
     this.id = dataJson.id;
     this.getUserData();
-     function getCookie(name) {
+    function getCookie(name) {
       name = name + "=";
       var start = document.cookie.indexOf(name),
         value = null;
@@ -186,7 +186,7 @@ export default {
           })
           .catch(function(error) {
             console.log(error);
-            _this.$toast("网络异常错误...")
+            _this.$toast("网络异常错误...");
           });
       }
     },
@@ -202,7 +202,7 @@ export default {
             if (response.data.code == 1) {
               _this.getUserData();
               _this.$toast("微信头像和昵称同步成功");
-            }else{
+            } else {
               _this.$toast("微信头像和昵称同步失败了");
             }
           })

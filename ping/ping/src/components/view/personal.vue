@@ -190,13 +190,10 @@ export default {
   methods: {
     onCopy: function(e) {
       // console.log("你刚刚复制: " + e.text);
-      // alert("微信号已复制成功"+e.text)
       this.$toast("微信号已复制成功:" + e.text);
-      // alert(e.text);
     },
     onError: function(e) {
       console.log("无法复制文本！");
-      // alert("微信号复制失败了哦")
       this.$toast("微信号复制失败了哦");
     },
     callPhone() {
@@ -263,7 +260,7 @@ export default {
   height: 100%;
   margin: auto;
 }
-body{
+body {
   background: #f1f1f1;
 }
 </style>

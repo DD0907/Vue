@@ -113,21 +113,17 @@ export default {
     };
   },
   mounted() {
-    if (this.isWeiXin()) {
+    // if (this.isWeiXin()) {
     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
     this.id = dataJson.id;
     this.isVip = dataJson.vip;
-    // var keyword = window.location.href;
-    // var i = keyword.indexOf("isVip=");
-    // this.isVip =
-    //   decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
     this.getUserData();
-    } else {
-      this.$router.push({
-        path: "/ping",
-        name: "errors"
-      });
-    }
+    // } else {
+    //   this.$router.push({
+    //     path: "/ping",
+    //     name: "errors"
+    //   });
+    // }
     function getCookie(name) {
       name = name + "=";
       var start = document.cookie.indexOf(name),
@@ -181,16 +177,14 @@ export default {
     jumpIndex() {
       this.$router.push({
         path: "/ping",
-        name: "indexs",
-        query: { isVip: this.isVip }
+        name: "indexs"
       });
     },
     JumpVip() {
       if (this.isVip == true) {
         this.$router.push({
           path: "/ping",
-          name: "vip",
-          query: { isVip: this.isVip }
+          name: "vip"
         });
       } else {
         this.$router.push({
@@ -202,8 +196,7 @@ export default {
     JumpLove() {
       this.$router.push({
         path: "/ping",
-        name: "love",
-        query: { isVip: this.isVip }
+        name: "love"
       });
     },
     JumpSetting() {
@@ -238,7 +231,16 @@ export default {
               _this.$toast(response.data.message);
               _this.getUserData();
             } else {
-              _this.$toast(response.data.message);
+              // _this.$toast(response.data.message);
+
+              if (_this.isVip == false) {
+                _this.$router.push({
+                  path: "/ping",
+                  name: "vipnotice"
+                });
+              } else {
+                _this.$toast("您已经是会员了哦");
+              }
             }
           })
           .catch(function(error) {
@@ -265,7 +267,7 @@ export default {
       this.$router.push({
         path: "/ping",
         name: "customerservice",
-         params: {
+        params: {
           userId: this.id
         }
       });
@@ -276,7 +278,7 @@ export default {
 <style>
 @import "../../common/css/user.css";
 @import "../../common/css/fontface.css";
-body{
+body {
   background: #f1f1f1;
 }
 </style>

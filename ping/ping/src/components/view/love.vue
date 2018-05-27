@@ -1,6 +1,9 @@
 <template>
   <section>
     <section>
+      <van-notice-bar :text="nitice" :left-icon="notice_icon"/>
+    </section>
+    <section>
       <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
         <div>
           <!-- 无数据的情况 -->
@@ -117,7 +120,7 @@ import { Dialog } from "vant";
 import { Toast } from "vant";
 import { Loading } from "vant";
 import noshopPic from "../../assets/icon/icon_noshopPic.png";
-
+import notice from "../../assets/icon/icon_notices.png";
 export default {
   data() {
     return {
@@ -125,6 +128,8 @@ export default {
       isVips: false,
       url: "http://ptk.baolinzhe.com/ptk/api/",
       userId: "",
+      nitice: "如未发现新收藏的商品,请下拉刷新即可",
+      notice_icon: notice,
       articles: {},
       rowlength: "",
       messages: "",
@@ -133,9 +138,17 @@ export default {
     };
   },
   mounted() {
-    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
-    this.userId = dataJson.id;
-    this.isVips = dataJson.vip;
+    // if (this.isWeiXin()) {
+      var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+      this.userId = dataJson.id;
+      this.isVips = dataJson.vip;
+      this.getCollectdata();
+    // } else {
+    //   this.$router.push({
+    //     path: "/ping",
+    //     name: "errors"
+    //   });
+    // }
     function getCookie(name) {
       name = name + "=";
       var start = document.cookie.indexOf(name),
@@ -148,24 +161,6 @@ export default {
         value = document.cookie.substring(start + name.length, end);
       }
       return value;
-    }
-    // this.userId = sessionStorage.getItem("userId");
-    // var keyword = window.location.href;
-    // var i = keyword.indexOf("isVip=");
-    // this.isVips = decodeURI(keyword.substring(i + 6, keyword.length)) == "true";
-    // //  alert(this.isVips)
-    // this.getCollectdata();
-
-    if (this.isWeiXin()) {
-    // this.userId = sessionStorage.getItem("userId");
-    // alert("love:"+userId)
-    // sessionStorage.setItem("userId", this.id);
-    this.getCollectdata();
-    } else {
-      this.$router.push({
-        path: "/ping",
-        name: "errors"
-      });
     }
   },
   methods: {
@@ -197,8 +192,7 @@ export default {
       if (this.isVips == true) {
         this.$router.push({
           path: "/ping",
-          name: "vip",
-          query: { isVip: this.isVips }
+          name: "vip"
         });
       } else {
         this.$router.push({

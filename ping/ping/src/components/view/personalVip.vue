@@ -171,7 +171,6 @@ export default {
     };
   },
   mounted() {
-    // this.id = sessionStorage.getItem("userId");
     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
     this.id = dataJson.id;
     this.getParams();

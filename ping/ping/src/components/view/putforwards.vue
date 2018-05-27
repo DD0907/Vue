@@ -97,8 +97,7 @@ export default {
     };
   },
   mounted() {
-    // this.id = sessionStorage.getItem("userId");
-     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
     this.id = dataJson.id;
     this.getUserData();
     function getCookie(name) {
@@ -177,7 +176,7 @@ export default {
         if (_this.id == "") {
           _this.$toast("当前您还未登录哦");
         } else {
-          _this.number = _this.number - (_this.number % 100);
+          _this.number = _this.number - _this.number % 100;
           this.$axios
             .post(
               _this.url +
