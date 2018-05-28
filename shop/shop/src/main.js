@@ -8,10 +8,10 @@ import VueQriously from 'vue-qriously'
 Vue.config.productionTip = false
 Vue.use(require('vue-wechat-title'))
 Vue.use(VueQriously)
-/* eslint-disable no-new */
+    /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    components: { App },
+    template: '<App/>'
 })
