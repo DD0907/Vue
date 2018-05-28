@@ -101,7 +101,9 @@ export default {
     var time = new Date();
     var times = Date.parse(time);
     this.times = times;
-    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+    var dataJson = JSON.parse(
+      decodeURIComponent(this.cookies.getCookie("userData"))
+    );
     this.id = dataJson.id;
     this.phone = dataJson.phone;
     this.wxQrcode = dataJson.wxQrcode + "?time=" + times;
@@ -110,19 +112,6 @@ export default {
     // this.wxQrcode = "http://p8kd8pxie.bkt.clouddn.com/wxqrcode18.png";
     this.invitationNum = dataJson.invitationNum;
     this.noinvitationNum = 6 - this.invitationNum;
-    function getCookie(name) {
-      name = name + "=";
-      var start = document.cookie.indexOf(name),
-        value = null;
-      if (start > -1) {
-        var end = document.cookie.indexOf(";", start);
-        if (end == -1) {
-          end = document.cookie.length;
-        }
-        value = document.cookie.substring(start + name.length, end);
-      }
-      return value;
-    }
   },
   methods: {
     JumpPost() {

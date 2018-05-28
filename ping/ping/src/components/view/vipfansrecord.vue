@@ -185,10 +185,6 @@ export default {
     };
   },
   mounted() {
-    var dataJson = JSON.parse(
-      decodeURIComponent(this.cookies.getCookie("userData"))
-    );
-    this.id = dataJson.id;
     this.getParams();
     this.getdata();
     this.getReviewdata();
@@ -198,8 +194,10 @@ export default {
     getParams() {
       // 取到路由带过来的参数
       var routerParams = this.$route.params.data;
+      var friendVipIds=this.$route.params.friendVipId;
       // 将数据放在当前组件的数据内
       this.active = routerParams;
+      this.id=friendVipIds;
       //alert(this.active)
     },
     onRefresh() {

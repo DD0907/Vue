@@ -41,13 +41,7 @@
         </van-col> -->
       </van-row>
     </div>
-    <!-- <div style="margin:0px" v-else>
-    <van-row>
-        <van-col span="24">
-            <img src="../../assets/icon/icon_scan.png" class="goods-imgurl banner_style" style="height:1.0rem;">
-        </van-col>
-    </van-row>
-    </div> -->
+    
     <div style="height:1px;background:#f1f1f1"></div>
     <!-- 滑动菜单 -->
     <div>
@@ -1003,12 +997,14 @@ export default {
   mounted() {
     // 加载时自动执行
     // if (this.isWeiXin()) {
-      //是来自微信内置浏览器
-      var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
-      this.id = dataJson.id;
-      this.isVip = dataJson.vip;
-      this.getdata();
-      this.getbannerdata();
+    //是来自微信内置浏览器
+    var dataJson = JSON.parse(
+      decodeURIComponent(this.cookies.getCookie("userData"))
+    );
+    this.id = dataJson.id;
+    this.isVip = dataJson.vip;
+    this.getdata();
+    this.getbannerdata();
     // } else {
     //   //不是来自微信内置浏览器
     //   this.$router.push({
@@ -1016,19 +1012,6 @@ export default {
     //     name: "errors"
     //   });
     // }
-    function getCookie(name) {
-      name = name + "=";
-      var start = document.cookie.indexOf(name),
-        value = null;
-      if (start > -1) {
-        var end = document.cookie.indexOf(";", start);
-        if (end == -1) {
-          end = document.cookie.length;
-        }
-        value = document.cookie.substring(start + name.length, end);
-      }
-      return value;
-    }
   },
   methods: {
     //判断是否微信登陆 是不是微信浏览器

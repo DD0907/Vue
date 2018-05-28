@@ -108,7 +108,7 @@ export default {
       totalNumbers: 0,
       VIPNumbers: 0,
       NorNumbers: 0,
-      messages:""
+      messages: ""
     };
   },
   computed: {
@@ -123,25 +123,14 @@ export default {
     }
   },
   mounted() {
-    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+    var dataJson = JSON.parse(
+      decodeURIComponent(this.cookies.getCookie("userData"))
+    );
     this.userId = dataJson.id;
     // this.userId = 19;
     // console.log(this.userId);
     this.getfanssumdata();
     this.getfrienddata();
-    function getCookie(name) {
-      name = name + "=";
-      var start = document.cookie.indexOf(name),
-        value = null;
-      if (start > -1) {
-        var end = document.cookie.indexOf(";", start);
-        if (end == -1) {
-          end = document.cookie.length;
-        }
-        value = document.cookie.substring(start + name.length, end);
-      }
-      return value;
-    }
   },
   methods: {
     getfanssumdata() {

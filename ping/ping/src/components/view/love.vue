@@ -139,29 +139,18 @@ export default {
   },
   mounted() {
     // if (this.isWeiXin()) {
-      var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
-      this.userId = dataJson.id;
-      this.isVips = dataJson.vip;
-      this.getCollectdata();
+    var dataJson = JSON.parse(
+      decodeURIComponent(this.cookies.getCookie("userData"))
+    );
+    this.userId = dataJson.id;
+    this.isVips = dataJson.vip;
+    this.getCollectdata();
     // } else {
     //   this.$router.push({
     //     path: "/ping",
     //     name: "errors"
     //   });
     // }
-    function getCookie(name) {
-      name = name + "=";
-      var start = document.cookie.indexOf(name),
-        value = null;
-      if (start > -1) {
-        var end = document.cookie.indexOf(";", start);
-        if (end == -1) {
-          end = document.cookie.length;
-        }
-        value = document.cookie.substring(start + name.length, end);
-      }
-      return value;
-    }
   },
   methods: {
     //判断是否微信登陆 是不是微信浏览器

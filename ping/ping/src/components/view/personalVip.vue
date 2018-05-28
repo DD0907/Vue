@@ -171,23 +171,13 @@ export default {
     };
   },
   mounted() {
-    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+    var dataJson = JSON.parse(
+      decodeURIComponent(this.cookies.getCookie("userData"))
+    );
     this.id = dataJson.id;
+    // this.id=19;
     this.getParams();
     this.getUserData();
-    function getCookie(name) {
-      name = name + "=";
-      var start = document.cookie.indexOf(name),
-        value = null;
-      if (start > -1) {
-        var end = document.cookie.indexOf(";", start);
-        if (end == -1) {
-          end = document.cookie.length;
-        }
-        value = document.cookie.substring(start + name.length, end);
-      }
-      return value;
-    }
   },
   methods: {
     onCopy: function(e) {
@@ -255,9 +245,10 @@ export default {
       // 已奖励订单
       this.$router.push({
         path: "/ping",
-        name: "viprecord",
+        name: "vipfansrecord",
         params: {
-          data: 2
+          data: 2,
+          friendVipId:this.friendVipId
         }
       });
     }

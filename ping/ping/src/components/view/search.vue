@@ -317,25 +317,14 @@ export default {
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
-    var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
+    var dataJson = JSON.parse(
+      decodeURIComponent(this.cookies.getCookie("userData"))
+    );
     this.isVip = dataJson.vip;
     // this.isVip=true;
     this.getParams();
     this.getdata();
     this.getdatas();
-    function getCookie(name) {
-      name = name + "=";
-      var start = document.cookie.indexOf(name),
-        value = null;
-      if (start > -1) {
-        var end = document.cookie.indexOf(";", start);
-        if (end == -1) {
-          end = document.cookie.length;
-        }
-        value = document.cookie.substring(start + name.length, end);
-      }
-      return value;
-    }
   },
   methods: {
     handleScroll() {
@@ -753,7 +742,7 @@ export default {
         path: "/ping",
         name: "PageDetails",
         query: {
-          goodsId: goodsId,
+          goodsId: goodsId
           // isVip: this.isVip
         },
         params: {

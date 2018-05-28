@@ -14,6 +14,7 @@ import love from '@/components/view/love'
 import vip from '@/components/view/vip'
 import vipnotice from '@/components/view/vipnotice'
 import viprecord from '@/components/view/viprecord'
+import vipfansrecord from '@/components/view/vipfansrecord'
 import setting from '@/components/view/setting'
 import putforwards from '@/components/view/putforwards'
 import personal from '@/components/view/personal'
@@ -128,6 +129,14 @@ export default new Router({
             path: '/ping/viprecord',
             name: 'viprecord',
             component: viprecord,
+            meta: {
+                title: '订单记录',
+            }
+        },
+        {
+            path: '/ping/vipfansrecord',
+            name: 'vipfansrecord',
+            component: vipfansrecord,
             meta: {
                 title: '订单记录',
             }
