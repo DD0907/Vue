@@ -1,6 +1,6 @@
 <template>
   <div>
-      <section style="text-align:center;"  >
+      <section style="text-align:center;" >
         <van-row>
             <van-col span="8">
                 <h3>粉丝总人数</h3>
@@ -20,7 +20,7 @@
       <section>
           <van-tabs>
             <van-tab>
-                <div slot="title">
+                <div slot="title" @click="getfrienddata">
                     <span>拼团客</span>
                 </div>
                 <div>
@@ -50,10 +50,11 @@
                         </van-row>
                       </div>
                       </div>
+                      <div style="text-align:center;"><div style="margin-top:10px;">&nbsp;{{messages}}</div></div>                        
                 </div>
             </van-tab>
             <van-tab>
-                <div slot="title">
+                <div slot="title" @click="getfriendVipdata">
                     <span>超级会员</span>
                 </div>
                 <div>
@@ -83,6 +84,7 @@
                         </van-row>
                       </div>
                       </div>
+                      <div style="text-align:center;"><div style="margin-top:10px;">&nbsp;{{messages}}</div></div>                        
                 </div>
             </van-tab>
        </van-tabs>
@@ -98,14 +100,15 @@ export default {
       userId: "",
       url: "http://ptk.baolinzhe.com/ptk/api/",
       imageURL: icon_nickname,
-      frienddata: [],
-      frienddataVip: [],
+      frienddata: {},
+      frienddataVip: {},
       currentRate1: 0,
       currentRate2: 0,
       currentRate3: 0,
       totalNumbers: 0,
       VIPNumbers: 0,
       NorNumbers: 0,
+      messages:""
     };
   },
   computed: {
@@ -119,10 +122,12 @@ export default {
       return this.VIPNumbers + "人";
     }
   },
-  mounted() {    
+  mounted() {
     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
     this.userId = dataJson.id;
+    // this.userId = 19;
     // console.log(this.userId);
+    this.getfanssumdata();
     this.getfrienddata();
     function getCookie(name) {
       name = name + "=";
@@ -137,14 +142,32 @@ export default {
       }
       return value;
     }
-    
   },
   methods: {
+    getfanssumdata() {
+      let _this = this;
+      this.$axios
+        .get(_this.url + "/v1/user/" + _this.userId + "/fansnum")
+        .then(function(response) {
+          // 将得到的数据放到vue中的data
+          // console.log(response.data.result.allSum);
+          _this.totalNumbers = response.data.result.allSum;
+          _this.NorNumbers = response.data.result.ptkSum;
+          _this.VIPNumbers = _this.totalNumbers - _this.NorNumbers;
+          _this.currentRate2 = 0;
+          _this.currentRate3 = 100;
+        })
+        .catch(function(error) {
+          console.log(error);
+          this.$toast("网络异常错误...");
+        });
+    },
     getfrienddata() {
       // 缓存指针
       let _this = this;
       let page = 1;
-      let pageSize = 20;
+      let sw = true;
+      let pageSize = 10;
       if (_this.id == "") {
         _this.$toast("当前您还未登录哦");
       } else {
@@ -154,7 +177,7 @@ export default {
             _this.url +
               "/v1/user/" +
               _this.userId +
-              "/myfriends?page=" +
+              "/myfriends?isVip=false&page=" +
               page++ +
               "&pageSize=" +
               pageSize
@@ -162,24 +185,147 @@ export default {
           .then(function(response) {
             // 将得到的数据放到vue中的data
             var lengths = response.data.result.length;
-            _this.totalNumbers = lengths;
-            for (var i = 0; i < lengths; i++) {
-              if (response.data.result[i].vip == false) {
-                _this.frienddata.push(response.data.result[i]);
-              } else {
-                _this.frienddataVip.push(response.data.result[i]);
-              }
-            }
-            //console.log(_this.frienddata.length);
-            _this.currentRate2=0;
-            _this.currentRate3=100;
-            _this.NorNumbers = _this.frienddata.length;
-            _this.VIPNumbers = _this.frienddataVip.length;
+            // console.log(response.data.result);
+            _this.frienddata = response.data.result;
           })
           .catch(function(error) {
             console.log(error);
-            _this.$toast("网络异常错误...")
+            _this.$toast("网络异常错误...");
           });
+        window.addEventListener("scroll", function() {
+          var a =
+            window.innerHeight ||
+            document.documentElement.clientHeight ||
+            document.body.clientHeight;
+          var b =
+            document.documentElement.scrollTop == 0
+              ? document.body.scrollTop
+              : document.documentElement.scrollTop;
+          var c =
+            document.documentElement.scrollTop == 0
+              ? document.body.scrollHeight
+              : document.documentElement.scrollHeight;
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/user/" +
+                    _this.userId +
+                    "/myfriends?isVip=false&page=" +
+                    page++ +
+                    "&pageSize=" +
+                    pageSize
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.frienddata.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                  if (lengths == 0 || lengths == null) {
+                    _this.messages =
+                      "---------------------------我也是有底线的---------------------------";
+                  }
+                })
+                .catch(function(error) {
+                  console.log(error);
+                  _this.$toast("网络异常错误...");
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+            }
+          }
+        });
+      }
+    },
+    getfriendVipdata() {
+      // 缓存指针
+      let _this = this;
+      let page = 1;
+      let sw = true;
+      let pageSize = 10;
+      if (_this.id == "") {
+        _this.$toast("当前您还未登录哦");
+      } else {
+        // 此处使用node做了代理
+        this.$axios
+          .get(
+            _this.url +
+              "/v1/user/" +
+              _this.userId +
+              "/myfriends?isVip=true&page=" +
+              page++ +
+              "&pageSize=" +
+              pageSize
+          )
+          .then(function(response) {
+            // 将得到的数据放到vue中的data
+            var lengths = response.data.result.length;
+            // console.log(response.data.result);
+            _this.frienddataVip = response.data.result;
+          })
+          .catch(function(error) {
+            console.log(error);
+            _this.$toast("网络异常错误...");
+          });
+        window.addEventListener("scroll", function() {
+          var a =
+            window.innerHeight ||
+            document.documentElement.clientHeight ||
+            document.body.clientHeight;
+          var b =
+            document.documentElement.scrollTop == 0
+              ? document.body.scrollTop
+              : document.documentElement.scrollTop;
+          var c =
+            document.documentElement.scrollTop == 0
+              ? document.body.scrollHeight
+              : document.documentElement.scrollHeight;
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/v1/user/" +
+                    _this.userId +
+                    "/myfriends?isVip=true&page=" +
+                    page++ +
+                    "&pageSize=" +
+                    pageSize
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.frienddataVip.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                  if (lengths == 0 || lengths == null) {
+                    _this.messages =
+                      "---------------------------我也是有底线的---------------------------";
+                  }
+                })
+                .catch(function(error) {
+                  console.log(error);
+                  _this.$toast("网络异常错误...");
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+            }
+          }
+        });
       }
     },
     JumpPersonal(id) {
@@ -195,7 +341,7 @@ export default {
       this.$router.push({
         path: "/ping",
         name: "personalVip",
-        query:{userid:Vipid},
+        query: { userid: Vipid }
       });
     }
   }

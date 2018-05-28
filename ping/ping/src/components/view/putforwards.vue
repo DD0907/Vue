@@ -47,7 +47,7 @@
                  <div style="text-align:right;" v-else  @click="JumpMoneyShowScan">
                  <van-cell>
                   <template slot="title">
-                    <span ><img :src="wxMoneyQrcode" style="width:10%;" /></span>
+                    <span ><img :src="wxMoneyQrcode" style="width:10%;height:0.4rem;" /></span>
                   </template>
                 </van-cell>
                 </div>

@@ -2,7 +2,8 @@
   <section>
       <section class="notice_top">
         <div >
-          <div style="height:0.7rem">&nbsp;&nbsp;&nbsp;<img :src="notice_icon" style="width:0.4rem;height:0.4rem;"/>&nbsp;<span style="font-size:16px;">您已成功邀请{{invitationNum}}人，还差{{noinvitationNum}}人可申请</span></div>
+          <div v-if="invitationNum<6" style="height:0.7rem">&nbsp;&nbsp;&nbsp;<img :src="notice_icon" style="width:0.4rem;height:0.4rem;"/>&nbsp;<span style="font-size:16px;">您已成功邀请{{invitationNum}}人，还差{{noinvitationNum}}人可申请</span></div>
+          <div v-else style="height:0.7rem">&nbsp;&nbsp;&nbsp;<img :src="notice_icon" style="width:0.4rem;height:0.4rem;"/>&nbsp;<span style="font-size:16px;">您已成功邀请{{invitationNum}}人</span></div>
         </div>
       </section>
       <section style="height:0.4rem;"></section>
@@ -42,7 +43,7 @@
         </van-cell-group>
         <br>
          <van-cell-group >
-          <van-cell value="去邀请"  is-link @click="JumpPost" v-if="invitationNum==6">
+          <van-cell value="去邀请"  is-link @click="JumpPost" v-if="invitationNum>=6">
             <template slot="title">
               <span style="font-size:0.2rem;">邀请6个人好友为粉丝</span>
               <van-tag type="danger" plain style="font-size:0.2rem;">已完成</van-tag>
@@ -63,7 +64,7 @@
         </div>
         <section style="height:10px;"></section>
         <div style="text-align:center;">
-          <van-button type="default" v-if="invitationNum==6&&phone!=''&&wxQrcode!=''" style="width:90%;background:#FF4444;color:#ffffff;" @click="jumpUpgradeVip">升级超级会员</van-button>
+          <van-button type="default" v-if="invitationNum>=6&&phone!=''&&wxQrcode!=''" style="width:90%;background:#FF4444;color:#ffffff;" @click="jumpUpgradeVip">升级超级会员</van-button>
           <van-button type="default" v-else disabled style="width:90%;background:#999;color:#ffffff;" @click="jumpUpgradeVip">完成3个升级条件即可升级超级会员</van-button>
         </div>
         <section style="height:50px;"></section>
@@ -93,18 +94,18 @@ export default {
       posterUrl: "",
       phone: "",
       wxQrcode: "",
-      times:""
+      times: ""
     };
   },
   mounted() {
     var time = new Date();
     var times = Date.parse(time);
-    this.times=times
+    this.times = times;
     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
     this.id = dataJson.id;
-    this.phone=dataJson.phone;
-    this.wxQrcode=dataJson.wxQrcode+"?time=" + times;
-    // this.id = 18;
+    this.phone = dataJson.phone;
+    this.wxQrcode = dataJson.wxQrcode + "?time=" + times;
+    // this.id = 100055;
     // this.phone = "133444";
     // this.wxQrcode = "http://p8kd8pxie.bkt.clouddn.com/wxqrcode18.png";
     this.invitationNum = dataJson.invitationNum;
@@ -187,7 +188,7 @@ export default {
         name: "addnumber"
       });
     },
-    addfriendscan(){
+    addfriendscan() {
       this.$router.push({
         path: "/ping",
         name: "addfriendscan"

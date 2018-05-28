@@ -6,7 +6,7 @@
     <section>
         <div style="text-align:center;">
          <div style="margin:1.0rem;">
-            <img :src="wxMoneyQrcode" alt="暂无上传" style="width:8.0rem;height:8.0rem;"/>
+            <img :src="wxMoneyQrcode" alt="暂无上传" style="width:8.0rem;height:11.0rem;"/>
         </div>
         <div style="margin:20px;">
            <van-uploader accept="image/jpeg,image/png,image.jpg" multiple :after-read="onRead">
@@ -38,7 +38,6 @@ export default {
     };
   },
   mounted() {
-    //  this.id = sessionStorage.getItem("userId");
     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
     this.id = dataJson.id;
     this.getUserData();

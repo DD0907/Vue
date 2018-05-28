@@ -21,7 +21,7 @@ export default {
     return {
       id: "",
       url: "http://ptk.baolinzhe.com/ptk/api/",
-      nitice: "请认真核对您的手机号和微信号哦",
+      nitice: "请认真核对您的手机号哦",
       notice_icon: notice,
       phonenumber: ""
     };
@@ -30,7 +30,6 @@ export default {
     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
     this.id = dataJson.id;
     this.phonenumber = dataJson.phone;
-    // this.id=18;
     function getCookie(name) {
       name = name + "=";
       var start = document.cookie.indexOf(name),

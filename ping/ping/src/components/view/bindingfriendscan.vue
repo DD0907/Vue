@@ -6,7 +6,7 @@
     <section>
         <div style="text-align:center;">
         <div style="margin:1.0rem;">
-            <img :src="wxQrcode" alt="暂无上传" style="width:8.0rem;height:8.0rem;" />
+            <img :src="wxQrcode" alt="暂无上传" style="width:8.0rem;height:11.0rem;" />
         </div>
         <div style="margin:20px;">
           <!-- <form ref="form" enctype="multipart/form-data"> -->
@@ -42,6 +42,7 @@ export default {
   mounted() {
     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
     this.id = dataJson.id;
+    // this.id=18;
     this.getUserData();
     function getCookie(name) {
       name = name + "=";

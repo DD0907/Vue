@@ -31,7 +31,7 @@ export default {
     return {
       id: "",
       url: "http://ptk.baolinzhe.com/ptk/api/",
-      nitice: "微信二维码方便您的粉丝或者推荐人加您好友咨询",
+      nitice: "微信好友二维码方便您的粉丝或者推荐人加您好友咨询",
       notice_icon: notice,
       wxQrcode: "",
       scan: scan,
@@ -42,7 +42,6 @@ export default {
   mounted() {
     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
     this.id = dataJson.id;
-    // this.id=18;
     this.getUserData();
     function getCookie(name) {
       name = name + "=";
