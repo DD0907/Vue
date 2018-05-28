@@ -4,7 +4,9 @@
             <!-- <img id="review">
             <canvas id="myCanvas" style="width:100px;height:100px;">
             </canvas> -->
-
+        <div v-on:click="playVideo()">
+            <video :src="videoSrc" id="videoPlay" v-show="false" class="video">您的浏览器不支持 video 视屏播放。</video> 
+        </div>
     </div>
 </template>
 <script>
@@ -12,27 +14,28 @@ import axios from "axios";
 import qs from "qs";
 export default {
   data() {
-    return {};
+    return {
+      videoSrc: "http://yun.it7090.com/video/XHLaunchAd/video02.mp4"
+    };
   },
   mounted() {
+    // this.cookies.a(1);
+    // var dataJson = JSON.parse(
+    //   decodeURIComponent(this.cookies.getCookie("userData"))
+    // );
+    // this.isVip = dataJson.vip;
+    // console.log(dataJson);
+    // console.log(dataJson.id);
+    // console.log(dataJson.vip);
+    // console.log(dataJson.phone);
+    // console.log(dataJson.nickname);
     // this.test();
   },
   methods: {
-    // test() {
-    //   var c = document.getElementById("myCanvas");
-    //   var ctx = c.getContext("2d");
-    //   var img2 = new Image();
-    //   img2.src =
-    //     "http://thirdwx.qlogo.cn/mmopen/aK6Jo53Poiajp1kyZMZMF3EKsAvL7NKI9v6cRtVRyUuy4M23JREEC6utgLJ5RlkrUkicKcr35EyBTDrDFFQTnypFe1IKxqQzK2/132";
-    //   var imgshop = new Image();
-    //   imgshop.src =
-    //     "http://t07img.yangkeduo.com/images/2018-05-24/06e7884a5678287183a39a1e6b9914f0.jpeg";
-    //   ctx.drawImage(imgshop, 0, 0);
-    //   ctx.drawImage(img2, 0, 0);
-    //   // c.crossOrigin = "Anonymous";
-    //   imgshop.setAttribute('crossOrigin', 'anonymous');
-    //   document.getElementById("review").src = c.toDataURL("image/png", 0.8);
-    // }
+    playVideo() {
+      var vdo = document.getElementById("videoPlay");
+      vdo.play();
+    }
   }
 };
 </script>

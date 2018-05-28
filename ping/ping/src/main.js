@@ -11,6 +11,8 @@ import 'lib-flexible'
 import axios from 'axios'
 import VueQriously from 'vue-qriously'
 import VueClipboard from 'vue-clipboard2' //复制文字
+import cookies from './common/js/cookies.js'
+Vue.prototype.cookies = cookies;
 Vue.use(VueClipboard)
 var VueCookie = require('vue-cookie');
 withCredentials: true

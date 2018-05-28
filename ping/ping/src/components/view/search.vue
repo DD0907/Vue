@@ -318,8 +318,8 @@ export default {
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
     var dataJson = JSON.parse(decodeURIComponent(getCookie("userData")));
-    // this.isVip = dataJson.vip;
-    this.isVip=true;
+    this.isVip = dataJson.vip;
+    // this.isVip=true;
     this.getParams();
     this.getdata();
     this.getdatas();
