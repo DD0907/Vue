@@ -3,14 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import VideoPlayer from 'vue-video-player'
-import hls from 'videojs-contrib-hls'
-Vue.use(hls)
-Vue.use(VideoPlayer);
 
-require('videojs-contrib-hls/dist/videojs-contrib-hls');
 Vue.config.productionTip = false
-
+    //之所以把Hls挂载window对象上，是因为当DPlayer.video.type='hls'时，new DPlayer()对象会用到此对象。
+window.Hls = require('hls.js');
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
