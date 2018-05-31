@@ -98,13 +98,218 @@
                         </div>
                     </van-pull-refresh>  
             </van-tab>
-            <van-tab v-for="(r, index) in tagdata" :key="index" >
-                <div slot="title" @click="getdata">
-                   {{r.name}}
+            <van-tab>
+                <div slot="title" @click="getshumadata">
+                 数码家电
                 </div>  
                 <!-- 下拉刷新 -->
                 <van-pull-refresh v-model.lazy="isLoading" @refresh="onRefresh">
-                        
+                        <div>
+                            <!-- 无数据的情况 -->
+                            <div v-if='rowlength==0'>
+                                <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
+                            </div>
+                            <!-- list列表 -->
+                            <div v-else>
+                            <van-list> 
+                                <van-row>
+                                <div v-for="(r, key) in shumadata" :key="key">
+                                    <div v-if="(key+1)%2==1" @click="JumpPageDetails(r.productId)">
+                                        <van-col span="12" class="img_border" >
+                                          <van-cell-group>
+                                            <img :src="r.mainPic" class="goods-imgurl">
+                                              <div class="good_name" style="height:0.8rem;font-size:0.2rem;">
+                                                <van-tag type="danger">{{r.source}}</van-tag>
+                                                {{r.title}}
+                                                </div>
+                                              <div>
+                                                <span>
+                                                 <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
+                                                </span>
+                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                              </div>
+                                              <div style="height:0.8rem">
+                                                <span class="price_style">￥{{r.price}}</span>
+                                                <span class="goods-express">&nbsp;原价:￥{{r.originPrice}}</span>
+                                                <span class="salenumber_style">已售{{r.salesNum}}件</span>                       
+                                              </div>
+                                          </van-cell-group>
+                                        </van-col>
+                                    </div>
+                                    <div v-else @click="JumpPageDetails(r.productId)">
+                                      <van-cell-group>
+                                        <van-col span="12" class="img_border" >
+                                         <van-cell-group>
+                                            <img :src="r.mainPic" class="goods-imgurl">
+                                              <div class="good_name" style="height:0.8rem;font-size:0.2rem;">
+                                                <van-tag type="danger">{{r.source}}</van-tag>
+                                                {{r.title}}</div>
+                                              <div>
+                                                <span>
+                                                 <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
+                                                </span>
+                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                              </div>
+                                              <div style="height:0.8rem">
+                                              <span class="price_style">￥{{r.price}}</span>
+                                              <span class="goods-express">&nbsp;原价:￥{{r.originPrice}}</span>
+                                              <span class="salenumber_style">已售{{r.salesNum}}件</span>
+                                              </div>
+                                          </van-cell-group>                                    
+                                        </van-col>
+                                      </van-cell-group>
+                                    </div>
+                                </div>  
+                                  </van-row>
+                                <div style="text-align:center;font-size:14px;background:#f1f1f1;">
+                                  <div style="text-align:center;"><van-loading color="black" type="spinner" size="20px" style="margin-left:33%"/><div style="margin-top:-18px;">&nbsp;{{messages}}</div></div>                        
+                                </div>
+                            </van-list>
+                            </div>
+                        </div>
+                    </van-pull-refresh>  
+            </van-tab>
+            <van-tab>
+                <div slot="title" @click="getmuyingdata">
+                  母婴
+                </div>  
+                <!-- 下拉刷新 -->
+                <van-pull-refresh v-model.lazy="isLoading" @refresh="onRefresh">
+                        <div>
+                            <!-- 无数据的情况 -->
+                            <div v-if='rowlength==0'>
+                                <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
+                            </div>
+                            <!-- list列表 -->
+                            <div v-else>
+                            <van-list> 
+                                <van-row>
+                                <div v-for="(r, key) in muyingdata" :key="key">
+                                    <div v-if="(key+1)%2==1" @click="JumpPageDetails(r.productId)">
+                                        <van-col span="12" class="img_border" >
+                                          <van-cell-group>
+                                            <img :src="r.mainPic" class="goods-imgurl">
+                                              <div class="good_name" style="height:0.8rem;font-size:0.2rem;">
+                                                <van-tag type="danger">{{r.source}}</van-tag>
+                                                {{r.title}}
+                                                </div>
+                                              <div>
+                                                <span>
+                                                 <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
+                                                </span>
+                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                              </div>
+                                              <div style="height:0.8rem">
+                                                <span class="price_style">￥{{r.price}}</span>
+                                                <span class="goods-express">&nbsp;原价:￥{{r.originPrice}}</span>
+                                                <span class="salenumber_style">已售{{r.salesNum}}件</span>                       
+                                              </div>
+                                          </van-cell-group>
+                                        </van-col>
+                                    </div>
+                                    <div v-else @click="JumpPageDetails(r.productId)">
+                                      <van-cell-group>
+                                        <van-col span="12" class="img_border" >
+                                         <van-cell-group>
+                                            <img :src="r.mainPic" class="goods-imgurl">
+                                              <div class="good_name" style="height:0.8rem;font-size:0.2rem;">
+                                                <van-tag type="danger">{{r.source}}</van-tag>
+                                                {{r.title}}</div>
+                                              <div>
+                                                <span>
+                                                 <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
+                                                </span>
+                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                              </div>
+                                              <div style="height:0.8rem">
+                                              <span class="price_style">￥{{r.price}}</span>
+                                              <span class="goods-express">&nbsp;原价:￥{{r.originPrice}}</span>
+                                              <span class="salenumber_style">已售{{r.salesNum}}件</span>
+                                              </div>
+                                          </van-cell-group>                                    
+                                        </van-col>
+                                      </van-cell-group>
+                                    </div>
+                                </div>  
+                                  </van-row>
+                                <div style="text-align:center;font-size:14px;background:#f1f1f1;">
+                                  <div style="text-align:center;"><van-loading color="black" type="spinner" size="20px" style="margin-left:33%"/><div style="margin-top:-18px;">&nbsp;{{messages}}</div></div>                        
+                                </div>
+                            </van-list>
+                            </div>
+                        </div>
+                  </van-pull-refresh>  
+            </van-tab>
+            <van-tab>
+                <div slot="title" @click="getmeizhuangdata">
+                  美妆
+                </div>  
+                <!-- 下拉刷新 -->
+                <van-pull-refresh v-model.lazy="isLoading" @refresh="onRefresh">
+                                  
+                </van-pull-refresh>  
+            </van-tab>
+            <van-tab>
+                <div slot="title" @click="getneiyidata">
+                  内衣
+                </div>  
+                <!-- 下拉刷新 -->
+                <van-pull-refresh v-model.lazy="isLoading" @refresh="onRefresh">
+                                  
+                </van-pull-refresh>  
+            </van-tab>
+            <van-tab>
+                <div slot="title" @click="getnvzhuangdata">
+                  女装
+                </div>  
+                <!-- 下拉刷新 -->
+                <van-pull-refresh v-model.lazy="isLoading" @refresh="onRefresh">
+                                  
+                </van-pull-refresh>  
+            </van-tab>
+            <van-tab>
+                <div slot="title" @click="getmeishidata">
+                  美食
+                </div>  
+                <!-- 下拉刷新 -->
+                <van-pull-refresh v-model.lazy="isLoading" @refresh="onRefresh">
+                                  
+                </van-pull-refresh>  
+            </van-tab>
+            <van-tab>
+                <div slot="title" @click="getjujiadata">
+                  居家
+                </div>  
+                <!-- 下拉刷新 -->
+                <van-pull-refresh v-model.lazy="isLoading" @refresh="onRefresh">
+                                  
+                </van-pull-refresh>  
+            </van-tab>
+            <van-tab>
+                <div slot="title" @click="getnanzhuangdata">
+                  男装
+                </div>  
+                <!-- 下拉刷新 -->
+                <van-pull-refresh v-model.lazy="isLoading" @refresh="onRefresh">
+                                  
+                </van-pull-refresh>  
+            </van-tab>
+            <van-tab>
+                <div slot="title" @click="getwentichepingdata">
+                  文体车品
+                </div>  
+                <!-- 下拉刷新 -->
+                <van-pull-refresh v-model.lazy="isLoading" @refresh="onRefresh">
+                                  
+                </van-pull-refresh>  
+            </van-tab>
+            <van-tab>
+                <div slot="title" @click="getxiebaodata">
+                  鞋包配饰
+                </div>  
+                <!-- 下拉刷新 -->
+                <van-pull-refresh v-model.lazy="isLoading" @refresh="onRefresh">
+                                  
                 </van-pull-refresh>  
             </van-tab>
         </van-tabs>
@@ -153,7 +358,7 @@ export default {
       id: "",
       isVip: true,
       images: {},
-      tagdata:{},
+      tagdata: {},
       code: "",
       active: 0,
       isLoading: true,
@@ -161,10 +366,13 @@ export default {
       url: "http://shg.blpev.cn:8080/shg-api/api/",
       goodsId: "",
       articles: {},
+      shumadata: {},
+      muyingdata:{},
       messages: "",
       rowlength: "",
-      pageSize: 20, //每页条数
-      value: "" //搜索关键字
+      pageSize: 10, //每页条数
+      value: "", //搜索关键字
+      currentName: "精选"
     };
   },
   mounted() {
@@ -221,8 +429,8 @@ export default {
         .get(_this.url + "/tag/list")
         .then(function(response) {
           if (response.data.code == 1) {
-            _this.tagdata=response.data.result;
-           console.log(response.data.result);
+            _this.tagdata = response.data.result;
+            //  console.log(response.data.result);
           }
         })
         .catch(function(error) {
@@ -234,6 +442,7 @@ export default {
     getdata() {
       // 缓存指针
       let _this = this;
+      _this.currentName = "精选";
       // 设置一个开关来避免重负请求数据
       let sw = true;
       let pages = 1;
@@ -272,40 +481,219 @@ export default {
           document.documentElement.scrollTop == 0
             ? document.body.scrollHeight
             : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(
-                _this.url +
-                  "/product/other/list?page=" +
-                  pages++ +
-                  "&pageRows=" +
-                  _this.pageSize +
-                  "&sortType=time"
-              )
-              .then(function(response) {
-                // 将新获取的数据push到vue中的data，就会反应到视图中了
-                var lengths = response.data.result.length;
-                for (var i = 0; i < lengths; i++) {
-                  _this.articles.push(response.data.result[i]);
-                }
-                // 数据更新完毕，将开关打开
-                sw = true;
-              })
-              .catch(function(error) {
-                console.log(error);
-                _this.$toast("网络异常错误...");
-              });
-          }
-          if (sw == false) {
-            _this.messages = "正在加载中...";
+        if (_this.currentName == "精选") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/product/other/list?page=" +
+                    pages++ +
+                    "&pageRows=" +
+                    _this.pageSize +
+                    "&sortType=time"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.articles.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                  _this.$toast("网络异常错误...");
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+            }
           }
         }
       });
     },
+    //数码家电
+    getshumadata() {
+      // 缓存指针
+      let _this = this;
+      _this.currentName = "数码家电";
+      // 设置一个开关来避免重负请求数据
+      let sw = true;
+      let pages = 1;
+      // 此处使用node做了代理
+      this.$axios
+        .get(
+          _this.url +
+            "/product/other/list?tagId=10&page=" +
+            pages++ +
+            "&pageRows=" +
+            _this.pageSize +
+            "&sortType=time"
+        )
+        .then(function(response) {
+          // 将得到的数据放到vue中的data
+          _this.shumadata = response.data.result;
+          // console.log(_this.articles);
+          var lengths = response.data.result.length;
+          _this.rowlength = lengths;
+        })
+        .catch(function(error) {
+          console.log(error);
+          _this.$toast("网络异常错误...");
+        });
+      // 注册scroll事件并监听
+      window.addEventListener("scroll", function() {
+        var a =
+          window.innerHeight ||
+          document.documentElement.clientHeight ||
+          document.body.clientHeight;
+        var b =
+          document.documentElement.scrollTop == 0
+            ? document.body.scrollTop
+            : document.documentElement.scrollTop;
+        var c =
+          document.documentElement.scrollTop == 0
+            ? document.body.scrollHeight
+            : document.documentElement.scrollHeight;
+        if (_this.currentName == "数码家电") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/product/other/list?tagId=10&page=" +
+                    pages++ +
+                    "&pageRows=" +
+                    _this.pageSize +
+                    "&sortType=time"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.shumadata.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                  _this.$toast("网络异常错误...");
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+            }
+          }
+        }
+      });
+    },
+    //母婴
+    getmuyingdata(){
+      // 缓存指针
+      let _this = this;
+      _this.currentName = "母婴";
+      // 设置一个开关来避免重负请求数据
+      let sw = true;
+      let pages = 1;
+      // 此处使用node做了代理
+      this.$axios
+        .get(
+          _this.url +
+            "/product/other/list?tagId=4&page=" +
+            pages++ +
+            "&pageRows=" +
+            _this.pageSize +
+            "&sortType=time"
+        )
+        .then(function(response) {
+          // 将得到的数据放到vue中的data
+          _this.muyingdata = response.data.result;
+          // console.log(_this.articles);
+          var lengths = response.data.result.length;
+          _this.rowlength = lengths;
+        })
+        .catch(function(error) {
+          console.log(error);
+          _this.$toast("网络异常错误...");
+        });
+      // 注册scroll事件并监听
+      window.addEventListener("scroll", function() {
+        var a =
+          window.innerHeight ||
+          document.documentElement.clientHeight ||
+          document.body.clientHeight;
+        var b =
+          document.documentElement.scrollTop == 0
+            ? document.body.scrollTop
+            : document.documentElement.scrollTop;
+        var c =
+          document.documentElement.scrollTop == 0
+            ? document.body.scrollHeight
+            : document.documentElement.scrollHeight;
+        if (_this.currentName == "母婴") {
+          if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+            //如果开关打开则加载数据
+            if (sw == true) {
+              // 将开关关闭
+              sw = false;
+              _this.$axios
+                .get(
+                  _this.url +
+                    "/product/other/list?tagId=4&page=" +
+                    pages++ +
+                    "&pageRows=" +
+                    _this.pageSize +
+                    "&sortType=time"
+                )
+                .then(function(response) {
+                  // 将新获取的数据push到vue中的data，就会反应到视图中了
+                  var lengths = response.data.result.length;
+                  for (var i = 0; i < lengths; i++) {
+                    _this.muyingdata.push(response.data.result[i]);
+                  }
+                  // 数据更新完毕，将开关打开
+                  sw = true;
+                })
+                .catch(function(error) {
+                  console.log(error);
+                  _this.$toast("网络异常错误...");
+                });
+            }
+            if (sw == false) {
+              _this.messages = "正在加载中...";
+            }
+          }
+        }
+      });
+    },
+    //美妆
+    getmeizhuangdata(){
+
+    },
+    getneiyidata(){
+
+    },
+    getnvzhuangdata(){
+
+    },
+    getmeishidata(){
+
+    },
+    getjujiadata(){
+
+    },
+    getnanzhuangdata(){},
+    getwentichepingdata(){},
+    getxiebaodata(){},
     back_top() {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     },
