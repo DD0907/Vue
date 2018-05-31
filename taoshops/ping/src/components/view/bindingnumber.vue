@@ -32,7 +32,6 @@ export default {
   },
   mounted() {
     this.getParams();
-    // this.id = sessionStorage.getItem("userId");
     var dataJson = JSON.parse(
       decodeURIComponent(this.cookies.getCookie("userData"))
     );
@@ -48,7 +47,6 @@ export default {
       if (_this.id == "") {
         _this.$toast("当前您还未登录哦");
       } else {
-        //console.log(_this.phonenumber.length);
         var reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
         if (_this.phonenumber == "") {
           _this.$toast("请输入手机号码");
@@ -65,7 +63,6 @@ export default {
             // 将得到的数据放到vue中的data
             if (response.data.code == 1) {
               _this.$toast("信息更改成功");
-              // console.log(response.data.result);
               _this.$router.push({
                 path: "/ping",
                 name: "setting"

@@ -1,6 +1,5 @@
 <template>
   <div>
-      <!-- <h2>{{goodsId}}</h2> -->
      <!--轮播图片-->
     <div>
       <van-swipe class="goods-swipe" :autoplay="4000" v-if="rowlength!=0">
@@ -77,8 +76,6 @@
         <div>{{articles.goodsDesc}}</div>
       </div>
     </div>
-        <!-- <div class="share" @click="JumpShapePost"><img src="../../assets/icon/icons_share.png"/></div>  -->
-
     <div style="background:#ffffff;height:60px;">&nbsp;</div>
     <!-- 底部菜单 -->
     <div>

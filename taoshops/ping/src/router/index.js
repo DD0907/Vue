@@ -7,12 +7,10 @@ import {
     resolve
 } from 'path';
 import PageDetails from '@/components/view/PageDetails'
-import share from '@/components/view/share'
 import user from '@/components/view/user'
 import fans from '@/components/view/fans'
 import love from '@/components/view/love'
 import vip from '@/components/view/vip'
-import vipnotice from '@/components/view/vipnotice'
 import viprecord from '@/components/view/viprecord'
 import vipfansrecord from '@/components/view/vipfansrecord'
 import setting from '@/components/view/setting'
@@ -23,12 +21,9 @@ import personalReferee from '@/components/view/personalReferee'
 import personalteach from '@/components/view/personalteach'
 import commissions from '@/components/view/commissions'
 import bindingnumber from '@/components/view/bindingnumber'
-import addnumber from '@/components/view/addnumber'
 import bindingfriendscan from '@/components/view/bindingfriendscan'
-import addfriendscan from '@/components/view/addfriendscan'
 import bindingmoneyscan from '@/components/view/bindingmoneyscan'
 import errors from '@/components/view/errors'
-import qrcodetest from '@/components/view/qrcodetest'
 import customerservice from '@/components/view/customerservice'
 Vue.use(Router)
 export default new Router({
@@ -38,12 +33,12 @@ export default new Router({
             name: 'indexs',
             component: indexs,
             meta: {
-                title: '拼团客首页',
+                title: '首页',
                 keepAlive: true
             }
         },
         {
-            path: '/ping/search',
+            path: '/shg/search',
             name: 'search',
             component: search,
             meta: {
@@ -52,16 +47,16 @@ export default new Router({
             }
         },
         {
-            path: '/ping/indexs',
+            path: '/shg/indexs',
             name: 'indexs',
             component: indexs,
             meta: {
-                title: '拼团客首页',
+                title: '首页',
                 keepAlive: true
             }
         },
         {
-            path: '/ping/test',
+            path: '/shg/test',
             name: 'test',
             component: test,
             meta: {
@@ -69,15 +64,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/qrcodetest',
-            name: 'qrcodetest',
-            component: qrcodetest,
-            meta: {
-                title: '二维码测试',
-            }
-        },
-        {
-            path: '/ping/PageDetails',
+            path: '/shg/PageDetails',
             name: 'PageDetails',
             component: PageDetails,
             meta: {
@@ -85,15 +72,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/share',
-            name: 'share',
-            component: share,
-            meta: {
-                title: '晒单分享',
-            }
-        },
-        {
-            path: '/ping/user',
+            path: '/shg/user',
             name: 'user',
             component: user,
             meta: {
@@ -101,7 +80,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/love',
+            path: '/shg/love',
             name: 'love',
             component: love,
             meta: {
@@ -110,7 +89,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/vip',
+            path: '/shg/vip',
             name: 'vip',
             component: vip,
             meta: {
@@ -118,15 +97,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/vipnotice',
-            name: 'vipnotice',
-            component: vipnotice,
-            meta: {
-                title: '超级会员通知',
-            }
-        },
-        {
-            path: '/ping/viprecord',
+            path: '/shg/viprecord',
             name: 'viprecord',
             component: viprecord,
             meta: {
@@ -134,7 +105,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/vipfansrecord',
+            path: '/shg/vipfansrecord',
             name: 'vipfansrecord',
             component: vipfansrecord,
             meta: {
@@ -142,7 +113,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/setting',
+            path: '/shg/setting',
             name: 'setting',
             component: setting,
             meta: {
@@ -150,7 +121,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/fans',
+            path: '/shg/fans',
             name: 'fans',
             component: fans,
             meta: {
@@ -158,7 +129,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/bindingnumber',
+            path: '/shg/bindingnumber',
             name: 'bindingnumber',
             component: bindingnumber,
             meta: {
@@ -166,15 +137,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/addnumber',
-            name: 'addnumber',
-            component: addnumber,
-            meta: {
-                title: '添加手机号'
-            }
-        },
-        {
-            path: '/ping/bindingfriendscan',
+            path: '/shg/bindingfriendscan',
             name: 'bindingfriendscan',
             component: bindingfriendscan,
             meta: {
@@ -182,15 +145,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/addfriendscan',
-            name: 'addfriendscan',
-            component: addfriendscan,
-            meta: {
-                title: '添加微信好友二维码'
-            }
-        },
-        {
-            path: '/ping/bindingmoneyscan',
+            path: '/shg/bindingmoneyscan',
             name: 'bindingmoneyscan',
             component: bindingmoneyscan,
             meta: {
@@ -198,7 +153,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/personal',
+            path: '/shg/personal',
             name: 'personal',
             component: personal,
             meta: {
@@ -206,7 +161,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/personalVip',
+            path: '/shg/personalVip',
             name: 'personalVip',
             component: personalVip,
             meta: {
@@ -214,7 +169,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/personalReferee',
+            path: '/shg/personalReferee',
             name: 'personalReferee',
             component: personalReferee,
             meta: {
@@ -222,7 +177,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/personalteach',
+            path: '/shg/personalteach',
             name: 'personalteach',
             component: personalteach,
             meta: {
@@ -230,7 +185,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/commissions',
+            path: '/shg/commissions',
             name: 'commissions',
             component: commissions,
             meta: {
@@ -238,7 +193,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/putforwards',
+            path: '/shg/putforwards',
             name: 'putforwards',
             component: putforwards,
             meta: {
@@ -246,7 +201,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/customerservice',
+            path: '/shg/customerservice',
             name: 'customerservice',
             component: customerservice,
             meta: {
@@ -254,7 +209,7 @@ export default new Router({
             }
         },
         {
-            path: '/ping/errors',
+            path: '/shg/errors',
             name: 'errors',
             component: errors,
             meta: {

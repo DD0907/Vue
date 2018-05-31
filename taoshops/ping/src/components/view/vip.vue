@@ -11,9 +11,6 @@
                 <img :src="headurl" style="width:80%;height:80%;margin:0 auto;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
             </div>
         </van-col>
-        <!-- <van-col span="1" style="margin-top:0.5rem;">
-         &nbsp;
-        </van-col> -->
         <van-col span="10" style="margin-top:1.0rem;" >
           <span style="font-size:16px;">{{userdata.nickname}}
             <div>
@@ -25,9 +22,6 @@
             </div>
           </span>
         </van-col>
-        <!-- <van-col span="4" style="margin-top:0.5rem;">
-         &nbsp;
-        </van-col> -->
         <van-col span="4" style="text-align:center;margin-top:0.8rem;">
           <div @click="JumpCourse">
             <img src="../../assets/icon/icon_course.png" style="width:0.9rem;"/><br>新手教程
@@ -51,7 +45,6 @@
       <van-cell-group>
           <van-cell title="待确认收货" :value="waitAudit" label="确认收货后进入审核" @click="JumpGoods"/>
           <van-cell title="审核中" :value="audit" label="15天若无售后发生则发放奖励" @click="JumpExamine"/>
-          <!-- <van-cell title="已结算的佣金币" value="10000" label="已奖励的订单" @click="JumpSettlement" /> -->
           <van-cell title="已提现" :value="extractSum" label="点击可查看提现记录" @click="JumpPutforward"/>
       </van-cell-group>
     </section>
@@ -84,34 +77,24 @@
         <van-goods-action>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpIndex">
                 <div style="text-align:center;">
-                  <!-- <van-icon name="e606"/> -->
                   <img src="../../assets/icon/icons_index.png" style="width:0.7rem;"/>
                   <div><span style="font-size:14px;">首页</span></div>
                 </div>
             </van-goods-action-mini-btn>
+             <van-goods-action-mini-btn style="width:25%;" @click="JumpVip">
+              <div style="text-align:center;">
+                  <img src="../../assets/icon/icon_search_current.png" style="width:0.7rem;"/>
+                   <div><span style="font-size:14px;">超级搜</span></div>
+              </div>
+            </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpLove">
               <div style="text-align:center;">
-                  <!-- <van-icon name="e619"/> -->
                   <img src="../../assets/icon/icons_love.png" style="width:0.7rem;"/>
                   <div><span style="font-size:14px;">收藏</span></div>
               </div>
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn style="width:25%;" @click="JumpVip">
-              <div style="text-align:center;color:red;">
-                  <!-- <van-icon name="e607"/> -->
-                  <img src="../../assets/icon/icons_vip_current.png" style="width:0.7rem;"/>
-                  <div><span style="font-size:14px;">超级会员</span></div>
-              </div>
-            </van-goods-action-mini-btn>
-            <!-- <van-goods-action-mini-btn  style="width:25%;" @click="JumpShare">
-                <div style="text-align:center;">
-                  <van-icon name="e619"/>
-                  <div style="margin:1px;">晒单分享</div>
-                </div>
-            </van-goods-action-mini-btn> -->
             <van-goods-action-mini-btn style="width:25%;" @click="JumpUser">
                 <div style="text-align:center;">
-                  <!-- <van-icon name="e6a4"/> -->
                   <img src="../../assets/icon/icons_my.png" style="width:0.7rem;"/>
                   <div><span style="font-size:14px;">我的</span></div>
                 </div>
@@ -226,12 +209,6 @@ export default {
           });
       }
     },
-    JumpShare() {
-      this.$router.push({
-        path: "/ping",
-        name: "share"
-      });
-    },
     JumpLove() {
       this.$router.push({
         path: "/ping",
@@ -239,17 +216,10 @@ export default {
       });
     },
     JumpVip() {
-      if (this.isVip == true) {
         this.$router.push({
           path: "/ping",
           name: "vip"
         });
-      } else {
-        this.$router.push({
-          path: "/ping",
-          name: "vipnotice"
-        });
-      }
     },
     JumpIndex() {
       this.$router.push({

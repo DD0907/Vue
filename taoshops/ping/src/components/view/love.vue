@@ -77,34 +77,24 @@
             <van-goods-action>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpIndex">
                 <div style="text-align:center;">
-                  <!-- <van-icon name="e606"/> -->
                 <img src="../../assets/icon/icons_index.png" style="width:0.7rem;"/>
                   <div><span style="font-size:14px;">首页</span></div>
                 </div>
             </van-goods-action-mini-btn>
+            <van-goods-action-mini-btn style="width:25%;" @click="JumpVip">
+              <div style="text-align:center;">
+                  <img src="../../assets/icon/icon_search.png" style="width:0.7rem;"/>
+                   <div><span style="font-size:14px;">超级搜</span></div>
+              </div>
+            </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" >
               <div style="text-align:center;color:red;">
-                  <!-- <van-icon name="e619"/> -->
                   <img src="../../assets/icon/icons_love_current.png" style="width:0.7rem;"/>
                   <div><span style="font-size:14px;">收藏</span></div>
               </div>
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn style="width:25%;" @click="JumpVip">
-              <div style="text-align:center;">
-                  <!-- <van-icon name="e607"/> -->
-                  <img src="../../assets/icon/icons_vip.png" style="width:0.7rem;"/>
-                   <div><span style="font-size:14px;">超级会员</span></div>
-              </div>
-            </van-goods-action-mini-btn>
-            <!-- <van-goods-action-mini-btn  style="width:25%;" @click="JumpShare">
-                <div style="text-align:center;">
-                  <van-icon name="e619"/>
-                  <div style="margin:1px;">晒单分享</div>
-                </div>
-            </van-goods-action-mini-btn> -->
             <van-goods-action-mini-btn style="width:25%;" @click="JumpUser">
                 <div style="text-align:center;">
-                  <!-- <van-icon name="e6a4"/> -->
                   <img src="../../assets/icon/icons_my.png" style="width:0.7rem;"/>
                   <div><span style="font-size:14px;">我的</span></div>
                 </div>
@@ -178,17 +168,10 @@ export default {
       });
     },
     JumpVip() {
-      if (this.isVips == true) {
         this.$router.push({
           path: "/ping",
           name: "vip"
         });
-      } else {
-        this.$router.push({
-          path: "/ping",
-          name: "vipnotice"
-        });
-      }
     },
     JumpIndex() {
       this.$router.push({
@@ -223,20 +206,17 @@ export default {
           .then(function(response) {
             // 将得到的数据放到vue中的data
             _this.articles = response.data.result;
-            //console.log(_this.articles);
             var lengths = response.data.result.length;
             _this.rowlength = lengths;
             if (lengths == 10) {
               _this.messages = "我已经到底了";
             }
-            // alert(lengths);
           })
           .catch(function(error) {
             console.log(error);
             _this.$toast("网络异常错误...");
           });
         // 注册scroll事件并监听
-        //window.addEventListener
         window.addEventListener("scroll", function() {
           var a =
             window.innerHeight ||
@@ -252,7 +232,6 @@ export default {
               : document.documentElement.scrollHeight;
           if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
             //alert("到达底部");
-            // console.log(sw);
             //如果开关打开则加载数据
             if (sw == true) {
               // 将开关关闭
@@ -284,7 +263,6 @@ export default {
             }
             if (sw == false) {
               _this.messages = "正在加载中...";
-              // console.log("正在加载中");
             }
           }
         });
@@ -319,8 +297,6 @@ export default {
               console.log(error);
               _this.$toast("网络异常错误...");
             });
-          // alert(productIds)
-          // alert(_this.userId)
         })
         .catch(() => {
           // on cancel
@@ -328,13 +304,11 @@ export default {
     }, // 跳转商品详情页
     JumpPageDetails(goodsId) {
       var goodsId = goodsId;
-      // alert(goodsId)
       this.$router.push({
         path: "/ping",
         name: "PageDetails",
         query: { goodsId: goodsId },
         params: {
-          // data: this.value,
           isVip: this.isVips
         }
       });

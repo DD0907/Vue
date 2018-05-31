@@ -165,7 +165,6 @@ export default {
   },
   mounted() {
     this.getParams();
-    // this.id = sessionStorage.getItem("userId");
     var dataJson = JSON.parse(
       decodeURIComponent(this.cookies.getCookie("userData"))
     );
@@ -229,7 +228,6 @@ export default {
             console.log(error);
           });
         // 注册scroll事件并监听
-        // window.addEventListener
         window.addEventListener("scroll", function() {
           var a =
             window.innerHeight ||
@@ -279,7 +277,6 @@ export default {
               }
               if (sw == false) {
                 _this.messages = "正在加载中....";
-                // console.log("正在加载中");
               }
             }
           }
@@ -313,7 +310,6 @@ export default {
           console.log(error);
         });
       // 注册scroll事件并监听
-      // window.addEventListener
       window.addEventListener("scroll", function() {
         var a =
           window.innerHeight ||
@@ -329,8 +325,6 @@ export default {
             : document.documentElement.scrollHeight;
         if (_this.currentname == "佣金") {
           if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-            //alert("到达底部");
-            // console.log(sw);
             //如果开关打开则加载数据
             if (sw == true) {
               // 将开关关闭
@@ -348,7 +342,6 @@ export default {
                 .then(function(response) {
                   // 将得到的数据放到vue中的data
                   if (response.data.code == 1) {
-                    // console.log(response.data.result);
                     var lengths = response.data.result.length;
                     for (var i = 0; i < lengths; i++) {
                       _this.yongjindata.push(response.data.result[i]);
@@ -366,7 +359,6 @@ export default {
             }
             if (sw == false) {
               _this.messages = "正在加载中....";
-              // console.log("正在加载中");
             }
           }
         }
@@ -391,16 +383,13 @@ export default {
         .then(function(response) {
           // 将得到的数据放到vue中的data
           if (response.data.code == 1) {
-            //console.log(response.data.result);
             _this.shouyidata = response.data.result.records;
             _this.lengths = response.data.result.records.length;
-            // console.log(_this.shouyidata);
           }
         })
         .catch(function(error) {
           console.log(error);
         }); // 注册scroll事件并监听
-      // window.addEventListener
       window.addEventListener("scroll", function() {
         var a =
           window.innerHeight ||
@@ -416,7 +405,6 @@ export default {
             : document.documentElement.scrollHeight;
         if (_this.currentname == "收益") {
           if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-            //console.log(sw);
             //如果开关打开则加载数据
             if (sw == true) {
               // 将开关关闭
@@ -451,7 +439,6 @@ export default {
             }
             if (sw == false) {
               _this.messages = "正在加载中....";
-              // console.log("正在加载中");
             }
           }
         }
@@ -484,7 +471,6 @@ export default {
           console.log(error);
         });
       // 注册scroll事件并监听
-      // window.addEventListener
       window.addEventListener("scroll", function() {
         var a =
           window.innerHeight ||
@@ -500,8 +486,6 @@ export default {
             : document.documentElement.scrollHeight;
         if (_this.currentname == "提现") {
           if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-            //alert("到达底部");
-            // console.log(sw);
             //如果开关打开则加载数据
             if (sw == true) {
               // 将开关关闭

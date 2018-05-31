@@ -148,7 +148,6 @@
 <script>
 import { Dialog } from "vant";
 import fansVue from "./fans.vue";
-import icon_personalbg from "../../assets/icon/icon_personalbg.png";
 
 export default {
   data() {
@@ -168,23 +167,31 @@ export default {
     };
   },
   mounted() {
-    this.id = 19;
+    // this.id = sessionStorage.getItem("userId");
+    var dataJson = JSON.parse(
+      decodeURIComponent(this.cookies.getCookie("userData"))
+    );
+    this.id = dataJson.id;
+    this.getParams();
     this.getUserData();
   },
   methods: {
     onCopy: function(e) {
       // console.log("你刚刚复制: " + e.text);
-      // alert("微信号已复制成功"+e.text)
       this.$toast("微信号已复制成功:" + e.text);
-      // alert(e.text);
     },
     onError: function(e) {
       console.log("无法复制文本！");
-      // alert("微信号复制失败了哦")
       this.$toast("微信号复制失败了哦");
     },
     callPhone() {
       window.location.href = "tel:" + this.phone;
+    },
+    getParams() {
+      // 取到路由带过来的参数
+      var routerParams = this.$route.params.friendId;
+      // 将数据放在当前组件的数据内
+      this.friendId = routerParams;
     },
     JumpScanShowScan() {
       this.sacnshow = true;
@@ -203,7 +210,13 @@ export default {
         var times = Date.parse(time);
         _this.times = times;
         this.$axios
-          .get(_this.url + "/v1/user/" + _this.id + "/superior?refereId=19")
+          .get(
+            _this.url +
+              "/v1/user/" +
+              _this.id +
+              "/superior?refereId=" +
+              _this.friendId
+          )
           .then(function(response) {
             // 将得到的数据放到vue中的data
             _this.userdata = response.data.result;

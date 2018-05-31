@@ -64,6 +64,13 @@
                   <div><span style="font-size:14px;">首页</span></div>
                 </div>
             </van-goods-action-mini-btn>
+              <van-goods-action-mini-btn style="width:25%;" @click="JumpVip">
+              <div style="text-align:center;">
+                  <!-- <van-icon name="e607"/> -->
+                  <img src="../../assets/icon/icon_search.png" style="width:0.7rem;"/>
+                  <div><span style="font-size:14px;">超级搜</span></div>
+              </div>
+            </van-goods-action-mini-btn>
             <van-goods-action-mini-btn style="width:25%;" @click="JumpLove">
               <div style="text-align:center;">
                   <!-- <van-icon name="e619"/> -->
@@ -71,19 +78,6 @@
                   <div><span style="font-size:14px;">收藏</span></div>
               </div>
             </van-goods-action-mini-btn>
-            <van-goods-action-mini-btn style="width:25%;" @click="JumpVip">
-              <div style="text-align:center;">
-                  <!-- <van-icon name="e607"/> -->
-                  <img src="../../assets/icon/icons_vip.png" style="width:0.7rem;"/>
-                  <div><span style="font-size:14px;">超级会员</span></div>
-              </div>
-            </van-goods-action-mini-btn>
-            <!-- <van-goods-action-mini-btn  style="width:25%;" @click="JumpShare">
-                <div style="text-align:center;">
-                  <van-icon name="e619"/>
-                  <div style="margin:1px;">晒单分享</div>
-                </div>
-            </van-goods-action-mini-btn> -->
             <van-goods-action-mini-btn style="width:25%;">
                 <div style="text-align:center;color:red;">
                   <!-- <van-icon name="e6a4"/> -->
@@ -154,8 +148,6 @@ export default {
             _this.headurl = _this.userdata.headPic;
             _this.refereId = _this.userdata.refereId;
             _this.posterUrl = _this.userdata.posterUrl;
-            // console.log(_this.userdata.posterUrl)
-            // console.log(_this.userdata);
           })
           .catch(function(error) {
             console.log(error);
@@ -170,17 +162,10 @@ export default {
       });
     },
     JumpVip() {
-      if (this.isVip == true) {
-        this.$router.push({
-          path: "/ping",
-          name: "vip"
-        });
-      } else {
-        this.$router.push({
-          path: "/ping",
-          name: "vipnotice"
-        });
-      }
+      this.$router.push({
+        path: "/ping",
+        name: "vip"
+      });
     },
     JumpLove() {
       this.$router.push({
@@ -215,13 +200,10 @@ export default {
           .post(_this.url + "/v1/user/" + _this.id + "/upgrade")
           .then(function(response) {
             // 将得到的数据放到vue中的data
-            // console.log(response.data);
             if (response.data.code == 1) {
               _this.$toast(response.data.message);
               _this.getUserData();
             } else {
-              // _this.$toast(response.data.message);
-
               if (_this.isVip == false) {
                 _this.$router.push({
                   path: "/ping",
@@ -252,7 +234,6 @@ export default {
       }
     },
     jumpTeam() {
-      // this.$toast("此功能暂未上线");
       this.$router.push({
         path: "/ping",
         name: "customerservice",
