@@ -2,6 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import indexs from '@/components/view/indexs'
 import search from '@/components/view/search'
+import Shopbrand from '@/components/view/Shopbrand'
+import Shoptao from '@/components/view/Shoptao'
+import ShopJuhuasuan from '@/components/view/ShopJuhuasuan'
+import Shopvideo from '@/components/view/Shopvideo'
+import Shopbaoyou from '@/components/view/Shopbaoyou'
+
 import test from "@/components/view/test"
 import {
     resolve
@@ -43,6 +49,48 @@ export default new Router({
             component: search,
             meta: {
                 title: '搜索',
+                keepAlive: true
+            }
+        },
+        {
+            path: '/shg/Shopbrand',
+            name: 'Shopbrand',
+            component: Shopbrand,
+            meta: {
+                title: '品牌馆',
+                keepAlive: true
+            }
+        },
+        {
+            path: '/shg/Shoptao',
+            name: 'Shoptao',
+            component: Shoptao,
+            meta: {
+                title: '淘抢购',
+                keepAlive: true
+            }
+        }, {
+            path: '/shg/ShopJuhuasuan',
+            name: 'ShopJuhuasuan',
+            component: ShopJuhuasuan,
+            meta: {
+                title: '聚划算',
+                keepAlive: true
+            }
+        }, {
+            path: '/shg/Shopvideo',
+            name: 'Shopvideo',
+            component: Shopvideo,
+            meta: {
+                title: '短视频',
+                keepAlive: true
+            }
+        }, {
+            path: '/shg/Shopbaoyou',
+            name: 'Shopbaoyou',
+            component: Shopbaoyou,
+            meta: {
+                title: '9.9包邮',
                 keepAlive: true
             }
         },

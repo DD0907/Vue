@@ -5,20 +5,16 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      value:''
+    };
   },
   mounted() {
     // this.cookies.a(1);
-    var dataJson = JSON.parse(
-      decodeURIComponent(this.cookies.getCookie("userData"))
-    );
-    this.isVip = dataJson.vip;
-    console.log(dataJson);
-    console.log(dataJson.id);
-    console.log(dataJson.vip);
-    console.log(dataJson.phone);
-    console.log(dataJson.nickname);
-    this.test();
+      var keyword = window.location.href;
+      var i = keyword.indexOf("Urls=");
+      this.value = decodeURIComponent(keyword.substring(i + 5, keyword.length));
+      alert(this.value)
   },
   methods: {}
 };
