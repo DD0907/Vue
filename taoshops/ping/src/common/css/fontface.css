@@ -1,8 +1,8 @@
 @font-face {
     font-family: 'iconfont';
     /* project id 658440 */
-    src: url('http://at.alicdn.com/t/font_658440_guz44hgw82npnwmi.eot');
-    src: url('http://at.alicdn.com/t/font_658440_guz44hgw82npnwmi.eot?#iefix') format('embedded-opentype'), url('http://at.alicdn.com/t/font_658440_guz44hgw82npnwmi.woff') format('woff'), url('http://at.alicdn.com/t/font_658440_guz44hgw82npnwmi.ttf') format('truetype'), url('http://at.alicdn.com/t/font_658440_guz44hgw82npnwmi.svg#iconfont') format('svg');
+    src: url('//at.alicdn.com/t/font_658440_1ex3nq1d9s0s5rk9.eot');
+    src: url('//at.alicdn.com/t/font_658440_1ex3nq1d9s0s5rk9.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_658440_1ex3nq1d9s0s5rk9.woff') format('woff'), url('//at.alicdn.com/t/font_658440_1ex3nq1d9s0s5rk9.ttf') format('truetype'), url('//at.alicdn.com/t/font_658440_1ex3nq1d9s0s5rk9.svg#iconfont') format('svg');
 }
 
 .van-icon {
@@ -133,4 +133,11 @@
 
 .van-icon-e630:before {
     content: '\e630'
+}
+
+
+/*我的订单*/
+
+.van-icon-e609:before {
+    content: '\e608'
 }

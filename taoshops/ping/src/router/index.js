@@ -141,7 +141,7 @@ export default new Router({
             name: 'vip',
             component: vip,
             meta: {
-                title: '超级会员',
+                title: '超级搜',
             }
         },
         {

@@ -1,76 +1,75 @@
 <template>
-  <section>
-    <section style="background:#ffffff;height:3.0rem;">
-      <van-row>
-        <van-col span="1">&nbsp;</van-col>
-        <van-col span="5" style="margin-top:0.5rem;">
-          <div v-if="userdata.headPic==''||userdata.headPic==null">
-                <img src="../../assets/icon/icon_head.png" style="width:80%;height:80%;margin:0 auto;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
-            </div>
-             <div v-else>
-                <img :src="headurl" style="width:80%;height:80%;margin:0 auto;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
-            </div>
-        </van-col>
-        <van-col span="10" style="margin-top:1.0rem;" >
-          <span style="font-size:16px;">{{userdata.nickname}}
-            <div>
-              <van-tag plain style="color:#ffd600;font-size:12px;" v-if="userdata.vip=='false'||userdata.vip==false">拼团客</van-tag>
-              <van-tag plain style="color:#ffd600;font-size:12px;" v-else>超级会员</van-tag>
-            </div>
-              <div>我的ID:{{id}}</div>
-            <div>
-            </div>
-          </span>
-        </van-col>
-        <van-col span="4" style="text-align:center;margin-top:0.8rem;">
-          <div @click="JumpCourse">
-            <img src="../../assets/icon/icon_course.png" style="width:0.9rem;"/><br>新手教程
+  <section style="">
+    <div style="position:absolute;background:#ffffff">
+        <div style="position:fixed;z-index:999;width:100%">
+          <van-search v-model="keyWord" show-action @search="onSearch"  placeholder="搜索淘宝天猫名称或关键词">
+             <van-button slot="action" @click="onSearch" type="danger" size="small">超级搜</van-button>
+          </van-search>
+        </div> 
+    </div>
+    <section style="height:42px;"></section>
+    <section>
+      <van-pull-refresh v-model.lazy="isLoading" @refresh="onRefresh">
+          <div>
+            <!-- 无数据的情况 -->
+          <div v-if='rowlength==0'>
+            <img src="../../assets/icon/icon_kong.png" class="goods-imgurl"/>
+              <div style="text-align:center">暂无数据哦...</div>
           </div>
-        </van-col>
-        <van-col span="4" style="text-align:center;margin-top:0.8rem;">
-          <div @click="JumpConsultation">
-          <img src="../../assets/icon/icon_referee.png" style="width:0.9rem;"/><br>咨询推荐人
+            <!-- list列表 -->
+          <div v-else>
+              <van-list> 
+                <van-row>
+                  <div v-for="(r, key) in articles" :key="key" @click="JumpPageDetails(r.productId)">
+                    <div v-if="(key+1)%2==1">
+                      <van-col span="12" class="img_border" >
+                        <van-cell-group>
+                          <img :src="r.mainPic" class="goods-imgurl">
+                            <div class="good_name" style="height:0.8rem;">{{r.title}}</div>
+                              <div>
+                                <span>
+                                  <van-tag type="danger" v-if="r.couponPrice!=0">{{r.couponPrice}}元优惠券</van-tag>
+                                </span>
+                                  <van-tag plain class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                              </div>
+                              <div style="height:0.8rem">
+                                <span class="price_style">￥{{r.price}}</span>
+                                <span v-if="r.couponPrice!=0" class="goods-express">&nbsp;原价:￥{{r.originPrice}}</span>
+                                <span class="salenumber_style">已售{{r.salesNum}}件</span>                       
+                              </div>
+                        </van-cell-group>
+                      </van-col>
+                    </div>
+                    <div v-else>
+                      <van-cell-group>
+                          <van-col span="12" class="img_border" >
+                              <van-cell-group>
+                                  <img :src="r.mainPic" class="goods-imgurl">
+                                      <div class="good_name" style="height:0.8rem;">{{r.title}}</div>
+                                      <div>
+                                        <span>
+                                          <van-tag type="danger" v-if="r.couponPrice!=0">{{r.couponPrice}}元优惠券</van-tag>
+                                        </span>
+                                        <van-tag plain  class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                      </div>
+                                      <div style="height:0.8rem">
+                                        <span class="price_style">￥{{r.price}}</span>
+                                        <span v-if="r.couponPrice!=0" class="goods-express">&nbsp;原价:￥{{r.originPrice}}</span>
+                                        <span class="salenumber_style">已售{{r.salesNum}}件</span>
+                                      </div>
+                              </van-cell-group>                                    
+                          </van-col>
+                        </van-cell-group>
+                      </div>
+                  </div>  
+                </van-row>
+                <div style="text-align:center;font-size:16px;background:#ffffff;color:#999;">{{messages}}</div>
+              </van-list>
           </div>
-        </van-col>
-      </van-row>
+          </div>
+      </van-pull-refresh>  
     </section>
-    <section style="height:1px;"></section>
-    <section style="background:#ffffff;">
-       <van-cell-group>
-          <van-cell title="可提现佣金币" :value="whiteIntegral" label="100佣金币=1元,点击去提现" @click="JumpPutforwards" />
-       </van-cell-group>
-
-    </section>
-    <section>
-      <van-cell-group>
-          <van-cell title="待确认收货" :value="waitAudit" label="确认收货后进入审核" @click="JumpGoods"/>
-          <van-cell title="审核中" :value="audit" label="15天若无售后发生则发放奖励" @click="JumpExamine"/>
-          <van-cell title="已提现" :value="extractSum" label="点击可查看提现记录" @click="JumpPutforward"/>
-      </van-cell-group>
-    </section>
-    <section style="height:5px;"></section>
-    <section>
-      <van-cell-group>
-        <van-cell icon="e60b" title="我的粉丝" is-link style="color:red;" @click="JumpFans">
-        </van-cell>
-      </van-cell-group>
-      <van-cell-group>
-        <van-cell icon="e609" title="直属超级会员收益" is-link style="color:red;" @click="JumpVIPProfit"/>
-      </van-cell-group>
-    </section>
-    <section style="height:5px;"></section>
-     <section>
-      <van-cell-group>
-        <van-cell icon="e600" title="查询佣金币明细" is-link style="color:red;" @click="JumpCommissions"/>
-      </van-cell-group>
-    </section>
-    <section style="height:5px;"></section>
-    <section>
-      <van-cell-group>
-        <van-cell icon="e623" title="专属指导老师" is-link style="color:red;" @click="JumpPersonal"/>
-      </van-cell-group>
-    </section>
-     <section style="height:50px;"></section>
+    <section style="height:50px;"></section>
     <!-- 底部标签 -->
     <div>
       <van-row>
@@ -109,39 +108,18 @@ import notice from "../../assets/icon/icon_notices.png";
 export default {
   data() {
     return {
-      id: "",
-      isVip: false,
-      url: "http://ptk.baolinzhe.com/ptk/api/",
-      userdata: {},
-      headurl: "",
-      refereId: "", //推荐人
-      whiteIntegral: "",
-      extractSum: 0, //已提现
-      audit: 0, //审核中
-      waitAudit: 0, //待确认收货
-      wxMoneyQrcode: ""
+      url: "http://shg.blpev.cn:8080/shg-api/api/",
+      keyWord: "",
+      rowlength: "",
+      isLoading: true,
+      articles: {},
+      messages: "",
+      page: 1
     };
   },
   mounted() {
     // if (this.isWeiXin()) {
-    var dataJson = JSON.parse(
-      decodeURIComponent(this.cookies.getCookie("userData"))
-    );
-    this.id = dataJson.id;
-    this.isVip = dataJson.vip;
-    this.getUserData();
-    this.getVipCountdata();
-    if (this.isVip == true) {
-      this.$router.push({
-        path: "/ping",
-        name: "vip"
-      });
-    } else {
-      this.$router.push({
-        path: "/ping",
-        name: "vipnotice"
-      });
-    }
+    this.onSearch();
     // } else {
     //   this.$router.push({
     //     path: "/ping",
@@ -160,54 +138,92 @@ export default {
         return false;
       }
     },
-    getUserData() {
-      // 缓存指针
+    onSearch() {
       let _this = this;
-      if (_this.id == "") {
-        _this.$toast("当前您还未登录哦");
-      } else {
-        // 此处使用node做了代理
-        this.$axios
-          .post(_this.url + "/v1/user/" + _this.id)
-          .then(function(response) {
-            // 将得到的数据放到vue中的data
-            _this.userdata = response.data.result;
-            _this.headurl = _this.userdata.headPic;
-            _this.refereId = _this.userdata.refereId;
-            _this.whiteIntegral = _this.userdata.whiteIntegral;
-            _this.wxMoneyQrcode = _this.userdata.wxMoneyQrcode;
-            // console.log(_this.userdata);
-          })
-          .catch(function(error) {
-            console.log(error);
-            _this.$toast("网络异常错误...");
-          });
+      // 此处使用node做了代理
+      this.$axios
+        .get(
+          _this.url +
+            "/product/super-search?platform=2" +
+            "&pageNo=" +
+            _this.page +
+            "&q=" +
+            _this.keyWord
+        )
+        .then(function(response) {
+          // 将得到的数据放到vue中的data
+          _this.articles = response.data.result;
+          var lengths = response.data.result.length;
+          _this.rowlength = lengths;
+          _this.page += 1;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      // 注册scroll事件并监听
+      window.addEventListener("scroll", this.searchfunction);
+    },
+    searchfunction() {
+      let _this = this;
+      let sw = true;
+      var a =
+        window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight;
+      var b =
+        document.documentElement.scrollTop == 0
+          ? document.body.scrollTop
+          : document.documentElement.scrollTop;
+      var c =
+        document.documentElement.scrollTop == 0
+          ? document.body.scrollHeight
+          : document.documentElement.scrollHeight;
+      if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+        //如果开关打开则加载数据
+        if (sw == true) {
+          // 将开关关闭
+          sw = false;
+          _this.$axios
+            .get(
+              _this.url +
+                "/product/super-search?platform=2" +
+                "&pageNo=" +
+                _this.page++ +
+                "&q=" +
+                _this.keyWord
+            )
+            .then(function(response) {
+              // 将新获取的数据push到vue中的data，就会反应到视图中了
+              var lengths = response.data.result.length;
+              for (var i = 0; i < lengths; i++) {
+                _this.articles.push(response.data.result[i]);
+              }
+              // 数据更新完毕，将开关打开
+              sw = true;
+            })
+            .catch(function(error) {
+              console.log(error);
+              _this.$toast("网络异常错误...");
+            });
+        }
+        if (sw == false) {
+          _this.messages = "正在加载中...";
+        }
       }
     },
-    getVipCountdata() {
-      // 缓存指针
-      let _this = this;
-      if (_this.id == "") {
-        _this.$toast("当前您还未登录哦");
-      } else {
-        // 此处使用node做了代理
-        this.$axios
-          .get(_this.url + "/v1/integral/count?userId=" + _this.id)
-          .then(function(response) {
-            // 将得到的数据放到vue中的data
-            if (response.data.code == 1) {
-              _this.userdatas = response.data.result;
-              _this.extractSum = _this.userdatas.extractSum;
-              _this.audit = _this.userdatas.audit;
-              _this.waitAudit = _this.userdatas.waitAudit;
-              // console.log(response.data.result);
-            }
-          })
-          .catch(function(error) {
-            console.log(error);
-            _this.$toast("网络异常错误...");
-          });
-      }
+    // 跳转商品详情页
+    JumpPageDetails(productId) {
+      var goodsId = productId;
+      this.$router.push({
+        path: "/ping",
+        name: "PageDetails",
+        query: {
+          goodsId: goodsId
+        },
+        params: {
+          data: this.value
+        }
+      });
     },
     JumpLove() {
       this.$router.push({
@@ -216,10 +232,10 @@ export default {
       });
     },
     JumpVip() {
-        this.$router.push({
-          path: "/ping",
-          name: "vip"
-        });
+      this.$router.push({
+        path: "/ping",
+        name: "vip"
+      });
     },
     JumpIndex() {
       this.$router.push({
@@ -233,88 +249,20 @@ export default {
         name: "user"
       });
     },
-    JumpCourse() {
-      this.$toast("此功能暂未上线");
-    },
-    JumpPutforwards() {
-      this.$router.push({
-        path: "/ping",
-        name: "putforwards"
-      });
-    },
-    JumpGoods() {
-      this.$router.push({
-        path: "/ping",
-        name: "viprecord",
-        params: {
-          data: 0
-        }
-      });
-    },
-    JumpExamine() {
-      this.$router.push({
-        path: "/ping",
-        name: "viprecord",
-        params: {
-          data: 1
-        }
-      });
-    },
-    JumpVIPProfit() {
-      this.$router.push({
-        path: "/ping",
-        name: "commissions",
-        params: {
-          data: 2
-        }
-      });
-    },
-    JumpCommissions() {
-      this.$router.push({
-        path: "/ping",
-        name: "commissions",
-        params: {
-          data: 0
-        }
-      });
-    },
-    JumpPutforward() {
-      this.$router.push({
-        path: "/ping",
-        name: "commissions",
-        params: {
-          data: 3
-        }
-      });
-    },
-
-    JumpFans() {
-      this.$router.push({
-        path: "/ping",
-        name: "fans"
-      });
-    },
-    JumpConsultation() {
-      this.$router.push({
-        path: "/ping",
-        name: "personalReferee",
-        params: {
-          refereId: this.refereId
-        }
-      });
-    },
-    JumpPersonal() {
-      this.$router.push({
-        path: "/ping",
-        name: "personalteach"
-      });
+    onRefresh() {
+      // 下拉刷新
+      setTimeout(() => {
+        this.$toast("刷新成功");
+        this.isLoading = false;
+      }, 500);
     }
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.searchfunction);
   }
 };
 </script>
 <style>
-@import "../../common/css/user.css";
-@import "../../common/css/fontface.css";
 body {
   background: #f1f1f1;
 }
@@ -326,5 +274,10 @@ body {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   font-size: 0.3rem;
+}
+.goods-imgurl {
+  width: 100%;
+  height: 100%;
+  margin: auto;
 }
 </style>

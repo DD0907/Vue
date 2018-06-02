@@ -5,20 +5,15 @@
               <!-- <span style="margin:20px;font-size:0.5rem;" @click="jumpPhone">绑定手机号</span> -->
           </div>
           <div style="text-align:center;">
-            <div v-if="userdata.headPic==''||userdata.headPic==null">
+            <div v-if="userdata.imageUrl==''||userdata.imageUrl==null">
                 <img src="../../assets/icon/icon_head.png" style="width:2.0rem;height:2.0rem;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
             </div>
              <div v-else>
                 <img :src="headurl" style="width:2.0rem;height:2.0rem;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
             </div>
             <div>
-                <span style="font-size:18px;">{{userdata.nickname}}</span>
-                <div>
-                  <van-tag plain style="color:#ffd600;font-size:12px;" v-if="userdata.vip=='false'||userdata.vip==false">拼团客</van-tag>
-                  <van-tag plain style="color:#ffd600;font-size:12px;" v-else>超级会员</van-tag>
-                </div>
+                <span style="font-size:18px;">{{userdata.nickName}}</span>
                 <div>我的ID:{{id}}</div>
-                <div>我的粉丝：{{userdata.invitationNum}}</div>
             </div>
           </div>
           <div style="height:10px;"></div>
@@ -32,7 +27,7 @@
         <section>
             <div>
                 <van-cell-group>
-                 <a href="http://mobile.yangkeduo.com/orders.html?type=0&refer_page_name=personal&refer_page_sn=10001"> <van-cell title="我的拼多多订单" icon="e605" is-link style="color:red;"/></a>
+                 <van-cell title="我的订单" icon="e609" is-link style="color:red;"/>
                 </van-cell-group>
                 <section style="height:5px;">&nbsp;</section>
                 <van-cell-group>
@@ -41,10 +36,7 @@
                    <van-cell title="专属推广海报"  icon="e60a" @click="jumpPosterUrl" is-link style="color:red;"/>
                 </van-cell-group>
                 <section style="height:5px;">&nbsp;</section>
-                <van-cell-group>
-                  <van-cell title="升级超级会员"  icon="e607" @click="jumpUpgradeVip" is-link style="color:red;"/>
-                   <van-cell title="官方客服"  icon="e604" @click="jumpTeam" is-link style="color:red;"/>
-                </van-cell-group>
+
             </div>
         </section>
         <section style="height:50px;">&nbsp;</section>
@@ -91,14 +83,12 @@
   </div>
 </template>
 <script>
-import qs from "qs";
-
 export default {
   data() {
     return {
-      id: "",
+      id: "337466",
       isVip: false,
-      url: "http://ptk.baolinzhe.com/ptk/api/",
+      url: "http://shg.blpev.cn:8080/shg-api/api/",
       userdata: {},
       headurl: "",
       refereId: "",
@@ -108,11 +98,6 @@ export default {
   },
   mounted() {
     // if (this.isWeiXin()) {
-    var dataJson = JSON.parse(
-      decodeURIComponent(this.cookies.getCookie("userData"))
-    );
-    this.id = dataJson.id;
-    this.isVip = dataJson.vip;
     this.getUserData();
     // } else {
     //   this.$router.push({
@@ -138,14 +123,13 @@ export default {
       if (_this.id == "") {
         _this.$toast("当前您还未登录哦");
       } else {
-        let page = 1;
         // 此处使用node做了代理
         this.$axios
-          .post(_this.url + "/v1/user/" + _this.id)
+          .get(_this.url + "/user/" + _this.id)
           .then(function(response) {
             // 将得到的数据放到vue中的data
             _this.userdata = response.data.result;
-            _this.headurl = _this.userdata.headPic;
+            _this.headurl = _this.userdata.imageUrl;
             _this.refereId = _this.userdata.refereId;
             _this.posterUrl = _this.userdata.posterUrl;
           })
@@ -187,38 +171,6 @@ export default {
           refereId: this.refereId
         }
       });
-    },
-    jumpUpgradeVip() {
-      // 缓存指针
-      let _this = this;
-      if (_this.id == "") {
-        _this.$toast("当前您还未登录哦");
-      } else {
-        let page = 1;
-        // 此处使用node做了代理
-        this.$axios
-          .post(_this.url + "/v1/user/" + _this.id + "/upgrade")
-          .then(function(response) {
-            // 将得到的数据放到vue中的data
-            if (response.data.code == 1) {
-              _this.$toast(response.data.message);
-              _this.getUserData();
-            } else {
-              if (_this.isVip == false) {
-                _this.$router.push({
-                  path: "/ping",
-                  name: "vipnotice"
-                });
-              } else {
-                _this.$toast("您已经是会员了哦");
-              }
-            }
-          })
-          .catch(function(error) {
-            console.log(error);
-            _this.$toast("网络异常错误...");
-          });
-      }
     },
     jumpFans() {
       this.$router.push({

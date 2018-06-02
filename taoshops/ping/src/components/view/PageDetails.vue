@@ -97,8 +97,8 @@
             <div>取消收藏</div>
           </div>
         </van-goods-action-mini-btn>
-        <van-goods-action-big-btn text="领取优惠券" @click="OnclickCoupon"/>
-        <van-goods-action-big-btn text="立即购买" primary />
+        <van-goods-action-big-btn text="分享优惠券" @click="OnclickShare" />
+        <van-goods-action-big-btn text="立即购买" primary @click="OnclickBuy"/>
       </van-goods-action>
     </div>
 
@@ -115,17 +115,35 @@
         v-clipboard:success="onCopy"
         v-clipboard:error="onError"/>
       </div>
-      <div style="text-align:center;">点击图片复制淘口令,打开手机淘宝,领取优惠券</div>
+      <div style="text-align:center;">点击图片复制淘口令,打开手机淘宝,领取优惠券,购买更省钱哦</div>
+    </van-dialog>
+
+     <van-dialog v-model="shareshow" :show-confirm-button="false" :close-on-click-overlay="true" style="width:75%;background:#f1f1f1" :lock-scroll="false">
+       <div class="banner-box" style="text-align:center;">
+          <img src="../../assets/icon/icon_bg.png" style="width:100%;height:100%;display:none;" id="bg" crossorigin="Anonymous"/>
+          <img :src="shopimgurl" style="width:100%;height:100%;display:none" id="img1" crossorigin="Anonymous"/>
+          <canvas id="qrccode-canvas"  style="display:none;"></canvas>
+          <img :src="imgSrcs" style="width:100%;height:100%;display:none" id="img2" crossorigin="Anonymous"/>
+          <div style="margin-top:5px;"><img :src="scan" style="width:95%;height:95%;" id="scan" crossorigin="Anonymous"/></div>
+          <canvas id="myCanvas" style="width:100%;;height:100%;display:none;"></canvas>
+          <div>
+          <div style="font-size:0.3rem;">点击分享优惠券，生成二维码</div>
+          <van-button type="default" @click="createQrc" style="font-size:0.5rem;background:#FF8855;color:#FFFFFF">分享优惠券</van-button>
+          <section style="height:5px;"></section>
+          </div>
+        </div>
     </van-dialog>
   </div>
 </template>
 <script>
+var QRCode = require("qrcode");
 import addpost from "../../assets/icon/icons_addpost.png";
 import { Dialog } from "vant";
 export default {
   data() {
     return {
       url: "http://shg.blpev.cn:8080/shg-api/api/",
+      userId: 337466,
       goodsId: "",
       articles: {},
       images: {},
@@ -133,12 +151,17 @@ export default {
       code: 0,
       helpshow: false,
       postshow: false,
+      shareshow: false,
       hasCollect: false,
       couponUrl: "",
       shopName: "",
       shopimgurl: "",
       transferchainUrl: "",
-      taobaoNumber: ""
+      taobaoNumber: "",
+      imgSrcs: "",
+      scan: "",
+      prices: "",
+      scanUrl: ""
     };
   },
   mounted() {
@@ -147,7 +170,13 @@ export default {
     this.goodsId = decodeURI(keyword.substring(i + 3, keyword.length));
     this.getPageDetails();
     this.getPageDetailsImage();
-    // this.CheckCollect();
+    this.getConvertUrl();
+    this.$nextTick(function() {
+      // DOM操作
+      this.canvas = document.getElementById("qrccode-canvas");
+      this.c = document.getElementById("myCanvas");
+    });
+    this.createQrc();
   },
   methods: {
     getPageDetails() {
@@ -162,16 +191,15 @@ export default {
           _this.shopName = response.data.result.title;
           _this.couponUrl = response.data.result.couponUrl;
           _this.shopimgurl = response.data.result.mainPic;
-          // console.log(_this.shopName);
-          // console.log(_this.couponUrl);
+          _this.prices = response.data.result.price;
+          _this.getConvertUrl();
         })
         .catch(function(error) {
           console.log(error);
           _this.$toast("该商品已下架了");
         });
     },
-    //获取优惠券
-    OnclickCoupon() {
+    getConvertUrl() {
       let _this = this;
       this.$axios
         .post(
@@ -184,13 +212,106 @@ export default {
         .then(function(response) {
           if (response.data.code == 1) {
             _this.transferchainUrl = response.data.result;
-            _this.maketaobaocommand();
+            _this.makeShortUrl();
+            // console.log(_this.transferchainUrl);
           }
         })
         .catch(function(error) {
           console.log(error);
         });
     },
+    //立即购买
+    OnclickBuy() {
+      this.maketaobaocommand();
+    },
+    //分享优惠券
+    OnclickShare() {
+      this.$nextTick(function() {
+        // DOM操作
+        this.canvas = document.getElementById("qrccode-canvas");
+        this.c = document.getElementById("myCanvas");
+      });
+      this.createQrc();
+      this.shareshow = true;
+    },
+    //生成短链
+    makeShortUrl() {
+      let _this = this;
+      this.$axios
+        .get(_this.url + "/product/short-url?url=" + _this.transferchainUrl)
+        .then(function(response) {
+          if (response.data.code == 1) {
+            _this.scanUrl = response.data.result;
+            // console.log(response.data.result);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    //生成优惠券分享图片
+    createQrc: function() {
+      // console.log(this.scanUrl);
+      QRCode.toCanvas(this.canvas, this.scanUrl, error => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("success");
+          var canvas = document.getElementById("qrccode-canvas");
+          var imgSrc = canvas.toDataURL("image/png");
+          this.imgSrcs = imgSrc;
+          // console.log(this.imgSrcs);
+          var c = document.getElementById("myCanvas");
+          c.width = 600;
+          c.height = 900;
+          var ctx = c.getContext("2d");
+          var img = document.getElementById("img1");
+          var img2 = document.getElementById("img2");
+          var bg = document.getElementById("bg");
+          ctx.drawImage(bg, 0, 0, 600, 960);
+          ctx.drawImage(img, 10, 10, 580, 580);
+          ctx.drawImage(img2, 390, 660, 200, 200);
+          ctx.font = "normal normal normal 28px Arial";
+          ctx.lineWidth = 1;
+          var lineWidth = 0;
+          var canvasWidth = c.width; //计算canvas的宽度
+          var initHeight = 618; //绘制字体距离canvas顶部初始的高度
+          var lastSubStrIndex = 0; //每次开始截取的字符串的索引
+          for (let i = 0; i < this.shopName.length; i++) {
+            lineWidth += ctx.measureText(this.shopName[i]).width;
+            if (lineWidth > canvasWidth) {
+              ctx.fillText(
+                this.shopName.substring(lastSubStrIndex, i),
+                10,
+                initHeight
+              ); //绘制截取部分
+              initHeight += 30; //28为字体的高度
+              lineWidth = 0;
+              lastSubStrIndex = i;
+            }
+            if (i == this.shopName.length - 1) {
+              //绘制剩余部分
+              ctx.fillText(
+                this.shopName.substring(lastSubStrIndex, i + 1),
+                10,
+                initHeight + 10
+              );
+            }
+          }
+          ctx.fillStyle = "red";
+          ctx.fillText("￥" + this.prices + "元", 10, 700);
+          ctx.fillStyle = "#999";
+          ctx.fillText("长按图片发送给好友,", 10, 740);
+          ctx.fillText("或保存到手机相册,", 10, 780);
+          ctx.fillText("打开手机淘宝扫一扫,", 10, 820);
+          ctx.fillText("识别二维码,领取优惠券", 10, 860);
+          c.crossOrigin = "Anonymous";
+          var myCanva = c.toDataURL("image/png");
+          this.scan = myCanva;
+        }
+      });
+    },
+    //生成淘宝口令
     maketaobaocommand() {
       let _this = this;
       this.$axios
@@ -207,15 +328,15 @@ export default {
           if (response.data.code == 1) {
             _this.postshow = true;
             _this.taobaoNumber = response.data.result;
-            console.log(response.data.result);
           }
         })
         .catch(function(error) {
           console.log(error);
         });
     },
+    //复制淘口令
     onCopy: function(e) {
-      this.$toast("已复制成功:" + e.text);
+      this.$toast("您已成功复制了淘口令");
     },
     onError: function(e) {
       this.$toast("复制失败了哦");
@@ -250,45 +371,16 @@ export default {
         this.$axios
           .post(
             _this.url +
-              "/v1/product/collect?userId=" +
+              "/product/collect?userId=" +
               _this.userId +
               "&productId=" +
               _this.goodsId
           )
           .then(function(response) {
             if (response.data.code == 1) {
+              _this.hasCollect = true;
               _this.getPageDetails();
-              _this.CheckCollect();
               _this.$toast(response.data.message);
-            }
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-      }
-    },
-    CheckCollect() {
-      // 缓存指针
-      let _this = this;
-      if (_this.userId == "") {
-        this.$toast("暂未登录哦");
-      } else {
-        // console.log(_this.userId);
-        //console.log(_this.goodsId);
-        // 此处使用node做了代理
-        this.$axios
-          .get(
-            _this.url +
-              "/v1/product/" +
-              _this.goodsId +
-              "?userId=" +
-              _this.userId
-          )
-          .then(function(response) {
-            if (response.data.code == 1) {
-              //console.log(response.data.message);
-              //_this.$toast(response.data.result.hasCollect);
-              _this.hasCollect = response.data.result.hasCollect;
             }
           })
           .catch(function(error) {
@@ -306,7 +398,7 @@ export default {
         this.$axios
           .post(
             _this.url +
-              "/v1/product/uncollect?userId=" +
+              "/product/uncollect?userId=" +
               _this.userId +
               "&productIds=" +
               productIds
@@ -314,9 +406,8 @@ export default {
           .then(function(response) {
             if ((response.data.code = 1)) {
               _this.$toast(response.data.message);
-              //console.log(response.data.message);
+              _this.hasCollect = false;
               _this.getPageDetails();
-              _this.CheckCollect();
             }
           })
           .catch(function(error) {

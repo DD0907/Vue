@@ -14,54 +14,35 @@
           <div v-else>
           <van-list>
               <section v-for="(r, key) in articles" :key="key" track-ty='key'>
-                <div v-if="r.exists">
-                  <van-card :thumb="r.goodsThumbnailUrl" class="goods-imgurl">
+                <div>
+                  <van-card>
+                      <div slot="thumb">
+                        <img :src="r.mainPic" class="goods-imgurl"/>
+                      </div>
                       <div slot="title">
-                        <span style="font-size:12px;" @click="JumpPageDetails(r.goodsId)">{{r.goodsName}}</span>
+                        <span style="font-size:12px;" @click="JumpPageDetails(r.productId)">
+                          <van-tag type="danger">{{r.source}}</van-tag>{{r.title}}</span>
                       </div>
                       <div slot="desc">
-                        <span style="color:#999;font-size:10px;">已拼{{r.salesNum}}件&nbsp;&nbsp;&nbsp;
-                          <van-tag plain v-if="isVips" style="color: #fa2509;font-size:8px;">约赚:{{r.integral}} 佣金币</van-tag>
+                        <span style="color:#999;font-size:10px;">已售{{r.salesNum}}件&nbsp;&nbsp;&nbsp;
+                          <van-tag plain  style="color: #fa2509;font-size:8px;">约赚:{{r.integral}} 佣金币</van-tag>
                         </span>
                       </div>
                        <div slot="tags" style="text-align:left;">
-                              <span style="font-size:16px;color:red">￥{{r.groupCouponAfterPrice}}</span>
-                              <span style="font-size:12px;text-decoration:line-through;color:#999">￥{{r.minGroupPrice}}</span>
+                              <span style="font-size:16px;color:red">￥{{r.price}}</span>
+                              <span style="font-size:12px;text-decoration:line-through;color:#999">￥{{r.originPrice}}</span>
                               <van-tag type="danger">优惠券{{r.couponPrice}}元</van-tag>
                       </div>
                       <div slot="footer" style="text-align:right;">
-                        <section style="text-align:center;" @click="JumpDelCollect(r.goodsId)">
+                        <section style="text-align:center;" @click="JumpDelCollect(r.productId)">
                         <img src="../../assets/icon/icon_del.png" style="width:0.4rem;"/>
                         <span style="font-size:14px;color:#999">删除</span>
                         </section>
                       </div>
                   </van-card>
                   </div>
-                  <div v-else>
-                    <van-card :thumb="noshopPic" class="goods-imgurl">
-                      <div slot="title">
-                        <span style="font-size:12px;color:#999;text-decoration:line-through;">{{r.goodsName}}</span>
-                      </div>
-                      <div slot="desc">
-                        <span style="color:#999;font-size:10px;"></span>
-                      </div>
-                      <div slot="tags" style="text-align:left;">
-                              <span>&nbsp;</span>
-                          </div>
-                          <div slot="tags" style="text-align:left;">
-                              <span style="font-size:10px;">
-                                <p>&nbsp;</p>
-                                </span>
-                          </div>
-                          <div slot="footer" style="text-align:right;">
-                              <section style="text-align:center;" @click="JumpDelCollect(r.goodsId)">
-                              <img src="../../assets/icon/icon_del.png" style="width:0.4rem;"/>
-                              <span style="font-size:14px;color:#999">删除</span>
-                              </section>
-                          </div>
-                  </van-card>
-                  </div>
-                  <section style="height:2px;"></section>
+                  
+                  <section style="height:10px;"></section>
               </section>
               <div style="text-align:center;font-size:14px;background:#f1f1f1;">
                 <div style="text-align:center;"><div>&nbsp;{{messages}}</div></div>                        
@@ -115,9 +96,8 @@ export default {
   data() {
     return {
       isLoading: false,
-      isVips: false,
-      url: "http://ptk.baolinzhe.com/ptk/api/",
-      userId: "",
+      url: "http://shg.blpev.cn:8080/shg-api/api/",
+      userId: 337466,
       nitice: "如未发现新收藏的商品,请下拉刷新即可",
       notice_icon: notice,
       articles: {},
@@ -129,11 +109,6 @@ export default {
   },
   mounted() {
     // if (this.isWeiXin()) {
-    var dataJson = JSON.parse(
-      decodeURIComponent(this.cookies.getCookie("userData"))
-    );
-    this.userId = dataJson.id;
-    this.isVips = dataJson.vip;
     this.getCollectdata();
     // } else {
     //   this.$router.push({
@@ -161,17 +136,11 @@ export default {
         this.count++;
       }, 500);
     },
-    JumpShare() {
+    JumpVip() {
       this.$router.push({
         path: "/ping",
-        name: "share"
+        name: "vip"
       });
-    },
-    JumpVip() {
-        this.$router.push({
-          path: "/ping",
-          name: "vip"
-        });
     },
     JumpIndex() {
       this.$router.push({
@@ -182,8 +151,7 @@ export default {
     JumpUser() {
       this.$router.push({
         path: "/ping",
-        name: "user",
-        query: { isVip: this.isVips }
+        name: "user"
       });
     },
     getCollectdata() {
@@ -198,16 +166,17 @@ export default {
         this.$axios
           .post(
             _this.url +
-              "/v1/product/my_collect?userId=" +
+              "/product/my_collect?userId=" +
               _this.userId +
               "&page=" +
-              page++
+              page
           )
           .then(function(response) {
             // 将得到的数据放到vue中的data
             _this.articles = response.data.result;
             var lengths = response.data.result.length;
             _this.rowlength = lengths;
+            page += 1;
             if (lengths == 10) {
               _this.messages = "我已经到底了";
             }
@@ -239,7 +208,7 @@ export default {
               _this.$axios
                 .post(
                   _this.url +
-                    "/v1/product/my_collect?userId=" +
+                    "/product/my_collect?userId=" +
                     _this.userId +
                     "&page=" +
                     page++
@@ -282,15 +251,16 @@ export default {
           this.$axios
             .post(
               _this.url +
-                "/v1/product/uncollect?userId=" +
+                "/product/uncollect?userId=" +
                 _this.userId +
                 "&productIds=" +
                 productIds
             )
             .then(function(response) {
               if (response.data.code == 1) {
-                console.log(response.data.message);
                 _this.getCollectdata();
+                _this.$toast(response.data.message)
+                console.log(response.data.message)
               }
             })
             .catch(function(error) {
@@ -307,10 +277,7 @@ export default {
       this.$router.push({
         path: "/ping",
         name: "PageDetails",
-        query: { goodsId: goodsId },
-        params: {
-          isVip: this.isVips
-        }
+        query: { goodsId: goodsId }
       });
     }
   }

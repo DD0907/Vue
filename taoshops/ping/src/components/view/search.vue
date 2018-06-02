@@ -42,7 +42,7 @@
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.price}}</span>
                                                 <span v-if="r.couponPrice!=0" class="goods-express">&nbsp;原价:￥{{r.originPrice}}</span>
-                                                <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
+                                                <span class="salenumber_style">已售{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
                                         </van-col>
@@ -65,7 +65,7 @@
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.price}}</span>
                                               <span v-if="r.couponPrice!=0" class="goods-express">&nbsp;原价:￥{{r.originPrice}}</span>
-                                              <span class="salenumber_style">已拼{{r.salesNum}}件</span>
+                                              <span class="salenumber_style">已售{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
                                         </van-col>
@@ -99,7 +99,8 @@
                                         <van-col span="12" class="img_border" >
                                           <van-cell-group>
                                             <img :src="r.mainPic" class="goods-imgurl">
-                                              <div class="good_name" style="height:0.8rem;">{{r.title}}</div>
+                                              <div class="good_name" style="height:0.8rem;">
+                                                <van-tag type="danger">{{r.source}}</van-tag>{{r.title}}</div>
                                               <div>
                                                 <span>
                                                  <van-tag type="danger" v-if="r.couponPrice!=0">{{r.couponPrice}}元优惠券</van-tag>
@@ -111,7 +112,7 @@
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.price}}</span>
                                                 <span v-if="r.couponPrice!=0" class="goods-express">&nbsp;原价:￥{{r.originPrice}}</span>
-                                                <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
+                                                <span class="salenumber_style">已售{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
                                         </van-col>
@@ -121,7 +122,8 @@
                                         <van-col span="12" class="img_border" >
                                          <van-cell-group>
                                             <img :src="r.mainPic" class="goods-imgurl">
-                                              <div class="good_name" style="height:0.8rem;">{{r.title}}</div>
+                                              <div class="good_name" style="height:0.8rem;">
+                                                <van-tag type="danger">{{r.source}}</van-tag>{{r.title}}</div>
                                               <div>
                                                 <span>
                                                  <van-tag type="danger" v-if="r.couponPrice!=0">{{r.couponPrice}}元优惠券</van-tag>
@@ -133,7 +135,7 @@
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.price}}</span>
                                               <span v-if="r.couponPrice!=0" class="goods-express">&nbsp;原价:￥{{r.originPrice}}</span>
-                                              <span class="salenumber_style">已拼{{r.salesNum}}件</span>
+                                              <span class="salenumber_style">已售{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
                                         </van-col>
@@ -167,7 +169,8 @@
                                         <van-col span="12" class="img_border" >
                                           <van-cell-group>
                                             <img :src="r.mainPic" class="goods-imgurl">
-                                              <div class="good_name" style="height:0.8rem;">{{r.title}}</div>
+                                              <div class="good_name" style="height:0.8rem;">
+                                                <van-tag type="danger">{{r.source}}</van-tag>{{r.title}}</div>
                                               <div>
                                                 <span>
                                                  <van-tag type="danger" v-if="r.couponPrice!=0">{{r.couponPrice}}元优惠券</van-tag>
@@ -179,7 +182,7 @@
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.price}}</span>
                                                 <span v-if="r.couponPrice!=0" class="goods-express">&nbsp;原价:￥{{r.originPrice}}</span>
-                                                <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
+                                                <span class="salenumber_style">已售{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
                                         </van-col>
@@ -189,7 +192,8 @@
                                         <van-col span="12" class="img_border" >
                                          <van-cell-group>
                                             <img :src="r.mainPic" class="goods-imgurl">
-                                              <div class="good_name" style="height:0.8rem;">{{r.title}}</div>
+                                              <div class="good_name" style="height:0.8rem;">
+                                                <van-tag type="danger">{{r.source}}</van-tag>{{r.title}}</div>
                                               <div>
                                                 <span>
                                                  <van-tag type="danger" v-if="r.couponPrice!=0">{{r.couponPrice}}元优惠券</van-tag>
@@ -201,7 +205,7 @@
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.price}}</span>
                                               <span v-if="r.couponPrice!=0" class="goods-express">&nbsp;原价:￥{{r.originPrice}}</span>
-                                              <span class="salenumber_style">已拼{{r.salesNum}}件</span>
+                                              <span class="salenumber_style">已售{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
                                         </van-col>
@@ -236,7 +240,8 @@
                                         <van-col span="12" class="img_border" >
                                           <van-cell-group>
                                             <img :src="r.mainPic" class="goods-imgurl">
-                                              <div class="good_name" style="height:0.8rem;">{{r.title}}</div>
+                                              <div class="good_name" style="height:0.8rem;">
+                                                <van-tag type="danger">{{r.source}}</van-tag>{{r.title}}</div>
                                               <div>
                                                 <span>
                                                  <van-tag v-if="r.couponPrice!=0" type="danger">{{r.couponPrice}}元优惠券</van-tag>
@@ -248,7 +253,7 @@
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.price}}</span>
                                                 <span v-if="r.couponPrice!=0" class="goods-express">&nbsp;原价:￥{{r.originPrice}}</span>
-                                                <span class="salenumber_style">已拼{{r.salesNum}}件</span>                       
+                                                <span class="salenumber_style">已售{{r.salesNum}}件</span>                       
                                               </div>
                                           </van-cell-group>
                                         </van-col>
@@ -258,7 +263,8 @@
                                         <van-col span="12" class="img_border" >
                                          <van-cell-group>
                                             <img :src="r.mainPic" class="goods-imgurl">
-                                              <div class="good_name" style="height:0.8rem;">{{r.title}}</div>
+                                              <div class="good_name" style="height:0.8rem;">
+                                                <van-tag type="danger">{{r.source}}</van-tag>{{r.title}}</div>
                                               <div>
                                                 <span>
                                                  <van-tag type="danger" v-if="r.couponPrice!=0">{{r.couponPrice}}元优惠券</van-tag>
@@ -270,7 +276,7 @@
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.price}}</span>
                                               <span v-if="r.couponPrice!=0" class="goods-express">&nbsp;原价:￥{{r.originPrice}}</span>
-                                              <span class="salenumber_style">已拼{{r.salesNum}}件</span>
+                                              <span class="salenumber_style">已售{{r.salesNum}}件</span>
                                               </div>
                                           </van-cell-group>                                    
                                         </van-col>
@@ -287,7 +293,7 @@
         </div>
     </van-tabs>
     </section>
-        <div class="bottom_nav5"><van-icon name="e752" @click="back_top" style="font-size:36px;color:red;"/></div> 
+        <div class="bottom_nav6"><van-icon name="e752" @click="back_top" style="font-size:36px;color:red;"/></div> 
 </div>
 </template>
 <script>

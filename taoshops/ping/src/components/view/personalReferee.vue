@@ -5,19 +5,14 @@
               <!-- <span style="margin:20px;font-size:0.5rem;" @click="jumpPhone">绑定手机号</span> -->
           </div>
           <div style="text-align:center;">
-            <div v-if="userdata.headPic==''||userdata.headPic==null">
+            <div v-if="userdata.imageUrl==''||userdata.imageUrl==null">
                 <img src="../../assets/icon/icon_head.png" style="width:2.0rem;height:2.0rem;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
             </div>
              <div v-else>
                 <img :src="headurl" style="width:2.0rem;height:2.0rem;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;"/>
             </div>
             <div>
-                <span style="font-size:18px;">{{userdata.nickname}}</span>
-               <div>
-                  <van-tag plain style="color:#ffd600;font-size:12px;" v-if="userdata.vip==false">拼团客</van-tag>
-                  <van-tag plain style="color:#ffd600;font-size:12px;" v-else>超级会员</van-tag>
-                </div>
-                <div>我的粉丝：{{userdata.invitationNum}}</div>
+                <span style="font-size:18px;">{{userdata.nickName}}</span>
             </div>
           </div>
       </section>
@@ -150,7 +145,7 @@ export default {
   data() {
     return {
       id: "",
-      url: "http://ptk.baolinzhe.com/ptk/api/",
+      url: "http://shg.blpev.cn:8080/shg-api/api/",
       phone: "",
       weixinnumber: "",
       refereId: "",
@@ -164,11 +159,7 @@ export default {
     };
   },
   mounted() {
-    var dataJson = JSON.parse(
-      decodeURIComponent(this.cookies.getCookie("userData"))
-    );
-    this.id = dataJson.id;
-    this.refereId = dataJson.refereId;
+    this.getParams();
     this.getUserData();
   },
   methods: {
@@ -187,7 +178,6 @@ export default {
       var refereId = this.$route.params.refereId;
       // 将数据放在当前组件的数据内
       this.refereId = refereId;
-      // console.log(this.refereId);
     },
     JumpScanShowScan() {
       this.sacnshow = true;
@@ -198,40 +188,20 @@ export default {
     getUserData() {
       // 缓存指针
       let _this = this;
-      if (_this.id == "") {
-        _this.$toast("当前您还未登录哦");
-      } else {
         // 此处使用node做了代理
-        var time = new Date();
-        var times = Date.parse(time);
-        _this.times = times;
-        // alert(_this.times)
         this.$axios
-          .get(
-            _this.url +
-              "/v1/user/" +
-              _this.id +
-              "/superior?refereId=" +
-              _this.refereId
-          )
+          .get(_this.url + "/user/" + _this.refereId)
           .then(function(response) {
             // 将得到的数据放到vue中的data
             _this.userdata = response.data.result;
-            _this.headurl = _this.userdata.headPic;
+            _this.headurl = _this.userdata.imageUrl;
             _this.phone = _this.userdata.phone;
-            _this.weixinnumber = _this.userdata.wxId;
-            _this.wxMoneyQrcode =
-              _this.userdata.wxMoneyQrcode + "?times=" + _this.times;
-            _this.wxQrcode = _this.userdata.wxQrcode + "?time=" + _this.times;
-            // console.log(_this.userdata);
-            // console.log(_this.wxMoneyQrcode);
           })
           .catch(function(error) {
             console.log(error);
             _this.$toast("网络异常错误...");
           });
       }
-    }
   },
   watch: {
     // 监测路由变化,只要变化了就调用获取路由参数方法将数据存储本组件即可
