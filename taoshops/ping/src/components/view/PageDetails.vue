@@ -1,6 +1,6 @@
 <template>
   <div>
-     <!--轮播图片-->
+    <!--轮播图片-->
     <div>
       <van-swipe class="goods-swipe" :autoplay="4000" v-if="code==1">
         <van-swipe-item v-for="(img, index) in images" :key="index">
