@@ -23,7 +23,7 @@
                                             <span>
                                                 <van-tag type="danger" v-if="r.couponPrice!=0">{{r.couponPrice}}元优惠券</van-tag>
                                             </span>
-                                            <van-tag plain class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                            <van-tag plain class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                         </div>
                                         <div style="height:0.8rem">
                                         <span class="price_style">￥{{r.price}}</span>
@@ -44,7 +44,7 @@
                                                 <span>
                                                  <van-tag type="danger" v-if="r.couponPrice!=0">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.price}}</span>
@@ -63,6 +63,7 @@
             </div>
         </van-pull-refresh> 
     </section>
+    <div class="bottom_nav5"><img src="./../assets/image/icon_top.png" @click="back_top" style="width:1.2rem;"/></div> 
 </div>
 </template>
 <script>
@@ -77,13 +78,27 @@ export default {
       rowlength: 0,
       page: 1,
       pageRows: 10,
-      messages:''
+      messages: "",
+      pid: "",
+      taobaoId: ""
     };
   },
   mounted() {
+    var keyword = window.location.href;
+    var i = keyword.indexOf("pid=");
+    this.pid = decodeURI(
+      keyword.substring(i + 4, keyword.lastIndexOf("&taobaoId"))
+    );
+    // alert(this.pid);
+    var taobaoid = keyword.indexOf("&taobaoId=");
+    this.taobaoId = decodeURI(keyword.substring(taobaoid + 10), keyword.length);
+    // alert(this.taobaoId);
     this.gettaodata();
   },
   methods: {
+    back_top() {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+    },
     gettaodata() {
       // 缓存指针
       let _this = this;
@@ -111,56 +126,56 @@ export default {
       // 注册scroll事件并监听
       window.addEventListener("scroll", this.taofuncation);
     },
-    taofuncation(){
-       // 缓存指针
+    taofuncation() {
+      // 缓存指针
       let _this = this;
       // 设置一个开关来避免重负请求数据
       let sw = true;
-        var a =
-          window.innerHeight ||
-          document.documentElement.clientHeight ||
-          document.body.clientHeight;
-        var b =
-          document.documentElement.scrollTop == 0
-            ? document.body.scrollTop
-            : document.documentElement.scrollTop;
-        var c =
-          document.documentElement.scrollTop == 0
-            ? document.body.scrollHeight
-            : document.documentElement.scrollHeight;
-        if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
-          //如果开关打开则加载数据
-          if (sw == true) {
-            // 将开关关闭
-            sw = false;
-            _this.$axios
-              .get(
-                _this.url +
-                  "/other/list?page=" +
-                  _this.page++ +
-                  "&pageRows=" +
-                  _this.pageRows +
-                  "&sortType=time&activityType=1"
-              )
-              .then(function(response) {
-                // 将新获取的数据push到vue中的data，就会反应到视图中了
-                var lengths = response.data.result.length;
-                for (var i = 0; i < lengths; i++) {
-                  _this.articles.push(response.data.result[i]);
-                }
-                // 数据更新完毕，将开关打开
-                console.log(222);
-                sw = true;
-              })
-              .catch(function(error) {
-                console.log(error);
-                _this.$toast("网络异常错误...");
-              });
-          }
-          if (sw == false) {
-            _this.messages = "正在加载中...";
-          }
+      var a =
+        window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight;
+      var b =
+        document.documentElement.scrollTop == 0
+          ? document.body.scrollTop
+          : document.documentElement.scrollTop;
+      var c =
+        document.documentElement.scrollTop == 0
+          ? document.body.scrollHeight
+          : document.documentElement.scrollHeight;
+      if (a + Math.floor(b) == c || a + Math.ceil(b) == c) {
+        //如果开关打开则加载数据
+        if (sw == true) {
+          // 将开关关闭
+          sw = false;
+          _this.$axios
+            .get(
+              _this.url +
+                "/other/list?page=" +
+                _this.page++ +
+                "&pageRows=" +
+                _this.pageRows +
+                "&sortType=time&activityType=1"
+            )
+            .then(function(response) {
+              // 将新获取的数据push到vue中的data，就会反应到视图中了
+              var lengths = response.data.result.length;
+              for (var i = 0; i < lengths; i++) {
+                _this.articles.push(response.data.result[i]);
+              }
+              // 数据更新完毕，将开关打开
+              console.log(222);
+              sw = true;
+            })
+            .catch(function(error) {
+              console.log(error);
+              _this.$toast("网络异常错误...");
+            });
         }
+        if (sw == false) {
+          _this.messages = "正在加载中...";
+        }
+      }
     },
     onRefresh() {
       // 下拉刷新
@@ -178,21 +193,54 @@ export default {
         name: "shopDetails",
         query: {
           goodsId: goodsId,
-          pid:12345667,
-          keyword:''
+          pid: this.pid,
+          taobaoId:this.taobaoId
         }
       });
     }
   },
-  destroyed(){
-     window.removeEventListener("scroll", this.taofuncation);
-  },
+  destroyed() {
+    window.removeEventListener("scroll", this.taofuncation);
+  }
 };
 </script>
 <style>
 .goods-imgurl {
-    width: 100%;
-    height: 100%;
-    margin: auto;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+.bottom_nav5 {
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  text-align: center;
+}
+
+.img_border {
+  border: 0.05rem solid #f1f1f1;
+}
+
+.intergral_style {
+  color: #fa2509;
+  font-size: 0.3rem;
+}
+
+.price_style {
+  color: red;
+  font-size: 0.5rem;
+}
+
+.goods-express {
+  color: #999;
+  font-size: 0.3rem;
+}
+
+.salenumber_style {
+  color: #999;
+  font-size: 0.2rem;
 }
 </style>

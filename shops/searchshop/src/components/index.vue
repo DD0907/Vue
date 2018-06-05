@@ -51,7 +51,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}}元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.price}}</span>
@@ -73,7 +73,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.price}}</span>
@@ -123,7 +123,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.price}}</span>
@@ -145,7 +145,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.price}}</span>
@@ -195,7 +195,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.price}}</span>
@@ -217,7 +217,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.price}}</span>
@@ -267,7 +267,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.price}}</span>
@@ -289,7 +289,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.price}}</span>
@@ -339,7 +339,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.price}}</span>
@@ -361,7 +361,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.price}}</span>
@@ -411,7 +411,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.price}}</span>
@@ -433,7 +433,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.price}}</span>
@@ -483,7 +483,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.price}}</span>
@@ -505,7 +505,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.price}}</span>
@@ -555,7 +555,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.price}}</span>
@@ -577,7 +577,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.price}}</span>
@@ -627,7 +627,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.price}}</span>
@@ -649,7 +649,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.price}}</span>
@@ -699,7 +699,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.price}}</span>
@@ -721,7 +721,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.price}}</span>
@@ -771,7 +771,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                                 <span class="price_style">￥{{r.price}}</span>
@@ -793,7 +793,7 @@
                                                 <span>
                                                  <van-tag type="danger">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.price}}</span>
@@ -816,6 +816,7 @@
                 </div>
             </van-tab>
        </van-tabs>
+           <div class="bottom_nav5"><img src="./../assets/image/icon_top.png" @click="back_top" style="width:1.2rem;"/></div> 
     </div> 
   </div>
 </template>
@@ -844,19 +845,35 @@ export default {
       xiebaodata: {},
       rowlength: 0,
       pageSize: 10,
-      keyword: ""
+      keyword: "",
+      pid: "mm_120568136_40334848_159640595",
+      taobaoId:'taobao123456'
     };
   },
   mounted() {
+    var keywords = window.location.href;
+    this.pid = keywords.substring(
+      keywords.indexOf("?pid=") + 5,
+      keywords.lastIndexOf("&keyword")
+    );
+    var i = keywords.indexOf("&keyword=");
+    this.keyword = decodeURI(keywords.substring(i + 9,  keywords.lastIndexOf("&taobaoId")));
+// alert(this.keyword)
+    var taobaoid=keywords.indexOf("&taobaoId=");
+    this.taobaoId=decodeURI(keywords.substring(taobaoid+10),keywords.length);
+// alert(this.taobaoId)
     this.getbannerdata();
-    this.getjingxuandata();
-    // if (this.keyword != null || this.keyword != "") {
-    //   this.JumpSearch();
-    // } else {
-    //   this.getjingxuandata();
-    // }
+    if (this.keyword != null || this.keyword != "") {
+      this.JumpSearch();
+      this.getjingxuandata();
+    } else {
+      this.getjingxuandata();
+    }
   },
   methods: {
+    back_top() {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+    },
     onRefresh() {
       // 下拉刷新
       setTimeout(() => {
@@ -884,7 +901,9 @@ export default {
               path: "/searchshop",
               name: "search",
               query: {
-                keyword: this.keyword
+                pid: this.pid,
+                keyword: this.keyword,
+                taobaoId:this.taobaoId
               }
             });
           } else {
@@ -912,30 +931,50 @@ export default {
     JumpShopIndex(url) {
       var urls = url.substring(39);
       if (urls == "/brand") {
-        this.$toast("brand");
+        // this.$toast("brand");
         this.$router.push({
           path: "/searchshop",
-          name: "Shopbrand"
+          name: "Shopbrand",
+          query: {
+            pid: this.pid,
+            taobaoId:this.taobaoId
+          }
         });
       } else if (urls == "/other/list?activityType=1") {
         this.$router.push({
           path: "/searchshop",
-          name: "Shoptao"
+          name: "Shoptao",
+          query: {
+            pid: this.pid,
+            taobaoId:this.taobaoId
+          }
         });
       } else if (urls == "/other/list?activityType=2") {
         this.$router.push({
           path: "/searchshop",
-          name: "ShopJuhuasuan"
+          name: "ShopJuhuasuan",
+          query: {
+            pid: this.pid,
+            taobaoId:this.taobaoId
+          }
         });
       } else if (urls == "/other/list?video=1") {
         this.$router.push({
           path: "/searchshop",
-          name: "Shopvideo"
+          name: "Shopvideo",
+          query: {
+            pid: this.pid,
+            taobaoId:this.taobaoId
+          }
         });
       } else if (urls == "/other/list?priceMin=9.9") {
         this.$router.push({
           path: "/searchshop",
-          name: "Shopbaoyou"
+          name: "Shopbaoyou",
+          query: {
+            pid: this.pid,
+            taobaoId:this.taobaoId
+          }
         });
       }
     },
@@ -947,8 +986,8 @@ export default {
         name: "shopDetails",
         query: {
           goodsId: goodsId,
-          pid: 12345667,
-          keyword: this.keyword
+          pid: this.pid,
+          taobaoId:this.taobaoId
         }
       });
     },
@@ -1834,7 +1873,6 @@ export default {
 };
 </script>
 <style>
-@import "./../assets/util/css/index.css";
 .good_name {
   text-overflow: -o-ellipsis-lastline;
   overflow: hidden;
@@ -1843,5 +1881,48 @@ export default {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   font-size: 0.3rem;
+}
+
+.bottom_nav5 {
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    position: fixed;
+    bottom: 40px;
+    right: 30px;
+    text-align: center;
+}
+body {
+    background: #f1f1f1;
+}
+
+.goods-imgurl {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+
+.img_border {
+    border: 0.05rem solid #f1f1f1;
+}
+
+.intergral_style {
+    color: #fa2509;
+    font-size: 0.3rem;
+}
+
+.price_style {
+    color: red;
+    font-size: 0.5rem;
+}
+
+.goods-express {
+    color: #999;
+    font-size: 0.3rem;
+}
+
+.salenumber_style {
+    color: #999;
+    font-size: 0.2rem;
 }
 </style>

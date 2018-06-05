@@ -1,9 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import index from '@/components/index'
-import search from '@/components/search'
-import shopDetails from '@/components/shopDetails'
-import Shopbrand from '@/components/Shopbrand'
 import Shoptao from '@/components/Shoptao'
 import ShopJuhuasuan from '@/components/ShopJuhuasuan'
 import Shopvideo from '@/components/Shopvideo'
@@ -15,19 +11,20 @@ import {
 Vue.use(Router)
 
 export default new Router({
-    mode: 'history',
+    // mode: 'history',
     routes: [{
             path: '/searchshop/index',
             name: 'index',
-            component: index,
+            component: resolve => require(['@/components/index'], resolve),
             meta: {
                 title: '首页',
                 keepAlive: true
             }
-        }, {
+        },
+        {
             path: '/',
             name: 'index',
-            component: index,
+            component: resolve => require(['@/components/index'], resolve),
             meta: {
                 title: '首页',
                 keepAlive: true
@@ -36,7 +33,7 @@ export default new Router({
         {
             path: '/searchshop/search',
             name: 'search',
-            component: search,
+            component: resolve => require(['@/components/search'], resolve),
             meta: {
                 title: '搜索',
                 keepAlive: true
@@ -45,14 +42,14 @@ export default new Router({
         {
             path: '/searchshop/shopDetails',
             name: 'shopDetails',
-            component: shopDetails,
+            component: resolve => require(['@/components/shopDetails'], resolve),
             meta: {
                 title: '商品详情',
             }
         }, {
             path: '/searchshop/Shopbrand',
             name: 'Shopbrand',
-            component: Shopbrand,
+            component: resolve => require(['@/components/Shopbrand'], resolve),
             meta: {
                 title: '品牌馆',
                 keepAlive: true

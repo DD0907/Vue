@@ -23,7 +23,7 @@
                                             <span>
                                                 <van-tag type="danger" v-if="r.couponPrice!=0">{{r.couponPrice}}元优惠券</van-tag>
                                             </span>
-                                            <van-tag plain class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                            <van-tag plain class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                         </div>
                                         <div style="height:0.8rem">
                                         <span class="price_style">￥{{r.price}}</span>
@@ -44,9 +44,7 @@
                                                 <span>
                                                  <van-tag type="danger" v-if="r.couponPrice!=0">{{r.couponPrice}}元优惠券</van-tag>
                                                 </span>
-                                               <!-- <van-tag class="intergral_style" plain v-if="r.hasQuanfan==true">云联全返</van-tag>
-                                                <van-tag class="intergral_style" plain v-else>约奖:{{r.integral}} 白积分</van-tag> -->
-                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                                <van-tag plain  class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                               </div>
                                               <div style="height:0.8rem">
                                               <span class="price_style">￥{{r.price}}</span>
@@ -65,6 +63,7 @@
             </div>
         </van-pull-refresh> 
     </section>
+    <div class="bottom_nav5"><img src="./../assets/image/icon_top.png" @click="back_top" style="width:1.2rem;"/></div> 
 </div>
 </template>
 <script>
@@ -79,13 +78,25 @@ export default {
       rowlength: 0,
       messages: "",
       page: 1,
-      pageRows: 10
+      pageRows: 10,
+      pid: "",
+      taobaoId:''
     };
   },
   mounted() {
+    var keyword = window.location.href;
+    var i = keyword.indexOf("pid=");
+    this.pid=decodeURI(keyword.substring(i + 4, keyword.lastIndexOf("&taobaoId")));
+    // alert(this.pid);
+    var taobaoid=keyword.indexOf("&taobaoId=");
+    this.taobaoId=decodeURI(keyword.substring(taobaoid+10),keyword.length);
+    // alert(this.taobaoId);
     this.getbaoyoudata();
   },
   methods: {
+    back_top() {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+    },
     getbaoyoudata() {
       // 缓存指针
       let _this = this;
@@ -176,21 +187,54 @@ export default {
         name: "shopDetails",
         query: {
           goodsId: goodsId,
-          pid:12345667,
-          keyword:''
+          pid: this.pid,
+          taobaoId:this.taobaoId
         }
       });
     }
   },
-  destroyed(){
-     window.removeEventListener("scroll", this.baoyoufunction);
+  destroyed() {
+    window.removeEventListener("scroll", this.baoyoufunction);
   }
 };
 </script>
 <style>
 .goods-imgurl {
-    width: 100%;
-    height: 100%;
-    margin: auto;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+.bottom_nav5 {
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    position: fixed;
+    bottom: 40px;
+    right: 30px;
+    text-align: center;
+}
+
+.img_border {
+  border: 0.05rem solid #f1f1f1;
+}
+
+.intergral_style {
+  color: #fa2509;
+  font-size: 0.3rem;
+}
+
+.price_style {
+  color: red;
+  font-size: 0.5rem;
+}
+
+.goods-express {
+  color: #999;
+  font-size: 0.3rem;
+}
+
+.salenumber_style {
+  color: #999;
+  font-size: 0.2rem;
 }
 </style>

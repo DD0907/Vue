@@ -30,7 +30,7 @@
                                 <span>
                                   <van-tag type="danger" v-if="r.couponPrice!=0">{{r.couponPrice}}元优惠券</van-tag>
                                 </span>
-                                  <van-tag plain class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                  <van-tag plain class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                               </div>
                               <div style="height:0.8rem">
                                 <span class="price_style">￥{{r.price}}</span>
@@ -50,7 +50,7 @@
                                         <span>
                                           <van-tag type="danger" v-if="r.couponPrice!=0">{{r.couponPrice}}元优惠券</van-tag>
                                         </span>
-                                        <van-tag plain  class="intergral_style" style="color: #fa2509;">约赚:{{r.integral}} 佣金币</van-tag>
+                                        <van-tag plain  class="intergral_style" style="color: #fa2509;">约奖:{{r.integral}} 元</van-tag>
                                       </div>
                                       <div style="height:0.8rem">
                                         <span class="price_style">￥{{r.price}}</span>
@@ -69,6 +69,7 @@
           </div>
       </van-pull-refresh>  
     </section>
+    <div class="bottom_nav5"><img src="./../assets/image/icon_top.png" @click="back_top" style="width:1.2rem;"/></div> 
     </section>
 </template>
 <script>
@@ -82,20 +83,39 @@ export default {
       articles: {},
       messages: "",
       page: 1,
-      pagesize: 10
+      pagesize: 10,
+      pid: "",
+      taobaoId: ""
     };
   },
   activated() {
     var keywords = window.location.href;
-    var i = keywords.indexOf("=");
-    this.keyWord = decodeURI(keywords.substring(i + 1, keywords.length));
+    // alert(keywords.indexOf("?pid="));
+    // alert(keywords.lastIndexOf("&keyword"));
+    this.pid = keywords.substring(
+      keywords.indexOf("?pid=") + 5,
+      keywords.lastIndexOf("&keyword")
+    );
+    // alert(this.pid)
+    var i = keywords.indexOf("&keyword=");
+    this.keyWord = decodeURI(
+      keywords.substring(i + 9, keywords.lastIndexOf("&taobaoId"))
+    );
+    // alert(this.keyWord)
+    var taobaoid = keywords.indexOf("&taobaoId=");
+    this.taobaoId = decodeURI(
+      keywords.substring(taobaoid + 10, keywords.length)
+    );
+    // alert(this.taobaoId)
     this.onSearch();
   },
   methods: {
+    back_top() {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+    },
     onSearch() {
       let _this = this;
       // 此处使用node做了代理product/other/list?keyword=%E5%B7%A5%E4%B8%9A&page=1&pageRows=20
-
       this.$axios
         .get(
           _this.url +
@@ -146,7 +166,7 @@ export default {
                 "/product/other/list?keyword=" +
                 _this.keyWord +
                 "&page=" +
-                _this.page +
+                _this.page++ +
                 "&pageRows=" +
                 _this.pagesize +
                 "&sortType=time"
@@ -178,8 +198,8 @@ export default {
         name: "shopDetails",
         query: {
           goodsId: goodsId,
-          pid: 12345667,
-          keyword: this.keyWord
+          pid: this.pid,
+          taobaoId: this.taobaoId
         }
       });
     },
@@ -197,6 +217,15 @@ export default {
 };
 </script>
 <style>
+.bottom_nav5 {
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  text-align: center;
+}
 .goods-imgurl {
   width: 100%;
   height: 100%;
@@ -204,26 +233,26 @@ export default {
 }
 
 .img_border {
-    border: 0.05rem solid #f1f1f1;
+  border: 0.05rem solid #f1f1f1;
 }
 
 .intergral_style {
-    color: #fa2509;
-    font-size: 0.3rem;
+  color: #fa2509;
+  font-size: 0.3rem;
 }
 
 .price_style {
-    color: red;
-    font-size: 0.5rem;
+  color: red;
+  font-size: 0.5rem;
 }
 
 .goods-express {
-    color: #999;
-    font-size: 0.3rem;
+  color: #999;
+  font-size: 0.3rem;
 }
 
 .salenumber_style {
-    color: #999;
-    font-size: 0.2rem;
+  color: #999;
+  font-size: 0.2rem;
 }
 </style>
