@@ -80,17 +80,17 @@ export default {
       page: 1,
       pageRows: 10,
       pid: "",
-      taobaoId:''
+      taobaoId: ""
     };
   },
   mounted() {
     var keyword = window.location.href;
     var i = keyword.indexOf("pid=");
-    this.pid=decodeURI(keyword.substring(i + 4, keyword.lastIndexOf("&taobaoId")));
-    // alert(this.pid);
-    var taobaoid=keyword.indexOf("&taobaoId=");
-    this.taobaoId=decodeURI(keyword.substring(taobaoid+10),keyword.length);
-    // alert(this.taobaoId);
+    this.pid = decodeURI(
+      keyword.substring(i + 4, keyword.lastIndexOf("&taobaoId"))
+    );
+    var taobaoid = keyword.indexOf("&taobaoId=");
+    this.taobaoId = decodeURI(keyword.substring(taobaoid + 10), keyword.length);
     this.getbaoyoudata();
   },
   methods: {
@@ -188,7 +188,7 @@ export default {
         query: {
           goodsId: goodsId,
           pid: this.pid,
-          taobaoId:this.taobaoId
+          taobaoId: this.taobaoId
         }
       });
     }
@@ -205,13 +205,13 @@ export default {
   margin: auto;
 }
 .bottom_nav5 {
-    border-radius: 50%;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    position: fixed;
-    bottom: 40px;
-    right: 30px;
-    text-align: center;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  text-align: center;
 }
 
 .img_border {

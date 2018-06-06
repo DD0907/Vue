@@ -40,7 +40,7 @@
       </div>
     </div>
     <!-- 奖励 -->
-    <!-- <div style="background:#ffffff">
+    <div style="background:#ffffff">
       <div>
         <div>
          <van-cell-group>
@@ -52,7 +52,7 @@
         </van-cell-group>
         </div>
       </div>
-    </div> -->
+    </div>
     <div style="height:0.1rem;">&nbsp;</div>
     <div style="background:#ffffff;">
       <div style="margin:0rem 0.1rem 0rem 0.1rem">
@@ -131,16 +131,12 @@ export default {
     this.goodsId = decodeURI(
       keyword.substring(i + 3, keyword.lastIndexOf("&pid"))
     );
-    // alert(this.goodsId)
     var pids = keyword.indexOf("&pid=");
-    // alert(decodeURI(keyword.substring(pids + 5, keyword.length)))
     this.pid = decodeURI(
       keyword.substring(pids + 5, keyword.lastIndexOf("&taobaoId"))
     );
-    alert(this.pid);
     var taobaoid = keyword.indexOf("&taobaoId=");
     this.taobaoId = decodeURI(keyword.substring(taobaoid + 10), keyword.length);
-    alert(this.taobaoId);
     this.getPageDetailsImage();
     this.getPageDetails();
   },
@@ -174,7 +170,6 @@ export default {
       let interval = window.setInterval(function() {
         if (_this.time-- <= 0) {
           _this.time = 0;
-          // console.log(_this.time + "jjjjjjjjj");
           window.clearInterval(interval); //停止
         }
       }, 1000);
@@ -195,9 +190,9 @@ export default {
           _this.$toast("该商品已下架了");
         });
     },
-    // jumpmessage() {
-    //   this.helpshow = true;
-    // },
+    jumpmessage() {
+      this.helpshow = true;
+    },
     //立即购买
     OnclickBuy() {
       let _this = this;
@@ -235,7 +230,7 @@ export default {
               taobaoNumbers.lastIndexOf("￥")
             );
             _this.taobaoNumber = "🗝" + taokouling + "🗝";
-            console.log("🗝" + taokouling + "🗝");
+            // console.log("🗝" + taokouling + "🗝");
             console.log(_this.taobaoNumber);
           }
         })
@@ -256,17 +251,15 @@ export default {
             _this.pid +
             "&taobaoId=" +
             _this.taobaoId
-             // _this.url +
-          // "/product/convert_url?productId=" +
-          // _this.goodsId +
-          // "&couponUrl=" +
-          // _this.couponUrl
         )
         .then(function(response) {
           if (response.data.code == 1) {
             _this.transferchainUrl = response.data.result;
             // console.log(_this.transferchainUrl);
             _this.onSubmit();
+          } else {
+            _this.$toast(response.data.message);
+            // console.log(response.data.message+"👉")
           }
         })
         .catch(function(error) {

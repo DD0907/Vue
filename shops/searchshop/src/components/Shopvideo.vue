@@ -89,10 +89,8 @@ export default {
     this.pid = decodeURI(
       keyword.substring(i + 4, keyword.lastIndexOf("&taobaoId"))
     );
-    // alert(this.pid);
     var taobaoid = keyword.indexOf("&taobaoId=");
     this.taobaoId = decodeURI(keyword.substring(taobaoid + 10), keyword.length);
-    // alert(this.taobaoId);
     this.getvideodata();
   },
   methods: {

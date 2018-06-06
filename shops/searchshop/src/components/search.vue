@@ -90,23 +90,18 @@ export default {
   },
   activated() {
     var keywords = window.location.href;
-    // alert(keywords.indexOf("?pid="));
-    // alert(keywords.lastIndexOf("&keyword"));
     this.pid = keywords.substring(
       keywords.indexOf("?pid=") + 5,
       keywords.lastIndexOf("&keyword")
     );
-    // alert(this.pid)
     var i = keywords.indexOf("&keyword=");
     this.keyWord = decodeURI(
       keywords.substring(i + 9, keywords.lastIndexOf("&taobaoId"))
     );
-    // alert(this.keyWord)
     var taobaoid = keywords.indexOf("&taobaoId=");
     this.taobaoId = decodeURI(
       keywords.substring(taobaoid + 10, keywords.length)
     );
-    // alert(this.taobaoId)
     this.onSearch();
   },
   methods: {

@@ -847,7 +847,7 @@ export default {
       pageSize: 10,
       keyword: "",
       pid: "mm_120568136_40334848_159640595",
-      taobaoId:'taobao123456'
+      taobaoId: "taobao123456"
     };
   },
   mounted() {
@@ -857,11 +857,14 @@ export default {
       keywords.lastIndexOf("&keyword")
     );
     var i = keywords.indexOf("&keyword=");
-    this.keyword = decodeURI(keywords.substring(i + 9,  keywords.lastIndexOf("&taobaoId")));
-// alert(this.keyword)
-    var taobaoid=keywords.indexOf("&taobaoId=");
-    this.taobaoId=decodeURI(keywords.substring(taobaoid+10),keywords.length);
-// alert(this.taobaoId)
+    this.keyword = decodeURI(
+      keywords.substring(i + 9, keywords.lastIndexOf("&taobaoId"))
+    );
+    var taobaoid = keywords.indexOf("&taobaoId=");
+    this.taobaoId = decodeURI(
+      keywords.substring(taobaoid + 10),
+      keywords.length
+    );
     this.getbannerdata();
     if (this.keyword != null || this.keyword != "") {
       this.JumpSearch();
@@ -903,7 +906,7 @@ export default {
               query: {
                 pid: this.pid,
                 keyword: this.keyword,
-                taobaoId:this.taobaoId
+                taobaoId: this.taobaoId
               }
             });
           } else {
@@ -937,7 +940,7 @@ export default {
           name: "Shopbrand",
           query: {
             pid: this.pid,
-            taobaoId:this.taobaoId
+            taobaoId: this.taobaoId
           }
         });
       } else if (urls == "/other/list?activityType=1") {
@@ -946,7 +949,7 @@ export default {
           name: "Shoptao",
           query: {
             pid: this.pid,
-            taobaoId:this.taobaoId
+            taobaoId: this.taobaoId
           }
         });
       } else if (urls == "/other/list?activityType=2") {
@@ -955,7 +958,7 @@ export default {
           name: "ShopJuhuasuan",
           query: {
             pid: this.pid,
-            taobaoId:this.taobaoId
+            taobaoId: this.taobaoId
           }
         });
       } else if (urls == "/other/list?video=1") {
@@ -964,7 +967,7 @@ export default {
           name: "Shopvideo",
           query: {
             pid: this.pid,
-            taobaoId:this.taobaoId
+            taobaoId: this.taobaoId
           }
         });
       } else if (urls == "/other/list?priceMin=9.9") {
@@ -973,7 +976,7 @@ export default {
           name: "Shopbaoyou",
           query: {
             pid: this.pid,
-            taobaoId:this.taobaoId
+            taobaoId: this.taobaoId
           }
         });
       }
@@ -987,7 +990,7 @@ export default {
         query: {
           goodsId: goodsId,
           pid: this.pid,
-          taobaoId:this.taobaoId
+          taobaoId: this.taobaoId
         }
       });
     },
@@ -1884,45 +1887,45 @@ export default {
 }
 
 .bottom_nav5 {
-    border-radius: 50%;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    position: fixed;
-    bottom: 40px;
-    right: 30px;
-    text-align: center;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  text-align: center;
 }
 body {
-    background: #f1f1f1;
+  background: #f1f1f1;
 }
 
 .goods-imgurl {
-    width: 100%;
-    height: 100%;
-    margin: auto;
+  width: 100%;
+  height: 100%;
+  margin: auto;
 }
 
 .img_border {
-    border: 0.05rem solid #f1f1f1;
+  border: 0.05rem solid #f1f1f1;
 }
 
 .intergral_style {
-    color: #fa2509;
-    font-size: 0.3rem;
+  color: #fa2509;
+  font-size: 0.3rem;
 }
 
 .price_style {
-    color: red;
-    font-size: 0.5rem;
+  color: red;
+  font-size: 0.5rem;
 }
 
 .goods-express {
-    color: #999;
-    font-size: 0.3rem;
+  color: #999;
+  font-size: 0.3rem;
 }
 
 .salenumber_style {
-    color: #999;
-    font-size: 0.2rem;
+  color: #999;
+  font-size: 0.2rem;
 }
 </style>
